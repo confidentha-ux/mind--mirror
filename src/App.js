@@ -79,44 +79,34 @@ const systemPrompt = `당신은 대화 기반 인지구조 분석 전문가입�
 - 임상 진단이 아님을 명시할 것
 - 스킵하거나 "(미입력)"인 항목은 침묵 데이터로 분석할 것
 
-출력 구조 (반드시 이 순서로, 반드시 아래 제목 그대로 사용):
+출력 구조 (반드시 이 순서로):
 
 ## 주요 감정 키워드
 답변 전체에서 반복 등장하는 감정 단어 3가지.
-각각 어느 질문에서 어떤 맥락으로 나왔는지 발화 인용과 함께.
 
 ## 관계에서 반복되는 패턴
 2번, 3번, 5번을 교차 분석하여 관계 패턴 3가지 도출.
-각각 발화 인용 포함.
 
 ## 말하지 못한 말들
-억울했던 순간, 자꾸 떠오르는 것, 반복되는 패턴에서 공통적으로 억압되거나 표현되지 못한 주제 3가지.
-발화 인용 포함.
+억울했던 순간, 자꾸 떠오르는 것, 반복되는 패턴에서 공통적으로 억압된 주제 3가지.
 
 ## 정체성의 일관성
-1번(나는 누구인가)과 7번(빛났던 순간)을 교차 분석.
-자기 인식과 실제 경험이 일치하는지, 괴리가 있는지.
-발화 인용 포함.
+1번과 7번을 교차 분석. 자기 인식과 실제 경험 비교.
 
 ## 정서 톤
 전체 답변의 감정 온도와 방향성.
-따뜻한지/차가운지, 능동적인지/수동적인지, 타인 지향인지/자기 지향인지.
-근거 발화 인용 포함.
 
 ## 침묵 데이터
 스킵하거나 짧게 답하거나 회피한 질문과 주제.
-이것이 무엇을 말해주는지 해석.
 
 ## 시간 구조
 과거/현재/미래 중 어디에 머무는지.
-각 시제별 발화 비중과 패턴 분석.
-발화 인용 포함.
 
 ## 한 줄 요약
 이 사람을 관통하는 단 한 문장.
 
 ## 한계 고지
-임상 진단이 아닙니다. 발화 패턴에서 관찰된 것만 돌려드립니다.
+임상 진단이 아닙니다. 당신이 쓴 말들에서 찾은 패턴을 돌려드리는 거예요.
 
 한국어로 작성하세요.`;
 
@@ -250,7 +240,8 @@ export default function App() {
         })
       });
       const data = await response.json();
-      setAnalysis(data.content.map(b => b.text || "").join("") || "분석 실패");
+      const text = data.content ? data.content.map(b => b.text || "").join("") : (data.error || "분석 실패");
+      setAnalysis(text || "분석 실패");
       setStep("result");
     } catch (e) {
       setAnalysis("오류가 발생했습니다.");
@@ -299,7 +290,6 @@ export default function App() {
         .q-list-item{display:flex;align-items:center;gap:1.25rem;padding:.8rem 0;border-bottom:1px solid rgba(196,149,106,.25)}
         .q-num{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:#c4956a;min-width:28px;opacity:.7}
         .q-name{font-family:'Source Serif 4',serif;font-size:.9rem;font-weight:300;color:#5a3c1e}
-        .notice{font-family:'Source Serif 4',serif;font-size:.73rem;color:#b8a080;line-height:1.7;margin-bottom:2.5rem;font-style:italic}
         .start-btn{background:#2a1200;border:none;color:#fdf0e0;font-family:'Source Serif 4',serif;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;padding:1.1rem 2.8rem;cursor:pointer;transition:all .3s}
         .start-btn:hover{background:#8b4513}
         .q-label{font-family:'Source Serif 4',serif;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:.6rem;opacity:.5}
@@ -334,7 +324,6 @@ export default function App() {
         .copy-btn:hover{background:#8b4513;border-color:#8b4513}
       `}</style>
 
-      {/* INTRO */}
       {step === "intro" && (
         <div className="container">
           <svg style={{position:"absolute",top:"-80px",right:"-80px",opacity:0.1,pointerEvents:"none"}} width="380" height="380" viewBox="0 0 380 380">
@@ -353,16 +342,14 @@ export default function App() {
             AI가 당신의 말에서 패턴을 찾아 돌려드려요.<br/>
             거울 하나 건네드리겠습니다.
           </p>
-
           <div className="intro-notice-box">
             <div className="intro-notice-title">시작 전에</div>
             <div className="intro-notice-item">틀린 답은 없어요. 생각나는 대로, 편한 만큼만 쓰시면 돼요.</div>
             <div className="intro-notice-item">질문마다 자유롭게 돌아가서 수정할 수 있어요.</div>
             <div className="intro-notice-item">패스하고 싶은 질문은 건너뛰셔도 괜찮아요.</div>
             <div className="intro-notice-item">입력하신 내용은 저장되지 않아요.</div>
-            <div className="intro-notice-item">임상 진단이 아니에요. 당신이 쓴 말들에서 찾은 패턴을 돌려드리는 거에요.</div>
+            <div className="intro-notice-item">임상 진단이 아니에요. 당신이 쓴 말들에서 찾은 패턴을 돌려드리는 거예요.</div>
           </div>
-
           <div className="divider"/>
           <div className="q-list">
             {QUESTIONS.map((q,i) => (
@@ -376,7 +363,6 @@ export default function App() {
         </div>
       )}
 
-      {/* QUESTIONS */}
       {step === "questions" && (
         <div className="container" style={{color: q.textColor}}>
           <Decoration type={q.deco} color={q.accentColor}/>
@@ -409,28 +395,15 @@ export default function App() {
               <span className="char-hint"> — 조금 더 써주시면 분석이 더 정확해요</span>
             )}
           </div>
-
           <div className="btn-row">
-            <button
-              className="back-btn"
-              onClick={handleBack}
-              disabled={currentQ === 0}
-              style={{color:q.accentColor}}
-            >
+            <button className="back-btn" onClick={handleBack} disabled={currentQ === 0} style={{color:q.accentColor}}>
               <span>←</span><span>이전</span>
             </button>
-
             <div style={{display:"flex", alignItems:"center", gap:"1.5rem"}}>
               {q.skippable && (
-                <button className="skip-btn" onClick={handleSkip} style={{color:q.accentColor}}>
-                  패스
-                </button>
+                <button className="skip-btn" onClick={handleSkip} style={{color:q.accentColor}}>패스</button>
               )}
-              <button
-                className={`next-btn ${canProceed ? "active" : ""}`}
-                onClick={handleNext}
-                style={{color:q.accentColor}}
-              >
+              <button className={`next-btn ${canProceed ? "active" : ""}`} onClick={handleNext} style={{color:q.accentColor}}>
                 <span>{currentQ < QUESTIONS.length-1 ? "다음 질문" : "분석 시작"}</span>
                 <span>→</span>
               </button>
@@ -439,7 +412,6 @@ export default function App() {
         </div>
       )}
 
-      {/* ANALYZING */}
       {step === "analyzing" && (
         <div className="analyzing">
           <p className="analyzing-title">당신의 이야기를<br/>읽고 있어요</p>
@@ -448,7 +420,6 @@ export default function App() {
         </div>
       )}
 
-      {/* RESULT */}
       {step === "result" && (
         <div className="result-wrap" ref={resultRef}>
           <div className="result-eyebrow">분석 보고서</div>
