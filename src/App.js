@@ -250,7 +250,7 @@ export default function App() {
         })
       });
       const data = await response.json();
-      setAnalysis(data.content?.map(b => b.text || "").join("") || "분석 실패");
+      setAnalysis(data.content.map(b => b.text || "").join("") || "분석 실패");
       setStep("result");
     } catch (e) {
       setAnalysis("오류가 발생했습니다.");
