@@ -360,7 +360,7 @@ export default function App() {
             <div className="intro-notice-item">질문마다 자유롭게 돌아가서 수정할 수 있어요.</div>
             <div className="intro-notice-item">패스하고 싶은 질문은 건너뛰셔도 괜찮아요.</div>
             <div className="intro-notice-item">입력하신 내용은 저장되지 않아요.</div>
-            <div className="intro-notice-item">임상 진단이 아니에요. 발화 패턴에서 관찰된 것만 돌려드립니다.</div>
+            <div className="intro-notice-item">임상 진단이 아니에요. 당신이 쓴 말들에서 찾은 패턴을 돌려드리는 거에요.</div>
           </div>
 
           <div className="divider"/>
