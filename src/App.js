@@ -239,7 +239,7 @@ export default function App() {
       `[${q.title}]\n${allAnswers[i] || "(미입력 — 침묵 데이터로 처리)"}`
     ).join("\n\n");
     try {
-      const response = await fetch(/api/analyze, {
+      const response = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
