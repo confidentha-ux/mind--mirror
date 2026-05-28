@@ -240,7 +240,7 @@ export default function App() {
         })
       });
       const data = await response.json();
-      const text = data.content ? data.content.map(b => b.text || "").join("") : (data.error || "분석 실패");
+const text = data.content ? data.content.map(b => typeof b.text === 'string' ? b.text : "").join("") : (data.error ? JSON.stringify(data.error) : "분석 실패");
       setAnalysis(text || "분석 실패");
       setStep("result");
     } catch (e) {
