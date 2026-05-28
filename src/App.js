@@ -429,7 +429,7 @@ const text = data.content ? data.content.map(b => typeof b.text === 'string' ? b
             dangerouslySetInnerHTML={{
               __html: analysis
                 .replace(/## (.+)/g, '<h2>$1</h2>')
-                .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#2a1200;font-weight:600">$1</strong>')
+                .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
                 .replace(/"(.+?)"/g, '<blockquote>"$1"</blockquote>')
             }}
           />
