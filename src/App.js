@@ -406,7 +406,17 @@ export default function App() {
     const text = step === "result" ? analysis : analysis2;
     navigator.clipboard.writeText(text).then(() => { alert("복사되었습니다."); });
   };
-
+const downloadResult = () => {
+  const text = step === "result" ? analysis : analysis2;
+  const title = step === "result" ? "마음거울_1단계_분석결과" : "마음거울_2단계_분석결과";
+  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${title}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+};
   const restart = () => {
     setStage(1); setStep("intro"); setCurrentQ(0); setAnswers({});
     setCurrentAnswer(""); setAnalysis(""); setAnalysis2(""); setCharCount(0);
@@ -630,7 +640,7 @@ export default function App() {
             }}
           />
           <div className="result-actions">
-            <button className="copy-btn" onClick={copyResult}>결과 복사</button>
+            <button className="copy-btn" onClick={copyResult}>결과 복사</button><button className="restart-btn" onClick={downloadResult}>결과 저장</button>
             <button className="stage2-btn" onClick={startStage2}>2단계로 →</button>
             <button className="restart-btn" onClick={restart}>다시 시작</button>
           </div>
@@ -651,7 +661,7 @@ export default function App() {
             }}
           />
           <div className="result-actions">
-            <button className="copy-btn2" onClick={copyResult}>결과 복사</button>
+            <button className="copy-btn2" onClick={copyResult}>결과 복사</button><button className="restart-btn2" onClick={downloadResult}>결과 저장</button>
             <button className="restart-btn2" onClick={restart}>처음으로</button>
           </div>
         </div>
