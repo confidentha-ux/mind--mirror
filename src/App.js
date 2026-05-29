@@ -300,7 +300,38 @@ export default function App() {
   const resultRef = useRef(null);
 
   const questions = stage === 1 ? QUESTIONS : QUESTIONS2;
+useEffect(() => {
+  const saved = localStorage.getItem("mindmirror_answers");
+  const savedStage = localStorage.getItem("mindmirror_stage");
+  const savedQ = localStorage.getItem("mindmirror_currentQ");
+  if (saved) {
+    const parsedAnswers = JSON.parse(saved);
+    const hasAnswers = Object.keys(parsedAnswers).length > 0;
+    if (hasAnswers && window.confirm("이전에 작성하던 내용이 있어요. 이어서 하시겠어요?")) {
+      setAnswers(parsedAnswers);
+      setStage(savedStage ? parseInt(savedStage) : 1);
+      setCurrentQ(savedQ ? parseInt(savedQ) : 0);
+      setStep("questions");
+    } else {
+      localStorage.removeItem("mindmirror_answers");
+      localStorage.removeItem("mindmirror_stage");
+      localStorage.removeItem("mindmirror_currentQ");
+    }
+  }
+}, []);
 
+useEffect(() => {
+  if (step === "questions") {
+    localStorage.setItem("mindmirror_answers", JSON.stringify(answers));
+    localStorage.setItem("mindmirror_stage", stage.toString());
+    localStorage.setItem("mindmirror_currentQ", currentQ.toString());
+  }
+  if (step === "result" || step === "result2") {
+    localStorage.removeItem("mindmirror_answers");
+    localStorage.removeItem("mindmirror_stage");
+    localStorage.removeItem("mindmirror_currentQ");
+  }
+}, [answers, step, currentQ, stage]);
   useEffect(() => {
     if (step === "questions" && textareaRef.current) textareaRef.current.focus();
   }, [step, currentQ, stage]);
