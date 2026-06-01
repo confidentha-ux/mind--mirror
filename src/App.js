@@ -326,10 +326,11 @@ useEffect(() => {
     localStorage.setItem("mindmirror_stage", stage.toString());
     localStorage.setItem("mindmirror_currentQ", currentQ.toString());
   }
-  if (step === "result" || step === "result2") {
-    localStorage.removeItem("mindmirror_answers");
-    localStorage.removeItem("mindmirror_stage");
-    localStorage.removeItem("mindmirror_currentQ");
+  if ((step === "result" && analysis || step === "result2" && analysis2)) {
+  localStorage.removeItem("mindmirror_answers");
+  localStorage.removeItem("mindmirror_stage");
+  localStorage.removeItem("mindmirror_currentQ");
+}
   }
 }, [answers, step, currentQ, stage]);
   useEffect(() => {
