@@ -394,7 +394,7 @@ useEffect(() => {
       setAnalysis(text || "분석 실패");
       setStep("result");
     } catch (e) {
-      setAnalysis("JSON.stringify9.");
+      setAnalysis(JSON.stringify9.);
       setStep("result");
     }
   };
