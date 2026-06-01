@@ -13,14 +13,14 @@ const QUESTIONS = [
     id: 2,
     title: "내 사람들",
     prompt: "나에게 중요한 사람, 편한 사람, 그리고 거슬리는 사람 — 다 써보세요. 왜 그런지 이유도 함께요.",
-    placeholder: "예: 나에게 제일 중요한 사람은 ___인데, 왜냐하면...",
+    placeholder: "예: 나에게 중요한 사람은 ___인데, 왜냐하면...",
     bg: "#c8bfdf", textColor: "#1a0f35", accentColor: "#5c4a8a", borderColor: "#9b89c4",
     deco: "mirror", skippable: false
   },
   {
     id: 3,
     title: "억울했던 순간",
-    prompt: "누군가에게 오해받거나 억울했던 적 있나요? 그때 하고 싶었던 말이 있다면 여기서 해보세요.",
+    prompt: "누군가에게 오해받거나 억울했던 적 있나요? 그때 하고 싶었던 말이 있었는데 하지 못했다면 여기서 해보세요.",
     placeholder: "예: 그때 나는 정말 ___하고 싶었는데...",
     bg: "#e8c8b8", textColor: "#2a0e00", accentColor: "#a0522d", borderColor: "#c47a5a",
     deco: "shards", skippable: true
@@ -28,15 +28,15 @@ const QUESTIONS = [
   {
     id: 4,
     title: "자꾸 떠오르는 것",
-    prompt: "오래 전 일인데도 자꾸 머릿속에 맴도는 사건이나 장면이 있으신가요? 그게 왜 떠오르는지 생각해 보신 적 있으세요? 한 번도 생각해 보신 적 없으시다면 지금 해보시겠어요. 물론 패스하셔도 전혀 상관없어요.",
-    placeholder: "예: 몇 년이 지났는데도 자꾸 생각나는 건...",
+    prompt: "오래 전 일인데도 자꾸 머릿속에 맴도는 사건, 장면이 있으신가요? 그게 왜 떠오르는지 생각해 보신 적 있으세요? 한 번도 생각해 보신 적 없으시다면 지금 해보시겠어요. 물론 패스하셔도 전혀 상관없어요.",
+    placeholder: "예: 몇 년이 지났는데도 자꾸 그 때가 ...",
     bg: "#e8d48a", textColor: "#1e1400", accentColor: "#8b6914", borderColor: "#c9a84c",
     deco: "spiral", skippable: true
   },
   {
     id: 5,
     title: "반복되는 그 말, 그 상황",
-    prompt: "살면서 '또 이러네' 싶었던 순간이 있으셨나요? 비슷한 상황, 비슷한 감정이 반복된다는 느낌이요. 어떤 상황이었는지, 그때 어떤 마음이었는지 써주세요.",
+    prompt: "살면서 '또 이러네' 싶었던 순간이 있으셨나요? 비슷한 상황, 비슷한 감정이 반복된다는 느낌이요. 반복적으로 꾸는 꿈은요? 어떤 상황이었는지, 그때 어떤 마음이었는지 써주세요.",
     placeholder: "예: 이상하게 나는 항상 ___한 상황에서...",
     bg: "#b8d4b0", textColor: "#0d200e", accentColor: "#2d6b32", borderColor: "#7a9e6e",
     deco: "grid", skippable: false
