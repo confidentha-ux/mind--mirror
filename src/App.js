@@ -394,7 +394,7 @@ useEffect(() => {
       setAnalysis(text || "분석 실패");
       setStep("result");
     } catch (e) {
-      setAnalysis("오류가 발생했습니다.");
+      setAnalysis("JSON.stringify9.");
       setStep("result");
     }
   };
@@ -419,7 +419,7 @@ useEffect(() => {
       setAnalysis2(text || "분석 실패");
       setStep("result2");
     } catch (e) {
-      setAnalysis2("오류가 발생했습니다.");
+      setAnalysis2("JSON.stringify(e).");
       setStep("result2");
     }
   };
