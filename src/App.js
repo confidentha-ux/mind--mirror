@@ -394,7 +394,7 @@ useEffect(() => {
       setAnalysis(text || "분석 실패");
       setStep("result");
     } catch (e) {
-      setAnalysis(JSON.stringify9.);
+      setAnalysis(JSON.stringify(e));
       setStep("result");
     }
   };
@@ -419,7 +419,7 @@ useEffect(() => {
       setAnalysis2(text || "분석 실패");
       setStep("result2");
     } catch (e) {
-      setAnalysis2("JSON.stringify(e).");
+      setAnalysis2(JSON.stringify(e));
       setStep("result2");
     }
   };
