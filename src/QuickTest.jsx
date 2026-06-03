@@ -242,7 +242,14 @@ const CutePerson = ({ type }) => {
     </svg>
   );
 };
-
+const TYPE_IMAGES = {
+  "이해 후 행동형": "type-understanding.PNG",
+  "행동 후 이해형": "type-action.PNG",
+  "관계 우선형": "type-relation.PNG",
+  "안정 우선형": "type-stable.PNG",
+  "직관 신뢰형": "type-intuition.PNG",
+  "정확성 우선형": "type-accuracy.PNG",
+};
 const TYPE_INFO = {
   "이해 후 행동형": {
     emoji: "🔍",
@@ -472,7 +479,7 @@ export default function QuickTest({ onBack }) {
               textAlign:"center",
             }}>
               <div style={{display:"flex", justifyContent:"center", marginBottom:"0.5rem"}}>
-                <CutePerson type={result}/>
+                <img src={`/${TYPE_IMAGES[result]}`} alt={result} style={{width:"180px", height:"180px", objectFit:"contain"}}/>
               </div>
               <h2 style={{fontSize:"2.2rem", fontWeight:700, color:"#222", marginBottom:"0.5rem"}}>
                 {typeInfo.emoji} {result}
