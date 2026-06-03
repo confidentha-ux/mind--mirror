@@ -299,7 +299,7 @@ export default function QuickTest({ onBack }) {
                   borderRadius:"20px", padding:"0.3rem 0.9rem",
                   fontSize:"0.95rem", color:"#333", boxShadow:`2px 2px 0px ${info.accent}`,
                 }}>
-                  {info.emoji} {t}
+                  {t}
                 </span>
               ))}
             </div>
