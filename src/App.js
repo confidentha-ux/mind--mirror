@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import QuickTest from "./QuickTest";
 
 const QUESTIONS = [
   {
@@ -296,43 +297,45 @@ export default function App() {
   const [analysis, setAnalysis] = useState("");
   const [analysis2, setAnalysis2] = useState("");
   const [charCount, setCharCount] = useState(0);
+  const [showQuickTest, setShowQuickTest] = useState(false);
   const textareaRef = useRef(null);
   const resultRef = useRef(null);
 
   const questions = stage === 1 ? QUESTIONS : QUESTIONS2;
-useEffect(() => {
-  const saved = localStorage.getItem("mindmirror_answers");
-  const savedStage = localStorage.getItem("mindmirror_stage");
-  const savedQ = localStorage.getItem("mindmirror_currentQ");
-  if (saved) {
-    const parsedAnswers = JSON.parse(saved);
-    const hasAnswers = Object.keys(parsedAnswers).length > 0;
-    if (hasAnswers && window.confirm("이전에 작성하던 내용이 있어요. 이어서 하시겠어요?")) {
-      setAnswers(parsedAnswers);
-      setStage(savedStage ? parseInt(savedStage) : 1);
-      setCurrentQ(savedQ ? parseInt(savedQ) : 0);
-      setStep("questions");
-    } else {
+
+  useEffect(() => {
+    const saved = localStorage.getItem("mindmirror_answers");
+    const savedStage = localStorage.getItem("mindmirror_stage");
+    const savedQ = localStorage.getItem("mindmirror_currentQ");
+    if (saved) {
+      const parsedAnswers = JSON.parse(saved);
+      const hasAnswers = Object.keys(parsedAnswers).length > 0;
+      if (hasAnswers && window.confirm("이전에 작성하던 내용이 있어요. 이어서 하시겠어요?")) {
+        setAnswers(parsedAnswers);
+        setStage(savedStage ? parseInt(savedStage) : 1);
+        setCurrentQ(savedQ ? parseInt(savedQ) : 0);
+        setStep("questions");
+      } else {
+        localStorage.removeItem("mindmirror_answers");
+        localStorage.removeItem("mindmirror_stage");
+        localStorage.removeItem("mindmirror_currentQ");
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (step === "questions") {
+      localStorage.setItem("mindmirror_answers", JSON.stringify(answers));
+      localStorage.setItem("mindmirror_stage", stage.toString());
+      localStorage.setItem("mindmirror_currentQ", currentQ.toString());
+    }
+    if ((step === "result" && analysis) || (step === "result2" && analysis2)) {
       localStorage.removeItem("mindmirror_answers");
       localStorage.removeItem("mindmirror_stage");
       localStorage.removeItem("mindmirror_currentQ");
     }
-  }
-}, []);
+  }, [answers, step, currentQ, stage]);
 
-useEffect(() => {
-  if (step === "questions") {
-    localStorage.setItem("mindmirror_answers", JSON.stringify(answers));
-    localStorage.setItem("mindmirror_stage", stage.toString());
-    localStorage.setItem("mindmirror_currentQ", currentQ.toString());
-  }
-  if ((step === "result" && analysis || step === "result2" && analysis2)) {
-  localStorage.removeItem("mindmirror_answers");
-  localStorage.removeItem("mindmirror_stage");
-  localStorage.removeItem("mindmirror_currentQ");
-}
-  }
-}, [answers, step, currentQ, stage]);
   useEffect(() => {
     if (step === "questions" && textareaRef.current) textareaRef.current.focus();
   }, [step, currentQ, stage]);
@@ -438,21 +441,32 @@ useEffect(() => {
     const text = step === "result" ? analysis : analysis2;
     navigator.clipboard.writeText(text).then(() => { alert("복사되었습니다."); });
   };
-const downloadResult = () => {
-  const text = step === "result" ? analysis : analysis2;
-  const title = step === "result" ? "마음거울_1단계_분석결과" : "마음거울_2단계_분석결과";
-  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${title}.txt`;
-  a.click();
-  URL.revokeObjectURL(url);
-};
+
+  const downloadResult = () => {
+    const text = step === "result" ? analysis : analysis2;
+    const title = step === "result" ? "마음거울_1단계_분석결과" : "마음거울_2단계_분석결과";
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${title}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const restart = () => {
     setStage(1); setStep("intro"); setCurrentQ(0); setAnswers({});
     setCurrentAnswer(""); setAnalysis(""); setAnalysis2(""); setCharCount(0);
   };
+
+  // QuickTest 표시 중이면 QuickTest 렌더링
+  if (showQuickTest) {
+    return (
+      <QuickTest
+        onBack={() => setShowQuickTest(false)}
+      />
+    );
+  }
 
   const progress = (currentQ / questions.length) * 100;
   const q = questions[currentQ];
@@ -502,6 +516,8 @@ const downloadResult = () => {
         .start-btn:hover{background:#8b4513}
         .start-btn2{background:#1a3a5a;border:none;color:#c8e0f0;font-family:'Source Serif 4',serif;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;padding:1.1rem 2.8rem;cursor:pointer;transition:all .3s}
         .start-btn2:hover{background:#2a5a8a}
+        .quick-btn{background:transparent;border:1px solid #c4956a;color:#8b4513;font-family:'Source Serif 4',serif;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;padding:.85rem 2.2rem;cursor:pointer;transition:all .3s;margin-bottom:.75rem}
+        .quick-btn:hover{background:rgba(196,149,106,0.12)}
         .q-label{font-family:'Source Serif 4',serif;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:.6rem;opacity:.5}
         .q-title{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700;font-style:italic;line-height:1.15;margin-bottom:1.5rem}
         .q-prompt{font-family:'Source Serif 4',serif;font-size:.88rem;font-weight:300;line-height:1.9;margin-bottom:2rem;opacity:.75}
@@ -572,7 +588,12 @@ const downloadResult = () => {
               </div>
             ))}
           </div>
-          <button className="start-btn" onClick={() => setStep("questions")}>시작하기</button>
+          <div style={{display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"0.5rem"}}>
+            <button className="quick-btn" onClick={() => setShowQuickTest(true)}>
+              🪞 퀵테스트 먼저 해보기
+            </button>
+            <button className="start-btn" onClick={() => setStep("questions")}>마음거울 시작하기</button>
+          </div>
         </div>
       )}
 
@@ -672,7 +693,8 @@ const downloadResult = () => {
             }}
           />
           <div className="result-actions">
-            <button className="copy-btn" onClick={copyResult}>결과 복사</button><button className="restart-btn" onClick={downloadResult}>결과 저장</button>
+            <button className="copy-btn" onClick={copyResult}>결과 복사</button>
+            <button className="restart-btn" onClick={downloadResult}>결과 저장</button>
             <button className="stage2-btn" onClick={startStage2}>2단계로 →</button>
             <button className="restart-btn" onClick={restart}>다시 시작</button>
           </div>
@@ -693,7 +715,8 @@ const downloadResult = () => {
             }}
           />
           <div className="result-actions">
-            <button className="copy-btn2" onClick={copyResult}>결과 복사</button><button className="restart-btn2" onClick={downloadResult}>결과 저장</button>
+            <button className="copy-btn2" onClick={copyResult}>결과 복사</button>
+            <button className="restart-btn2" onClick={downloadResult}>결과 저장</button>
             <button className="restart-btn2" onClick={restart}>처음으로</button>
           </div>
         </div>
