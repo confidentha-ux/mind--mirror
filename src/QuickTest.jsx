@@ -243,12 +243,13 @@ const CutePerson = ({ type }) => {
   );
 };
 const TYPE_IMAGES = {
-  "이해 후 행동형": "type-understanding.PNG",
-  "행동 후 이해형": "type-action.PNG",
+  "이해 후 행동형": "type-understanding..PNG",
+  "행동 후 이해형": "type-action..PNG",
   "관계 우선형": "type-relation.PNG",
-  "안정 우선형": "type-stable.PNG",
-  "직관 신뢰형": "type-intuition.PNG",
-  "정확성 우선형": "type-accuracy.PNG",
+  "안정 우선형": "type-stable..PNG",
+  "직관 신뢰형": "type-intuition..PNG",
+  "정확성 우선형": "type-accuracy..PNG",
+};
 };
 const TYPE_INFO = {
   "이해 후 행동형": {
@@ -401,7 +402,7 @@ export default function QuickTest({ onBack }) {
 
         {step === "intro" && (
           <div style={{textAlign:"center"}}>
-            <img src="/intro.png" alt="거울" style={{width:"120px", height:"120px", objectFit:"contain", marginBottom:"0.5rem"}}/>
+            <img src="/intro.PNG" alt="거울" style={{width:"120px", height:"120px", objectFit:"contain", marginBottom:"0.5rem"}}/>
             <h1 style={{fontSize:"2.8rem", fontWeight:700, color:"#222", marginBottom:"0.5rem", lineHeight:1.2}}>
               나는 어떤 사람일까?
             </h1>
