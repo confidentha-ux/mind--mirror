@@ -402,7 +402,7 @@ export default function QuickTest({ onBack }) {
 
         {step === "intro" && (
           <div style={{textAlign:"center"}}>
-            <img src="/intro.PNG" alt="거울" style={{width:"120px", height:"120px", objectFit:"contain", marginBottom:"0.5rem"}}/>
+            <img src="/intro-PNG" alt="거울" style={{width:"120px", height:"120px", objectFit:"contain", marginBottom:"0.5rem"}}/>
             <h1 style={{fontSize:"2.8rem", fontWeight:700, color:"#222", marginBottom:"0.5rem", lineHeight:1.2}}>
               나는 어떤 사람일까?
             </h1>
