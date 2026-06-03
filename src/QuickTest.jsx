@@ -124,133 +124,15 @@ const QUESTIONS = [
   },
 ];
 
-const CutePerson = ({ type }) => {
-  const configs = {
-    "이해 후 행동형": {
-      bodyColor: "#fbbf24", shirtColor: "#f59e0b", pantsColor: "#92400e",
-      skinColor: "#fde68a", hairColor: "#92400e",
-      extra: (
-        <>
-          <rect x="52" y="72" width="20" height="14" rx="3" fill="#3b82f6" stroke="#1e40af" strokeWidth="1.5"/>
-          <rect x="52" y="72" width="10" height="14" rx="3" fill="#60a5fa" stroke="#1e40af" strokeWidth="1.5"/>
-          <line x1="62" y1="72" x2="62" y2="86" stroke="#1e40af" strokeWidth="1"/>
-          <circle cx="85" cy="45" r="8" fill="none" stroke="#f59e0b" strokeWidth="2"/>
-          <line x1="91" y1="51" x2="96" y2="56" stroke="#f59e0b" strokeWidth="2.5" strokeLinecap="round"/>
-        </>
-      )
-    },
-    "행동 후 이해형": {
-      bodyColor: "#f87171", shirtColor: "#ef4444", pantsColor: "#7f1d1d",
-      skinColor: "#fecaca", hairColor: "#1f2937",
-      extra: (
-        <>
-          <line x1="15" y1="60" x2="32" y2="60" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" opacity="0.7"/>
-          <line x1="10" y1="70" x2="30" y2="70" stroke="#f87171" strokeWidth="2" strokeLinecap="round" opacity="0.5"/>
-          <line x1="18" y1="80" x2="33" y2="80" stroke="#fca5a5" strokeWidth="1.5" strokeLinecap="round" opacity="0.4"/>
-          <text x="82" y="38" fontSize="14" fill="#fbbf24">⚡</text>
-        </>
-      )
-    },
-    "관계 우선형": {
-      bodyColor: "#f472b6", shirtColor: "#ec4899", pantsColor: "#831843",
-      skinColor: "#fbcfe8", hairColor: "#be185d",
-      extra: (
-        <>
-          <text x="78" y="38" fontSize="13" fill="#f472b6">♥</text>
-          <text x="88" y="55" fontSize="9" fill="#fb7185">♥</text>
-          <text x="72" y="55" fontSize="8" fill="#fda4af">♥</text>
-          <circle cx="92" cy="80" r="10" fill="#fbcfe8" stroke="#ec4899" strokeWidth="1.5"/>
-          <line x1="92" y1="90" x2="92" y2="110" stroke="#ec4899" strokeWidth="2" strokeLinecap="round"/>
-          <line x1="92" y1="98" x2="84" y2="105" stroke="#ec4899" strokeWidth="2" strokeLinecap="round"/>
-          <line x1="92" y1="98" x2="100" y2="105" stroke="#ec4899" strokeWidth="2" strokeLinecap="round"/>
-          <line x1="92" y1="110" x2="87" y2="122" stroke="#ec4899" strokeWidth="2" strokeLinecap="round"/>
-          <line x1="92" y1="110" x2="97" y2="122" stroke="#ec4899" strokeWidth="2" strokeLinecap="round"/>
-        </>
-      )
-    },
-    "안정 우선형": {
-      bodyColor: "#34d399", shirtColor: "#10b981", pantsColor: "#065f46",
-      skinColor: "#a7f3d0", hairColor: "#064e3b",
-      extra: (
-        <>
-          <polygon points="78,65 95,65 95,85 78,85" fill="#d1fae5" stroke="#10b981" strokeWidth="1.5"/>
-          <polygon points="74,67 99,67 86.5,50" fill="#6ee7b7" stroke="#10b981" strokeWidth="1.5"/>
-          <rect x="83" y="74" width="7" height="11" rx="1" fill="#10b981"/>
-          <ellipse cx="25" cy="35" rx="12" ry="8" fill="white" stroke="#d1d5db" strokeWidth="1.5"/>
-          <ellipse cx="35" cy="32" rx="10" ry="7" fill="white" stroke="#d1d5db" strokeWidth="1.5"/>
-          <ellipse cx="18" cy="38" rx="8" ry="6" fill="white" stroke="#d1d5db" strokeWidth="1.5"/>
-        </>
-      )
-    },
-    "직관 신뢰형": {
-      bodyColor: "#a78bfa", shirtColor: "#8b5cf6", pantsColor: "#4c1d95",
-      skinColor: "#ede9fe", hairColor: "#5b21b6",
-      extra: (
-        <>
-          <text x="78" y="35" fontSize="16" fill="#fbbf24">★</text>
-          <text x="88" y="52" fontSize="10" fill="#a78bfa">★</text>
-          <text x="73" y="50" fontSize="8" fill="#c4b5fd">★</text>
-          <text x="20" y="38" fontSize="10" fill="#fbbf24">✦</text>
-          <text x="15" y="55" fontSize="8" fill="#a78bfa">✦</text>
-          <path d="M20 90 Q28 85 36 90 Q44 95 52 90" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round"/>
-        </>
-      )
-    },
-    "정확성 우선형": {
-      bodyColor: "#fb923c", shirtColor: "#f97316", pantsColor: "#7c2d12",
-      skinColor: "#fed7aa", hairColor: "#431407",
-      extra: (
-        <>
-          <circle cx="88" cy="60" r="18" fill="white" stroke="#f97316" strokeWidth="2"/>
-          <circle cx="88" cy="60" r="12" fill="#fff7ed" stroke="#f97316" strokeWidth="1.5"/>
-          <circle cx="88" cy="60" r="6" fill="#fed7aa" stroke="#f97316" strokeWidth="1.5"/>
-          <circle cx="88" cy="60" r="2.5" fill="#f97316"/>
-          <line x1="68" y1="60" x2="84" y2="60" stroke="#7c2d12" strokeWidth="2" strokeLinecap="round"/>
-          <polygon points="84,57 88,60 84,63" fill="#7c2d12"/>
-        </>
-      )
-    },
-  };
-
-  const cfg = configs[type] || configs["이해 후 행동형"];
-
-  return (
-    <svg width="130" height="145" viewBox="0 0 120 135" fill="none">
-      <circle cx="60" cy="68" r="55" fill={cfg.bodyColor} opacity="0.15"/>
-      {cfg.extra}
-      <path d="M50 100 Q46 115 42 128" stroke={cfg.pantsColor} strokeWidth="8" strokeLinecap="round"/>
-      <path d="M70 100 Q74 115 78 128" stroke={cfg.pantsColor} strokeWidth="8" strokeLinecap="round"/>
-      <rect x="42" y="62" width="36" height="42" rx="12" fill={cfg.shirtColor}/>
-      <path d="M44 70 Q30 78 26 88" stroke={cfg.shirtColor} strokeWidth="9" strokeLinecap="round"/>
-      <path d="M76 70 Q90 78 94 88" stroke={cfg.shirtColor} strokeWidth="9" strokeLinecap="round"/>
-      <circle cx="25" cy="90" r="7" fill={cfg.skinColor} stroke={cfg.shirtColor} strokeWidth="1.5"/>
-      <circle cx="95" cy="90" r="7" fill={cfg.skinColor} stroke={cfg.shirtColor} strokeWidth="1.5"/>
-      <rect x="54" y="52" width="12" height="14" rx="5" fill={cfg.skinColor}/>
-      <ellipse cx="60" cy="36" rx="24" ry="22" fill={cfg.skinColor} stroke={cfg.hairColor} strokeWidth="2"/>
-      <path d="M36 30 Q38 14 60 13 Q82 14 84 30" fill={cfg.hairColor} stroke={cfg.hairColor} strokeWidth="1"/>
-      <ellipse cx="36" cy="32" rx="5" ry="8" fill={cfg.hairColor}/>
-      <ellipse cx="84" cy="32" rx="5" ry="8" fill={cfg.hairColor}/>
-      <ellipse cx="52" cy="34" rx="4" ry="4.5" fill="white"/>
-      <ellipse cx="68" cy="34" rx="4" ry="4.5" fill="white"/>
-      <circle cx="53" cy="35" r="2.5" fill="#1f2937"/>
-      <circle cx="69" cy="35" r="2.5" fill="#1f2937"/>
-      <circle cx="54" cy="34" r="1" fill="white"/>
-      <circle cx="70" cy="34" r="1" fill="white"/>
-      <ellipse cx="44" cy="42" rx="6" ry="4" fill={cfg.shirtColor} opacity="0.4"/>
-      <ellipse cx="76" cy="42" rx="6" ry="4" fill={cfg.shirtColor} opacity="0.4"/>
-      <path d="M54 46 Q60 51 66 46" fill="none" stroke="#be123c" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
-  );
-};
 const TYPE_IMAGES = {
-  "이해 후 행동형": "type-understanding..PNG",
-  "행동 후 이해형": "type-action..PNG",
-  "관계 우선형": "type-relation.PNG",
-  "안정 우선형": "type-stable..PNG",
-  "직관 신뢰형": "type-intuition..PNG",
-  "정확성 우선형": "type-accuracy..PNG",
+  "이해 후 행동형": "type-understanding.png",
+  "행동 후 이해형": "type-action.png",
+  "관계 우선형": "type-relation.png",
+  "안정 우선형": "type-stable.png",
+  "직관 신뢰형": "type-intuition.png",
+  "정확성 우선형": "type-accuracy.png",
 };
-};
+
 const TYPE_INFO = {
   "이해 후 행동형": {
     emoji: "🔍",
@@ -402,7 +284,7 @@ export default function QuickTest({ onBack }) {
 
         {step === "intro" && (
           <div style={{textAlign:"center"}}>
-            <img src="/intro-PNG" alt="거울" style={{width:"120px", height:"120px", objectFit:"contain", marginBottom:"0.5rem"}}/>
+            <img src="/intro.png" alt="거울" style={{width:"160px", height:"160px", objectFit:"contain", marginBottom:"0.5rem"}}/>
             <h1 style={{fontSize:"2.8rem", fontWeight:700, color:"#222", marginBottom:"0.5rem", lineHeight:1.2}}>
               나는 어떤 사람일까?
             </h1>
@@ -480,7 +362,11 @@ export default function QuickTest({ onBack }) {
               textAlign:"center",
             }}>
               <div style={{display:"flex", justifyContent:"center", marginBottom:"0.5rem"}}>
-                <img src={`/${TYPE_IMAGES[result]}`} alt={result} style={{width:"180px", height:"180px", objectFit:"contain"}}/>
+                <img
+                  src={`/${TYPE_IMAGES[result]}`}
+                  alt={result}
+                  style={{width:"180px", height:"180px", objectFit:"contain"}}
+                />
               </div>
               <h2 style={{fontSize:"2.2rem", fontWeight:700, color:"#222", marginBottom:"0.5rem"}}>
                 {typeInfo.emoji} {result}
