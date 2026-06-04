@@ -399,11 +399,11 @@ export default function QuickTest({ onBack }) {
                 <img
                   src={`/${TYPE_IMAGES[result]}`}
                   alt={result}
-                  style={{width:"180px", height:"180px", objectFit:"contain"}}
+                  style={{width:"280px", height:"280px", objectFit:"contain"}}
                 />
               </div>
               <h2 style={{fontSize:"2.2rem", fontWeight:700, color:"#222", marginBottom:"0.5rem"}}>
-                {typeInfo.emoji} {result}
+               {result}
               </h2>
               <p style={{fontSize:"1.2rem", color:"#444", marginBottom:"1rem", fontWeight:700}}>
                 {typeInfo.desc}
