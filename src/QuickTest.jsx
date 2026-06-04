@@ -194,6 +194,7 @@ export default function QuickTest({ onBack }) {
   const [result, setResult] = useState(null);
   const [shuffledOptions, setShuffledOptions] = useState([]);
   const [cardColors, setCardColors] = useState([]);
+  const [activeType, setActiveType] = useState(null);
 
   useEffect(() => {
     if (step === "test") {
@@ -240,7 +241,7 @@ export default function QuickTest({ onBack }) {
       padding: "1.5rem",
     }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Gamja+Flower&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         .qcard {
           border: 2.5px solid #222;
@@ -284,26 +285,59 @@ export default function QuickTest({ onBack }) {
 
         {step === "intro" && (
           <div style={{textAlign:"center"}}>
-            <img src="/intro.png" alt="거울" style={{width:"320px", height:"320px", objectFit:"contain", marginBottom:"0.5rem"}}/>
+            <img src="/intro.png" alt="거울" style={{width:"300px", height:"300px", objectFit:"contain", marginBottom:"0.5rem"}}/>
             <h1 style={{fontSize:"2.8rem", fontWeight:700, color:"#222", marginBottom:"0.5rem", lineHeight:1.2}}>
               나는 어떤 사람일까?
             </h1>
             <p style={{fontSize:"1.2rem", color:"#666", marginBottom:"0.25rem", lineHeight:1.7}}>
               11가지 상황에 답하면<br/>당신의 인지 유형을 알려드려요
             </p>
-            <p style={{fontSize:"1rem", color:"#aaa", marginBottom:"2rem"}}>약 3분</p>
-            <div style={{display:"flex", gap:"0.6rem", justifyContent:"center", flexWrap:"wrap", marginBottom:"2.5rem"}}>
+            <p style={{fontSize:"1rem", color:"#aaa", marginBottom:"1.5rem"}}>약 3분</p>
+
+            {/* 유형 버튼 3x2 그리드 */}
+            <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"0.5rem", marginBottom:"0.75rem"}}>
               {Object.entries(TYPE_INFO).map(([t, info]) => (
-                <span key={t} style={{
-                  background: info.bg, border:`2px solid ${info.accent}`,
-                  borderRadius:"20px", padding:"0.3rem 0.9rem",
-                  fontSize:"0.95rem", color:"#333", boxShadow:`2px 2px 0px ${info.accent}`,
-                }}>
-                  {t}
-                </span>
+                <div key={t} style={{position:"relative"}}>
+                  <button
+                    onClick={() => setActiveType(activeType === t ? null : t)}
+                    style={{
+                      width:"100%",
+                      background: activeType === t ? info.accent : info.bg,
+                      border:`2.5px solid ${info.accent}`,
+                      borderRadius:"14px", padding:"0.5rem 0.4rem",
+                      fontSize:"0.85rem", color: activeType === t ? "white" : info.accent,
+                      boxShadow:`2px 2px 0px ${info.accent}`,
+                      cursor:"pointer", fontFamily:"'Gamja Flower', cursive",
+                      fontWeight: 400,
+                      transition:"all 0.15s",
+                    }}
+                  >
+                    {t}
+                  </button>
+                </div>
               ))}
             </div>
-            <div style={{display:"flex", gap:"1rem", justifyContent:"center", flexWrap:"wrap"}}>
+
+            {/* 선택된 유형 설명 */}
+            {activeType && (
+              <div style={{
+                background: TYPE_INFO[activeType].bg,
+                border:`2px solid ${TYPE_INFO[activeType].accent}`,
+                borderRadius:"16px", padding:"1rem",
+                marginBottom:"1rem", textAlign:"left",
+                boxShadow:`3px 3px 0px ${TYPE_INFO[activeType].accent}`,
+                animation:"fadeIn 0.2s ease",
+              }}>
+                <p style={{fontFamily:"'Gaegu',cursive", fontSize:"1rem", color:"#333", fontWeight:700, marginBottom:"0.3rem"}}>
+                  {TYPE_INFO[activeType].emoji} {activeType}
+                </p>
+                <p style={{fontFamily:"'Gaegu',cursive", fontSize:"0.9rem", color:"#555", lineHeight:1.6}}>
+                  {TYPE_INFO[activeType].detail}
+                </p>
+              </div>
+            )}
+
+            <div style={{display:"flex", gap:"1rem", justifyContent:"center", flexWrap:"wrap", marginTop:"1rem"}}>
               <button className="main-btn" onClick={() => setStep("test")}>시작하기 →</button>
               {onBack && <button className="sub-btn" onClick={onBack}>← 마음거울로</button>}
             </div>
@@ -365,11 +399,11 @@ export default function QuickTest({ onBack }) {
                 <img
                   src={`/${TYPE_IMAGES[result]}`}
                   alt={result}
-                  style={{width:"280px", height:"280px", objectFit:"contain"}}
+                  style={{width:"180px", height:"180px", objectFit:"contain"}}
                 />
               </div>
               <h2 style={{fontSize:"2.2rem", fontWeight:700, color:"#222", marginBottom:"0.5rem"}}>
-                {result}
+                {typeInfo.emoji} {result}
               </h2>
               <p style={{fontSize:"1.2rem", color:"#444", marginBottom:"1rem", fontWeight:700}}>
                 {typeInfo.desc}
