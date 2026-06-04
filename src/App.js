@@ -304,6 +304,22 @@ export default function App() {
   const questions = stage === 1 ? QUESTIONS : QUESTIONS2;
 
   useEffect(() => {
+    // 저장된 결과 먼저 확인
+    const savedResult2 = localStorage.getItem("mindmirror_result2");
+    const savedResult1 = localStorage.getItem("mindmirror_result1");
+    if (savedResult2 && window.confirm("이전 2단계 분석 결과가 있어요. 다시 볼까요?")) {
+      setAnalysis2(savedResult2);
+      if (savedResult1) setAnalysis(savedResult1);
+      setStage(2);
+      setStep("result2");
+      return;
+    } else if (savedResult1 && !savedResult2 && window.confirm("이전 1단계 분석 결과가 있어요. 다시 볼까요?")) {
+      setAnalysis(savedResult1);
+      setStep("result");
+      return;
+    }
+
+    // 작성 중인 답변 확인
     const saved = localStorage.getItem("mindmirror_answers");
     const savedStage = localStorage.getItem("mindmirror_stage");
     const savedQ = localStorage.getItem("mindmirror_currentQ");
@@ -395,7 +411,9 @@ export default function App() {
       });
       const data = await response.json();
       const text = data.content ? data.content.map(b => typeof b.text === 'string' ? b.text : "").join("") : (data.error ? JSON.stringify(data.error) : "분석 실패");
-      setAnalysis(text || "분석 실패");
+      const result = text || "분석 실패";
+      setAnalysis(result);
+      localStorage.setItem("mindmirror_result1", result);
       setStep("result");
     } catch (e) {
       setAnalysis(JSON.stringify(e));
@@ -420,7 +438,9 @@ export default function App() {
       });
       const data = await response.json();
       const text = data.content ? data.content.map(b => typeof b.text === 'string' ? b.text : "").join("") : (data.error ? JSON.stringify(data.error) : "분석 실패");
-      setAnalysis2(text || "분석 실패");
+      const result2 = text || "분석 실패";
+      setAnalysis2(result2);
+      localStorage.setItem("mindmirror_result2", result2);
       setStep("result2");
     } catch (e) {
       setAnalysis2(JSON.stringify(e));
@@ -457,6 +477,8 @@ export default function App() {
   const restart = () => {
     setStage(1); setStep("intro"); setCurrentQ(0); setAnswers({});
     setCurrentAnswer(""); setAnalysis(""); setAnalysis2(""); setCharCount(0);
+    localStorage.removeItem("mindmirror_result1");
+    localStorage.removeItem("mindmirror_result2");
   };
 
   // QuickTest 표시 중이면 QuickTest 렌더링
