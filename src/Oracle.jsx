@@ -622,7 +622,7 @@ export default function Oracle({ onBack }) {
 
       {/* 결과 */}
       {phase === "result" && (
-        <div ref={resultRef} style={{ width: "100%", maxWidth: 580, paddingTop: "2rem" }}>
+        <div ref={resultRef} style={{ width: "100%", maxWidth: 680, paddingTop: "2rem" }}>
 
           {visibleSections.includes("Reflection") && parsed["Reflection"] && (
             <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
@@ -724,7 +724,13 @@ export default function Oracle({ onBack }) {
                   setTextAnswer("");
                 }}>
                   다시 시작
-                </button>
+                </button><button className="oracle-btn" onClick={() => {
+  const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
+  navigator.clipboard.writeText(text);
+  alert("복사되었습니다");
+}}>
+  결과 복사
+</button>
                 <button className="back-link" onClick={onBack}>
                   ← 마음거울로
                 </button>
