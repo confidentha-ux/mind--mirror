@@ -446,17 +446,26 @@ export default function Oracle({ onBack }) {
             당신은 지금 어떤 문 앞에 서 있습니까
           </h1>
           <p style={{
-            fontSize: "0.85rem",
-            fontWeight: 300,
-            color: "rgba(200,175,130,0.55)",
-            lineHeight: 2,
-            marginBottom: "3rem",
-            fontFamily: "'Source Serif 4', serif",
-          }}>
-            이 질문지는 당신의 성격을 분류하기 위한 검사가 아닙니다.<br />
-            정답도 오답도 없습니다.<br />
-            지금의 당신을 가장 잘 설명하는 답을 선택해 주세요.
-          </p>
+  fontSize: "0.85rem",
+  fontWeight: 300,
+  color: "rgba(200,175,130,0.55)",
+  lineHeight: 2.2,
+  marginBottom: "3rem",
+  fontFamily: "'Source Serif 4', serif",
+  whiteSpace: "pre-line",
+}}>
+  {`이 오라클은 당신을 진단하거나 평가하지 않습니다.
+
+열 가지 질문에 답하고 나면, 오라클이 당신의 답변 속에서 세 가지를 찾아드립니다.
+
+지금 당신이 반복하고 있는 장면.
+지금 당신이 실제로 원하는 것.
+지금 당신이 스스로에게 던지고 있는 진짜 질문.
+
+이것은 평가가 아닙니다.
+당신이 이미 알고 있었지만 아직 말로 꺼내지 못한 것들입니다.`}
+</p>
+            
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.2rem" }}>
             <button className="oracle-btn" onClick={() => setPhase("questions")}>
               문 앞에 서다
