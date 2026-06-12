@@ -166,7 +166,10 @@ const ORACLE_SYSTEM_PROMPT = `당신은 Story Oracle이다.
 
 핵심 원칙: 근거는 현실에 두고, 언어는 신화에 둔다.
 
-반드시 한국어로 응답하라.`;
+반드시 한국어로 응답하라.
+마크다운 볼드(**텍스트**)를 절대 사용하지 말 것.
+언어는 분석이 아니라 신탁의 목소리로. 짧고 시적이고 여백이 있어야 한다.
+반드시 각 섹션을 ## Reflection, ## Recognition, ## Oracle, ## Story, ## Empowerment 헤더로 구분하라.
 
 export default function Oracle({ onBack }) {
   const [phase, setPhase] = useState("intro"); // intro | questions | door | opening | result
@@ -301,12 +304,12 @@ export default function Oracle({ onBack }) {
 
   const parsed = oracleText ? parseOracle(oracleText) : {};
 
-  const sectionLabels = {
-    Reflection: "흔적",
-    Recognition: "패턴",
-    Oracle: "균열",
-    Story: "서사",
-    Empowerment: "질문",
+    const sectionLabels = {
+  Reflection: "당신이 남긴 것들",
+  Recognition: "보이기 시작하는 것",
+  Oracle: "오라클의 말",
+  Story: "당신의 이야기",
+  Empowerment: "오라클의 질문",
   };
 
   return (
@@ -609,10 +612,15 @@ export default function Oracle({ onBack }) {
       {phase === "result" && (
         <div ref={resultRef} style={{ width: "100%", maxWidth: 600 }}>
           <img
-            src="/door-open.png"
-            alt="열린 문"
-            style={{ width: "100%", maxWidth: 260, margin: "0 auto 3rem", display: "block", opacity: 0.7 }}
-          />
+  src="/door-open.png"
+  alt="열린 문"
+  style={{ width: "100%", maxWidth: 260, margin: "0 auto 2rem", display: "block", opacity: 0.7, mixBlendMode: "multiply" }}
+/>
+<img
+  src="/pythia.png"
+  alt="피티아"
+  style={{ width: "100%", maxWidth: 320, margin: "0 auto 3rem", display: "block", mixBlendMode: "multiply" }}
+/>
 
           {["Reflection", "Recognition", "Oracle", "Story", "Empowerment"].map((key) =>
             visibleSections.includes(key) && parsed[key] ? (
