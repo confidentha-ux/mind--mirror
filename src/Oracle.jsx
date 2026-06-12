@@ -4,7 +4,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 1,
     title: "에너지",
-    question: "지난 일주일을 떠올려보세요. 당신의 삶에서 가장 많은 자리를 차지한 것은 무엇입니까?",
+    question: "지난 일주일을 떠올려보세요. \n자신의 삶에서 가장 많은 자리를 차지한 것은 무엇입니까?",
     options: [
       "정보를 찾고 공부하는 일",
       "사람들과 이야기하거나 관계를 유지하는 일",
@@ -95,7 +95,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 8,
     title: "미완성",
-    question: "당신의 마음 한구석에 오래전부터 남아 있는 것은 무엇입니까?",
+    question: "당신의 마음 한구석에 \n오래전부터 남아 있는 것은 무엇입니까?",
     options: [
       "하지 못한 선택",
       "끝내지 못한 일",
@@ -438,9 +438,7 @@ export default function Oracle({ onBack }) {
       {/* 인트로 */}
       {phase === "intro" && (
         <div style={{ width: "100%", maxWidth: 560, textAlign: "center" }}>
-          <div style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(180,150,100,0.5)", marginBottom: "2rem" }}>
-            천 명의 오이디푸스
-          </div>
+          
           <img
             src="/door-closed.png"
             alt="델포이 신전 문"
