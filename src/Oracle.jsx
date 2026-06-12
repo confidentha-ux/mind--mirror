@@ -455,7 +455,7 @@ export default function Oracle({ onBack }) {
             lineHeight: 1.3,
             marginBottom: "1.5rem",
           }}>
-            당신은 지금<br />어떤 문 앞에<br />서 있습니까
+            당신은 지금 어떤 문 앞에 서 있습니까?
           </h1>
           <p style={{ fontSize: "0.85rem", fontWeight: 300, color: "rgba(200,180,140,0.7)", lineHeight: 1.9, marginBottom: "2.5rem" }}>
             이 질문지는 당신의 성격을 분류하기 위한 검사가 아닙니다.<br />
