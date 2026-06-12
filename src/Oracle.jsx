@@ -4,7 +4,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 1,
     title: "에너지",
-    question: "지난 일주일을 떠올려보세요. \n자신의 삶에서 가장 많은 자리를 차지한 것은 무엇입니까?",
+    question: "지난 일주일을 떠올려보세요.\n당신의 삶에서 가장 많은 자리를 차지한 것은 무엇입니까?",
     options: [
       "정보를 찾고 공부하는 일",
       "사람들과 이야기하거나 관계를 유지하는 일",
@@ -17,7 +17,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 2,
     title: "반복 장면",
-    question: "당신의 삶이 영화라면, 반복되는 장면은 무엇입니까?",
+    question: "당신의 삶이 영화라면,\n반복되는 장면은 무엇입니까?",
     options: [
       "출발선에 서 있지만 아직 뛰지 않는 장면",
       "짐을 싸다가 다시 내려놓는 장면",
@@ -30,7 +30,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 3,
     title: "반복 독백",
-    question: "마음속으로 스스로에게 되뇌이듯 하는 말은 무엇입니까?",
+    question: "마음속으로 스스로에게\n되뇌이듯 하는 말은 무엇입니까?",
     options: [
       "아직 준비가 덜 됐다",
       "지금은 때가 아니다",
@@ -43,7 +43,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 4,
     title: "회피",
-    question: "스스로 생각하기에 자신이 미루는 일은 어떤 종류입니까?",
+    question: "스스로 생각하기에\n자신이 미루는 일은 어떤 종류입니까?",
     options: [
       "오래 미뤄온 결정",
       "누군가와 나눠야 할 진짜 대화",
@@ -56,7 +56,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 5,
     title: "감정",
-    question: "지난 한 달간 불현듯 자신에게 많이 찾아온 감정은 무엇입니까?",
+    question: "지난 한 달간\n불현듯 자신에게 많이 찾아온 감정은 무엇입니까?",
     options: [
       "뭔가 곧 일어날 것 같은 두근거림",
       "이유 없이 긴장이 풀리지 않는 느낌",
@@ -69,7 +69,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 6,
     title: "갈망",
-    question: "당신이 당신의 인생에서 늘 원했던 것은 어떤 종류입니까?",
+    question: "당신이 당신의 인생에서\n늘 원했던 것은 어떤 종류입니까?",
     options: [
       "안정과 안전",
       "사랑과 연결",
@@ -82,7 +82,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 7,
     title: "관계",
-    question: "주변 사람들과의 관계에서 반복되는 장면은 무엇입니까?",
+    question: "주변 사람들과의 관계에서\n반복되는 장면은 무엇입니까?",
     options: [
       "먼저 다가가지 못하고 기다린다",
       "맞춰주다가 어느 순간 멀어진다",
@@ -95,7 +95,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 8,
     title: "미완성",
-    question: "당신의 마음 한구석에 \n오래전부터 남아 있는 것은 무엇입니까?",
+    question: "당신의 마음 한구석에\n오래전부터 남아 있는 것은 무엇입니까?",
     options: [
       "하지 못한 선택",
       "끝내지 못한 일",
@@ -108,13 +108,13 @@ const ORACLE_QUESTIONS = [
   {
     id: 9,
     title: "문",
-    question: "만약 지금 당신 앞에 오래전부터 서 있었던 문이 하나 있다면,\n그 문 너머에는 무엇이 있을 것 같습니까?",
+    question: "만약 지금 당신 앞에\n오래전부터 서 있었던 문이 하나 있다면,\n그 문 너머에는 무엇이 있을 것 같습니까?",
     type: "text",
   },
   {
     id: 10,
     title: "마지막",
-    question: "지금까지 질문들에 답하면서 가장 많이 떠오른 단어나 장면,\n혹은 감정이나 마음은 무엇입니까?",
+    question: "지금까지 질문들에 답하면서\n가장 많이 떠오른 단어나 장면,\n혹은 감정이나 마음은 무엇입니까?",
     type: "text",
   },
 ];
@@ -132,47 +132,37 @@ const ORACLE_SYSTEM_PROMPT = `당신은 Story Oracle이다.
 - 진단하지 말 것
 - 미래를 예언하지 말 것
 - 조언을 남발하지 말 것
-- MBTI 결과처럼 작성하지 말 것
+- 마크다운 볼드(**텍스트**)를 절대 사용하지 말 것
 - 교훈을 설교하지 말 것
 
-반드시 할 것:
-- 사용자가 실제로 답한 내용에서만 출발할 것
-- 모든 해석은 답변의 근거를 보여준 후 제안할 것
-- 오라클은 정답을 말하지 않는다. 오라클은 가능성을 비춘다.
+언어 원칙:
+- 분석이 아니라 신탁의 목소리로 말할 것
+- 짧고 시적이고 여백이 있어야 한다
+- 각 섹션은 간결하게, 전체가 하나의 흐름처럼 읽혀야 한다
+- "혹시", "어쩌면", "나는 이런 생각이 듭니다" 형식을 사용한다
 
-출력 구조 (반드시 이 순서와 형식으로):
+출력 구조 (반드시 이 순서와 형식으로, 헤더 포함):
 
 ## Reflection
-사용자가 실제로 답한 내용을 요약한다. 해석하지 않는다. 흔적을 정리한다.
+사용자가 실제로 답한 내용을 3-5줄로 간결하게 요약한다. 해석하지 않는다. 짧은 문장들로.
 
 ## Recognition
-답변 속에서 반복되는 패턴을 보여준다. 사용자가 "맞아"라고 느낄 수 있어야 한다.
+답변 속 반복 패턴을 2-3문단으로. 사용자가 "맞아"라고 느낄 수 있어야 한다.
 
 ## Oracle
-거울에 균열을 낸다. 사용자가 기존에 보지 못했던 가능성을 제안한다. 단정하지 않는다. 반드시 "혹시", "어쩌면", "나는 이런 생각이 듭니다" 형식을 사용한다.
+가장 중요한 단계. 균열을 낸다. 2-3문단. 반드시 "혹시" 또는 "어쩌면"으로 시작하는 문장 포함.
 
 ## Story
-사용자의 답변을 하나의 짧은 서사로 엮는다. 시적이되 구체적으로. 항상 실제 답변을 기반으로.
+사용자의 답변을 짧은 서사로. 시처럼 짧은 줄들로. 5-8줄.
 
 ## Empowerment
-사용자가 자신의 이야기를 이어갈 수 있도록 넘겨준다. 마지막에는 반드시 질문 하나를 남긴다.
-
-오라클의 목소리:
-- 따뜻하지만 감상적이지 않다
-- 통찰적이지만 단정적이지 않다
-- 시적이지만 이해 가능해야 한다
-- 현명하지만 우월하지 않다
-- 인간을 믿는다
-
-핵심 원칙: 근거는 현실에 두고, 언어는 신화에 둔다.
+마지막 질문 하나. 단 한 문장. 크고 여운이 있어야 한다.
 
 반드시 한국어로 응답하라.
-마크다운 볼드(**텍스트**)를 절대 사용하지 말 것.
-언어는 분석이 아니라 신탁의 목소리로. 짧고 시적이고 여백이 있어야 한다.
-반드시 각 섹션을 ## Reflection, ## Recognition, ## Oracle, ## Story, ## Empowerment 헤더로 구분하라.
+반드시 ## Reflection, ## Recognition, ## Oracle, ## Story, ## Empowerment 헤더를 정확히 사용하라.`;
 
 export default function Oracle({ onBack }) {
-  const [phase, setPhase] = useState("intro"); // intro | questions | door | opening | result
+  const [phase, setPhase] = useState("intro");
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState({});
   const [selectedOption, setSelectedOption] = useState(null);
@@ -185,11 +175,11 @@ export default function Oracle({ onBack }) {
 
   const q = ORACLE_QUESTIONS[currentQ];
   const isTextQ = q?.type === "text";
-  const progress = ((currentQ) / ORACLE_QUESTIONS.length) * 100;
+  const progress = (currentQ / ORACLE_QUESTIONS.length) * 100;
 
   const canProceed = isTextQ
     ? textAnswer.trim().length > 0
-    : selectedOption !== null;
+    : selectedOption !== null && (selectedOption !== "기타" || otherText.trim().length > 0);
 
   function handleSelect(option) {
     if (option === "기타") {
@@ -207,7 +197,7 @@ export default function Oracle({ onBack }) {
     const answer = isTextQ
       ? textAnswer
       : selectedOption === "기타"
-      ? otherText || "기타"
+      ? otherText
       : selectedOption;
 
     const newAnswers = { ...answers, [q.id]: { title: q.title, answer } };
@@ -228,7 +218,6 @@ export default function Oracle({ onBack }) {
     if (currentQ === 0) {
       setPhase("intro");
     } else {
-      setCurrentQ(currentQ - 1);
       const prevQ = ORACLE_QUESTIONS[currentQ - 1];
       const prevAnswer = answers[prevQ.id];
       if (prevAnswer) {
@@ -238,6 +227,7 @@ export default function Oracle({ onBack }) {
           setSelectedOption(prevAnswer.answer);
         }
       }
+      setCurrentQ(currentQ - 1);
       setShowOther(false);
       setOtherText("");
     }
@@ -258,11 +248,11 @@ export default function Oracle({ onBack }) {
 
     try {
       const res = await fetch("/api/analyze", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
-          max_tokens: 1000,
+          max_tokens: 1500,
           system: ORACLE_SYSTEM_PROMPT,
           messages: [{ role: "user", content: userMessage }],
         }),
@@ -272,19 +262,19 @@ export default function Oracle({ onBack }) {
       setOracleText(text);
       setPhase("result");
     } catch (e) {
-      setOracleText("오라클이 잠시 침묵하고 있습니다. 다시 시도해주세요.");
+      setOracleText("## Reflection\n오라클이 잠시 침묵하고 있습니다.\n\n## Recognition\n다시 시도해주세요.\n\n## Oracle\n어쩌면 지금은 때가 아닐 수 있습니다.\n\n## Story\n문은 여전히 거기 있습니다.\n\n## Empowerment\n다시 문 앞에 서겠습니까?");
       setPhase("result");
     }
   }
 
-  // 결과 섹션을 순서대로 타오르듯 표시
   useEffect(() => {
     if (phase !== "result" || !oracleText) return;
+    setVisibleSections([]);
     const sections = ["Reflection", "Recognition", "Oracle", "Story", "Empowerment"];
     sections.forEach((s, i) => {
       setTimeout(() => {
         setVisibleSections((prev) => [...prev, s]);
-      }, i * 1200);
+      }, i * 1800);
     });
   }, [phase, oracleText]);
 
@@ -294,8 +284,8 @@ export default function Oracle({ onBack }) {
     order.forEach((key, i) => {
       const next = order[i + 1];
       const regex = next
-        ? new RegExp(`## ${key}([\\s\\S]*?)## ${next}`)
-        : new RegExp(`## ${key}([\\s\\S]*?)$`);
+        ? new RegExp(`##\\s*${key}([\\s\\S]*?)##\\s*${next}`)
+        : new RegExp(`##\\s*${key}([\\s\\S]*?)$`);
       const match = text.match(regex);
       sections[key] = match ? match[1].trim() : "";
     });
@@ -304,103 +294,94 @@ export default function Oracle({ onBack }) {
 
   const parsed = oracleText ? parseOracle(oracleText) : {};
 
-    const sectionLabels = {
-  Reflection: "당신이 남긴 것들",
-  Recognition: "보이기 시작하는 것",
-  Oracle: "오라클의 말",
-  Story: "당신의 이야기",
-  Empowerment: "오라클의 질문",
-  };
-
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#0a0a0f",
+      background: "#08080f",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      padding: "2rem 1.25rem",
-      fontFamily: "'Source Serif 4', serif",
+      padding: "3rem 1.5rem",
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400&display=swap');
         @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(18px); }
+          from { opacity: 0; transform: translateY(24px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes doorGlow {
-          0%, 100% { opacity: 0.6; }
+        @keyframes breathe {
+          0%, 100% { opacity: 0.4; }
           50% { opacity: 1; }
         }
-        @keyframes opening {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
+        @keyframes flicker {
+          0%, 100% { opacity: 0.5; }
+          50% { opacity: 0.9; }
         }
-        .oracle-section {
-          animation: fadeUp 1.2s ease forwards;
+        .oracle-appear {
+          animation: fadeUp 1.6s ease forwards;
           opacity: 0;
         }
-        .option-btn {
+        .oracle-option {
           width: 100%;
           background: transparent;
-          border: 1px solid rgba(180, 150, 100, 0.25);
-          color: #c8b88a;
+          border: 1px solid rgba(180,150,100,0.18);
+          color: rgba(200,175,130,0.8);
           font-family: 'Source Serif 4', serif;
-          font-size: 0.88rem;
+          font-size: 0.87rem;
           font-weight: 300;
           text-align: left;
-          padding: 0.9rem 1.1rem;
+          padding: 0.85rem 1.1rem;
           cursor: pointer;
-          transition: all 0.25s;
+          transition: all 0.3s;
+          margin-bottom: 0.45rem;
+          border-radius: 1px;
           line-height: 1.5;
-          margin-bottom: 0.5rem;
-          border-radius: 2px;
         }
-        .option-btn:hover {
-          background: rgba(180, 150, 100, 0.08);
-          border-color: rgba(180, 150, 100, 0.5);
+        .oracle-option:hover {
+          background: rgba(180,150,100,0.07);
+          border-color: rgba(180,150,100,0.4);
           color: #e8d8aa;
         }
-        .option-btn.selected {
-          background: rgba(180, 150, 100, 0.15);
-          border-color: #b49664;
+        .oracle-option.selected {
+          background: rgba(180,150,100,0.12);
+          border-color: rgba(180,150,100,0.6);
           color: #f0e0b8;
         }
-        .oracle-next-btn {
+        .oracle-btn {
           background: transparent;
-          border: 1px solid rgba(180, 150, 100, 0.4);
-          color: #b49664;
+          border: 1px solid rgba(180,150,100,0.35);
+          color: rgba(180,150,100,0.7);
           font-family: 'Source Serif 4', serif;
-          font-size: 0.75rem;
-          letter-spacing: 0.2em;
+          font-size: 0.72rem;
+          letter-spacing: 0.22em;
           text-transform: uppercase;
           cursor: pointer;
-          padding: 0.75rem 2rem;
+          padding: 0.7rem 1.8rem;
           transition: all 0.3s;
         }
-        .oracle-next-btn:hover {
-          background: rgba(180, 150, 100, 0.1);
-          border-color: #b49664;
+        .oracle-btn:hover {
+          border-color: rgba(180,150,100,0.7);
+          color: #e8d8aa;
         }
-        .oracle-next-btn:disabled {
-          opacity: 0.25;
+        .oracle-btn:disabled {
+          opacity: 0.2;
           cursor: default;
         }
-        .door-btn {
+        .door-open-btn {
           background: transparent;
-          border: 1px solid rgba(180, 150, 100, 0.6);
+          border: 1px solid rgba(180,150,100,0.5);
           color: #e8d8aa;
           font-family: 'Playfair Display', serif;
-          font-size: 1rem;
+          font-size: 1.1rem;
           font-style: italic;
           cursor: pointer;
-          padding: 1rem 2.5rem;
+          padding: 1.1rem 3rem;
           transition: all 0.4s;
-          letter-spacing: 0.05em;
-          animation: doorGlow 3s ease-in-out infinite;
+          animation: breathe 3s ease-in-out infinite;
+          letter-spacing: 0.03em;
         }
-        .door-btn:hover {
-          background: rgba(180, 150, 100, 0.12);
+        .door-open-btn:hover {
+          background: rgba(180,150,100,0.08);
           border-color: #e8d8aa;
           animation: none;
           opacity: 1;
@@ -408,63 +389,76 @@ export default function Oracle({ onBack }) {
         .back-link {
           background: transparent;
           border: none;
-          color: rgba(180, 150, 100, 0.4);
+          color: rgba(180,150,100,0.3);
           font-family: 'Source Serif 4', serif;
-          font-size: 0.72rem;
+          font-size: 0.7rem;
           letter-spacing: 0.2em;
           text-transform: uppercase;
           cursor: pointer;
           padding: 0;
-          transition: opacity 0.3s;
+          transition: all 0.3s;
         }
-        .back-link:hover { opacity: 0.8; color: #b49664; }
+        .back-link:hover { color: rgba(180,150,100,0.7); }
         .oracle-textarea {
           width: 100%;
           background: transparent;
           border: none;
-          border-bottom: 1px solid rgba(180, 150, 100, 0.3);
+          border-bottom: 1px solid rgba(180,150,100,0.25);
           color: #e8d8aa;
           font-family: 'Source Serif 4', serif;
           font-size: 0.93rem;
           font-weight: 300;
-          line-height: 1.9;
+          line-height: 1.95;
           padding: 0.5rem 0;
           resize: none;
           outline: none;
-          min-height: 140px;
+          min-height: 130px;
           caret-color: #b49664;
+          box-sizing: border-box;
         }
-        .oracle-textarea::placeholder { color: rgba(180, 150, 100, 0.3); }
-        .oracle-textarea:focus { border-bottom-color: rgba(180, 150, 100, 0.6); }
+        .oracle-textarea::placeholder { color: rgba(180,150,100,0.22); }
+        .oracle-textarea:focus { border-bottom-color: rgba(180,150,100,0.5); }
+        .greek-text {
+          font-family: 'Playfair Display', serif;
+          font-size: 0.8rem;
+          letter-spacing: 0.15em;
+          color: rgba(180,150,100,0.25);
+          font-style: italic;
+        }
       `}</style>
 
       {/* 인트로 */}
       {phase === "intro" && (
-        <div style={{ width: "100%", maxWidth: 560, textAlign: "center" }}>
-          
-          <img
-            src="/door-closed.png"
-            alt="델포이 신전 문"
-            style={{ width: "100%", maxWidth: 340, margin: "0 auto 2.5rem", display: "block", opacity: 0.9 }}
-          />
+        <div style={{ width: "100%", maxWidth: 520, textAlign: "center" }}>
+          <div className="greek-text" style={{ marginBottom: "3rem" }}>
+            γνῶθι σεαυτόν
+          </div>
           <h1 style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(1.8rem, 5vw, 2.6rem)",
+            fontSize: "clamp(1.9rem, 5vw, 2.8rem)",
             fontWeight: 400,
             fontStyle: "italic",
             color: "#e8d8aa",
-            lineHeight: 1.3,
-            marginBottom: "1.5rem",
+            lineHeight: 1.4,
+            marginBottom: "2rem",
+            letterSpacing: "0.02em",
           }}>
-            당신은 지금 어떤 문 앞에 서 있습니까?
+            당신은 지금 어떤 문 앞에 서 있습니까
           </h1>
-          <p style={{ fontSize: "0.85rem", fontWeight: 300, color: "rgba(200,180,140,0.7)", lineHeight: 1.9, marginBottom: "2.5rem" }}>
+          <p style={{
+            fontSize: "0.85rem",
+            fontWeight: 300,
+            color: "rgba(200,175,130,0.55)",
+            lineHeight: 2,
+            marginBottom: "3rem",
+            fontFamily: "'Source Serif 4', serif",
+          }}>
             이 질문지는 당신의 성격을 분류하기 위한 검사가 아닙니다.<br />
             정답도 오답도 없습니다.<br />
             지금의 당신을 가장 잘 설명하는 답을 선택해 주세요.
           </p>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
-            <button className="oracle-next-btn" onClick={() => setPhase("questions")}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.2rem" }}>
+            <button className="oracle-btn" onClick={() => setPhase("questions")}>
               문 앞에 서다
             </button>
             <button className="back-link" onClick={onBack}>← 돌아가기</button>
@@ -474,43 +468,57 @@ export default function Oracle({ onBack }) {
 
       {/* 질문 */}
       {phase === "questions" && q && (
-        <div style={{ width: "100%", maxWidth: 560 }}>
-          {/* 진행 바 */}
-          <div style={{ width: "100%", height: "1px", background: "rgba(180,150,100,0.15)", marginBottom: "3rem" }}>
-            <div style={{ height: "100%", width: `${progress}%`, background: "rgba(180,150,100,0.5)", transition: "width 0.5s ease" }} />
+        <div style={{ width: "100%", maxWidth: 540 }}>
+          <div style={{
+            width: "100%", height: "1px",
+            background: "rgba(180,150,100,0.1)",
+            marginBottom: "3.5rem",
+          }}>
+            <div style={{
+              height: "100%",
+              width: `${progress}%`,
+              background: "rgba(180,150,100,0.4)",
+              transition: "width 0.6s ease",
+            }} />
           </div>
 
-          <div style={{ fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(180,150,100,0.45)", marginBottom: "0.5rem" }}>
+          <div style={{
+            fontSize: "0.58rem",
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            color: "rgba(180,150,100,0.35)",
+            marginBottom: "0.6rem",
+            fontFamily: "'Source Serif 4', serif",
+          }}>
             {currentQ + 1} / {ORACLE_QUESTIONS.length} — {q.title}
           </div>
 
           <h2 style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(1.1rem, 3vw, 1.4rem)",
+            fontSize: "clamp(1rem, 2.8vw, 1.25rem)",
             fontWeight: 400,
             fontStyle: "italic",
             color: "#e8d8aa",
-            lineHeight: 1.6,
-            marginBottom: "2rem",
+            lineHeight: 1.7,
+            marginBottom: "2.2rem",
             whiteSpace: "pre-line",
           }}>
             {q.question}
           </h2>
 
-          {/* 객관식 */}
           {!isTextQ && (
             <div style={{ marginBottom: "2rem" }}>
               {q.options.map((opt) => (
                 <button
                   key={opt}
-                  className={`option-btn ${selectedOption === opt ? "selected" : ""}`}
+                  className={`oracle-option ${selectedOption === opt ? "selected" : ""}`}
                   onClick={() => handleSelect(opt)}
                 >
                   {opt}
                 </button>
               ))}
               <button
-                className={`option-btn ${selectedOption === "기타" ? "selected" : ""}`}
+                className={`oracle-option ${selectedOption === "기타" ? "selected" : ""}`}
                 onClick={() => handleSelect("기타")}
               >
                 기타
@@ -521,11 +529,12 @@ export default function Oracle({ onBack }) {
                   value={otherText}
                   onChange={(e) => setOtherText(e.target.value)}
                   placeholder="직접 입력해주세요"
+                  autoFocus
                   style={{
                     width: "100%",
                     background: "transparent",
                     border: "none",
-                    borderBottom: "1px solid rgba(180,150,100,0.4)",
+                    borderBottom: "1px solid rgba(180,150,100,0.35)",
                     color: "#e8d8aa",
                     fontFamily: "'Source Serif 4', serif",
                     fontSize: "0.88rem",
@@ -535,13 +544,11 @@ export default function Oracle({ onBack }) {
                     marginTop: "0.5rem",
                     boxSizing: "border-box",
                   }}
-                  autoFocus
                 />
               )}
             </div>
           )}
 
-          {/* 주관식 */}
           {isTextQ && (
             <textarea
               className="oracle-textarea"
@@ -551,10 +558,15 @@ export default function Oracle({ onBack }) {
             />
           )}
 
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1.5rem" }}>
+          <div style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: "2rem",
+          }}>
             <button className="back-link" onClick={handleBack}>← 이전</button>
             <button
-              className="oracle-next-btn"
+              className="oracle-btn"
               onClick={handleNext}
               disabled={!canProceed}
             >
@@ -564,107 +576,212 @@ export default function Oracle({ onBack }) {
         </div>
       )}
 
-      {/* 문 앞 화면 */}
+      {/* 문 앞 */}
       {phase === "door" && (
-        <div style={{ width: "100%", maxWidth: 560, textAlign: "center" }}>
-          <img
-            src="/door-closed.png"
-            alt="델포이 신전 문"
-            style={{ width: "100%", maxWidth: 320, margin: "0 auto 3rem", display: "block", opacity: 0.85 }}
-          />
+        <div style={{ width: "100%", maxWidth: 480, textAlign: "center" }}>
+          <div className="greek-text" style={{ marginBottom: "4rem" }}>
+            γνῶθι σεαυτόν
+          </div>
           <p style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: "1rem",
             fontStyle: "italic",
-            color: "rgba(200,180,140,0.7)",
-            marginBottom: "3rem",
-            lineHeight: 1.8,
+            color: "rgba(200,175,130,0.5)",
+            marginBottom: "4rem",
+            lineHeight: 1.9,
+            animation: "flicker 4s ease-in-out infinite",
           }}>
             오라클이 당신의 답변을 읽고 있습니다
           </p>
-          <button className="door-btn" onClick={openDoor}>
+          <button className="door-open-btn" onClick={openDoor}>
             문을 열다
           </button>
         </div>
       )}
 
-      {/* 문 열리는 애니메이션 */}
+      {/* 열리는 중 */}
       {phase === "opening" && (
-        <div style={{ width: "100%", maxWidth: 560, textAlign: "center", animation: "opening 1s ease" }}>
-          <img
-            src="/door-open.png"
-            alt="열린 델포이 신전 문"
-            style={{ width: "100%", maxWidth: 320, margin: "0 auto 3rem", display: "block" }}
-          />
+        <div style={{ textAlign: "center" }}>
+          <div className="greek-text" style={{ marginBottom: "2rem" }}>
+            γνῶθι σεαυτόν
+          </div>
           <p style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: "1rem",
             fontStyle: "italic",
-            color: "rgba(200,180,140,0.6)",
-            animation: "doorGlow 2s ease-in-out infinite",
+            color: "rgba(200,175,130,0.45)",
+            animation: "breathe 2s ease-in-out infinite",
           }}>
             신탁이 열리고 있습니다
           </p>
         </div>
       )}
 
-      {/* 오라클 결과 */}
+      {/* 결과 */}
       {phase === "result" && (
-        <div ref={resultRef} style={{ width: "100%", maxWidth: 600 }}>
-          <img
-  src="/door-open.png"
-  alt="열린 문"
-  style={{ width: "100%", maxWidth: 260, margin: "0 auto 2rem", display: "block", opacity: 0.7, mixBlendMode: "multiply" }}
-/>
-<img
-  src="/pythia.png"
-  alt="피티아"
-  style={{ width: "100%", maxWidth: 320, margin: "0 auto 3rem", display: "block", mixBlendMode: "multiply" }}
-/>
+        <div ref={resultRef} style={{ width: "100%", maxWidth: 580 }}>
 
-          {["Reflection", "Recognition", "Oracle", "Story", "Empowerment"].map((key) =>
-            visibleSections.includes(key) && parsed[key] ? (
-              <div key={key} className="oracle-section" style={{ marginBottom: "3rem" }}>
-                <div style={{
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.3em",
-                  textTransform: "uppercase",
-                  color: "rgba(180,150,100,0.4)",
-                  marginBottom: "0.75rem",
-                }}>
-                  {sectionLabels[key]}
-                </div>
-                <div style={{
-                  fontFamily: key === "Oracle" || key === "Story" ? "'Playfair Display', serif" : "'Source Serif 4', serif",
-                  fontSize: key === "Oracle" || key === "Story" ? "1rem" : "0.9rem",
-                  fontStyle: key === "Oracle" || key === "Story" ? "italic" : "normal",
-                  fontWeight: 300,
-                  color: key === "Oracle" ? "#e8d8aa" : "rgba(200,180,140,0.85)",
-                  lineHeight: 2,
-                  whiteSpace: "pre-wrap",
-                  borderLeft: key === "Oracle" ? "2px solid rgba(180,150,100,0.3)" : "none",
-                  paddingLeft: key === "Oracle" ? "1.25rem" : "0",
-                }}>
-                  {parsed[key]}
-                </div>
+          {/* Reflection */}
+          {visibleSections.includes("Reflection") && parsed["Reflection"] && (
+            <div className="oracle-appear" style={{ marginBottom: "3.5rem" }}>
+              <div style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.57rem",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "rgba(180,150,100,0.3)",
+                marginBottom: "1.2rem",
+              }}>
+                당신이 남긴 것들
               </div>
-            ) : null
+              <div style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.88rem",
+                fontWeight: 300,
+                color: "rgba(200,175,130,0.65)",
+                lineHeight: 2.1,
+                whiteSpace: "pre-wrap",
+              }}>
+                {parsed["Reflection"]}
+              </div>
+            </div>
           )}
 
-          {visibleSections.length === 5 && (
-            <div className="oracle-section" style={{ marginTop: "3rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-              <button className="oracle-next-btn" onClick={() => {
-                setPhase("intro");
-                setAnswers({});
-                setCurrentQ(0);
-                setOracleText("");
-                setVisibleSections([]);
+          {/* Recognition */}
+          {visibleSections.includes("Recognition") && parsed["Recognition"] && (
+            <div className="oracle-appear" style={{ marginBottom: "3.5rem" }}>
+              <div style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.57rem",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "rgba(180,150,100,0.3)",
+                marginBottom: "1.2rem",
               }}>
-                다시 시작
-              </button>
-              <button className="back-link" style={{ alignSelf: "center" }} onClick={onBack}>
-                ← 마음거울로
-              </button>
+                보이기 시작하는 것
+              </div>
+              <div style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.93rem",
+                fontWeight: 300,
+                color: "rgba(220,195,150,0.8)",
+                lineHeight: 2.1,
+                whiteSpace: "pre-wrap",
+              }}>
+                {parsed["Recognition"]}
+              </div>
+            </div>
+          )}
+
+          {/* Oracle */}
+          {visibleSections.includes("Oracle") && parsed["Oracle"] && (
+            <div className="oracle-appear" style={{ marginBottom: "3.5rem" }}>
+              <div style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.57rem",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "rgba(180,150,100,0.3)",
+                marginBottom: "1.2rem",
+              }}>
+                오라클의 말
+              </div>
+              <div style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1rem",
+                fontStyle: "italic",
+                fontWeight: 400,
+                color: "#e8d8aa",
+                lineHeight: 2.2,
+                whiteSpace: "pre-wrap",
+                borderLeft: "1px solid rgba(180,150,100,0.25)",
+                paddingLeft: "1.5rem",
+              }}>
+                {parsed["Oracle"]}
+              </div>
+            </div>
+          )}
+
+          {/* Story */}
+          {visibleSections.includes("Story") && parsed["Story"] && (
+            <div className="oracle-appear" style={{ marginBottom: "3.5rem" }}>
+              <div style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.57rem",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "rgba(180,150,100,0.3)",
+                marginBottom: "1.2rem",
+              }}>
+                당신의 이야기
+              </div>
+              <div style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "0.95rem",
+                fontWeight: 400,
+                color: "rgba(220,195,150,0.75)",
+                lineHeight: 2.3,
+                whiteSpace: "pre-wrap",
+                fontStyle: "italic",
+              }}>
+                {parsed["Story"]}
+              </div>
+            </div>
+          )}
+
+          {/* Empowerment */}
+          {visibleSections.includes("Empowerment") && parsed["Empowerment"] && (
+            <div className="oracle-appear" style={{ marginBottom: "4rem" }}>
+              <div style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.57rem",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "rgba(180,150,100,0.3)",
+                marginBottom: "1.5rem",
+              }}>
+                오라클의 질문
+              </div>
+              <div style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "1.2rem",
+                fontStyle: "italic",
+                fontWeight: 400,
+                color: "#f0e0b8",
+                lineHeight: 1.8,
+                whiteSpace: "pre-wrap",
+              }}>
+                {parsed["Empowerment"]}
+              </div>
+            </div>
+          )}
+
+          {/* 마무리 */}
+          {visibleSections.length === 5 && (
+            <div className="oracle-appear" style={{
+              marginTop: "2rem",
+              paddingTop: "2rem",
+              borderTop: "1px solid rgba(180,150,100,0.12)",
+            }}>
+              <div className="greek-text" style={{ marginBottom: "2rem" }}>
+                γνῶθι σεαυτόν
+              </div>
+              <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
+                <button className="oracle-btn" onClick={() => {
+                  setPhase("intro");
+                  setAnswers({});
+                  setCurrentQ(0);
+                  setOracleText("");
+                  setVisibleSections([]);
+                  setSelectedOption(null);
+                  setTextAnswer("");
+                }}>
+                  다시 시작
+                </button>
+                <button className="back-link" onClick={onBack}>
+                  ← 마음거울로
+                </button>
+              </div>
             </div>
           )}
         </div>
