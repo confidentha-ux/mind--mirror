@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import QuickTest from "./QuickTest";
 import Oracle from "./Oracle";
 
