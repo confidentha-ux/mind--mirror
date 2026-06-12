@@ -121,42 +121,40 @@ const ORACLE_QUESTIONS = [
 
 const ORACLE_SYSTEM_PROMPT = `당신은 Story Oracle이다.
 
-당신의 역할은 사용자를 분석하거나 분류하는 것이 아니다.
+당신의 역할은 사용자를 진단하거나 평가하는 것이 아니다.
 당신은 사용자의 답변 속에서 반복되는 패턴, 긴장, 갈망, 모순을 발견하고 그것을 비추어 주는 존재이다.
 당신은 심리학자도, 상담사도, 점쟁이도 아니다.
 당신은 사용자가 스스로 자기 삶의 저자가 되도록 돕는 오라클이다.
 
 절대 하지 말 것:
 - 사용자를 유형으로 규정하지 말 것
-- "~한 사람입니다"라고 단정하지 말 것
-- 진단하지 말 것
-- 미래를 예언하지 말 것
-- 조언을 남발하지 말 것
+- 단정하지 말 것
 - 마크다운 볼드(**텍스트**)를 절대 사용하지 말 것
 - 교훈을 설교하지 말 것
+- 조언을 남발하지 말 것
 
 언어 원칙:
-- 분석이 아니라 신탁의 목소리로 말할 것
-- 짧고 시적이고 여백이 있어야 한다
-- 각 섹션은 간결하게, 전체가 하나의 흐름처럼 읽혀야 한다
-- "혹시", "어쩌면", "나는 이런 생각이 듭니다" 형식을 사용한다
+- 신탁의 목소리로 말할 것. 짧고 시적이고 여백이 있어야 한다
+- 각 섹션은 간결하게. 전체가 하나의 흐름처럼 읽혀야 한다
+- Oracle 섹션은 반드시 "혹시" 또는 "어쩌면"으로 시작하는 문장을 포함한다
+- Empowerment는 단 한 문장의 질문으로 끝낸다
 
-출력 구조 (반드시 이 순서와 형식으로, 헤더 포함):
+출력 구조:
 
 ## Reflection
-사용자가 실제로 답한 내용을 3-5줄로 간결하게 요약한다. 해석하지 않는다. 짧은 문장들로.
+3-5줄. 사용자가 답한 내용을 짧은 문장들로 정리. 해석 없이.
 
 ## Recognition
-답변 속 반복 패턴을 2-3문단으로. 사용자가 "맞아"라고 느낄 수 있어야 한다.
+2-3문단. 반복 패턴. 사용자가 "맞아"라고 느낄 수 있어야 한다.
 
 ## Oracle
-가장 중요한 단계. 균열을 낸다. 2-3문단. 반드시 "혹시" 또는 "어쩌면"으로 시작하는 문장 포함.
+2-3문단. 균열. 반드시 "혹시" 또는 "어쩌면" 포함.
 
 ## Story
-사용자의 답변을 짧은 서사로. 시처럼 짧은 줄들로. 5-8줄.
+5-8줄. 시처럼 짧은 줄들로.
 
 ## Empowerment
-마지막 질문 하나. 단 한 문장. 크고 여운이 있어야 한다.
+단 한 문장. 질문으로 끝낸다.
 
 반드시 한국어로 응답하라.
 반드시 ## Reflection, ## Recognition, ## Oracle, ## Story, ## Empowerment 헤더를 정확히 사용하라.`;
@@ -306,26 +304,26 @@ export default function Oracle({ onBack }) {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400&display=swap');
         @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
+          from { opacity: 0; transform: translateY(28px); }
           to { opacity: 1; transform: translateY(0); }
         }
         @keyframes breathe {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 1; }
-        }
-        @keyframes flicker {
-          0%, 100% { opacity: 0.5; }
+          0%, 100% { opacity: 0.35; }
           50% { opacity: 0.9; }
         }
+        @keyframes flicker {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 0.85; }
+        }
         .oracle-appear {
-          animation: fadeUp 1.6s ease forwards;
+          animation: fadeUp 1.8s ease forwards;
           opacity: 0;
         }
         .oracle-option {
           width: 100%;
           background: transparent;
           border: 1px solid rgba(180,150,100,0.18);
-          color: rgba(200,175,130,0.8);
+          color: rgba(200,175,130,0.75);
           font-family: 'Source Serif 4', serif;
           font-size: 0.87rem;
           font-weight: 300;
@@ -418,11 +416,11 @@ export default function Oracle({ onBack }) {
         }
         .oracle-textarea::placeholder { color: rgba(180,150,100,0.22); }
         .oracle-textarea:focus { border-bottom-color: rgba(180,150,100,0.5); }
-        .greek-text {
+        .greek {
           font-family: 'Playfair Display', serif;
-          font-size: 0.8rem;
-          letter-spacing: 0.15em;
-          color: rgba(180,150,100,0.25);
+          font-size: 1.4rem;
+          letter-spacing: 0.2em;
+          color: rgba(180,150,100,0.3);
           font-style: italic;
         }
       `}</style>
@@ -430,7 +428,7 @@ export default function Oracle({ onBack }) {
       {/* 인트로 */}
       {phase === "intro" && (
         <div style={{ width: "100%", maxWidth: 520, textAlign: "center" }}>
-          <div className="greek-text" style={{ marginBottom: "3rem" }}>
+          <div className="greek" style={{ marginBottom: "3rem" }}>
             γνῶθι σεαυτόν
           </div>
           <h1 style={{
@@ -440,21 +438,22 @@ export default function Oracle({ onBack }) {
             fontStyle: "italic",
             color: "#e8d8aa",
             lineHeight: 1.4,
-            marginBottom: "2rem",
+            marginBottom: "2.5rem",
             letterSpacing: "0.02em",
           }}>
             당신은 지금 어떤 문 앞에 서 있습니까
           </h1>
           <p style={{
-  fontSize: "0.85rem",
-  fontWeight: 300,
-  color: "rgba(200,175,130,0.55)",
-  lineHeight: 2.2,
-  marginBottom: "3rem",
-  fontFamily: "'Source Serif 4', serif",
-  whiteSpace: "pre-line",
-}}>
-  {`이 오라클은 당신을 진단하거나 평가하지 않습니다.
+            fontSize: "0.88rem",
+            fontWeight: 300,
+            color: "rgba(200,175,130,0.55)",
+            lineHeight: 2.2,
+            marginBottom: "3rem",
+            fontFamily: "'Source Serif 4', serif",
+            whiteSpace: "pre-line",
+            textAlign: "left",
+          }}>
+            {`이 오라클은 당신을 진단하거나 평가하지 않습니다.
 
 열 가지 질문에 답하고 나면, 오라클이 당신의 답변 속에서 세 가지를 찾아드립니다.
 
@@ -464,8 +463,7 @@ export default function Oracle({ onBack }) {
 
 이것은 평가가 아닙니다.
 당신이 이미 알고 있었지만 아직 말로 꺼내지 못한 것들입니다.`}
-</p>
-            
+          </p>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.2rem" }}>
             <button className="oracle-btn" onClick={() => setPhase("questions")}>
               문 앞에 서다
@@ -574,11 +572,7 @@ export default function Oracle({ onBack }) {
             marginTop: "2rem",
           }}>
             <button className="back-link" onClick={handleBack}>← 이전</button>
-            <button
-              className="oracle-btn"
-              onClick={handleNext}
-              disabled={!canProceed}
-            >
+            <button className="oracle-btn" onClick={handleNext} disabled={!canProceed}>
               {currentQ < ORACLE_QUESTIONS.length - 1 ? "다음" : "완성"}
             </button>
           </div>
@@ -588,7 +582,7 @@ export default function Oracle({ onBack }) {
       {/* 문 앞 */}
       {phase === "door" && (
         <div style={{ width: "100%", maxWidth: 480, textAlign: "center" }}>
-          <div className="greek-text" style={{ marginBottom: "4rem" }}>
+          <div className="greek" style={{ marginBottom: "4rem" }}>
             γνῶθι σεαυτόν
           </div>
           <p style={{
@@ -611,7 +605,7 @@ export default function Oracle({ onBack }) {
       {/* 열리는 중 */}
       {phase === "opening" && (
         <div style={{ textAlign: "center" }}>
-          <div className="greek-text" style={{ marginBottom: "2rem" }}>
+          <div className="greek" style={{ marginBottom: "2rem" }}>
             γνῶθι σεαυτόν
           </div>
           <p style={{
@@ -621,34 +615,23 @@ export default function Oracle({ onBack }) {
             color: "rgba(200,175,130,0.45)",
             animation: "breathe 2s ease-in-out infinite",
           }}>
-            신탁이 열리고 있습니다
+            잠시 기다려주세요
           </p>
         </div>
       )}
 
       {/* 결과 */}
       {phase === "result" && (
-        <div ref={resultRef} style={{ width: "100%", maxWidth: 580 }}>
+        <div ref={resultRef} style={{ width: "100%", maxWidth: 580, paddingTop: "2rem" }}>
 
-          {/* Reflection */}
           {visibleSections.includes("Reflection") && parsed["Reflection"] && (
-            <div className="oracle-appear" style={{ marginBottom: "3.5rem" }}>
+            <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
               <div style={{
                 fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.57rem",
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
-                color: "rgba(180,150,100,0.3)",
-                marginBottom: "1.2rem",
-              }}>
-                당신이 남긴 것들
-              </div>
-              <div style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.88rem",
+                fontSize: "0.92rem",
                 fontWeight: 300,
                 color: "rgba(200,175,130,0.65)",
-                lineHeight: 2.1,
+                lineHeight: 2.2,
                 whiteSpace: "pre-wrap",
               }}>
                 {parsed["Reflection"]}
@@ -656,25 +639,14 @@ export default function Oracle({ onBack }) {
             </div>
           )}
 
-          {/* Recognition */}
           {visibleSections.includes("Recognition") && parsed["Recognition"] && (
-            <div className="oracle-appear" style={{ marginBottom: "3.5rem" }}>
+            <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
               <div style={{
                 fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.57rem",
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
-                color: "rgba(180,150,100,0.3)",
-                marginBottom: "1.2rem",
-              }}>
-                보이기 시작하는 것
-              </div>
-              <div style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.93rem",
+                fontSize: "0.95rem",
                 fontWeight: 300,
-                color: "rgba(220,195,150,0.8)",
-                lineHeight: 2.1,
+                color: "rgba(210,185,140,0.8)",
+                lineHeight: 2.2,
                 whiteSpace: "pre-wrap",
               }}>
                 {parsed["Recognition"]}
@@ -682,82 +654,49 @@ export default function Oracle({ onBack }) {
             </div>
           )}
 
-          {/* Oracle */}
           {visibleSections.includes("Oracle") && parsed["Oracle"] && (
-            <div className="oracle-appear" style={{ marginBottom: "3.5rem" }}>
-              <div style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.57rem",
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
-                color: "rgba(180,150,100,0.3)",
-                marginBottom: "1.2rem",
-              }}>
-                오라클의 말
-              </div>
+            <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
               <div style={{
                 fontFamily: "'Playfair Display', serif",
-                fontSize: "1rem",
+                fontSize: "1.15rem",
                 fontStyle: "italic",
                 fontWeight: 400,
                 color: "#e8d8aa",
-                lineHeight: 2.2,
+                lineHeight: 2.3,
                 whiteSpace: "pre-wrap",
-                borderLeft: "1px solid rgba(180,150,100,0.25)",
                 paddingLeft: "1.5rem",
+                borderLeft: "1px solid rgba(180,150,100,0.25)",
               }}>
                 {parsed["Oracle"]}
               </div>
             </div>
           )}
 
-          {/* Story */}
           {visibleSections.includes("Story") && parsed["Story"] && (
-            <div className="oracle-appear" style={{ marginBottom: "3.5rem" }}>
-              <div style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.57rem",
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
-                color: "rgba(180,150,100,0.3)",
-                marginBottom: "1.2rem",
-              }}>
-                당신의 이야기
-              </div>
+            <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
               <div style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "0.95rem",
+                fontStyle: "italic",
                 fontWeight: 400,
-                color: "rgba(220,195,150,0.75)",
+                color: "rgba(210,185,140,0.7)",
                 lineHeight: 2.3,
                 whiteSpace: "pre-wrap",
-                fontStyle: "italic",
               }}>
                 {parsed["Story"]}
               </div>
             </div>
           )}
 
-          {/* Empowerment */}
           {visibleSections.includes("Empowerment") && parsed["Empowerment"] && (
             <div className="oracle-appear" style={{ marginBottom: "4rem" }}>
               <div style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.57rem",
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
-                color: "rgba(180,150,100,0.3)",
-                marginBottom: "1.5rem",
-              }}>
-                오라클의 질문
-              </div>
-              <div style={{
                 fontFamily: "'Playfair Display', serif",
-                fontSize: "1.2rem",
+                fontSize: "1.3rem",
                 fontStyle: "italic",
                 fontWeight: 400,
                 color: "#f0e0b8",
-                lineHeight: 1.8,
+                lineHeight: 1.9,
                 whiteSpace: "pre-wrap",
               }}>
                 {parsed["Empowerment"]}
@@ -765,17 +704,16 @@ export default function Oracle({ onBack }) {
             </div>
           )}
 
-          {/* 마무리 */}
           {visibleSections.length === 5 && (
             <div className="oracle-appear" style={{
               marginTop: "2rem",
-              paddingTop: "2rem",
-              borderTop: "1px solid rgba(180,150,100,0.12)",
+              paddingTop: "2.5rem",
+              borderTop: "1px solid rgba(180,150,100,0.1)",
             }}>
-              <div className="greek-text" style={{ marginBottom: "2rem" }}>
+              <div className="greek" style={{ marginBottom: "2rem" }}>
                 γνῶθι σεαυτόν
               </div>
-              <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
                 <button className="oracle-btn" onClick={() => {
                   setPhase("intro");
                   setAnswers({});
