@@ -254,9 +254,9 @@ export default function Oracle({ onBack }) {
     const userMessage = `다음은 사용자의 응답입니다:\n\n${formatted}`;
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch("/api/analyze", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
           max_tokens: 1000,
