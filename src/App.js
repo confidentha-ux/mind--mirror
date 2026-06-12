@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import QuickTest from "./QuickTest";
+import Oracle from "./Oracle";
 import QuickTest from "./QuickTest";
 
 const QUESTIONS = [
@@ -298,6 +299,7 @@ export default function App() {
   const [analysis2, setAnalysis2] = useState("");
   const [charCount, setCharCount] = useState(0);
   const [showQuickTest, setShowQuickTest] = useState(false);
+const [showOracle, setShowOracle] = useState(false);
   const textareaRef = useRef(null);
   const resultRef = useRef(null);
 
@@ -482,7 +484,11 @@ export default function App() {
   };
 
   // QuickTest 표시 중이면 QuickTest 렌더링
-  if (showQuickTest) {
+  if (showOracle) {
+    return <Oracle onBack={() => setShowOracle(false)} />;
+}
+
+if (showQuickTest) {
     return (
       <QuickTest
         onBack={() => setShowQuickTest(false)}
@@ -612,8 +618,11 @@ export default function App() {
           </div>
           <div style={{display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"0.5rem"}}>
             <button className="quick-btn" onClick={() => setShowQuickTest(true)}>
-              🪞 퀵테스트 먼저 해보기
-            </button>
+  🪞 퀵테스트 먼저 해보기
+</button>
+<button className="quick-btn" onClick={() => setShowOracle(true)}>
+  🏛️ 나의 오라클 — 문을 열다
+</button>  
             <button className="start-btn" onClick={() => setStep("questions")}>마음거울 시작하기</button>
           </div>
         </div>
