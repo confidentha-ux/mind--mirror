@@ -1,6 +1,5 @@
-
-import Oracle from "./Oracle";
 import QuickTest from "./QuickTest";
+import Oracle from "./Oracle";
 
 const QUESTIONS = [
   {
