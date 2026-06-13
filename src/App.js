@@ -537,7 +537,56 @@ if (step === "intro") {
     </div>
   );
 }
-
+if (step === "mindmirror-intro") {
+  return (
+    <div style={{minHeight:"100vh",background:"#fef6ed",transition:"background 0.7s ease",fontFamily:"Georgia,serif",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem",position:"relative",overflow:"hidden"}}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        .container{width:100%;max-width:640px;position:relative;z-index:1}
+        .intro-eyebrow{font-family:'Source Serif 4',serif;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:#c4956a;margin-bottom:1.5rem}
+        .intro-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,3.6rem);font-weight:400;line-height:1.15;color:#2a1200;margin-bottom:2rem}
+        .intro-body{font-family:'Source Serif 4',serif;font-size:1rem;font-weight:300;color:#6b4c2a;line-height:1.9;margin-bottom:1.25rem}
+        .intro-italic{font-family:'Source Serif 4',serif;font-size:.93rem;font-weight:300;font-style:italic;color:#9a7856;line-height:1.9;margin-bottom:1.5rem}
+        .intro-notice-box{background:rgba(196,149,106,0.1);border-left:3px solid #c4956a;padding:1.1rem 1.25rem;margin-bottom:2rem}
+        .intro-notice-title{font-family:'Source Serif 4',serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#c4956a;margin-bottom:.6rem}
+        .intro-notice-item{font-family:'Source Serif 4',serif;font-size:.82rem;font-weight:300;color:#6b4c2a;line-height:1.85;display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.2rem}
+        .intro-notice-item::before{content:"—";opacity:.5;flex-shrink:0}
+        .divider{width:100%;height:1px;background:rgba(196,149,106,0.3);margin:2rem 0}
+        .q-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:2.5rem}
+        .q-list-item{display:flex;align-items:center;gap:1rem;padding:.4rem 0;border-bottom:1px solid rgba(196,149,106,0.15)}
+        .q-num{font-family:'Source Serif 4',serif;font-size:.7rem;color:#c4956a;opacity:.6;min-width:1.5rem}
+        .q-name{font-family:'Source Serif 4',serif;font-size:.85rem;font-weight:300;color:#6b4c2a}
+        .start-btn{background:#2a1200;border:none;color:#fdf0e0;font-family:'Source Serif 4',serif;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;padding:1.1rem 2.8rem;cursor:pointer;transition:all .3s}
+        .start-btn:hover{background:#8b4513}
+      `}</style>
+      <div className="container">
+        <div className="intro-eyebrow">AI 인지구조 분석 — 1단계</div>
+        <h1 className="intro-title">당신은<br/>어떻게<br/>생각하나요</h1>
+        <p className="intro-body">살면서 왜 같은 상황이 반복되는지,<br/>왜 특정 순간에 늘 비슷한 감정이 오는지<br/>궁금했던 적 있나요.</p>
+        <p className="intro-italic">일곱 가지 질문에 솔직하게 답해주시면,<br/>AI가 당신의 말에서 패턴을 찾아 돌려드려요.<br/>거울 하나 건네드리겠습니다.</p>
+        <div className="intro-notice-box">
+          <div className="intro-notice-title">시작 전에</div>
+          <div className="intro-notice-item">틀린 답은 없어요. 생각나는 대로, 편한 만큼만 쓰시면 돼요.</div>
+          <div className="intro-notice-item">질문마다 자유롭게 돌아가서 수정할 수 있어요.</div>
+          <div className="intro-notice-item">패스하고 싶은 질문은 건너뛰셔도 괜찮아요.</div>
+          <div className="intro-notice-item">입력하신 내용은 저장되지 않아요.</div>
+          <div className="intro-notice-item">임상 진단이 아니에요.</div>
+        </div>
+        <div className="divider"/>
+        <div className="q-list">
+          {QUESTIONS.map((q,i) => (
+            <div className="q-list-item" key={q.id}>
+              <span className="q-num">{i+1}</span>
+              <span className="q-name">{q.title}</span>
+            </div>
+          ))}
+        </div>
+        <button className="start-btn" onClick={() => setStep("questions")}>마음거울 시작하기</button>
+      </div>
+    </div>
+  );
+}
 if (showQuickTest) {
     return (
       <QuickTest
@@ -562,6 +611,7 @@ if (step === "mindmirror-intro") return "#fef6ed";
   };
 
   return (
+    <>
     <div style={{
       minHeight: "100vh",
       background: getBg(),
@@ -639,39 +689,6 @@ if (step === "mindmirror-intro") return "#fef6ed";
         .restart-btn2{background:transparent;border:1px solid #4a8ab4;color:#4a8ab4;font-family:'Source Serif 4',serif;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;padding:.75rem 1.75rem;transition:all .3s}
         .restart-btn2:hover{background:#1a3a5a;color:#c8e0f0}
       `}</style>
-
-{step === "mindmirror-intro" && (
-        <div className="container">
-          <div className="intro-eyebrow">AI 인지구조 분석 — 1단계</div>
-          <h1 className="intro-title">당신은<br/>어떻게<br/>생각하나요</h1>
-          <p className="intro-body">살면서 왜 같은 상황이 반복되는지,<br/>왜 특정 순간에 늘 비슷한 감정이 오는지<br/>궁금했던 적 있나요.</p>
-          <p className="intro-italic">
-            일곱 가지 질문에 솔직하게 답해주시면,<br/>
-            AI가 당신의 말에서 패턴을 찾아 돌려드려요.<br/>
-            거울 하나 건네드리겠습니다.
-          </p>
-          <div className="intro-notice-box">
-            <div className="intro-notice-title">시작 전에</div>
-            <div className="intro-notice-item">틀린 답은 없어요. 생각나는 대로, 편한 만큼만 쓰시면 돼요.</div>
-            <div className="intro-notice-item">질문마다 자유롭게 돌아가서 수정할 수 있어요.</div>
-            <div className="intro-notice-item">패스하고 싶은 질문은 건너뛰셔도 괜찮아요.</div>
-            <div className="intro-notice-item">입력하신 내용은 저장되지 않아요.</div>
-            <div className="intro-notice-item">임상 진단이 아니에요.</div>
-          </div>
-          <div className="divider"/>
-          <div className="q-list">
-            {QUESTIONS.map((q,i) => (
-              <div className="q-list-item" key={q.id}>
-                <span className="q-num">{i+1}</span>
-                <span className="q-name">{q.title}</span>
-              </div>
-            ))}
-          </div>
-        
-            <button className="start-btn" onClick={() => setStep("questions")}>마음거울 시작하기</button>
-          </div>
-        </div>
-      )}
 
       {step === "intro2" && (
         <div className="container">
@@ -798,5 +815,6 @@ if (step === "mindmirror-intro") return "#fef6ed";
         </div>
       )}
     </div>
+        </>
   );
 }
