@@ -490,7 +490,7 @@ const [showOracle, setShowOracle] = useState(false);
 
 if (step === "intro") {
   return (
-    <div style={{background:"#e8e0d5",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem 1.25rem"}}>
+    <div style={{background:"#e8ede4",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem 1.25rem"}}>
       <div style={{width:"100%",maxWidth:680}}>
         <div style={{textAlign:"center",marginBottom:"3.5rem"}}>
           <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.3em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)",marginBottom:"1.5rem"}}>마음거울</div>
@@ -500,7 +500,7 @@ if (step === "intro") {
         <div style={{display:"flex",flexDirection:"column",gap:"1rem",marginBottom:"3rem"}}>
           <div style={{background:"rgba(255,255,255,0.5)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}} onClick={() => setStep("mindmirror-intro")}>
             <div style={{display:"flex",gap:"1.5rem",alignItems:"flex-start"}}>
-              <img src="/intro.png" alt="마음거울" style={{width:90,height:90,objectFit:"cover",flexShrink:0,borderRadius:"2px"}}/>
+              <img src="/quicktest.png" alt="마음거울" style={{width:90,height:90,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
               <div>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>패턴 탐색</div>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>나는 왜 같은 상황을 반복하는가</div>
@@ -511,7 +511,7 @@ if (step === "intro") {
           </div>
           <div style={{background:"rgba(255,255,255,0.5)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}} onClick={() => setShowQuickTest(true)}>
             <div style={{display:"flex",gap:"1.5rem",alignItems:"flex-start"}}>
-              <img src="/quicktest.png" alt="퀵테스트" style={{width:90,height:90,objectFit:"cover",flexShrink:0,borderRadius:"2px"}}/>
+              <img src="/intro.png" alt="퀵테스트" style={{width:90,height:90,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
               <div>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>유형 탐색</div>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>5분 안에 나의 인지 유형 확인</div>
@@ -522,7 +522,7 @@ if (step === "intro") {
           </div>
           <div style={{background:"rgba(255,255,255,0.5)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}} onClick={() => setShowOracle(true)}>
             <div style={{display:"flex",gap:"1.5rem",alignItems:"flex-start"}}>
-              <img src="/door-closed.png" alt="오라클" style={{width:90,height:90,objectFit:"cover",flexShrink:0,borderRadius:"2px"}}/>
+              <img src="/door-closed.png" alt="오라클" style={{width:90,height:90,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
               <div>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>질문 탐색</div>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>지금 내가 하고 있는 진짜 질문은</div>
