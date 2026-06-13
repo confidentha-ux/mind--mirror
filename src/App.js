@@ -289,6 +289,8 @@ const Decoration = ({ type, color }) => {
   return null;
 };
 
+const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
+
 export default function App() {
   const [stage, setStage] = useState(1);
   const [step, setStep] = useState("intro");
@@ -299,14 +301,13 @@ export default function App() {
   const [analysis2, setAnalysis2] = useState("");
   const [charCount, setCharCount] = useState(0);
   const [showQuickTest, setShowQuickTest] = useState(false);
-const [showOracle, setShowOracle] = useState(false);
+  const [showOracle, setShowOracle] = useState(false);
   const textareaRef = useRef(null);
   const resultRef = useRef(null);
 
   const questions = stage === 1 ? QUESTIONS : QUESTIONS2;
 
   useEffect(() => {
-    // 저장된 결과 먼저 확인
     const savedResult2 = localStorage.getItem("mindmirror_result2");
     const savedResult1 = localStorage.getItem("mindmirror_result1");
     if (savedResult2 && window.confirm("이전 2단계 분석 결과가 있어요. 다시 볼까요?")) {
@@ -320,8 +321,6 @@ const [showOracle, setShowOracle] = useState(false);
       setStep("result");
       return;
     }
-
-    // 작성 중인 답변 확인
     const saved = localStorage.getItem("mindmirror_answers");
     const savedStage = localStorage.getItem("mindmirror_stage");
     const savedQ = localStorage.getItem("mindmirror_currentQ");
@@ -483,127 +482,149 @@ const [showOracle, setShowOracle] = useState(false);
     localStorage.removeItem("mindmirror_result2");
   };
 
-  // QuickTest 표시 중이면 QuickTest 렌더링
+  // ── QuickTest / Oracle ──────────────────────────────────────────
+  if (showQuickTest) {
+    return <QuickTest onBack={() => setShowQuickTest(false)} />;
+  }
   if (showOracle) {
     return <Oracle onBack={() => setShowOracle(false)} />;
-}
+  }
 
-if (step === "intro") {
-  return (
-    <div style={{background:"#e8ede4",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem 1.25rem"}}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`}</style
-  <div style={{width:"100%",maxWidth:680}}>
-        <div style={{textAlign:"center",marginBottom:"3.5rem"}}>
-          <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.3em",textTransform:"uppercase",color:"rgba(42,18,0,0.6)",marginBottom:"1.5rem"}}>마음거울</div>
-          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,5vw,3rem)",fontWeight:400,fontStyle:"italic",color:"#2a1200",lineHeight:1.3,marginBottom:"1.25rem"}}>당신은 어떤 사람인가요</h1>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,color:"rgba(42,18,0,0.8)",lineHeight:1.9,maxWidth:480,margin:"0 auto"}}>우리는 각자 다른 방식으로 생각하고, 느끼고, 반응합니다.<br/>세 가지 도구로 당신을 탐색해보세요.</p>
-        </div>
-        <div style={{display:"flex",flexDirection:"column",gap:"1rem",marginBottom:"3rem"}}>
-          <div style={{background:"rgba(255,255,255,0.5)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}} onClick={() => setStep("mindmirror-intro")}>
-            <div style={{display:"flex",gap:"1.5rem",alignItems:"flex-start"}}>
-              <img src="/quicktest.png" alt="마음거울" style={{width:90,height:90,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
-              <div>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>패턴 탐색</div>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>나는 왜 같은 상황을 반복하는가</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.6rem"}}>마음거울</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.8,margin:0}}>우리는 각자 다른 방식으로 세상을 봅니다. 마음거울은 당신이 정보를 처리하고, 관계를 맺고, 감정에 반응하는 방식의 패턴을 찾아드려요.</p>
-              </div>
-            </div>
-          </div>
-          <div style={{background:"rgba(255,255,255,0.5)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}} onClick={() => setShowQuickTest(true)}>
-            <div style={{display:"flex",gap:"1.5rem",alignItems:"flex-start"}}>
-              <img src="/intro.png" alt="퀵테스트" style={{width:90,height:90,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
-              <div>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>유형 탐색</div>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>5분 안에 나의 인지 유형 확인</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.6rem"}}>퀵테스트</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.8,margin:0}}>생각하고 결정하는 방식에는 각자의 패턴이 있어요. 열 가지 상황 질문에 답하면 당신의 인지 유형을 찾아드려요.</p>
-              </div>
-            </div>
-          </div>
-          <div style={{background:"rgba(255,255,255,0.5)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}} onClick={() => setShowOracle(true)}>
-            <div style={{display:"flex",gap:"1.5rem",alignItems:"flex-start"}}>
-              <img src="/door-closed.png" alt="오라클" style={{width:90,height:90,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
-              <div>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>질문 탐색</div>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>지금 내가 하고 있는 진짜 질문은</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.6rem"}}>오라클</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.8,margin:0}}>지금 내가 하고 있는 진짜 질문은 무엇인가. 오라클은 답을 주지 않아요. 당신이 이미 알고 있었지만 아직 말로 꺼내지 못한 것들을 비춰드립니다.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style={{textAlign:"center",fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(42,18,0,0.6)",letterSpacing:"0.1em"}}>γνῶθι σεαυτόν<<div>γνῶθι σεαυτόν</div>
-<div style={{fontSize:"0.75rem",marginTop:"0.5rem",letterSpacing:"0.1em",color:"rgba(42,18,0,0.6)"}}>너 자신을 알라</div>/div>
-      </div>
-    </div>
-  );
-}
-if (step === "mindmirror-intro") {
-  return (
-    <div style={{minHeight:"100vh",background:"#fef6ed",transition:"background 0.7s ease",fontFamily:"Georgia,serif",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem",position:"relative",overflow:"hidden"}}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');
-        *{box-sizing:border-box;margin:0;padding:0}
-        .container{width:100%;max-width:640px;position:relative;z-index:1}
-        .intro-eyebrow{font-family:'Source Serif 4',serif;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:#c4956a;margin-bottom:1.5rem}
-        .intro-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,3.6rem);font-weight:400;line-height:1.15;color:#2a1200;margin-bottom:2rem}
-        .intro-body{font-family:'Source Serif 4',serif;font-size:1rem;font-weight:300;color:#6b4c2a;line-height:1.9;margin-bottom:1.25rem}
-        .intro-italic{font-family:'Source Serif 4',serif;font-size:.93rem;font-weight:300;font-style:italic;color:#9a7856;line-height:1.9;margin-bottom:1.5rem}
-        .intro-notice-box{background:rgba(196,149,106,0.1);border-left:3px solid #c4956a;padding:1.1rem 1.25rem;margin-bottom:2rem}
-        .intro-notice-title{font-family:'Source Serif 4',serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#c4956a;margin-bottom:.6rem}
-        .intro-notice-item{font-family:'Source Serif 4',serif;font-size:.82rem;font-weight:300;color:#6b4c2a;line-height:1.85;display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.2rem}
-        .intro-notice-item::before{content:"—";opacity:.5;flex-shrink:0}
-        .divider{width:100%;height:1px;background:rgba(196,149,106,0.3);margin:2rem 0}
-        .q-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:2.5rem}
-        .q-list-item{display:flex;align-items:center;gap:1rem;padding:.4rem 0;border-bottom:1px solid rgba(196,149,106,0.15)}
-        .q-num{font-family:'Source Serif 4',serif;font-size:.7rem;color:#c4956a;opacity:.6;min-width:1.5rem}
-        .q-name{font-family:'Source Serif 4',serif;font-size:.85rem;font-weight:300;color:#6b4c2a}
-        .start-btn{background:#2a1200;border:none;color:#fdf0e0;font-family:'Source Serif 4',serif;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;padding:1.1rem 2.8rem;cursor:pointer;transition:all .3s}
-        .start-btn:hover{background:#8b4513}
-      `}</style>
-      <div className="container">
-        <div className="intro-eyebrow">AI 인지구조 분석 — 1단계</div>
-        <h1 className="intro-title">당신은<br/>어떻게<br/>생각하나요</h1>
-        <p className="intro-body">살면서 왜 같은 상황이 반복되는지,<br/>왜 특정 순간에 늘 비슷한 감정이 오는지<br/>궁금했던 적 있나요.</p>
-        <p className="intro-italic">일곱 가지 질문에 솔직하게 답해주시면,<br/>AI가 당신의 말에서 패턴을 찾아 돌려드려요.<br/>거울 하나 건네드리겠습니다.</p>
-        <div className="intro-notice-box">
-          <div className="intro-notice-title">시작 전에</div>
-          <div className="intro-notice-item">틀린 답은 없어요. 생각나는 대로, 편한 만큼만 쓰시면 돼요.</div>
-          <div className="intro-notice-item">질문마다 자유롭게 돌아가서 수정할 수 있어요.</div>
-          <div className="intro-notice-item">패스하고 싶은 질문은 건너뛰셔도 괜찮아요.</div>
-          <div className="intro-notice-item">입력하신 내용은 저장되지 않아요.</div>
-          <div className="intro-notice-item">임상 진단이 아니에요.</div>
-        </div>
-        <div className="divider"/>
-        <div className="q-list">
-          {QUESTIONS.map((q,i) => (
-            <div className="q-list-item" key={q.id}>
-              <span className="q-num">{i+1}</span>
-              <span className="q-name">{q.title}</span>
-            </div>
-          ))}
-        </div>
-        <button className="start-btn" onClick={() => setStep("questions")}>마음거울 시작하기</button>
-      </div>
-    </div>
-  );
-}
-if (showQuickTest) {
+  // ── 메인 랜딩 ───────────────────────────────────────────────────
+  if (step === "intro") {
     return (
-      <QuickTest
-        onBack={() => setShowQuickTest(false)}
-      />
+      <div style={{background:"#e8ede4",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem 1.25rem"}}>
+        <style>{FONTS}</style>
+        <div style={{width:"100%",maxWidth:680}}>
+
+          {/* 헤더 */}
+          <div style={{textAlign:"center",marginBottom:"3.5rem"}}>
+            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.3em",textTransform:"uppercase",color:"rgba(42,18,0,0.5)",marginBottom:"1.5rem"}}>마음거울</div>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,5vw,3rem)",fontWeight:400,fontStyle:"italic",color:"#2a1200",lineHeight:1.3,marginBottom:"1.25rem"}}>당신은 어떤 사람인가요</h1>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,color:"rgba(42,18,0,0.7)",lineHeight:1.9,maxWidth:480,margin:"0 auto"}}>우리는 각자 다른 방식으로 생각하고, 느끼고, 반응합니다.<br/>세 가지 도구로 당신을 탐색해보세요.</p>
+          </div>
+
+          {/* 카드 목록 */}
+          <div style={{display:"flex",flexDirection:"column",gap:"1rem",marginBottom:"3rem"}}>
+
+            {/* 01 퀵테스트 */}
+            <div
+              style={{background:"rgba(255,255,255,0.55)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}}
+              onClick={() => setShowQuickTest(true)}
+              onMouseEnter={e => e.currentTarget.style.background="rgba(255,255,255,0.8)"}
+              onMouseLeave={e => e.currentTarget.style.background="rgba(255,255,255,0.55)"}
+            >
+              <div style={{display:"flex",gap:"1.25rem",alignItems:"flex-start"}}>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",fontStyle:"italic",color:"rgba(42,18,0,0.12)",lineHeight:1,flexShrink:0,minWidth:"2.5rem",paddingTop:"0.2rem"}}>01</div>
+                <img src="/intro.png" alt="퀵테스트" style={{width:80,height:80,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
+                <div>
+                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>유형 탐색</div>
+                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>5분 안에 나의 인지 유형 확인</div>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.6rem"}}>퀵테스트</div>
+                  <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.8,margin:0}}>생각하고 결정하는 방식에는 각자의 패턴이 있어요. 열 가지 상황 질문에 답하면 당신의 인지 유형을 찾아드려요.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 02 마음거울 */}
+            <div
+              style={{background:"rgba(255,255,255,0.55)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}}
+              onClick={() => setStep("mindmirror-intro")}
+              onMouseEnter={e => e.currentTarget.style.background="rgba(255,255,255,0.8)"}
+              onMouseLeave={e => e.currentTarget.style.background="rgba(255,255,255,0.55)"}
+            >
+              <div style={{display:"flex",gap:"1.25rem",alignItems:"flex-start"}}>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",fontStyle:"italic",color:"rgba(42,18,0,0.12)",lineHeight:1,flexShrink:0,minWidth:"2.5rem",paddingTop:"0.2rem"}}>02</div>
+                <img src="/quicktest.png" alt="마음거울" style={{width:80,height:80,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
+                <div>
+                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>패턴 탐색 · 1단계 + 2단계</div>
+                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>나는 왜 같은 상황을 반복하는가</div>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.6rem"}}>마음거울</div>
+                  <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.8,margin:0}}>감정과 관계 패턴부터 사고 구조까지, 두 단계로 깊게 들어가요.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 03 오라클 */}
+            <div
+              style={{background:"rgba(255,255,255,0.55)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}}
+              onClick={() => setShowOracle(true)}
+              onMouseEnter={e => e.currentTarget.style.background="rgba(255,255,255,0.8)"}
+              onMouseLeave={e => e.currentTarget.style.background="rgba(255,255,255,0.55)"}
+            >
+              <div style={{display:"flex",gap:"1.25rem",alignItems:"flex-start"}}>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",fontStyle:"italic",color:"rgba(42,18,0,0.12)",lineHeight:1,flexShrink:0,minWidth:"2.5rem",paddingTop:"0.2rem"}}>03</div>
+                <img src="/door-closed.png" alt="오라클" style={{width:80,height:80,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
+                <div>
+                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>질문 탐색</div>
+                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>지금 내가 하고 있는 진짜 질문은</div>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.6rem"}}>오라클</div>
+                  <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.8,margin:0}}>답을 주지 않아요. 당신이 이미 알고 있었지만 아직 말로 꺼내지 못한 것들을 비춰드립니다.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* 하단 */}
+          <div style={{textAlign:"center"}}>
+            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(42,18,0,0.5)",letterSpacing:"0.1em"}}>γνῶθι σεαυτόν</div>
+            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",marginTop:"0.5rem",letterSpacing:"0.1em",color:"rgba(42,18,0,0.4)"}}>너 자신을 알라</div>
+          </div>
+
+        </div>
+      </div>
     );
   }
 
+  // ── 마음거울 인트로 ─────────────────────────────────────────────
+  if (step === "mindmirror-intro") {
+    return (
+      <div style={{minHeight:"100vh",background:"#fef6ed",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem",position:"relative",overflow:"hidden"}}>
+        <style>{FONTS}</style>
+        <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
+          <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",color:"#c4956a",marginBottom:"1.5rem"}}>AI 인지구조 분석 — 1단계</div>
+          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.4rem,6vw,3.6rem)",fontWeight:400,lineHeight:1.15,color:"#2a1200",marginBottom:"2rem"}}>당신은<br/>어떻게<br/>생각하나요</h1>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"#6b4c2a",lineHeight:1.9,marginBottom:"1.25rem"}}>살면서 왜 같은 상황이 반복되는지,<br/>왜 특정 순간에 늘 비슷한 감정이 오는지<br/>궁금했던 적 있나요.</p>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:".93rem",fontWeight:300,fontStyle:"italic",color:"#9a7856",lineHeight:1.9,marginBottom:"1.5rem"}}>일곱 가지 질문에 솔직하게 답해주시면,<br/>AI가 당신의 말에서 패턴을 찾아 돌려드려요.<br/>거울 하나 건네드리겠습니다.</p>
+          <div style={{background:"rgba(196,149,106,0.1)",borderLeft:"3px solid #c4956a",padding:"1.1rem 1.25rem",marginBottom:"2rem"}}>
+            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".68rem",letterSpacing:".2em",textTransform:"uppercase",color:"#c4956a",marginBottom:".6rem"}}>시작 전에</div>
+            {["틀린 답은 없어요. 생각나는 대로, 편한 만큼만 쓰시면 돼요.","질문마다 자유롭게 돌아가서 수정할 수 있어요.","패스하고 싶은 질문은 건너뛰셔도 괜찮아요.","입력하신 내용은 저장되지 않아요.","임상 진단이 아니에요."].map((t,i) => (
+              <div key={i} style={{fontFamily:"'Source Serif 4',serif",fontSize:".82rem",fontWeight:300,color:"#6b4c2a",lineHeight:1.85,display:"flex",alignItems:"flex-start",gap:".5rem",marginBottom:".2rem"}}>
+                <span style={{opacity:.5}}>—</span>{t}
+              </div>
+            ))}
+          </div>
+          <div style={{width:"48px",height:"1px",background:"#c4956a",margin:"2rem 0"}}/>
+          <div style={{marginBottom:"2.5rem"}}>
+            {QUESTIONS.map((q,i) => (
+              <div key={q.id} style={{display:"flex",alignItems:"center",gap:"1rem",padding:".4rem 0",borderBottom:"1px solid rgba(196,149,106,0.15)"}}>
+                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",color:"#c4956a",opacity:.6,minWidth:"1.5rem"}}>{i+1}</span>
+                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:".85rem",fontWeight:300,color:"#6b4c2a"}}>{q.title}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{display:"flex",gap:"1rem",flexWrap:"wrap"}}>
+            <button
+              onClick={() => setStep("questions")}
+              style={{background:"#2a1200",border:"none",color:"#fdf0e0",fontFamily:"'Source Serif 4',serif",fontSize:".82rem",letterSpacing:".18em",textTransform:"uppercase",padding:"1.1rem 2.8rem",cursor:"pointer"}}
+            >마음거울 시작하기</button>
+            <button
+              onClick={() => setStep("intro")}
+              style={{background:"transparent",border:"1px solid rgba(196,149,106,0.5)",color:"#9a7856",fontFamily:"'Source Serif 4',serif",fontSize:".78rem",letterSpacing:".15em",textTransform:"uppercase",padding:"1.1rem 1.8rem",cursor:"pointer"}}
+            >← 돌아가기</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── 나머지 화면들 ───────────────────────────────────────────────
   const progress = (currentQ / questions.length) * 100;
   const q = questions[currentQ];
   const canProceed = currentAnswer.trim().length > 0;
 
   const getBg = () => {
-    if (step === "intro") return "#e8e0d5";
-if (step === "mindmirror-intro") return "#fef6ed";
     if (step === "intro2") return "#0f1520";
     if (step === "questions") return q.bg;
     if (step === "analyzing") return stage === 1 ? "#f5ede0" : "#0f1520";
@@ -613,42 +634,14 @@ if (step === "mindmirror-intro") return "#fef6ed";
   };
 
   return (
-    <>
     <div style={{
-      minHeight: "100vh",
-      background: getBg(),
-      transition: "background 0.7s ease",
-      fontFamily: "Georgia,serif",
-      display: "flex", alignItems: "center", justifyContent: "center",
-      padding: "2rem", position: "relative", overflow: "hidden"
+      minHeight:"100vh", background:getBg(), transition:"background 0.7s ease",
+      fontFamily:"Georgia,serif", display:"flex", alignItems:"center",
+      justifyContent:"center", padding:"2rem", position:"relative", overflow:"hidden"
     }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');
+        ${FONTS}
         *{box-sizing:border-box;margin:0;padding:0}
-        .container{width:100%;max-width:640px;position:relative;z-index:1}
-        .intro-eyebrow{font-family:'Source Serif 4',serif;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:#c4956a;margin-bottom:1.5rem}
-        .intro-title{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,3.6rem);font-weight:400;line-height:1.15;color:#2a1200;margin-bottom:2rem}
-        .intro-body{font-family:'Source Serif 4',serif;font-size:1rem;font-weight:300;color:#6b4c2a;line-height:1.9;margin-bottom:1.25rem}
-        .intro-italic{font-family:'Source Serif 4',serif;font-size:.93rem;font-weight:300;font-style:italic;color:#9a7856;line-height:1.9;margin-bottom:1.5rem}
-        .intro-notice-box{background:rgba(196,149,106,0.1);border-left:3px solid #c4956a;padding:1.1rem 1.25rem;margin-bottom:2rem}
-        .intro-notice-title{font-family:'Source Serif 4',serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#c4956a;margin-bottom:.6rem}
-        .intro-notice-item{font-family:'Source Serif 4',serif;font-size:.82rem;font-weight:300;color:#6b4c2a;line-height:1.85;display:flex;align-items:flex-start;gap:.5rem;margin-bottom:.2rem}
-        .intro-notice-item::before{content:"—";opacity:.5;flex-shrink:0}
-        .divider{width:48px;height:1px;background:#c4956a;margin:2rem 0}
-        .divider2{width:48px;height:1px;background:#4a8ab4;margin:2rem 0}
-        .q-list{margin-bottom:2rem}
-        .q-list-item{display:flex;align-items:center;gap:1.25rem;padding:.8rem 0;border-bottom:1px solid rgba(196,149,106,.25)}
-        .q-list-item2{display:flex;align-items:center;gap:1.25rem;padding:.8rem 0;border-bottom:1px solid rgba(74,138,180,.25)}
-        .q-num{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:#c4956a;min-width:28px;opacity:.7}
-        .q-num2{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:#4a8ab4;min-width:28px;opacity:.7}
-        .q-name{font-family:'Source Serif 4',serif;font-size:.9rem;font-weight:300;color:#5a3c1e}
-        .q-name2{font-family:'Source Serif 4',serif;font-size:.9rem;font-weight:300;color:#8ab4d4}
-        .start-btn{background:#2a1200;border:none;color:#fdf0e0;font-family:'Source Serif 4',serif;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;padding:1.1rem 2.8rem;cursor:pointer;transition:all .3s}
-        .start-btn:hover{background:#8b4513}
-        .start-btn2{background:#1a3a5a;border:none;color:#c8e0f0;font-family:'Source Serif 4',serif;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;padding:1.1rem 2.8rem;cursor:pointer;transition:all .3s}
-        .start-btn2:hover{background:#2a5a8a}
-        .quick-btn{background:transparent;border:1px solid #c4956a;color:#8b4513;font-family:'Source Serif 4',serif;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;padding:.85rem 2.2rem;cursor:pointer;transition:all .3s;margin-bottom:.75rem}
-        .quick-btn:hover{background:rgba(196,149,106,0.12)}
         .q-label{font-family:'Source Serif 4',serif;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:.6rem;opacity:.5}
         .q-title{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700;font-style:italic;line-height:1.15;margin-bottom:1.5rem}
         .q-prompt{font-family:'Source Serif 4',serif;font-size:.88rem;font-weight:300;line-height:1.9;margin-bottom:2rem;opacity:.75}
@@ -693,38 +686,40 @@ if (step === "mindmirror-intro") return "#fef6ed";
       `}</style>
 
       {step === "intro2" && (
-        <div className="container">
-          <div style={{color:"#4a8ab4", fontFamily:"'Source Serif 4',serif", fontSize:".7rem", letterSpacing:".25em", textTransform:"uppercase", marginBottom:"1.5rem"}}>AI 인지구조 분석 — 2단계</div>
-          <h1 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(2.4rem,6vw,3.6rem)", fontWeight:400, lineHeight:1.15, color:"#c8e0f0", marginBottom:"2rem"}}>당신은<br/>어떻게<br/>생각하나요</h1>
-          <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"1rem", fontWeight:300, color:"#8ab4d4", lineHeight:1.9, marginBottom:"1.25rem"}}>
+        <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
+          <div style={{color:"#4a8ab4",fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",marginBottom:"1.5rem"}}>AI 인지구조 분석 — 2단계</div>
+          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.4rem,6vw,3.6rem)",fontWeight:400,lineHeight:1.15,color:"#c8e0f0",marginBottom:"2rem"}}>당신은<br/>어떻게<br/>생각하나요</h1>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"#8ab4d4",lineHeight:1.9,marginBottom:"1.25rem"}}>
             1단계가 감정과 관계 패턴을 봤다면,<br/>
             2단계는 사고 구조와 인지 스타일을 봐요.<br/>
             더 깊은 층위의 질문들이에요.
           </p>
-          <div style={{background:"rgba(74,138,180,0.1)", borderLeft:"3px solid #4a8ab4", padding:"1.1rem 1.25rem", marginBottom:"2rem"}}>
-            <div style={{fontFamily:"'Source Serif 4',serif", fontSize:".68rem", letterSpacing:".2em", textTransform:"uppercase", color:"#4a8ab4", marginBottom:".6rem"}}>시작 전에</div>
-            <div style={{fontFamily:"'Source Serif 4',serif", fontSize:".82rem", fontWeight:300, color:"#8ab4d4", lineHeight:1.85, display:"flex", alignItems:"flex-start", gap:".5rem", marginBottom:".2rem"}}>
-              <span style={{opacity:.5}}>—</span>이번 질문들은 조금 더 복잡해요. 생각이 정리되지 않아도 괜찮아요.
-            </div>
-            <div style={{fontFamily:"'Source Serif 4',serif", fontSize:".82rem", fontWeight:300, color:"#8ab4d4", lineHeight:1.85, display:"flex", alignItems:"flex-start", gap:".5rem", marginBottom:".2rem"}}>
-              <span style={{opacity:.5}}>—</span>떠오르는 대로, 완성되지 않아도 써주세요.
-            </div>
-          </div>
-          <div className="divider2"/>
-          <div className="q-list">
-            {QUESTIONS2.map((q,i) => (
-              <div className="q-list-item2" key={q.id}>
-                <span className="q-num2">{i+1}</span>
-                <span className="q-name2">{q.title}</span>
+          <div style={{background:"rgba(74,138,180,0.1)",borderLeft:"3px solid #4a8ab4",padding:"1.1rem 1.25rem",marginBottom:"2rem"}}>
+            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".68rem",letterSpacing:".2em",textTransform:"uppercase",color:"#4a8ab4",marginBottom:".6rem"}}>시작 전에</div>
+            {["이번 질문들은 조금 더 복잡해요. 생각이 정리되지 않아도 괜찮아요.","떠오르는 대로, 완성되지 않아도 써주세요."].map((t,i) => (
+              <div key={i} style={{fontFamily:"'Source Serif 4',serif",fontSize:".82rem",fontWeight:300,color:"#8ab4d4",lineHeight:1.85,display:"flex",alignItems:"flex-start",gap:".5rem",marginBottom:".2rem"}}>
+                <span style={{opacity:.5}}>—</span>{t}
               </div>
             ))}
           </div>
-          <button className="start-btn2" onClick={() => setStep("questions")}>시작하기</button>
+          <div style={{width:"48px",height:"1px",background:"#4a8ab4",margin:"2rem 0"}}/>
+          <div style={{marginBottom:"2rem"}}>
+            {QUESTIONS2.map((q,i) => (
+              <div key={q.id} style={{display:"flex",alignItems:"center",gap:"1.25rem",padding:".8rem 0",borderBottom:"1px solid rgba(74,138,180,.25)"}}>
+                <span style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontStyle:"italic",color:"#4a8ab4",minWidth:"28px",opacity:.7}}>{i+1}</span>
+                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:".9rem",fontWeight:300,color:"#8ab4d4"}}>{q.title}</span>
+              </div>
+            ))}
+          </div>
+          <button
+            style={{background:"#1a3a5a",border:"none",color:"#c8e0f0",fontFamily:"'Source Serif 4',serif",fontSize:".82rem",letterSpacing:".18em",textTransform:"uppercase",padding:"1.1rem 2.8rem",cursor:"pointer"}}
+            onClick={() => setStep("questions")}
+          >시작하기</button>
         </div>
       )}
 
       {step === "questions" && (
-        <div className="container" style={{color: q.textColor}}>
+        <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1,color:q.textColor}}>
           <Decoration type={q.deco} color={q.accentColor}/>
           <div style={{width:"100%",height:"2px",background:"rgba(0,0,0,0.08)",marginBottom:"3rem",borderRadius:"2px"}}>
             <div style={{height:"100%",width:`${progress}%`,background:q.accentColor,borderRadius:"2px",transition:"width 0.5s ease"}}/>
@@ -739,27 +734,23 @@ if (step === "mindmirror-intro") return "#fef6ed";
             placeholder={q.placeholder}
             onKeyDown={e => { if(e.key==="Enter" && e.metaKey) handleNext(); }}
             style={{
-              width:"100%", minHeight:"160px",
-              background:"transparent", border:"none",
-              borderBottom:`2px solid ${q.borderColor}`,
-              color:q.textColor,
-              fontFamily:"'Source Serif 4',serif",
-              fontSize:"0.97rem", fontWeight:300,
-              lineHeight:1.85, padding:"0.5rem 0",
-              resize:"none", outline:"none"
+              width:"100%",minHeight:"160px",background:"transparent",border:"none",
+              borderBottom:`2px solid ${q.borderColor}`,color:q.textColor,
+              fontFamily:"'Source Serif 4',serif",fontSize:"0.97rem",fontWeight:300,
+              lineHeight:1.85,padding:"0.5rem 0",resize:"none",outline:"none"
             }}
           />
           <div className="char-count" style={{color:q.accentColor}}>{charCount}자</div>
           <div className="btn-row">
-            <button className="back-btn" onClick={handleBack} disabled={currentQ === 0} style={{color:q.accentColor}}>
+            <button className="back-btn" onClick={handleBack} disabled={currentQ===0} style={{color:q.accentColor}}>
               <span>←</span><span>이전</span>
             </button>
-            <div style={{display:"flex", alignItems:"center", gap:"1.5rem"}}>
+            <div style={{display:"flex",alignItems:"center",gap:"1.5rem"}}>
               {q.skippable && (
                 <button className="skip-btn" onClick={handleSkip} style={{color:q.accentColor}}>패스</button>
               )}
-              <button className={`next-btn ${canProceed ? "active" : ""}`} onClick={handleNext} style={{color:q.accentColor}}>
-                <span>{currentQ < questions.length-1 ? "다음 질문" : "분석 시작"}</span>
+              <button className={`next-btn ${canProceed?"active":""}`} onClick={handleNext} style={{color:q.accentColor}}>
+                <span>{currentQ<questions.length-1?"다음 질문":"분석 시작"}</span>
                 <span>→</span>
               </button>
             </div>
@@ -769,8 +760,8 @@ if (step === "mindmirror-intro") return "#fef6ed";
 
       {step === "analyzing" && (
         <div className="analyzing">
-          <p className={stage === 1 ? "analyzing-title" : "analyzing-title2"}>당신의 이야기를<br/>읽고 있어요</p>
-          <p className={stage === 1 ? "analyzing-sub" : "analyzing-sub2"}>잠시만요</p>
+          <p className={stage===1?"analyzing-title":"analyzing-title2"}>당신의 이야기를<br/>읽고 있어요</p>
+          <p className={stage===1?"analyzing-sub":"analyzing-sub2"}>잠시만요</p>
         </div>
       )}
 
@@ -778,15 +769,7 @@ if (step === "mindmirror-intro") return "#fef6ed";
         <div className="result-wrap" ref={resultRef}>
           <div className="result-eyebrow">분석 보고서 — 1단계</div>
           <h2 className="result-title">감정과 관계 패턴</h2>
-          <div
-            className="result-body"
-            dangerouslySetInnerHTML={{
-              __html: analysis
-                .replace(/## (.+)/g, '<h2>$1</h2>')
-                .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
-                .replace(/"(.+?)"/g, '<blockquote>"$1"</blockquote>')
-            }}
-          />
+          <div className="result-body" dangerouslySetInnerHTML={{__html: analysis.replace(/## (.+)/g,'<h2>$1</h2>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/"(.+?)"/g,'<blockquote>"$1"</blockquote>')}}/>
           <div className="result-actions">
             <button className="copy-btn" onClick={copyResult}>결과 복사</button>
             <button className="restart-btn" onClick={downloadResult}>결과 저장</button>
@@ -800,15 +783,7 @@ if (step === "mindmirror-intro") return "#fef6ed";
         <div className="result-wrap" ref={resultRef}>
           <div className="result-eyebrow2">분석 보고서 — 2단계</div>
           <h2 className="result-title2">사고 구조와 인지 스타일</h2>
-          <div
-            className="result-body2"
-            dangerouslySetInnerHTML={{
-              __html: analysis2
-                .replace(/## (.+)/g, '<h2>$1</h2>')
-                .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
-                .replace(/"(.+?)"/g, '<blockquote>"$1"</blockquote>')
-            }}
-          />
+          <div className="result-body2" dangerouslySetInnerHTML={{__html: analysis2.replace(/## (.+)/g,'<h2>$1</h2>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/"(.+?)"/g,'<blockquote>"$1"</blockquote>')}}/>
           <div className="result-actions">
             <button className="copy-btn2" onClick={copyResult}>결과 복사</button>
             <button className="restart-btn2" onClick={downloadResult}>결과 저장</button>
@@ -817,6 +792,5 @@ if (step === "mindmirror-intro") return "#fef6ed";
         </div>
       )}
     </div>
-        </>
   );
 }
