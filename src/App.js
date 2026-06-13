@@ -501,7 +501,8 @@ if (showQuickTest) {
   const canProceed = currentAnswer.trim().length > 0;
 
   const getBg = () => {
-    if (step === "intro") return "#fef6ed";
+    if (step === "intro") return "#e8e0d5";
+if (step === "mindmirror-intro") return "#fef6ed";
     if (step === "intro2") return "#0f1520";
     if (step === "questions") return q.bg;
     if (step === "analyzing") return stage === 1 ? "#f5ede0" : "#0f1520";
