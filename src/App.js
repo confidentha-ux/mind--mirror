@@ -588,10 +588,9 @@ if (showQuickTest) {
         .restart-btn2{background:transparent;border:1px solid #4a8ab4;color:#4a8ab4;font-family:'Source Serif 4',serif;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;padding:.75rem 1.75rem;transition:all .3s}
         .restart-btn2:hover{background:#1a3a5a;color:#c8e0f0}
       `}</style>
-
-      {step === "intro" && (
+{step === "intro" && (
   <div style={{
-    background: "#242420",
+    background: "#e8e0d5",
     minHeight: "100vh",
     display: "flex",
     alignItems: "center",
@@ -601,16 +600,13 @@ if (showQuickTest) {
     <div style={{ width: "100%", maxWidth: 680 }}>
 
       {/* 헤더 */}
-      <div style={{
-        textAlign: "center",
-        marginBottom: "4rem",
-      }}>
+      <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
         <div style={{
           fontFamily: "'Source Serif 4', serif",
-          fontSize: "0.65rem",
+          fontSize: "0.62rem",
           letterSpacing: "0.3em",
           textTransform: "uppercase",
-          color: "rgba(210,190,150,0.4)",
+          color: "rgba(42,18,0,0.35)",
           marginBottom: "1.5rem",
         }}>
           마음거울
@@ -620,9 +616,9 @@ if (showQuickTest) {
           fontSize: "clamp(2rem, 5vw, 3rem)",
           fontWeight: 400,
           fontStyle: "italic",
-          color: "#e8d8aa",
+          color: "#2a1200",
           lineHeight: 1.3,
-          marginBottom: "1.5rem",
+          marginBottom: "1.25rem",
         }}>
           당신은 어떤 사람인가요
         </h1>
@@ -630,7 +626,7 @@ if (showQuickTest) {
           fontFamily: "'Source Serif 4', serif",
           fontSize: "0.9rem",
           fontWeight: 300,
-          color: "rgba(210,190,150,0.6)",
+          color: "rgba(42,18,0,0.55)",
           lineHeight: 1.9,
           maxWidth: 480,
           margin: "0 auto",
@@ -641,48 +637,52 @@ if (showQuickTest) {
       </div>
 
       {/* 카드 세 개 */}
-      <div style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "1.5rem",
-        marginBottom: "3rem",
-      }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "3rem" }}>
 
         {/* 마음거울 카드 */}
         <div style={{
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(210,190,150,0.15)",
-          padding: "2rem",
+          background: "rgba(255,255,255,0.5)",
+          border: "1px solid rgba(42,18,0,0.1)",
+          padding: "1.75rem",
           cursor: "pointer",
           transition: "all 0.3s",
         }}
-          onClick={() => setStep("questions")}
-          onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.07)"}
-          onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}
+          onClick={() => setStep("mindmirror-intro")}
+          onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.8)"}
+          onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.5)"}
         >
           <div style={{ display: "flex", gap: "1.5rem", alignItems: "flex-start" }}>
             <img src="/intro.png" alt="마음거울" style={{
-              width: 80, height: 80,
+              width: 90, height: 90,
               objectFit: "cover",
-              opacity: 0.85,
               flexShrink: 0,
+              borderRadius: "2px",
             }} />
             <div>
               <div style={{
                 fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.6rem",
+                fontSize: "0.58rem",
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
-                color: "rgba(196,149,106,0.6)",
-                marginBottom: "0.4rem",
+                color: "rgba(42,18,0,0.4)",
+                marginBottom: "0.2rem",
               }}>
-                깊은 탐색
+                패턴 탐색
+              </div>
+              <div style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.75rem",
+                fontStyle: "italic",
+                color: "rgba(42,18,0,0.45)",
+                marginBottom: "0.5rem",
+              }}>
+                나는 왜 같은 상황을 반복하는가
               </div>
               <div style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "1.2rem",
                 fontStyle: "italic",
-                color: "#e8d8aa",
+                color: "#2a1200",
                 marginBottom: "0.6rem",
               }}>
                 마음거울
@@ -691,7 +691,7 @@ if (showQuickTest) {
                 fontFamily: "'Source Serif 4', serif",
                 fontSize: "0.83rem",
                 fontWeight: 300,
-                color: "rgba(210,190,150,0.6)",
+                color: "rgba(42,18,0,0.6)",
                 lineHeight: 1.8,
                 margin: 0,
               }}>
@@ -703,39 +703,48 @@ if (showQuickTest) {
 
         {/* 퀵테스트 카드 */}
         <div style={{
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(210,190,150,0.15)",
-          padding: "2rem",
+          background: "rgba(255,255,255,0.5)",
+          border: "1px solid rgba(42,18,0,0.1)",
+          padding: "1.75rem",
           cursor: "pointer",
           transition: "all 0.3s",
         }}
           onClick={() => setShowQuickTest(true)}
-          onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.07)"}
-          onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}
+          onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.8)"}
+          onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.5)"}
         >
           <div style={{ display: "flex", gap: "1.5rem", alignItems: "flex-start" }}>
             <img src="/quicktest.png" alt="퀵테스트" style={{
-              width: 80, height: 80,
+              width: 90, height: 90,
               objectFit: "cover",
-              opacity: 0.85,
               flexShrink: 0,
+              borderRadius: "2px",
             }} />
             <div>
               <div style={{
                 fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.6rem",
+                fontSize: "0.58rem",
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
-                color: "rgba(196,149,106,0.6)",
-                marginBottom: "0.4rem",
+                color: "rgba(42,18,0,0.4)",
+                marginBottom: "0.2rem",
               }}>
-                5분 탐색
+                유형 탐색
+              </div>
+              <div style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.75rem",
+                fontStyle: "italic",
+                color: "rgba(42,18,0,0.45)",
+                marginBottom: "0.5rem",
+              }}>
+                5분 안에 나의 인지 유형 확인
               </div>
               <div style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "1.2rem",
                 fontStyle: "italic",
-                color: "#e8d8aa",
+                color: "#2a1200",
                 marginBottom: "0.6rem",
               }}>
                 퀵테스트
@@ -744,7 +753,7 @@ if (showQuickTest) {
                 fontFamily: "'Source Serif 4', serif",
                 fontSize: "0.83rem",
                 fontWeight: 300,
-                color: "rgba(210,190,150,0.6)",
+                color: "rgba(42,18,0,0.6)",
                 lineHeight: 1.8,
                 margin: 0,
               }}>
@@ -756,40 +765,48 @@ if (showQuickTest) {
 
         {/* 오라클 카드 */}
         <div style={{
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(210,190,150,0.15)",
-          padding: "2rem",
+          background: "rgba(255,255,255,0.5)",
+          border: "1px solid rgba(42,18,0,0.1)",
+          padding: "1.75rem",
           cursor: "pointer",
           transition: "all 0.3s",
         }}
           onClick={() => setShowOracle(true)}
-          onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.07)"}
-          onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}
+          onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.8)"}
+          onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.5)"}
         >
           <div style={{ display: "flex", gap: "1.5rem", alignItems: "flex-start" }}>
             <img src="/door-closed.png" alt="오라클" style={{
-              width: 80, height: 80,
+              width: 90, height: 90,
               objectFit: "cover",
-              opacity: 0.85,
               flexShrink: 0,
-              mixBlendMode: "screen",
+              borderRadius: "2px",
             }} />
             <div>
               <div style={{
                 fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.6rem",
+                fontSize: "0.58rem",
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
-                color: "rgba(196,149,106,0.6)",
-                marginBottom: "0.4rem",
+                color: "rgba(42,18,0,0.4)",
+                marginBottom: "0.2rem",
               }}>
-                신탁
+                질문 탐색
+              </div>
+              <div style={{
+                fontFamily: "'Source Serif 4', serif",
+                fontSize: "0.75rem",
+                fontStyle: "italic",
+                color: "rgba(42,18,0,0.45)",
+                marginBottom: "0.5rem",
+              }}>
+                지금 내가 하고 있는 진짜 질문은
               </div>
               <div style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "1.2rem",
                 fontStyle: "italic",
-                color: "#e8d8aa",
+                color: "#2a1200",
                 marginBottom: "0.6rem",
               }}>
                 오라클
@@ -798,7 +815,7 @@ if (showQuickTest) {
                 fontFamily: "'Source Serif 4', serif",
                 fontSize: "0.83rem",
                 fontWeight: 300,
-                color: "rgba(210,190,150,0.6)",
+                color: "rgba(42,18,0,0.6)",
                 lineHeight: 1.8,
                 margin: 0,
               }}>
@@ -814,9 +831,9 @@ if (showQuickTest) {
       <div style={{
         textAlign: "center",
         fontFamily: "'Playfair Display', serif",
-        fontSize: "0.8rem",
+        fontSize: "0.85rem",
         fontStyle: "italic",
-        color: "rgba(210,190,150,0.2)",
+        color: "rgba(42,18,0,0.2)",
         letterSpacing: "0.1em",
       }}>
         γνῶθι σεαυτόν
@@ -825,6 +842,7 @@ if (showQuickTest) {
     </div>
   </div>
 )}
+{step === "mindmirror-intro" && (
         <div className="container">
           <div className="intro-eyebrow">AI 인지구조 분석 — 1단계</div>
           <h1 className="intro-title">당신은<br/>어떻게<br/>생각하나요</h1>
@@ -851,13 +869,7 @@ if (showQuickTest) {
               </div>
             ))}
           </div>
-          <div style={{display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"0.5rem"}}>
-            <button className="quick-btn" onClick={() => setShowQuickTest(true)}>
-  🪞 퀵테스트 먼저 해보기
-</button>
-<button className="quick-btn" onClick={() => setShowOracle(true)}>
-  🏛️ 나의 오라클 — 문을 열다
-</button>  
+        
             <button className="start-btn" onClick={() => setStep("questions")}>마음거울 시작하기</button>
           </div>
         </div>
