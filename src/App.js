@@ -491,11 +491,11 @@ const [showOracle, setShowOracle] = useState(false);
 if (step === "intro") {
   return (
     <div style={{background:"#e8ede4",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem 1.25rem"}}>
-      <div style={{width:"100%",maxWidth:680}}>
+      <<style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`}</style>div style={{width:"100%",maxWidth:680}}>
         <div style={{textAlign:"center",marginBottom:"3.5rem"}}>
-          <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.3em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)",marginBottom:"1.5rem"}}>마음거울</div>
+          <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.3em",textTransform:"uppercase",color:"rgba(42,18,0,0.6)",marginBottom:"1.5rem"}}>마음거울</div>
           <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,5vw,3rem)",fontWeight:400,fontStyle:"italic",color:"#2a1200",lineHeight:1.3,marginBottom:"1.25rem"}}>당신은 어떤 사람인가요</h1>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.9,maxWidth:480,margin:"0 auto"}}>우리는 각자 다른 방식으로 생각하고, 느끼고, 반응합니다.<br/>세 가지 도구로 당신을 탐색해보세요.</p>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,color:"rgba(42,18,0,0.8)",lineHeight:1.9,maxWidth:480,margin:"0 auto"}}>우리는 각자 다른 방식으로 생각하고, 느끼고, 반응합니다.<br/>세 가지 도구로 당신을 탐색해보세요.</p>
         </div>
         <div style={{display:"flex",flexDirection:"column",gap:"1rem",marginBottom:"3rem"}}>
           <div style={{background:"rgba(255,255,255,0.5)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}} onClick={() => setStep("mindmirror-intro")}>
@@ -532,7 +532,8 @@ if (step === "intro") {
             </div>
           </div>
         </div>
-        <div style={{textAlign:"center",fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(42,18,0,0.2)",letterSpacing:"0.1em"}}>γνῶθι σεαυτόν</div>
+        <div style={{textAlign:"center",fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(42,18,0,0.6)",letterSpacing:"0.1em"}}>γνῶθι σεαυτόν<<div>γνῶθι σεαυτόν</div>
+<div style={{fontSize:"0.75rem",marginTop:"0.5rem",letterSpacing:"0.1em",color:"rgba(42,18,0,0.6)"}}>너 자신을 알라</div>/div>
       </div>
     </div>
   );
