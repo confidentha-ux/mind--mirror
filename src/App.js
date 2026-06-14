@@ -492,84 +492,94 @@ export default function App() {
 
   // ── 메인 랜딩 ───────────────────────────────────────────────────
   if (step === "intro") {
+    const cardStyle = (bg) => ({
+      background: bg,
+      border: "1px solid rgba(42,18,0,0.08)",
+      cursor: "pointer",
+      transition: "all 0.3s",
+      overflow: "hidden",
+      borderRadius: "2px",
+    });
+
     return (
       <div style={{background:"#e8ede4",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem 1.25rem"}}>
-        <style>{FONTS}</style>
+        <style>{FONTS + `
+          .intro-card:hover { box-shadow: 0 4px 24px rgba(42,18,0,0.10); transform: translateY(-2px); }
+          .intro-card { transition: all 0.3s; border-radius: 2px; overflow: hidden; cursor: pointer; }
+        `}</style>
         <div style={{width:"100%",maxWidth:680}}>
 
           {/* 헤더 */}
-          <div style={{textAlign:"center",marginBottom:"3.5rem"}}>
-            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.3em",textTransform:"uppercase",color:"rgba(42,18,0,0.5)",marginBottom:"1.5rem"}}>마음거울</div>
-            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,5vw,3rem)",fontWeight:400,fontStyle:"italic",color:"#2a1200",lineHeight:1.3,marginBottom:"1.25rem"}}>당신은 어떤 사람인가요</h1>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,color:"rgba(42,18,0,0.7)",lineHeight:1.9,maxWidth:480,margin:"0 auto"}}>우리는 각자 다른 방식으로 생각하고, 느끼고, 반응합니다.<br/>세 가지 도구로 당신을 탐색해보세요.</p>
+          <div style={{textAlign:"center",marginBottom:"3rem"}}>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,5vw,3rem)",fontWeight:400,fontStyle:"italic",color:"#2a1200",lineHeight:1.3,marginBottom:"1rem"}}>당신은 어떤 사람인가요</h1>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.9,maxWidth:440,margin:"0 auto"}}>세 가지 도구로 당신을 탐색해보세요.</p>
           </div>
 
           {/* 카드 목록 */}
-          <div style={{display:"flex",flexDirection:"column",gap:"1rem",marginBottom:"3rem"}}>
+          <div style={{display:"flex",flexDirection:"column",gap:"1.25rem",marginBottom:"3.5rem"}}>
 
             {/* 01 퀵테스트 */}
-            <div
-              style={{background:"rgba(255,255,255,0.55)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}}
-              onClick={() => setShowQuickTest(true)}
-              onMouseEnter={e => e.currentTarget.style.background="rgba(255,255,255,0.8)"}
-              onMouseLeave={e => e.currentTarget.style.background="rgba(255,255,255,0.55)"}
-            >
-              <div style={{display:"flex",gap:"1.25rem",alignItems:"flex-start"}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",fontStyle:"italic",color:"rgba(42,18,0,0.12)",lineHeight:1,flexShrink:0,minWidth:"2.5rem",paddingTop:"0.2rem"}}>01</div>
-                <img src="/intro.png" alt="퀵테스트" style={{width:80,height:80,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
-                <div>
-                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>유형 탐색</div>
-                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>5분 안에 나의 인지 유형 확인</div>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.6rem"}}>퀵테스트</div>
-                  <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.8,margin:0}}>생각하고 결정하는 방식에는 각자의 패턴이 있어요. 열 가지 상황 질문에 답하면 당신의 인지 유형을 찾아드려요.</p>
+            <div className="intro-card" style={{...cardStyle("#fdfaf5"),border:"1px solid rgba(42,18,0,0.08)"}} onClick={() => setShowQuickTest(true)}>
+              <div style={{width:"100%",height:180,overflow:"hidden",background:"#f0ebe0"}}>
+                <img src="/intro.png" alt="퀵테스트" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
+              </div>
+              <div style={{padding:"1.5rem 1.75rem"}}>
+                <div style={{display:"flex",alignItems:"baseline",gap:"0.75rem",marginBottom:"0.75rem"}}>
+                  <span style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontStyle:"italic",color:"rgba(42,18,0,0.1)",lineHeight:1}}>01</span>
+                  <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)"}}>유형 탐색</span>
                 </div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.4)",marginBottom:"0.4rem"}}>5분 안에 나의 인지 유형 확인</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.35rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.75rem"}}>퀵테스트</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.85,margin:0}}>생각하고 결정하는 방식에는 각자의 패턴이 있어요. 열 가지 상황 질문에 답하면 당신의 인지 유형을 찾아드려요.</p>
               </div>
             </div>
 
             {/* 02 마음거울 */}
-            <div
-              style={{background:"rgba(255,255,255,0.55)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}}
-              onClick={() => setStep("mindmirror-intro")}
-              onMouseEnter={e => e.currentTarget.style.background="rgba(255,255,255,0.8)"}
-              onMouseLeave={e => e.currentTarget.style.background="rgba(255,255,255,0.55)"}
-            >
-              <div style={{display:"flex",gap:"1.25rem",alignItems:"flex-start"}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",fontStyle:"italic",color:"rgba(42,18,0,0.12)",lineHeight:1,flexShrink:0,minWidth:"2.5rem",paddingTop:"0.2rem"}}>02</div>
-                <img src="/quicktest.png" alt="마음거울" style={{width:80,height:80,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
-                <div>
-                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>패턴 탐색 · 1단계 + 2단계</div>
-                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>나는 왜 같은 상황을 반복하는가</div>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.6rem"}}>마음거울</div>
-                  <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.8,margin:0}}>감정과 관계 패턴부터 사고 구조까지, 두 단계로 깊게 들어가요.</p>
+            <div className="intro-card" style={{...cardStyle("#faf7f2"),border:"1px solid rgba(42,18,0,0.08)"}} onClick={() => setStep("mindmirror-intro")}>
+              <div style={{width:"100%",height:180,overflow:"hidden",background:"#ede8df"}}>
+                <img src="/quicktest.png" alt="마음거울" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
+              </div>
+              <div style={{padding:"1.5rem 1.75rem"}}>
+                <div style={{display:"flex",alignItems:"baseline",gap:"0.75rem",marginBottom:"0.75rem"}}>
+                  <span style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontStyle:"italic",color:"rgba(42,18,0,0.1)",lineHeight:1}}>02</span>
+                  <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)"}}>패턴 탐색 · 1단계 + 2단계</span>
                 </div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.4)",marginBottom:"0.4rem"}}>나는 왜 같은 상황을 반복하는가</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.35rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.75rem"}}>마음거울</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.85,margin:0}}>감정과 관계 패턴부터 사고 구조까지, 두 단계로 깊게 들어가요.</p>
               </div>
             </div>
 
             {/* 03 오라클 */}
-            <div
-              style={{background:"rgba(255,255,255,0.55)",border:"1px solid rgba(42,18,0,0.1)",padding:"1.75rem",cursor:"pointer",transition:"all 0.3s"}}
-              onClick={() => setShowOracle(true)}
-              onMouseEnter={e => e.currentTarget.style.background="rgba(255,255,255,0.8)"}
-              onMouseLeave={e => e.currentTarget.style.background="rgba(255,255,255,0.55)"}
-            >
-              <div style={{display:"flex",gap:"1.25rem",alignItems:"flex-start"}}>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"2rem",fontStyle:"italic",color:"rgba(42,18,0,0.12)",lineHeight:1,flexShrink:0,minWidth:"2.5rem",paddingTop:"0.2rem"}}>03</div>
-                <img src="/door-closed.png" alt="오라클" style={{width:80,height:80,objectFit:"contain",flexShrink:0,borderRadius:"2px"}}/>
-                <div>
-                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(42,18,0,0.4)",marginBottom:"0.2rem"}}>질문 탐색</div>
-                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.45)",marginBottom:"0.5rem"}}>지금 내가 하고 있는 진짜 질문은</div>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.6rem"}}>오라클</div>
-                  <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.8,margin:0}}>답을 주지 않아요. 당신이 이미 알고 있었지만 아직 말로 꺼내지 못한 것들을 비춰드립니다.</p>
+            <div className="intro-card" style={{...cardStyle("#f5f2ee"),border:"1px solid rgba(42,18,0,0.08)"}} onClick={() => setShowOracle(true)}>
+              <div style={{width:"100%",height:180,overflow:"hidden",background:"#e8e2d8"}}>
+                <img src="/door-closed.png" alt="오라클" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
+              </div>
+              <div style={{padding:"1.5rem 1.75rem"}}>
+                <div style={{display:"flex",alignItems:"baseline",gap:"0.75rem",marginBottom:"0.75rem"}}>
+                  <span style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontStyle:"italic",color:"rgba(42,18,0,0.1)",lineHeight:1}}>03</span>
+                  <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)"}}>질문 탐색</span>
                 </div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.4)",marginBottom:"0.4rem"}}>지금 내가 하고 있는 진짜 질문은</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.35rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.75rem"}}>오라클</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.85,margin:0}}>답을 주지 않아요. 당신이 이미 알고 있었지만 아직 말로 꺼내지 못한 것들을 비춰드립니다.</p>
               </div>
             </div>
 
           </div>
 
-          {/* 하단 */}
-          <div style={{textAlign:"center"}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(42,18,0,0.5)",letterSpacing:"0.1em"}}>γνῶθι σεαυτόν</div>
-            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",marginTop:"0.5rem",letterSpacing:"0.1em",color:"rgba(42,18,0,0.4)"}}>너 자신을 알라</div>
+          {/* 하단 그리스어 */}
+          <div style={{textAlign:"center",padding:"2rem 0"}}>
+            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",fontStyle:"italic",color:"rgba(42,18,0,0.55)",letterSpacing:"0.08em",marginBottom:"0.6rem"}}>γνῶθι σεαυτόν · 너 자신을 알라</div>
+            <div style={{width:"32px",height:"1px",background:"rgba(42,18,0,0.15)",margin:"1rem auto"}}/>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.45)",lineHeight:2,maxWidth:380,margin:"0 auto"}}>
+              2,500년 전 델포이 신전에 새겨진 말.<br/>
+              가장 오래된 질문이 아직도 가장 어렵습니다.<br/><br/>
+              당신은 아직 자신을 다 모릅니다 —<br/>
+              마음거울은 거기서 시작해요.<br/><br/>
+              고대 그리스인들이 신탁을 구하러 가기 전,<br/>
+              이 말 앞에 멈춰 섰습니다.
+            </p>
           </div>
 
         </div>
