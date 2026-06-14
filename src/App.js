@@ -492,53 +492,72 @@ export default function App() {
 
   // ── 메인 랜딩 ───────────────────────────────────────────────────
   if (step === "intro") {
-    const cardStyle = (bg) => ({
-      background: bg,
-      border: "1px solid rgba(42,18,0,0.08)",
-      cursor: "pointer",
-      transition: "all 0.3s",
-      overflow: "hidden",
-      borderRadius: "2px",
-    });
-
     return (
-      <div style={{background:"#e8ede4",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem 1.25rem"}}>
+      <div style={{background:"#2d5a2d",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem 1.25rem"}}>
         <style>{FONTS + `
-          .intro-card:hover { box-shadow: 0 4px 24px rgba(42,18,0,0.10); transform: translateY(-2px); }
-          .intro-card { transition: all 0.3s; border-radius: 2px; overflow: hidden; cursor: pointer; }
+          .intro-card { transition: all 0.3s; cursor: pointer; background: rgba(255,255,255,0.92); border: 1px solid rgba(255,255,255,0.15); position: relative; overflow: hidden; }
+          .intro-card:hover { background: rgba(255,255,255,0.98); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,0.2); }
         `}</style>
         <div style={{width:"100%",maxWidth:680}}>
 
           {/* 헤더 */}
           <div style={{textAlign:"center",marginBottom:"3rem"}}>
-            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,5vw,3rem)",fontWeight:400,fontStyle:"italic",color:"#2a1200",lineHeight:1.3,marginBottom:"1rem"}}>당신은 어떤 사람인가요</h1>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(42,18,0,0.6)",lineHeight:1.9,maxWidth:440,margin:"0 auto"}}>세 가지 도구로 당신을 탐색해보세요.</p>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,5vw,2.8rem)",fontWeight:400,fontStyle:"italic",color:"#f0ede8",lineHeight:1.3,marginBottom:"1.25rem"}}>나를 읽는 세 가지 렌즈</h1>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.6)",lineHeight:2,maxWidth:420,margin:"0 auto"}}>
+              잘하고 싶은데 방법을 모르겠다면.<br/>
+              나를 설명할 말이 없다면.<br/>
+              왜 항상 같은 상황에서 막히는지 모르겠다면.<br/><br/>
+              세 가지 렌즈로 들여다봐요.
+            </p>
           </div>
 
           {/* 카드 목록 */}
           <div style={{display:"flex",flexDirection:"column",gap:"1.25rem",marginBottom:"3.5rem"}}>
 
-            {/* 01 퀵테스트 */}
-            <div className="intro-card" style={{...cardStyle("#fdfaf5"),border:"1px solid rgba(42,18,0,0.08)"}} onClick={() => setShowQuickTest(true)}>
-              <div style={{width:"100%",height:180,overflow:"hidden",background:"#f0ebe0"}}>
-                <img src="/intro.png" alt="퀵테스트" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
-              </div>
+            {/* 01 나 사용 설명서 */}
+            <div className="intro-card" onClick={() => setShowQuickTest(true)}>
+              {/* 나침반 SVG */}
+              <svg width="200" height="200" viewBox="0 0 200 200" style={{position:"absolute",right:"-30px",top:"50%",transform:"translateY(-50%)",opacity:0.08,pointerEvents:"none"}}>
+                <circle cx="100" cy="100" r="88" fill="none" stroke="#2a1200" strokeWidth="1.5"/>
+                <circle cx="100" cy="100" r="75" fill="none" stroke="#2a1200" strokeWidth="0.7" strokeDasharray="4,6"/>
+                <circle cx="100" cy="100" r="55" fill="none" stroke="#2a1200" strokeWidth="1"/>
+                <line x1="12" y1="100" x2="188" y2="100" stroke="#2a1200" strokeWidth="0.8"/>
+                <line x1="100" y1="12" x2="100" y2="188" stroke="#2a1200" strokeWidth="0.8"/>
+                <line x1="38" y1="38" x2="162" y2="162" stroke="#2a1200" strokeWidth="0.6"/>
+                <line x1="162" y1="38" x2="38" y2="162" stroke="#2a1200" strokeWidth="0.6"/>
+                <line x1="100" y1="12" x2="100" y2="22" stroke="#2a1200" strokeWidth="2.5"/>
+                <line x1="100" y1="178" x2="100" y2="188" stroke="#2a1200" strokeWidth="1.5"/>
+                <line x1="12" y1="100" x2="22" y2="100" stroke="#2a1200" strokeWidth="1.5"/>
+                <line x1="178" y1="100" x2="188" y2="100" stroke="#2a1200" strokeWidth="1.5"/>
+                <polygon points="100,25 95,100 105,100" fill="#2a1200"/>
+                <polygon points="100,175 95,100 105,100" fill="none" stroke="#2a1200" strokeWidth="1.2"/>
+                <circle cx="100" cy="100" r="7" fill="none" stroke="#2a1200" strokeWidth="1.5"/>
+                <text x="100" y="10" textAnchor="middle" fontFamily="serif" fontSize="12" fontStyle="italic" fill="#2a1200">N</text>
+                <circle cx="100" cy="100" r="3.5" fill="#2a1200"/>
+              </svg>
               <div style={{padding:"1.5rem 1.75rem"}}>
                 <div style={{display:"flex",alignItems:"baseline",gap:"0.75rem",marginBottom:"0.75rem"}}>
                   <span style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontStyle:"italic",color:"rgba(42,18,0,0.1)",lineHeight:1}}>01</span>
                   <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)"}}>유형 탐색</span>
                 </div>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.4)",marginBottom:"0.4rem"}}>5분 안에 나의 인지 유형 확인</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.35rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.75rem"}}>퀵테스트</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.85,margin:0}}>생각하고 결정하는 방식에는 각자의 패턴이 있어요. 열 가지 상황 질문에 답하면 당신의 인지 유형을 찾아드려요.</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.4)",marginBottom:"0.4rem"}}>나는 어떻게 움직이는 사람일까</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.35rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.75rem"}}>나 사용 설명서</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.85,margin:0}}>잘하고 싶은데 내 방식이 뭔지 모르겠다면. 11가지 상황 질문에 답하면 당신이 정보를 받아들이고, 결정하고, 사람과 부딪히는 방식을 찾아드려요. 강점도, 막히는 지점도요.</p>
               </div>
             </div>
 
             {/* 02 마음거울 */}
-            <div className="intro-card" style={{...cardStyle("#faf7f2"),border:"1px solid rgba(42,18,0,0.08)"}} onClick={() => setStep("mindmirror-intro")}>
-              <div style={{width:"100%",height:180,overflow:"hidden",background:"#ede8df"}}>
-                <img src="/quicktest.png" alt="마음거울" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
-              </div>
+            <div className="intro-card" onClick={() => setStep("mindmirror-intro")}>
+              {/* 나선 SVG */}
+              <svg width="180" height="180" viewBox="0 0 180 180" style={{position:"absolute",right:"-20px",top:"50%",transform:"translateY(-50%)",opacity:0.08,pointerEvents:"none"}}>
+                <circle cx="90" cy="90" r="75" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
+                <circle cx="90" cy="90" r="58" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
+                <circle cx="90" cy="90" r="42" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
+                <circle cx="90" cy="90" r="26" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
+                <circle cx="90" cy="90" r="10" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
+                <path d="M90,90 Q90,80 100,80 Q110,80 110,90 Q110,105 90,107 Q68,107 66,88 Q64,68 90,66 Q116,66 118,90 Q120,118 90,121 Q57,121 54,88 Q51,56 90,53 Q128,53 131,90 Q134,130 90,134 Q44,134 40,88" fill="none" stroke="#2a1200" strokeWidth="1.4" strokeLinecap="round"/>
+                <circle cx="90" cy="90" r="3" fill="#2a1200"/>
+              </svg>
               <div style={{padding:"1.5rem 1.75rem"}}>
                 <div style={{display:"flex",alignItems:"baseline",gap:"0.75rem",marginBottom:"0.75rem"}}>
                   <span style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontStyle:"italic",color:"rgba(42,18,0,0.1)",lineHeight:1}}>02</span>
@@ -551,16 +570,27 @@ export default function App() {
             </div>
 
             {/* 03 오라클 */}
-            <div className="intro-card" style={{...cardStyle("#f5f2ee"),border:"1px solid rgba(42,18,0,0.08)"}} onClick={() => setShowOracle(true)}>
-              <div style={{width:"100%",height:180,overflow:"hidden",background:"#e8e2d8"}}>
-                <img src="/door-closed.png" alt="오라클" style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center"}}/>
-              </div>
+            <div className="intro-card" onClick={() => setShowOracle(true)}>
+              {/* 꽃병 SVG */}
+              <svg width="160" height="220" viewBox="0 0 160 220" style={{position:"absolute",right:"-20px",top:"50%",transform:"translateY(-50%)",opacity:0.08,pointerEvents:"none"}}>
+                <ellipse cx="80" cy="22" rx="20" ry="5" fill="none" stroke="#2a1200" strokeWidth="1.8" strokeLinecap="round"/>
+                <path d="M60,22 Q56,38 52,52" fill="none" stroke="#2a1200" strokeWidth="1.8" strokeLinecap="round"/>
+                <path d="M100,22 Q104,38 108,52" fill="none" stroke="#2a1200" strokeWidth="1.8" strokeLinecap="round"/>
+                <path d="M52,52 Q30,70 28,110 Q26,148 32,170 Q38,188 50,196" fill="none" stroke="#2a1200" strokeWidth="1.8" strokeLinecap="round"/>
+                <path d="M108,52 Q130,70 132,110 Q134,148 128,170 Q122,188 110,196" fill="none" stroke="#2a1200" strokeWidth="1.8" strokeLinecap="round"/>
+                <path d="M54,48 Q80,52 106,48" fill="none" stroke="#2a1200" strokeWidth="1.2" strokeLinecap="round"/>
+                <path d="M52,56 Q80,60 108,56" fill="none" stroke="#2a1200" strokeWidth="1" strokeLinecap="round"/>
+                <path d="M30,118 Q80,124 130,118" fill="none" stroke="#2a1200" strokeWidth="1" strokeLinecap="round"/>
+                <path d="M29,130 Q80,136 131,130" fill="none" stroke="#2a1200" strokeWidth="1" strokeLinecap="round"/>
+                <path d="M50,196 Q80,204 110,196" fill="none" stroke="#2a1200" strokeWidth="1.8" strokeLinecap="round"/>
+                <ellipse cx="80" cy="200" rx="32" ry="6" fill="none" stroke="#2a1200" strokeWidth="1.8" strokeLinecap="round"/>
+              </svg>
               <div style={{padding:"1.5rem 1.75rem"}}>
                 <div style={{display:"flex",alignItems:"baseline",gap:"0.75rem",marginBottom:"0.75rem"}}>
                   <span style={{fontFamily:"'Playfair Display',serif",fontSize:"1.6rem",fontStyle:"italic",color:"rgba(42,18,0,0.1)",lineHeight:1}}>03</span>
                   <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)"}}>질문 탐색</span>
                 </div>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.4)",marginBottom:"0.4rem"}}>지금 내가 하고 있는 진짜 질문은</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.75rem",fontStyle:"italic",color:"rgba(42,18,0,0.4)",marginBottom:"0.4rem"}}>실제로 원하는 것, 스스로에게 던지는 진짜 질문</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.35rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.75rem"}}>오라클</div>
                 <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.83rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.85,margin:0}}>답을 주지 않아요. 당신이 이미 알고 있었지만 아직 말로 꺼내지 못한 것들을 비춰드립니다.</p>
               </div>
@@ -568,18 +598,9 @@ export default function App() {
 
           </div>
 
-          {/* 하단 그리스어 */}
-          <div style={{textAlign:"center",padding:"2rem 0"}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",fontStyle:"italic",color:"rgba(42,18,0,0.55)",letterSpacing:"0.08em",marginBottom:"0.6rem"}}>γνῶθι σεαυτόν · 너 자신을 알라</div>
-            <div style={{width:"32px",height:"1px",background:"rgba(42,18,0,0.15)",margin:"1rem auto"}}/>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.45)",lineHeight:2,maxWidth:380,margin:"0 auto"}}>
-              2,500년 전 델포이 신전에 새겨진 말.<br/>
-              가장 오래된 질문이 아직도 가장 어렵습니다.<br/><br/>
-              당신은 아직 자신을 다 모릅니다 —<br/>
-              마음거울은 거기서 시작해요.<br/><br/>
-              고대 그리스인들이 신탁을 구하러 가기 전,<br/>
-              이 말 앞에 멈춰 섰습니다.
-            </p>
+          {/* 하단 */}
+          <div style={{textAlign:"center",padding:"1.5rem 0"}}>
+            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"0.9rem",fontStyle:"italic",color:"rgba(240,237,232,0.4)",letterSpacing:"0.08em"}}>γνῶθι σεαυτόν · 너 자신을 알라</div>
           </div>
 
         </div>
