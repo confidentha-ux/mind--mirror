@@ -159,7 +159,7 @@ const ORACLE_SYSTEM_PROMPT = `당신은 Story Oracle이다.
 반드시 한국어로 응답하라.
 반드시 ## Reflection, ## Recognition, ## Oracle, ## Story, ## Empowerment 헤더를 정확히 사용하라.`;
 
-// 꽃병 SVG 컴포넌트
+// 꽃병 SVG — 단순한 선 드로잉
 const VaseSVG = () => (
   <svg
     width="320"
@@ -174,21 +174,15 @@ const VaseSVG = () => (
       pointerEvents: "none",
     }}
   >
-    {/* 입구 */}
     <ellipse cx="80" cy="22" rx="20" ry="5" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
-    {/* 목 */}
     <path d="M60,22 Q56,38 52,52" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
     <path d="M100,22 Q104,38 108,52" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
-    {/* 어깨 ~ 몸통 */}
     <path d="M52,52 Q30,70 28,110 Q26,148 32,170 Q38,188 50,196" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
     <path d="M108,52 Q130,70 132,110 Q134,148 128,170 Q122,188 110,196" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
-    {/* 목 가로선 두 개 */}
     <path d="M54,48 Q80,52 106,48" fill="none" stroke="#0d2e2a" strokeWidth="1.2" strokeLinecap="round"/>
     <path d="M52,56 Q80,60 108,56" fill="none" stroke="#0d2e2a" strokeWidth="1" strokeLinecap="round"/>
-    {/* 몸통 가로선 */}
     <path d="M30,118 Q80,124 130,118" fill="none" stroke="#0d2e2a" strokeWidth="1" strokeLinecap="round"/>
     <path d="M29,130 Q80,136 131,130" fill="none" stroke="#0d2e2a" strokeWidth="1" strokeLinecap="round"/>
-    {/* 바닥 */}
     <path d="M50,196 Q80,204 110,196" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
     <ellipse cx="80" cy="200" rx="32" ry="6" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
   </svg>
@@ -292,6 +286,7 @@ export default function Oracle({ onBack }) {
       });
       const data = await res.json();
       const text = data.content?.[0]?.text || "";
+      localStorage.setItem("mindmirror_oracle", text);
       setOracleText(text);
       setPhase("result");
     } catch (e) {
@@ -327,11 +322,8 @@ export default function Oracle({ onBack }) {
 
   const parsed = oracleText ? parseOracle(oracleText) : {};
 
-  // 인트로는 민트, 결과는 라벤더
   const bgColor = phase === "result" ? "#e8e0f5" : "#7dd4c8";
   const textColor = phase === "result" ? "#2a1a4a" : "#0d2e2a";
-  const accentColor = phase === "result" ? "rgba(90,58,138,0.6)" : "rgba(13,46,42,0.6)";
-  const borderColor = phase === "result" ? "rgba(90,58,138,0.2)" : "rgba(13,46,42,0.2)";
 
   return (
     <div style={{
@@ -347,290 +339,124 @@ export default function Oracle({ onBack }) {
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400&display=swap');
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(28px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes breathe {
-          0%, 100% { opacity: 0.35; }
-          50% { opacity: 0.9; }
-        }
-        @keyframes flicker {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 0.85; }
-        }
-        .oracle-appear {
-          animation: fadeUp 1.8s ease forwards;
-          opacity: 0;
-        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes breathe { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.9; } }
+        @keyframes flicker { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.85; } }
+        .oracle-appear { animation: fadeUp 1.8s ease forwards; opacity: 0; }
         .oracle-option {
-          width: 100%;
-          background: transparent;
+          width: 100%; background: transparent;
           border: 1px solid rgba(13,46,42,0.15);
           color: rgba(13,46,42,0.65);
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.87rem;
-          font-weight: 300;
-          text-align: left;
-          padding: 0.85rem 1.1rem;
-          cursor: pointer;
-          transition: all 0.3s;
-          margin-bottom: 0.45rem;
-          border-radius: 1px;
-          line-height: 1.5;
+          font-family: 'Source Serif 4', serif; font-size: 0.87rem; font-weight: 300;
+          text-align: left; padding: 0.85rem 1.1rem; cursor: pointer;
+          transition: all 0.3s; margin-bottom: 0.45rem; border-radius: 1px; line-height: 1.5;
         }
-        .oracle-option:hover {
-          background: rgba(13,46,42,0.06);
-          border-color: rgba(13,46,42,0.35);
-          color: #0d2e2a;
-        }
-        .oracle-option.selected {
-          background: rgba(13,46,42,0.1);
-          border-color: rgba(13,46,42,0.5);
-          color: #0d2e2a;
-        }
-        .oracle-option-result {
-          width: 100%;
-          background: transparent;
-          border: 1px solid rgba(90,58,138,0.15);
-          color: rgba(90,58,138,0.65);
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.87rem;
-          font-weight: 300;
-          text-align: left;
-          padding: 0.85rem 1.1rem;
-          cursor: pointer;
-          transition: all 0.3s;
-          margin-bottom: 0.45rem;
-          border-radius: 1px;
-          line-height: 1.5;
-        }
+        .oracle-option:hover { background: rgba(13,46,42,0.06); border-color: rgba(13,46,42,0.35); color: #0d2e2a; }
+        .oracle-option.selected { background: rgba(13,46,42,0.1); border-color: rgba(13,46,42,0.5); color: #0d2e2a; }
         .oracle-btn {
-          background: transparent;
-          border: 1px solid rgba(13,46,42,0.3);
-          color: rgba(13,46,42,0.65);
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.72rem;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          cursor: pointer;
-          padding: 0.7rem 1.8rem;
-          transition: all 0.3s;
+          background: transparent; border: 1px solid rgba(13,46,42,0.3);
+          color: rgba(13,46,42,0.65); font-family: 'Source Serif 4', serif;
+          font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+          cursor: pointer; padding: 0.7rem 1.8rem; transition: all 0.3s;
         }
-        .oracle-btn:hover {
-          border-color: rgba(13,46,42,0.6);
-          color: #0d2e2a;
-        }
-        .oracle-btn:disabled {
-          opacity: 0.2;
-          cursor: default;
-        }
+        .oracle-btn:hover { border-color: rgba(13,46,42,0.6); color: #0d2e2a; }
+        .oracle-btn:disabled { opacity: 0.2; cursor: default; }
         .oracle-btn-result {
-          background: transparent;
-          border: 1px solid rgba(90,58,138,0.3);
-          color: rgba(90,58,138,0.65);
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.72rem;
-          letter-spacing: 0.22em;
-          text-transform: uppercase;
-          cursor: pointer;
-          padding: 0.7rem 1.8rem;
-          transition: all 0.3s;
+          background: transparent; border: 1px solid rgba(90,58,138,0.3);
+          color: rgba(90,58,138,0.65); font-family: 'Source Serif 4', serif;
+          font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+          cursor: pointer; padding: 0.7rem 1.8rem; transition: all 0.3s;
         }
-        .oracle-btn-result:hover {
-          border-color: rgba(90,58,138,0.7);
-          color: #2a1a4a;
-        }
+        .oracle-btn-result:hover { border-color: rgba(90,58,138,0.7); color: #2a1a4a; }
         .door-open-btn {
-          background: transparent;
-          border: 1px solid rgba(13,46,42,0.4);
-          color: #0d2e2a;
-          font-family: 'Playfair Display', serif;
-          font-size: 1.1rem;
-          font-style: italic;
-          cursor: pointer;
-          padding: 1.1rem 3rem;
-          transition: all 0.4s;
-          animation: breathe 3s ease-in-out infinite;
-          letter-spacing: 0.03em;
+          background: transparent; border: 1px solid rgba(13,46,42,0.4); color: #0d2e2a;
+          font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic;
+          cursor: pointer; padding: 1.1rem 3rem; transition: all 0.4s;
+          animation: breathe 3s ease-in-out infinite; letter-spacing: 0.03em;
         }
-        .door-open-btn:hover {
-          background: rgba(13,46,42,0.07);
-          border-color: #0d2e2a;
-          animation: none;
-          opacity: 1;
-        }
+        .door-open-btn:hover { background: rgba(13,46,42,0.07); border-color: #0d2e2a; animation: none; opacity: 1; }
         .back-link {
-          background: transparent;
-          border: none;
-          color: rgba(13,46,42,0.3);
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.7rem;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          cursor: pointer;
-          padding: 0;
-          transition: all 0.3s;
+          background: transparent; border: none; color: rgba(13,46,42,0.3);
+          font-family: 'Source Serif 4', serif; font-size: 0.7rem;
+          letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; padding: 0; transition: all 0.3s;
         }
         .back-link:hover { color: rgba(13,46,42,0.65); }
         .back-link-result {
-          background: transparent;
-          border: none;
-          color: rgba(90,58,138,0.3);
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.7rem;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          cursor: pointer;
-          padding: 0;
-          transition: all 0.3s;
+          background: transparent; border: none; color: rgba(90,58,138,0.3);
+          font-family: 'Source Serif 4', serif; font-size: 0.7rem;
+          letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; padding: 0; transition: all 0.3s;
         }
         .back-link-result:hover { color: rgba(90,58,138,0.65); }
         .oracle-textarea {
-          width: 100%;
-          background: transparent;
-          border: none;
-          border-bottom: 1px solid rgba(13,46,42,0.2);
-          color: #0d2e2a;
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.93rem;
-          font-weight: 300;
-          line-height: 1.95;
-          padding: 0.5rem 0;
-          resize: none;
-          outline: none;
-          min-height: 130px;
-          caret-color: #0d2e2a;
-          box-sizing: border-box;
+          width: 100%; background: transparent; border: none;
+          border-bottom: 1px solid rgba(13,46,42,0.2); color: #0d2e2a;
+          font-family: 'Source Serif 4', serif; font-size: 0.93rem; font-weight: 300;
+          line-height: 1.95; padding: 0.5rem 0; resize: none; outline: none;
+          min-height: 130px; caret-color: #0d2e2a; box-sizing: border-box;
         }
         .oracle-textarea::placeholder { color: rgba(13,46,42,0.2); }
         .oracle-textarea:focus { border-bottom-color: rgba(13,46,42,0.4); }
-        .greek {
-          font-family: 'Playfair Display', serif;
-          font-size: 1rem;
-          letter-spacing: 0.2em;
-          font-style: italic;
-        }
+        .greek { font-family: 'Playfair Display', serif; font-size: 1rem; letter-spacing: 0.2em; font-style: italic; }
       `}</style>
 
-      {/* 꽃병 SVG 배경 — 인트로/질문/door/opening 에만 */}
       {phase !== "result" && <VaseSVG />}
 
       {/* 인트로 */}
       {phase === "intro" && (
         <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1 }}>
-          <div style={{marginBottom:"2.5rem"}}>
-  <div style={{
-    fontFamily:"'Playfair Display',serif",
-    fontSize:"1.8rem",
-    fontWeight:700,
-    fontStyle:"italic",
-    color:"#0d2e2a",
-    marginBottom:"0.4rem",
-    lineHeight:1.2,
-  }}>너 자신을 알라</div>
-  <div style={{
-    fontFamily:"'Source Serif 4',serif",
-    fontSize:"0.78rem",
-    fontWeight:300,
-    color:"rgba(13,46,42,0.45)",
-    letterSpacing:"0.08em",
-  }}>γνῶθι σεαυτόν (그노티 세아우톤)</div>
-</div>
-          </div>
-          <div style={{
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: "0.62rem",
-            letterSpacing: "0.18em",
-            color: "rgba(13,46,42,0.3)",
-            marginBottom: "2.5rem",
-          }}>
-            그노티 세아우톤
+          <div style={{ marginBottom: "2.5rem" }}>
+            <div style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "1.8rem",
+              fontWeight: 700,
+              fontStyle: "italic",
+              color: "#0d2e2a",
+              marginBottom: "0.4rem",
+              lineHeight: 1.2,
+            }}>너 자신을 알라</div>
+            <div style={{
+              fontFamily: "'Source Serif 4', serif",
+              fontSize: "0.78rem",
+              fontWeight: 300,
+              color: "rgba(13,46,42,0.45)",
+              letterSpacing: "0.08em",
+            }}>γνῶθι σεαυτόν (그노티 세아우톤)</div>
           </div>
 
-          <p style={{
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: "0.88rem",
-            fontWeight: 300,
-            color: "rgba(13,46,42,0.7)",
-            lineHeight: 2.1,
-            marginBottom: "1.5rem",
-          }}>
+          <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "1.5rem" }}>
             2,500년 전 델포이 신전에 새겨진 말.<br/>
             소크라테스가 평생의 화두로 삼은 질문입니다.<br/>
             가장 오래된 질문이 아직도 가장 어렵습니다.
           </p>
 
-          <p style={{
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: "0.88rem",
-            fontWeight: 300,
-            color: "rgba(13,46,42,0.7)",
-            lineHeight: 2.1,
-            marginBottom: "1.5rem",
-          }}>
+          <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "1.5rem" }}>
             당신은 아직 자신을 다 모릅니다.<br/>
             마음거울 오라클은 거기서 시작해요.
           </p>
 
-          <p style={{
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: "0.88rem",
-            fontWeight: 300,
-            color: "rgba(13,46,42,0.7)",
-            lineHeight: 2.1,
-            marginBottom: "2rem",
-          }}>
+          <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "2rem" }}>
             고대 그리스인들은 신탁을 구하러 가기 전,<br/>
             이 말 앞에 멈춰 섰습니다.<br/>
             오라클은 답을 주는 존재가 아니에요.<br/>
             당신이 아직 던지지 못한 질문을 돌려주는 존재입니다.
           </p>
 
-          <div style={{
-            width: "40px",
-            height: "1px",
-            background: "rgba(13,46,42,0.2)",
-            margin: "2rem 0",
-          }}/>
+          <div style={{ width: "40px", height: "1px", background: "rgba(13,46,42,0.2)", margin: "2rem 0" }}/>
 
-          <p style={{
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: "0.88rem",
-            fontWeight: 300,
-            color: "rgba(13,46,42,0.7)",
-            lineHeight: 2.1,
-            marginBottom: "1.5rem",
-          }}>
+          <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "1.5rem" }}>
             영화 매트릭스에서 네오는 자신이 선택받은 자임을<br/>
             확인받기 위해 오라클을 찾아갔습니다.<br/>
             그러나 오라클이 준 건 확인이 아니라 질문이었어요.<br/>
             네오는 오라클을 떠난 후에야 스스로 선택했습니다.
           </p>
 
-          <p style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "1rem",
-            fontStyle: "italic",
-            color: "rgba(13,46,42,0.6)",
-            lineHeight: 2,
-            marginBottom: "2.5rem",
-            paddingLeft: "1.2rem",
-            borderLeft: "1px solid rgba(13,46,42,0.2)",
-          }}>
+          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.6)", lineHeight: 2, marginBottom: "2.5rem", paddingLeft: "1.2rem", borderLeft: "1px solid rgba(13,46,42,0.2)" }}>
             "조심해."<br/>
             네오가 돌아보는 순간 꽃병이 떨어졌습니다.<br/>
             "내가 말하지 않았다면 어땠을까?"
           </p>
 
-          <p style={{
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: "0.88rem",
-            fontWeight: 300,
-            color: "rgba(13,46,42,0.7)",
-            lineHeight: 2.1,
-            marginBottom: "3rem",
-          }}>
+          <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "3rem" }}>
             이 오라클은 열 가지 질문을 통해<br/>
             지금 당신이 반복하고 있는 장면,<br/>
             실제로 원하는 것,<br/>
@@ -641,9 +467,7 @@ export default function Oracle({ onBack }) {
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem" }}>
-            <button className="oracle-btn" onClick={() => setPhase("questions")}>
-              문 앞에 서다
-            </button>
+            <button className="oracle-btn" onClick={() => setPhase("questions")}>문 앞에 서다</button>
             <button className="back-link" onClick={onBack}>← 돌아가기</button>
           </div>
         </div>
@@ -652,101 +476,41 @@ export default function Oracle({ onBack }) {
       {/* 질문 */}
       {phase === "questions" && q && (
         <div style={{ width: "100%", maxWidth: 540, position: "relative", zIndex: 1 }}>
-          <div style={{
-            width: "100%", height: "1px",
-            background: "rgba(13,46,42,0.1)",
-            marginBottom: "3.5rem",
-          }}>
-            <div style={{
-              height: "100%",
-              width: `${progress}%`,
-              background: "rgba(13,46,42,0.35)",
-              transition: "width 0.6s ease",
-            }} />
+          <div style={{ width: "100%", height: "1px", background: "rgba(13,46,42,0.1)", marginBottom: "3.5rem" }}>
+            <div style={{ height: "100%", width: `${progress}%`, background: "rgba(13,46,42,0.35)", transition: "width 0.6s ease" }} />
           </div>
 
-          <div style={{
-            fontSize: "0.58rem",
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: "rgba(13,46,42,0.35)",
-            marginBottom: "0.6rem",
-            fontFamily: "'Source Serif 4', serif",
-          }}>
+          <div style={{ fontSize: "0.58rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(13,46,42,0.35)", marginBottom: "0.6rem", fontFamily: "'Source Serif 4', serif" }}>
             {currentQ + 1} / {ORACLE_QUESTIONS.length} — {q.title}
           </div>
 
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(1rem, 2.8vw, 1.25rem)",
-            fontWeight: 400,
-            fontStyle: "italic",
-            color: "#0d2e2a",
-            lineHeight: 1.7,
-            marginBottom: "2.2rem",
-            whiteSpace: "pre-line",
-          }}>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1rem, 2.8vw, 1.25rem)", fontWeight: 400, fontStyle: "italic", color: "#0d2e2a", lineHeight: 1.7, marginBottom: "2.2rem", whiteSpace: "pre-line" }}>
             {q.question}
           </h2>
 
           {!isTextQ && (
             <div style={{ marginBottom: "2rem" }}>
               {q.options.map((opt) => (
-                <button
-                  key={opt}
-                  className={`oracle-option ${selectedOption === opt ? "selected" : ""}`}
-                  onClick={() => handleSelect(opt)}
-                >
+                <button key={opt} className={`oracle-option ${selectedOption === opt ? "selected" : ""}`} onClick={() => handleSelect(opt)}>
                   {opt}
                 </button>
               ))}
-              <button
-                className={`oracle-option ${selectedOption === "기타" ? "selected" : ""}`}
-                onClick={() => handleSelect("기타")}
-              >
-                기타
-              </button>
+              <button className={`oracle-option ${selectedOption === "기타" ? "selected" : ""}`} onClick={() => handleSelect("기타")}>기타</button>
               {showOther && (
                 <input
-                  type="text"
-                  value={otherText}
-                  onChange={(e) => setOtherText(e.target.value)}
-                  placeholder="직접 입력해주세요"
-                  autoFocus
-                  style={{
-                    width: "100%",
-                    background: "transparent",
-                    border: "none",
-                    borderBottom: "1px solid rgba(13,46,42,0.3)",
-                    color: "#0d2e2a",
-                    fontFamily: "'Source Serif 4', serif",
-                    fontSize: "0.88rem",
-                    fontWeight: 300,
-                    padding: "0.6rem 0",
-                    outline: "none",
-                    marginTop: "0.5rem",
-                    boxSizing: "border-box",
-                  }}
+                  type="text" value={otherText} onChange={(e) => setOtherText(e.target.value)}
+                  placeholder="직접 입력해주세요" autoFocus
+                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(13,46,42,0.3)", color: "#0d2e2a", fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, padding: "0.6rem 0", outline: "none", marginTop: "0.5rem", boxSizing: "border-box" }}
                 />
               )}
             </div>
           )}
 
           {isTextQ && (
-            <textarea
-              className="oracle-textarea"
-              value={textAnswer}
-              onChange={(e) => setTextAnswer(e.target.value)}
-              placeholder="떠오르는 대로 써주세요..."
-            />
+            <textarea className="oracle-textarea" value={textAnswer} onChange={(e) => setTextAnswer(e.target.value)} placeholder="떠오르는 대로 써주세요..." />
           )}
 
-          <div style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginTop: "2rem",
-          }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2rem" }}>
             <button className="back-link" onClick={handleBack}>← 이전</button>
             <button className="oracle-btn" onClick={handleNext} disabled={!canProceed}>
               {currentQ < ORACLE_QUESTIONS.length - 1 ? "다음" : "완성"}
@@ -758,58 +522,31 @@ export default function Oracle({ onBack }) {
       {/* 문 앞 */}
       {phase === "door" && (
         <div style={{ width: "100%", maxWidth: 480, textAlign: "center", position: "relative", zIndex: 1 }}>
-          <div className="greek" style={{ color: "rgba(13,46,42,0.35)", marginBottom: "4rem" }}>
-            γνῶθι σεαυτόν
-          </div>
-          <p style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "1rem",
-            fontStyle: "italic",
-            color: "rgba(13,46,42,0.45)",
-            marginBottom: "4rem",
-            lineHeight: 1.9,
-            animation: "flicker 4s ease-in-out infinite",
-          }}>
+          <div className="greek" style={{ color: "rgba(13,46,42,0.35)", marginBottom: "4rem" }}>γνῶθι σεαυτόν</div>
+          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.45)", marginBottom: "4rem", lineHeight: 1.9, animation: "flicker 4s ease-in-out infinite" }}>
             오라클이 당신의 답변을 읽고 있습니다
           </p>
-          <button className="door-open-btn" onClick={openDoor}>
-            문을 열다
-          </button>
+          <button className="door-open-btn" onClick={openDoor}>문을 열다</button>
         </div>
       )}
 
       {/* 열리는 중 */}
       {phase === "opening" && (
         <div style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
-          <div className="greek" style={{ color: "rgba(13,46,42,0.35)", marginBottom: "2rem" }}>
-            γνῶθι σεαυτόν
-          </div>
-          <p style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "1rem",
-            fontStyle: "italic",
-            color: "rgba(13,46,42,0.4)",
-            animation: "breathe 2s ease-in-out infinite",
-          }}>
+          <div className="greek" style={{ color: "rgba(13,46,42,0.35)", marginBottom: "2rem" }}>γνῶθι σεαυτόν</div>
+          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.4)", animation: "breathe 2s ease-in-out infinite" }}>
             잠시 기다려주세요
           </p>
         </div>
       )}
 
-      {/* 결과 — 라벤더 배경 */}
+      {/* 결과 */}
       {phase === "result" && (
         <div ref={resultRef} style={{ width: "100%", maxWidth: 680, paddingTop: "2rem" }}>
 
           {visibleSections.includes("Reflection") && parsed["Reflection"] && (
             <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
-              <div style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.92rem",
-                fontWeight: 300,
-                color: "rgba(42,26,74,0.6)",
-                lineHeight: 2.2,
-                whiteSpace: "pre-wrap",
-              }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.92rem", fontWeight: 300, color: "rgba(42,26,74,0.6)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Reflection"]}
               </div>
             </div>
@@ -817,14 +554,7 @@ export default function Oracle({ onBack }) {
 
           {visibleSections.includes("Recognition") && parsed["Recognition"] && (
             <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
-              <div style={{
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.95rem",
-                fontWeight: 300,
-                color: "rgba(42,26,74,0.75)",
-                lineHeight: 2.2,
-                whiteSpace: "pre-wrap",
-              }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.95rem", fontWeight: 300, color: "rgba(42,26,74,0.75)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Recognition"]}
               </div>
             </div>
@@ -832,17 +562,7 @@ export default function Oracle({ onBack }) {
 
           {visibleSections.includes("Oracle") && parsed["Oracle"] && (
             <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
-              <div style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "1.15rem",
-                fontStyle: "italic",
-                fontWeight: 400,
-                color: "#2a1a4a",
-                lineHeight: 2.3,
-                whiteSpace: "pre-wrap",
-                paddingLeft: "1.5rem",
-                borderLeft: "1px solid rgba(90,58,138,0.25)",
-              }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.15rem", fontStyle: "italic", fontWeight: 400, color: "#2a1a4a", lineHeight: 2.3, whiteSpace: "pre-wrap", paddingLeft: "1.5rem", borderLeft: "1px solid rgba(90,58,138,0.25)" }}>
                 {parsed["Oracle"]}
               </div>
             </div>
@@ -850,15 +570,7 @@ export default function Oracle({ onBack }) {
 
           {visibleSections.includes("Story") && parsed["Story"] && (
             <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
-              <div style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "0.95rem",
-                fontStyle: "italic",
-                fontWeight: 400,
-                color: "rgba(42,26,74,0.65)",
-                lineHeight: 2.3,
-                whiteSpace: "pre-wrap",
-              }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", fontWeight: 400, color: "rgba(42,26,74,0.65)", lineHeight: 2.3, whiteSpace: "pre-wrap" }}>
                 {parsed["Story"]}
               </div>
             </div>
@@ -866,29 +578,15 @@ export default function Oracle({ onBack }) {
 
           {visibleSections.includes("Empowerment") && parsed["Empowerment"] && (
             <div className="oracle-appear" style={{ marginBottom: "4rem" }}>
-              <div style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "1.3rem",
-                fontStyle: "italic",
-                fontWeight: 400,
-                color: "#2a1a4a",
-                lineHeight: 1.9,
-                whiteSpace: "pre-wrap",
-              }}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.3rem", fontStyle: "italic", fontWeight: 400, color: "#2a1a4a", lineHeight: 1.9, whiteSpace: "pre-wrap" }}>
                 {parsed["Empowerment"]}
               </div>
             </div>
           )}
 
           {visibleSections.length === 5 && (
-            <div className="oracle-appear" style={{
-              marginTop: "2rem",
-              paddingTop: "2.5rem",
-              borderTop: "1px solid rgba(90,58,138,0.1)",
-            }}>
-              <div className="greek" style={{ color: "rgba(42,26,74,0.25)", marginBottom: "2rem" }}>
-                γνῶθι σεαυτόν
-              </div>
+            <div className="oracle-appear" style={{ marginTop: "2rem", paddingTop: "2.5rem", borderTop: "1px solid rgba(90,58,138,0.1)" }}>
+              <div className="greek" style={{ color: "rgba(42,26,74,0.25)", marginBottom: "2rem" }}>γνῶθι σεαυτόν</div>
               <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
                 <button className="oracle-btn-result" onClick={() => {
                   setPhase("intro");
@@ -898,19 +596,13 @@ export default function Oracle({ onBack }) {
                   setVisibleSections([]);
                   setSelectedOption(null);
                   setTextAnswer("");
-                }}>
-                  다시 시작
-                </button>
+                }}>다시 시작</button>
                 <button className="oracle-btn-result" onClick={() => {
                   const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
                   navigator.clipboard.writeText(text);
                   alert("복사되었습니다");
-                }}>
-                  결과 복사
-                </button>
-                <button className="back-link-result" onClick={onBack}>
-                  ← 마음거울로
-                </button>
+                }}>결과 복사</button>
+                <button className="back-link-result" onClick={onBack}>← 마음거울로</button>
               </div>
             </div>
           )}
