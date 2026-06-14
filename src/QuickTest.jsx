@@ -135,42 +135,65 @@ const TYPE_IMAGES = {
 
 const TYPE_INFO = {
   "이해 후 행동형": {
-    emoji: "🔍",
     desc: "먼저 이해하고, 확신이 생기면 움직이는 사람이에요.",
     detail: "정보를 충분히 모으고 구조를 파악한 다음 행동해요. 불확실한 상태에서의 결정이 불편하고, 한번 방향을 잡으면 일관성 있게 나아가는 편이에요.",
-    bg: "#fff8e1", accent: "#f59e0b",
+    strength: "한번 방향 잡으면 흔들리지 않아요. 준비된 사람의 움직임이에요.",
+    weakness: '"일단 해봐"가 제일 어려운 말이에요. 정보가 없으면 발이 안 떨어져요.',
+    bg: "#d8d8e0", text: "#2a2a3a", border: "#a0a0b4",
+    btnBg: "#8a8a9a", btnText: "#ffffff",
   },
   "행동 후 이해형": {
-    emoji: "⚡",
     desc: "일단 움직이면서 배우는 사람이에요.",
     detail: "이론보다 실전이 편해요. 해보면서 익히고, 실패해도 빠르게 수정해요. 기다리는 것보다 뭔가 하는 게 더 자연스러운 사람이에요.",
-    bg: "#fff0f0", accent: "#ef4444",
+    strength: "남들이 고민할 때 이미 움직여요. 실전에서 가장 빠르게 배우는 사람이에요.",
+    weakness: "기다리는 게 고역이에요. 가만히 있으면 오히려 불안해져요.",
+    bg: "#f0b8c4", text: "#6a1020", border: "#c47a8a",
+    btnBg: "#c0405a", btnText: "#ffffff",
   },
   "관계 우선형": {
-    emoji: "🤝",
     desc: "사람이 있어야 힘이 나는 사람이에요.",
     detail: "혼자보다 함께할 때 더 좋은 결과가 나온다고 믿어요. 다른 사람의 감정을 먼저 살피고, 관계에서 에너지를 얻어요.",
-    bg: "#fdf0f8", accent: "#ec4899",
+    strength: "사람 마음을 먼저 읽어요. 팀이 있으면 혼자보다 훨씬 강해지는 사람이에요.",
+    weakness: "혼자 결정하는 순간이 유독 힘들어요. 누군가 한 명만 있어도 달라져요.",
+    bg: "#2d5a2d", text: "#ffffff", border: "#4a8a4a",
+    btnBg: "#2d5a2d", btnText: "#ffffff",
   },
   "안정 우선형": {
-    emoji: "🏠",
     desc: "지속 가능한 것을 선택하는 사람이에요.",
     detail: "변화보다 안정에서 힘을 얻어요. 리스크를 미리 점검하고, 오래 유지될 수 있는 방향을 선호해요. 신중함이 강점이에요.",
-    bg: "#f0faf0", accent: "#10b981",
+    strength: "오래 가는 선택을 해요. 리스크를 먼저 보는 사람이 팀에 꼭 필요한 이유예요.",
+    weakness: "변화가 강요될 때 에너지가 확 떨어져요. 예측 불가능한 상황이 가장 소모적이에요.",
+    bg: "#b8d4b0", text: "#0d3010", border: "#7a9e6e",
+    btnBg: "#4a8a3a", btnText: "#ffffff",
   },
   "직관 신뢰형": {
-    emoji: "✨",
     desc: "느낌을 믿고 움직이는 사람이에요.",
     detail: "논리보다 직감이 먼저 와요. 설명하기 어렵지만 맞다는 느낌을 중요하게 여기고, 그 감각이 실제로 잘 맞는 편이에요.",
-    bg: "#f5f0ff", accent: "#8b5cf6",
+    strength: "설명 못 해도 맞는 방향을 알아요. 그 감각이 실제로 자주 맞아요.",
+    weakness: '"왜 그렇게 생각해요?" 이 질문이 제일 난처해요. 논리로 설명해야 할 때 막혀요.',
+    bg: "#a8c8e0", text: "#05203a", border: "#6a95b8",
+    btnBg: "#3a6a9a", btnText: "#ffffff",
   },
   "정확성 우선형": {
-    emoji: "🎯",
     desc: "틀리면 안 된다는 사람이에요.",
     detail: "정확성과 완성도를 중요하게 여겨요. 애매한 상태가 불편하고, 근거와 논리가 있어야 안심이 돼요. 꼼꼼함이 강점이에요.",
-    bg: "#fff8f0", accent: "#f97316",
+    strength: "디테일에서 판가름 나는 일은 당신 차지예요. 한 번 한 일은 믿을 수 있어요.",
+    weakness: "완벽하지 않으면 내보내기 싫어요. 그래서 시작보다 마무리가 늦어질 때가 있어요.",
+    bg: "#e8a0a0", text: "#5a1010", border: "#c47070",
+    btnBg: "#c04040", btnText: "#ffffff",
   },
 };
+
+const TYPE_BTN_COLORS = {
+  "이해 후 행동형": { bg: "#8a8a9a", text: "#ffffff" },
+  "행동 후 이해형": { bg: "#c0405a", text: "#ffffff" },
+  "관계 우선형":   { bg: "#2d5a2d", text: "#ffffff" },
+  "안정 우선형":   { bg: "#4a7a3a", text: "#ffffff" },
+  "직관 신뢰형":   { bg: "#3a6a9a", text: "#ffffff" },
+  "정확성 우선형": { bg: "#b84040", text: "#ffffff" },
+};
+
+const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
 function shuffle(arr) {
   const a = [...arr];
@@ -181,10 +204,47 @@ function shuffle(arr) {
   return a;
 }
 
-const CARD_COLORS = [
-  "#fff3e0","#fce4ec","#e8f5e9","#e3f2fd","#f3e5f5",
-  "#fffde7","#e0f2f1","#fbe9e7","#e8eaf6","#f1f8e9",
-];
+// 나침반 SVG
+const CompassSVG = ({ linesVisible, style = {} }) => {
+  const lines = [
+    <circle key={1} cx="100" cy="100" r="88" fill="none" stroke="#9b7fd4" strokeWidth="1.5"/>,
+    <circle key={2} cx="100" cy="100" r="75" fill="none" stroke="#9b7fd4" strokeWidth="0.7" strokeDasharray="4,6"/>,
+    <circle key={3} cx="100" cy="100" r="55" fill="none" stroke="#9b7fd4" strokeWidth="1"/>,
+    <line key={4} x1="12" y1="100" x2="188" y2="100" stroke="#9b7fd4" strokeWidth="0.8"/>,
+    <line key={5} x1="100" y1="12" x2="100" y2="188" stroke="#9b7fd4" strokeWidth="0.8"/>,
+    <g key={6}><line x1="38" y1="38" x2="162" y2="162" stroke="#9b7fd4" strokeWidth="0.6"/><line x1="162" y1="38" x2="38" y2="162" stroke="#9b7fd4" strokeWidth="0.6"/></g>,
+    <g key={7}><line x1="100" y1="12" x2="100" y2="22" stroke="#9b7fd4" strokeWidth="2.5"/><line x1="100" y1="178" x2="100" y2="188" stroke="#9b7fd4" strokeWidth="1.5"/><line x1="12" y1="100" x2="22" y2="100" stroke="#9b7fd4" strokeWidth="1.5"/><line x1="178" y1="100" x2="188" y2="100" stroke="#9b7fd4" strokeWidth="1.5"/></g>,
+    <polygon key={8} points="100,25 95,100 105,100" fill="#9b7fd4"/>,
+    <polygon key={9} points="100,175 95,100 105,100" fill="none" stroke="#9b7fd4" strokeWidth="1.2"/>,
+    <circle key={10} cx="100" cy="100" r="7" fill="none" stroke="#9b7fd4" strokeWidth="1.5"/>,
+    <g key={11}><text x="100" y="10" textAnchor="middle" fontFamily="serif" fontSize="12" fontStyle="italic" fill="#9b7fd4">N</text><circle cx="100" cy="100" r="3.5" fill="#9b7fd4"/></g>,
+  ];
+  return (
+    <svg width="200" height="200" viewBox="0 0 200 200" style={style}>
+      {lines.filter((_, i) => i < linesVisible)}
+    </svg>
+  );
+};
+
+// 신전 SVG
+const TempleSVG = ({ style = {} }) => (
+  <svg width="200" height="250" viewBox="0 0 200 250" style={style}>
+    <text x="100" y="20" textAnchor="middle" fontFamily="serif" fontSize="15" fontStyle="italic" fill="#9b7fd4" opacity="0.9">γνῶθι σεαυτόν</text>
+    <text x="100" y="34" textAnchor="middle" fontFamily="serif" fontSize="9" fill="rgba(42,26,74,0.5)">너 자신을 알라</text>
+    <line x1="40" y1="40" x2="160" y2="40" stroke="#9b7fd4" strokeWidth="0.5" opacity="0.3"/>
+    <line x1="20" y1="225" x2="180" y2="225" stroke="#9b7fd4" strokeWidth="1.5"/>
+    <line x1="25" y1="213" x2="175" y2="213" stroke="#9b7fd4" strokeWidth="1.5"/>
+    <line x1="48" y1="213" x2="48" y2="115" stroke="#9b7fd4" strokeWidth="1.5"/>
+    <line x1="80" y1="213" x2="80" y2="115" stroke="#9b7fd4" strokeWidth="1.5"/>
+    <line x1="120" y1="213" x2="120" y2="115" stroke="#9b7fd4" strokeWidth="1.5"/>
+    <line x1="152" y1="213" x2="152" y2="115" stroke="#9b7fd4" strokeWidth="1.5"/>
+    <line x1="30" y1="115" x2="170" y2="115" stroke="#9b7fd4" strokeWidth="1.5"/>
+    <line x1="25" y1="102" x2="175" y2="102" stroke="#9b7fd4" strokeWidth="1.5"/>
+    <line x1="25" y1="102" x2="100" y2="55" stroke="#9b7fd4" strokeWidth="1.5"/>
+    <line x1="175" y1="102" x2="100" y2="55" stroke="#9b7fd4" strokeWidth="1.5"/>
+    <path d="M88,213 L88,160 Q100,148 112,160 L112,213" fill="none" stroke="#9b7fd4" strokeWidth="1.2"/>
+  </svg>
+);
 
 export default function QuickTest({ onBack }) {
   const [step, setStep] = useState("intro");
@@ -193,17 +253,24 @@ export default function QuickTest({ onBack }) {
   const [selected, setSelected] = useState(null);
   const [result, setResult] = useState(null);
   const [shuffledOptions, setShuffledOptions] = useState([]);
-  const [cardColors, setCardColors] = useState([]);
   const [activeType, setActiveType] = useState(null);
+  const [showTemple, setShowTemple] = useState(false);
 
   useEffect(() => {
     if (step === "test") {
-      const opts = shuffle(QUESTIONS[current].options);
-      setShuffledOptions(opts);
-      setCardColors(shuffle(CARD_COLORS).slice(0, opts.length));
+      setShuffledOptions(shuffle(QUESTIONS[current].options));
       setSelected(null);
     }
   }, [current, step]);
+
+  useEffect(() => {
+    if (step === "result") {
+      // 나침반 → 신전 스케일 전환
+      setTimeout(() => setShowTemple(true), 800);
+    } else {
+      setShowTemple(false);
+    }
+  }, [step]);
 
   const handleSelect = (option) => {
     setSelected(option);
@@ -217,6 +284,8 @@ export default function QuickTest({ onBack }) {
         newAnswers.forEach(t => { counts[t] = (counts[t] || 0) + 1; });
         const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
         setResult(top);
+        const resultData = { type: top, desc: TYPE_INFO[top].desc, detail: TYPE_INFO[top].detail, counts };
+        localStorage.setItem("mindmirror_quicktest", JSON.stringify(resultData));
         setStep("result");
       }
     }, 350);
@@ -224,154 +293,192 @@ export default function QuickTest({ onBack }) {
 
   const restart = () => {
     setStep("intro"); setCurrent(0); setAnswers([]);
-    setSelected(null); setResult(null);
+    setSelected(null); setResult(null); setShowTemple(false);
   };
 
   const progress = (current / QUESTIONS.length) * 100;
   const typeInfo = result ? TYPE_INFO[result] : null;
 
+  // 배경 SVG 스타일 (오른쪽 고정)
+  const bgSvgStyle = {
+    position: "absolute",
+    right: "-50px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    opacity: 0.13,
+    pointerEvents: "none",
+    transition: "opacity 0.8s ease, transform 0.8s ease",
+  };
+
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#fafaf7",
-      fontFamily: "'Gaegu', cursive",
+      background: "#e8e0f5",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      padding: "1.5rem",
+      padding: "2rem 1.25rem",
+      position: "relative",
+      overflow: "hidden",
     }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Gamja+Flower&display=swap');
+        ${FONTS}
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        .qcard {
-          border: 2.5px solid #222;
-          border-radius: 16px;
-          box-shadow: 4px 4px 0px #222;
-          padding: 1rem 1.25rem;
-          margin-bottom: 0.75rem;
-          cursor: pointer;
-          transition: transform 0.12s, box-shadow 0.12s;
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .qt-option {
           width: 100%;
+          background: rgba(255,255,255,0.45);
+          border: 1px solid rgba(90,58,138,0.15);
+          padding: 1rem 1.25rem;
+          cursor: pointer;
+          transition: all 0.2s;
           text-align: left;
-          font-family: 'Gaegu', cursive;
-          font-size: 1.15rem;
-          line-height: 1.5;
-          color: #222;
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
+          font-family: 'Source Serif 4', serif;
+          font-size: 0.88rem;
+          font-weight: 300;
+          color: rgba(42,26,74,0.7);
+          line-height: 1.6;
+          margin-bottom: 0.5rem;
+          border-radius: 2px;
         }
-        .qcard:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0px #222; }
-        .qcard.sel { background: #222 !important; color: white; transform: translate(2px,2px); box-shadow: 2px 2px 0px #222; }
-        .main-btn {
-          background: #222; color: white; border: 2.5px solid #222;
-          border-radius: 14px; padding: 0.9rem 2.5rem;
-          font-family: 'Gaegu', cursive; font-size: 1.3rem;
-          cursor: pointer; box-shadow: 4px 4px 0px #555;
-          transition: transform 0.12s, box-shadow 0.12s;
+        .qt-option:hover { background: rgba(255,255,255,0.75); border-color: rgba(90,58,138,0.35); color: #2a1a4a; }
+        .qt-option.selected { background: #2a1a4a; border-color: #2a1a4a; color: #f0eafa; }
+        .qt-start-btn {
+          background: #c8b8e8;
+          border: none;
+          color: #2a1a4a;
+          font-family: 'Source Serif 4', serif;
+          font-size: 0.82rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          padding: 1.1rem 2.8rem;
+          cursor: pointer;
+          transition: background 0.2s;
         }
-        .main-btn:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0px #555; }
-        .sub-btn {
-          background: white; color: #555; border: 2px solid #bbb;
-          border-radius: 14px; padding: 0.75rem 1.75rem;
-          font-family: 'Gaegu', cursive; font-size: 1.1rem;
-          cursor: pointer; box-shadow: 3px 3px 0px #ddd;
-          transition: transform 0.12s;
+        .qt-start-btn:hover { background: #b8a0d8; }
+        .qt-back-btn {
+          background: transparent;
+          border: 1px solid rgba(90,58,138,0.25);
+          color: rgba(90,58,138,0.55);
+          font-family: 'Source Serif 4', serif;
+          font-size: 0.78rem;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          padding: 1.1rem 1.8rem;
+          cursor: pointer;
+          transition: all 0.2s;
         }
-        .sub-btn:hover { transform: translate(-1px,-1px); }
+        .qt-back-btn:hover { border-color: rgba(90,58,138,0.5); color: #2a1a4a; }
+        .qt-ghost-btn {
+          background: transparent; border: none;
+          color: rgba(90,58,138,0.35);
+          font-family: 'Source Serif 4', serif;
+          font-size: 0.72rem; letter-spacing: 0.15em;
+          text-transform: uppercase; cursor: pointer; padding: 0;
+          transition: color 0.2s;
+        }
+        .qt-ghost-btn:hover { color: rgba(90,58,138,0.65); }
       `}</style>
 
-      <div style={{width:"100%", maxWidth:500}}>
+      <div style={{width:"100%", maxWidth:560, position:"relative", zIndex:1}}>
 
+        {/* 인트로 */}
         {step === "intro" && (
-          <div style={{textAlign:"center"}}>
-            <img src="/intro.png" alt="거울" style={{width:"400px", height:"400px", objectFit:"contain", marginBottom:"0.5rem"}}/>
-            <h1 style={{fontSize:"2.8rem", fontWeight:700, color:"#222", marginBottom:"0.5rem", lineHeight:1.2}}>
-              나는 어떤 사람일까?
-            </h1>
-            <p style={{fontSize:"1.2rem", color:"#666", marginBottom:"0.25rem", lineHeight:1.7}}>
-              11가지 상황에 답하면<br/>당신의 인지 유형을 알려드려요
-            </p>
-            <p style={{fontSize:"1rem", color:"#aaa", marginBottom:"1.5rem"}}>약 3분</p>
+          <div style={{animation:"fadeIn 0.5s ease"}}>
+            {/* 나침반 완성본 배경 */}
+            <CompassSVG linesVisible={11} style={{...bgSvgStyle}} />
 
-            {/* 유형 버튼 3x2 그리드 */}
-            <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"0.5rem", marginBottom:"0.75rem"}}>
-              {Object.entries(TYPE_INFO).map(([t, info]) => (
-                <div key={t} style={{position:"relative"}}>
-                  <button
-                    onClick={() => setActiveType(activeType === t ? null : t)}
-                    style={{
-                      width:"100%",
-                      background: activeType === t ? info.accent : info.bg,
-                      border:`2.5px solid ${info.accent}`,
-                      borderRadius:"14px", padding:"0.5rem 0.4rem",
-                      fontSize:"0.85rem", color: activeType === t ? "white" : info.accent,
-                      boxShadow:`2px 2px 0px ${info.accent}`,
-                      cursor:"pointer", fontFamily:"'Gamja Flower', cursive",
-                      fontWeight: 400,
-                      transition:"all 0.15s",
-                    }}
-                  >
-                    {t}
-                  </button>
-                </div>
-              ))}
+            <div style={{textAlign:"center", marginBottom:"2.5rem"}}>
+              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.3em", textTransform:"uppercase", color:"rgba(90,58,138,0.45)", marginBottom:"1rem"}}>나 사용 설명서</div>
+              <h1 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.8rem,4vw,2.6rem)", fontWeight:400, fontStyle:"italic", color:"#2a1a4a", lineHeight:1.3, marginBottom:"1.25rem"}}>나는 어떻게<br/>움직이는 사람일까</h1>
+              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.88rem", fontWeight:300, color:"rgba(42,26,74,0.6)", lineHeight:1.9, maxWidth:400, margin:"0 auto"}}>
+                잘하고 싶은데 내 방식이 뭔지 모르겠다면.<br/>
+                11가지 상황 질문에 답하면 당신이 정보를 받아들이고,<br/>
+                결정하고, 사람과 부딪히는 방식을 찾아드려요.<br/>
+                강점도, 막히는 지점도요.
+              </p>
             </div>
 
-            {/* 선택된 유형 설명 */}
-            {activeType && (
-              <div style={{
-                background: TYPE_INFO[activeType].bg,
-                border:`2px solid ${TYPE_INFO[activeType].accent}`,
-                borderRadius:"16px", padding:"1rem",
-                marginBottom:"1rem", textAlign:"left",
-                boxShadow:`3px 3px 0px ${TYPE_INFO[activeType].accent}`,
-                animation:"fadeIn 0.2s ease",
-              }}>
-                <p style={{fontFamily:"'Gaegu',cursive", fontSize:"1rem", color:"#333", fontWeight:700, marginBottom:"0.3rem"}}>
-                  {TYPE_INFO[activeType].emoji} {activeType}
-                </p>
-                <p style={{fontFamily:"'Gaegu',cursive", fontSize:"0.9rem", color:"#555", lineHeight:1.6}}>
-                  {TYPE_INFO[activeType].detail}
-                </p>
+            {/* 유형 버튼 */}
+            <div style={{marginBottom:"2rem"}}>
+              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.25em", textTransform:"uppercase", color:"rgba(90,58,138,0.35)", marginBottom:"0.75rem"}}>6가지 방식 — 눌러서 확인해보세요</div>
+              <div style={{display:"flex", flexWrap:"wrap", gap:"0.5rem", marginBottom:"0.75rem"}}>
+                {Object.entries(TYPE_BTN_COLORS).map(([t, c]) => (
+                  <button
+                    key={t}
+                    onClick={() => setActiveType(activeType === t ? null : t)}
+                    style={{
+                      background: activeType === t ? c.bg : "rgba(255,255,255,0.4)",
+                      border: `1px solid ${c.bg}`,
+                      color: activeType === t ? c.text : c.bg,
+                      fontFamily:"'Source Serif 4',serif",
+                      fontSize:"0.75rem",
+                      fontWeight: 300,
+                      padding:"0.5rem 0.9rem",
+                      cursor:"pointer",
+                      transition:"all 0.2s",
+                      borderRadius:"2px",
+                      whiteSpace:"nowrap",
+                      minWidth:"120px",
+                      textAlign:"center",
+                    }}
+                  >{t}</button>
+                ))}
               </div>
-            )}
+              {activeType && (
+                <div style={{
+                  background: TYPE_INFO[activeType].bg,
+                  border: `1px solid ${TYPE_INFO[activeType].border}`,
+                  padding:"1.1rem 1.25rem",
+                  animation:"fadeIn 0.2s ease",
+                }}>
+                  <p style={{fontFamily:"'Playfair Display',serif", fontSize:"1rem", fontStyle:"italic", color: TYPE_INFO[activeType].text, marginBottom:"0.4rem"}}>{activeType}</p>
+                  <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.83rem", fontWeight:300, color: TYPE_INFO[activeType].text, opacity:0.8, lineHeight:1.8}}>{TYPE_INFO[activeType].detail}</p>
+                </div>
+              )}
+            </div>
 
-            <div style={{display:"flex", gap:"1rem", justifyContent:"center", flexWrap:"wrap", marginTop:"1rem"}}>
-              <button className="main-btn" onClick={() => setStep("test")}>시작하기 →</button>
-              {onBack && <button className="sub-btn" onClick={onBack}>← 마음거울로</button>}
+            <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center"}}>
+              <button className="qt-start-btn" onClick={() => setStep("test")}>시작하기</button>
+              {onBack && <button className="qt-back-btn" onClick={onBack}>← 돌아가기</button>}
             </div>
           </div>
         )}
 
+        {/* 질문 */}
         {step === "test" && (
-          <div>
-            <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"0.5rem"}}>
-              <span style={{fontSize:"1.1rem", color:"#888"}}>{current + 1} / {QUESTIONS.length}</span>
-              {onBack && <button onClick={onBack} style={{background:"none",border:"none",cursor:"pointer",color:"#ccc",fontSize:"1.2rem",fontFamily:"'Gaegu',cursive"}}>✕</button>}
+          <div style={{animation:"fadeIn 0.3s ease"}}>
+            {/* 나침반 — 문제 풀수록 채워짐 */}
+            <CompassSVG linesVisible={current} style={{...bgSvgStyle}} />
+
+            <div style={{marginBottom:"3rem"}}>
+              <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"0.75rem"}}>
+                <span style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.65rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(90,58,138,0.4)"}}>{current + 1} / {QUESTIONS.length}</span>
+                {onBack && <button className="qt-ghost-btn" onClick={onBack}>✕</button>}
+              </div>
+              <div style={{width:"100%", height:"1px", background:"rgba(90,58,138,0.12)"}}>
+                <div style={{height:"100%", width:`${progress}%`, background:"rgba(90,58,138,0.4)", transition:"width 0.4s ease"}}/>
+              </div>
             </div>
-            <div style={{height:8, background:"#eee", borderRadius:4, border:"1.5px solid #ddd", overflow:"hidden", marginBottom:"1.75rem"}}>
-              <div style={{height:"100%", background:"#222", borderRadius:4, width:`${progress}%`, transition:"width 0.4s ease"}}/>
-            </div>
-            <h2 style={{fontSize:"1.45rem", fontWeight:700, color:"#222", marginBottom:"1.75rem", lineHeight:1.65, whiteSpace:"pre-line"}}>
+
+            <h2 style={{
+              fontFamily:"'Playfair Display',serif",
+              fontSize:"clamp(1.2rem,3vw,1.6rem)",
+              fontWeight:400, fontStyle:"italic",
+              color:"#2a1a4a", lineHeight:1.7,
+              marginBottom:"2rem", whiteSpace:"pre-line",
+            }}>
               {QUESTIONS[current].text}
             </h2>
+
             <div>
               {shuffledOptions.map((opt, i) => (
                 <button
                   key={i}
-                  className={`qcard ${selected === opt ? "sel" : ""}`}
-                  style={{background: selected === opt ? "#222" : (cardColors[i] || "#fff")}}
+                  className={`qt-option ${selected === opt ? "selected" : ""}`}
                   onClick={() => handleSelect(opt)}
                 >
-                  <span style={{
-                    width:28, height:28, borderRadius:"50%",
-                    border: selected === opt ? "2px solid white" : "2px solid #555",
-                    display:"inline-flex", alignItems:"center", justifyContent:"center",
-                    fontSize:"0.85rem", flexShrink:0,
-                    background: selected === opt ? "white" : "transparent",
-                    color: selected === opt ? "#222" : "#555", fontWeight:700,
-                  }}>
+                  <span style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.65rem", letterSpacing:"0.15em", marginRight:"0.75rem", opacity:0.4}}>
                     {String.fromCharCode(65 + i)}
                   </span>
                   {opt.text}
@@ -381,47 +488,67 @@ export default function QuickTest({ onBack }) {
           </div>
         )}
 
+        {/* 결과 */}
         {step === "result" && typeInfo && (
-          <div>
-            <p style={{fontSize:"1.1rem", color:"#888", marginBottom:"0.5rem", textAlign:"center"}}>
-              당신의 인지 유형은
-            </p>
+          <div style={{animation:"fadeIn 0.6s ease"}}>
+            {/* 나침반 → 신전 전환 */}
+            <div style={{position:"absolute", right:"-50px", top:"50%", transform:"translateY(-50%)", pointerEvents:"none"}}>
+              <CompassSVG linesVisible={11} style={{
+                opacity: showTemple ? 0 : 0.13,
+                transform: showTemple ? "scale(1.3)" : "scale(1)",
+                transition: "opacity 0.8s ease, transform 0.8s ease",
+              }}/>
+              <TempleSVG style={{
+                position:"absolute", top:0, left:0,
+                opacity: showTemple ? 0.13 : 0,
+                transform: showTemple ? "scale(1)" : "scale(0.5)",
+                transition: "opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s",
+              }}/>
+            </div>
+
+            {/* 결과 카드 */}
             <div style={{
-              background: typeInfo.bg,
-              border:`3px solid ${typeInfo.accent}`,
-              borderRadius:24,
-              boxShadow:`6px 6px 0px ${typeInfo.accent}`,
-              padding:"2rem",
-              marginBottom:"1.5rem",
+              background: "#d4c8f0",
+              border:"1px solid rgba(90,58,138,0.2)",
+              padding:"2.5rem 2rem",
+              marginBottom:"2rem",
               textAlign:"center",
             }}>
-              <div style={{display:"flex", justifyContent:"center", marginBottom:"0.5rem"}}>
-                <img
-                  src={`/${TYPE_IMAGES[result]}`}
-                  alt={result}
-                  style={{width:"280px", height:"280px", objectFit:"contain"}}
-                />
+              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.28em", textTransform:"uppercase", color:"rgba(42,26,74,0.45)", marginBottom:"1.5rem"}}>나 사용 설명서</div>
+              <img src={`/${TYPE_IMAGES[result]}`} alt={result} style={{width:180, height:180, objectFit:"contain", marginBottom:"1.5rem"}}/>
+              <h2 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.6rem,4vw,2.2rem)", fontStyle:"italic", fontWeight:400, color:"#2a1a4a", marginBottom:"0.75rem"}}>{result}</h2>
+              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(42,26,74,0.7)", lineHeight:1.9, marginBottom:"1rem"}}>{typeInfo.desc}</p>
+              <div style={{width:"32px", height:"1px", background:"rgba(90,58,138,0.25)", margin:"1.25rem auto"}}/>
+              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.85rem", fontWeight:300, color:"rgba(42,26,74,0.6)", lineHeight:1.9, marginBottom:"1.5rem"}}>{typeInfo.detail}</p>
+
+              {/* 강점 / 막히는 지점 */}
+              <div style={{display:"flex", gap:"1rem", textAlign:"left"}}>
+                <div style={{flex:1, background:"rgba(255,255,255,0.35)", padding:"1rem", borderRadius:"2px"}}>
+                  <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.62rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(42,26,74,0.4)", marginBottom:"0.5rem"}}>강점</div>
+                  <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.82rem", fontWeight:300, color:"rgba(42,26,74,0.7)", lineHeight:1.8}}>{typeInfo.strength}</p>
+                </div>
+                <div style={{flex:1, background:"rgba(255,255,255,0.35)", padding:"1rem", borderRadius:"2px"}}>
+                  <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.62rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(42,26,74,0.4)", marginBottom:"0.5rem"}}>막히는 지점</div>
+                  <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.82rem", fontWeight:300, color:"rgba(42,26,74,0.7)", lineHeight:1.8}}>{typeInfo.weakness}</p>
+                </div>
               </div>
-              <h2 style={{fontSize:"2.2rem", fontWeight:700, color:"#222", marginBottom:"0.5rem"}}>
-               {result}
-              </h2>
-              <p style={{fontSize:"1.2rem", color:"#444", marginBottom:"1rem", fontWeight:700}}>
-                {typeInfo.desc}
-              </p>
-              <p style={{fontSize:"1rem", color:"#555", lineHeight:1.8}}>
-                {typeInfo.detail}
+            </div>
+
+            {/* 저장 안내 */}
+            <div style={{background:"rgba(255,255,255,0.4)", border:"1px solid rgba(90,58,138,0.1)", padding:"1rem 1.25rem", marginBottom:"2rem"}}>
+              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.78rem", fontWeight:300, color:"rgba(42,26,74,0.5)", lineHeight:1.8}}>
+                이 결과는 이 브라우저에 임시 저장돼요.<br/>
+                마음거울 → 오라클까지 완주하면 세 가지 결과를 통합 분석해드려요.
               </p>
             </div>
-            <div style={{display:"flex", gap:"1rem", justifyContent:"center", flexWrap:"wrap"}}>
-              <button className="main-btn" onClick={restart}>다시 해보기</button>
-              {onBack && (
-                <button className="sub-btn" onClick={onBack}>
-                  마음거울로 깊이 들어가기 →
-                </button>
-              )}
+
+            <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center"}}>
+              <button className="qt-start-btn" onClick={restart}>다시 해보기</button>
+              {onBack && <button className="qt-back-btn" onClick={onBack}>마음거울로 →</button>}
             </div>
           </div>
         )}
+
       </div>
     </div>
   );
