@@ -68,7 +68,7 @@ const QUESTIONS2 = [
     prompt: "친한 사람이 당신이 보기엔 분명 좋지 않은 선택을 하려 해요. 이직, 이별, 큰 돈을 쓰는 일 같은 것들이요. 그 순간 당신 안에서 무슨 일이 일어나나요? 말하고 싶어지나요, 아니면 조용해지나요?",
     placeholder: "떠오르는 대로 써주세요...",
     bg: "#1a2535", textColor: "#c8d8e8", accentColor: "#4a8ab4", borderColor: "#2a4a6a",
-    deco: null, skippable: false
+    deco: "circle", skippable: false
   },
   {
     id: 2,
@@ -76,7 +76,7 @@ const QUESTIONS2 = [
     prompt: "당신이 확신하던 생각을 누군가 조목조목 반박했어요. 발표 후 피드백이든, 대화 중 의견 충돌이든. 그 자리에서 몸과 마음에 어떤 일이 일어났나요? 그리고 혼자가 됐을 때, 그 반박을 어떻게 대했나요?",
     placeholder: "생각, 감정, 몸의 반응, 이후 행동까지...",
     bg: "#1e1e2e", textColor: "#c8c8e8", accentColor: "#6a5acd", borderColor: "#3a3a6a",
-    deco: null, skippable: false
+    deco: "shards", skippable: false
   },
   {
     id: 3,
@@ -84,7 +84,7 @@ const QUESTIONS2 = [
     prompt: "며칠째 붙잡고 있는데도 풀리지 않는 문제가 있어요. 일이든, 관계든, 결정이든. 그럴 때 당신은 어디로 가나요? 뭔가 알 것 같을 때까지 계속 파고드나요, 잠시 멈추나요, 누군가 만날 사람을 찾나요?",
     placeholder: "그때 당신의 상태도 함께 적어주세요...",
     bg: "#1a2520", textColor: "#c8e0c8", accentColor: "#3a8a5a", borderColor: "#2a5a3a",
-    deco: null, skippable: false
+    deco: "grid", skippable: false
   },
   {
     id: 4,
@@ -92,7 +92,7 @@ const QUESTIONS2 = [
     prompt: "이유는 모르겠는데 몸이 먼저 아는 순간들이 있어요. 특정 사람을 보면 어깨에 힘이 들어간다거나, 어떤 장소에 가면 이유 없이 피곤해진다거나, 전화가 오기 전에 뭔가 이상한 느낌이 든다거나. 당신은 그런 신호를 어떻게 대해왔나요?",
     placeholder: "떠오르는 방식대로 적어주세요...",
     bg: "#251a20", textColor: "#e0c8d0", accentColor: "#8a3a5a", borderColor: "#5a2a3a",
-    deco: null, skippable: true
+    deco: "spiral", skippable: true
   },
   {
     id: 5,
@@ -100,7 +100,7 @@ const QUESTIONS2 = [
     prompt: "열심히 준비했는데 결과가 완전히 달랐어요. 시험이든, 프로젝트든, 관계든. 그 순간 제일 먼저 떠오른 건 뭐였나요? 나 자신인가요, 상황인가요, 아니면 아무것도 안 떠올랐나요?",
     placeholder: "예: 나 자신, 운이나 타이밍, 특정한 누군가...",
     bg: "#201a25", textColor: "#d8c8e8", accentColor: "#7a4a9a", borderColor: "#4a2a6a",
-    deco: null, skippable: false
+    deco: "star", skippable: false
   },
   {
     id: 6,
@@ -108,7 +108,7 @@ const QUESTIONS2 = [
     prompt: "복잡한 걸 받아들여야 할 때 당신만의 방식이 있어요. 혼자 오래 생각하거나, 글로 써보거나, 누군가와 이야기하거나, 그냥 자고 일어나거나. 어떻게 하나요? 그리고 그 방법이 안 통할 때는요?",
     placeholder: "당신만의 방식을 적어주세요...",
     bg: "#1a2030", textColor: "#c8d0e8", accentColor: "#3a5a9a", borderColor: "#2a3a6a",
-    deco: null, skippable: false
+    deco: "mirror", skippable: false
   },
   {
     id: 7,
@@ -116,7 +116,7 @@ const QUESTIONS2 = [
     prompt: "거창한 목표나 미래 얘기가 아니라요. 지금 이 순간, 오늘, 당신에게 필요한게 있다면 뭘까요? 떠오르는 대로 써주세요.",
     placeholder: "딱 하나만 꼽지 않아도 괜찮아요...",
     bg: "#202020", textColor: "#e0e0e0", accentColor: "#8a8a8a", borderColor: "#4a4a4a",
-    deco: null, skippable: false
+    deco: "rays", skippable: false
   }
 ];
 
@@ -711,6 +711,7 @@ export default function App() {
         .analyzing-sub{font-family:'Source Serif 4',serif;font-size:.78rem;letter-spacing:.15em;color:#b8a080;margin-top:1.25rem;text-transform:uppercase}
         .analyzing-sub2{font-family:'Source Serif 4',serif;font-size:.78rem;letter-spacing:.15em;color:#4a6a8a;margin-top:1.25rem;text-transform:uppercase}
         @keyframes breathe{0%,100%{opacity:.35;transform:scale(.98)}50%{opacity:1;transform:scale(1)}}
+        @keyframes rippleA{0%{transform:scale(0.3);opacity:0.8}100%{transform:scale(1);opacity:0}}
         .result-wrap{width:100%;max-width:640px;max-height:88vh;overflow-y:auto;scrollbar-width:none;position:relative;z-index:1}
         .result-wrap::-webkit-scrollbar{display:none}
         .result-eyebrow{font-family:'Source Serif 4',serif;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:#c4956a;margin-bottom:.5rem}
@@ -814,9 +815,16 @@ export default function App() {
       )}
 
       {step === "analyzing" && (
-        <div className="analyzing">
-          <p className={stage===1?"analyzing-title":"analyzing-title2"}>당신의 이야기를<br/>읽고 있어요</p>
-          <p className={stage===1?"analyzing-sub":"analyzing-sub2"}>잠시만요</p>
+        <div className="analyzing" style={{position:"relative"}}>
+          <svg width="300" height="300" viewBox="0 0 200 200" style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",pointerEvents:"none",zIndex:0,opacity:0.4}}>
+            <ellipse cx="100" cy="100" rx="8" ry="4" fill="none" stroke={stage===1?"#c4956a":"#4a8ab4"} strokeWidth="1.2" style={{animation:"rippleA 3.5s ease-out infinite"}}/>
+            <ellipse cx="100" cy="100" rx="28" ry="14" fill="none" stroke={stage===1?"#c4956a":"#4a8ab4"} strokeWidth="1" style={{animation:"rippleA 3.5s ease-out 0.7s infinite"}}/>
+            <ellipse cx="100" cy="100" rx="52" ry="26" fill="none" stroke={stage===1?"#c4956a":"#4a8ab4"} strokeWidth="0.8" style={{animation:"rippleA 3.5s ease-out 1.4s infinite"}}/>
+            <ellipse cx="100" cy="100" rx="76" ry="38" fill="none" stroke={stage===1?"#c4956a":"#4a8ab4"} strokeWidth="0.6" style={{animation:"rippleA 3.5s ease-out 2.1s infinite"}}/>
+            <ellipse cx="100" cy="100" rx="95" ry="47" fill="none" stroke={stage===1?"#c4956a":"#4a8ab4"} strokeWidth="0.4" style={{animation:"rippleA 3.5s ease-out 2.8s infinite"}}/>
+          </svg>
+          <p className={stage===1?"analyzing-title":"analyzing-title2"} style={{position:"relative",zIndex:1}}>당신의 이야기를<br/>읽고 있어요</p>
+          <p className={stage===1?"analyzing-sub":"analyzing-sub2"} style={{position:"relative",zIndex:1}}>잠시만요</p>
         </div>
       )}
 
