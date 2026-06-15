@@ -134,6 +134,7 @@ const ORACLE_SYSTEM_PROMPT = `당신은 Story Oracle이다.
 - 조언을 남발하지 말 것
 
 언어 원칙:
+- 반드시 존댓말로 쓸 것. ~요, ~습니다 형식으로. 반말 절대 금지.
 - 신탁의 목소리로 말할 것. 짧고 시적이고 여백이 있어야 한다
 - 각 섹션은 간결하게. 전체가 하나의 흐름처럼 읽혀야 한다
 - Oracle 섹션은 반드시 "혹시" 또는 "어쩌면"으로 시작하는 문장을 포함한다
@@ -162,9 +163,9 @@ const ORACLE_SYSTEM_PROMPT = `당신은 Story Oracle이다.
 // 꽃병 SVG — 단순한 선 드로잉
 const VaseSVG = ({ flowersVisible = 0 }) => (
   <svg
-    width="340"
-    height="520"
-    viewBox="-60 -190 280 400"
+    width="360"
+    height="600"
+    viewBox="-60 -280 280 480"
     style={{
       position: "absolute",
       right: "-40px",
@@ -456,7 +457,7 @@ export default function Oracle({ onBack }) {
 
   const parsed = oracleText ? parseOracle(oracleText) : {};
 
-  const bgColor = phase === "result" ? "#e8e0f5" : "#7dd4c8";
+  const bgColor = phase === "result" || phase === "final" ? "#e8e0f5" : "#7dd4c8";
   const textColor = phase === "result" ? "#2a1a4a" : "#0d2e2a";
 
   return (
@@ -679,15 +680,19 @@ export default function Oracle({ onBack }) {
         <div ref={resultRef} style={{ width: "100%", maxWidth: 680, paddingTop: "2rem" }}>
 
           {visibleSections.includes("Reflection") && parsed["Reflection"] && (
-            <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.92rem", fontWeight: 300, color: "rgba(42,26,74,0.6)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
+            <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>당신의 말</div>
+              <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.92rem", fontWeight: 300, color: "rgba(42,26,74,0.65)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Reflection"]}
               </div>
             </div>
           )}
 
           {visibleSections.includes("Recognition") && parsed["Recognition"] && (
-            <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
+            <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>오라클이 본 것</div>
+              <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.95rem", fontWeight: 300, color: "rgba(42,26,74,0.75)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Recognition"]}
               </div>
@@ -695,35 +700,56 @@ export default function Oracle({ onBack }) {
           )}
 
           {visibleSections.includes("Oracle") && parsed["Oracle"] && (
-            <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.15rem", fontStyle: "italic", fontWeight: 400, color: "#2a1a4a", lineHeight: 2.3, whiteSpace: "pre-wrap", paddingLeft: "1.5rem", borderLeft: "1px solid rgba(90,58,138,0.25)" }}>
+            <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>신탁</div>
+              <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.05rem", fontStyle: "italic", fontWeight: 400, color: "#2a1a4a", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Oracle"]}
               </div>
             </div>
           )}
 
           {visibleSections.includes("Story") && parsed["Story"] && (
-            <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", fontWeight: 400, color: "rgba(42,26,74,0.65)", lineHeight: 2.3, whiteSpace: "pre-wrap" }}>
+            <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>듣고 싶었던 이야기</div>
+              <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", fontWeight: 400, color: "rgba(42,26,74,0.7)", lineHeight: 2.3, whiteSpace: "pre-wrap" }}>
                 {parsed["Story"]}
               </div>
             </div>
           )}
 
           {visibleSections.includes("Empowerment") && parsed["Empowerment"] && (
-            <div className="oracle-appear" style={{ marginBottom: "4rem" }}>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.3rem", fontStyle: "italic", fontWeight: 400, color: "#2a1a4a", lineHeight: 1.9, whiteSpace: "pre-wrap" }}>
+            <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>문을 나서기 전에</div>
+              <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", fontStyle: "italic", fontWeight: 400, color: "#2a1a4a", lineHeight: 1.9, whiteSpace: "pre-wrap" }}>
                 {parsed["Empowerment"]}
               </div>
             </div>
           )}
 
           {visibleSections.length === 5 && (
-            <div className="oracle-appear" style={{ marginTop: "2rem", paddingTop: "2.5rem", borderTop: "1px solid rgba(90,58,138,0.1)" }}>
-              <div className="greek" style={{ color: "rgba(42,26,74,0.25)", marginBottom: "2rem" }}>γνῶθι σεαυτόν</div>
+            <div className="oracle-appear" style={{ marginTop: "2rem", paddingTop: "2rem", borderTop: "1px solid rgba(90,58,138,0.1)" }}>
+              <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
+                <button className="oracle-btn-result" onClick={() => setPhase("final")}>오라클의 제안 →</button>
+                <button className="oracle-btn-result" onClick={() => {
+                  const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
+                  navigator.clipboard.writeText(text);
+                  alert("복사되었습니다");
+                }}>결과 복사</button>
+                <button className="back-link-result" onClick={onBack}>← 마음거울로</button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
-              {/* 마지막 장 */}
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(42,26,74,0.65)", lineHeight: 2.2, marginBottom: "3rem", whiteSpace: "pre-line" }}>
+      {/* 마지막 장 */}
+      {phase === "final" && (
+        <div style={{ width: "100%", maxWidth: 580, paddingTop: "2rem", paddingBottom: "4rem" }}>
+          <div className="greek" style={{ color: "rgba(42,26,74,0.25)", marginBottom: "3rem", fontSize: "0.9rem" }}>γνῶθι σεαυτόν</div>
+          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
 {`당신은 자신을 보았습니다.
 
 이 결과는 당신이 누구인지를 정의하지 않아요.
@@ -736,73 +762,85 @@ export default function Oracle({ onBack }) {
 
 오라클은 단지 당신이 반복적으로 선택해온 방식,
 세상을 해석해온 습관,
-그리고 무의식적으로 돌아가기 쉬운 길을 보여줄 뿐이에요.
+그리고 무의식적으로 돌아가기 쉬운 길을 보여줄 뿐이에요.`}
+          </div>
 
-⸻
+          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
 
-그 구조는 당신의 강점이었고,
+          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
+{`그 구조는 당신의 강점이었고,
 당신을 여기까지 데려온 힘이었어요.
 
 하지만 강점도 한 방향으로만 반복된다면
-때로는 같은 문제를 반복하게 만들기도 해요.
+때로는 같은 문제를 반복하게 만들기도 해요.`}
+          </div>
 
-⸻
+          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
 
-오라클은 당신이 보지 못했던 반복을 보여줄 뿐이에요.
+          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
+{`오라클은 당신이 보지 못했던 반복을 보여줄 뿐이에요.
 
 그리고 묻습니다.
 
-당신은 왜 늘 같은 길을 선택해왔나요?
+당신은 왜 늘 같은 길을 선택해왔나요?`}
+          </div>
 
-⸻
+          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
 
-예언을 들으면 내가 달라질 거라고,
+          <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontStyle: "italic", color: "#2a1a4a", lineHeight: 2, whiteSpace: "pre-line" }}>
+{`예언을 들으면 내가 달라질 거라고,
 혹은 확신이 생길 거라 기대하지 마세요.
-달라질 나를 위해 새 선택을 해보세요.
+달라질 나를 위해 새 선택을 해보세요.`}
+          </div>
 
-⸻
+          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
 
-오라클이 보여주고 싶은 건
+          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
+{`오라클이 보여주고 싶은 건
 당신의 구조가 아니라 가능성이에요.
 
-그것만이 유일한 길은 아니니까요.
+그것만이 유일한 길은 아니니까요.`}
+          </div>
 
-⸻
+          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
 
-이 결과지를 복사해서
-당신의 AI와 더 깊이 이야기해보세요.
+          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
+{`이 결과지를 복사해서
+당신의 AI와 더 깊이 이야기해보세요.`}
+          </div>
 
-⸻
+          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
 
-그리고 언젠가 다시 오세요.
+          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
+{`그리고 언젠가 다시 오세요.
 과거의 당신이 오라클에게 했던 말과
-지금의 당신이 하는 말이 달라져 있기를 바랍니다.
+지금의 당신이 하는 말이 달라져 있기를 바랍니다.`}
+          </div>
 
-⸻
+          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
 
-당신 자신에 대해 조금이라도
-알게 되셨다면, 그것으로 충분합니다.`}
-              </div>
+          <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(42,26,74,0.5)", lineHeight: 2 }}>
+            당신 자신에 대해 조금이라도<br/>
+            알게 되셨다면, 그것으로 충분합니다.
+          </div>
 
-              <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-                <button className="oracle-btn-result" onClick={() => {
-                  setPhase("intro");
-                  setAnswers({});
-                  setCurrentQ(0);
-                  setOracleText("");
-                  setVisibleSections([]);
-                  setSelectedOption(null);
-                  setTextAnswer("");
-                }}>다시 시작</button>
-                <button className="oracle-btn-result" onClick={() => {
-                  const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
-                  navigator.clipboard.writeText(text);
-                  alert("복사되었습니다");
-                }}>결과 복사</button>
-                <button className="back-link-result" onClick={onBack}>← 마음거울로</button>
-              </div>
-            </div>
-          )}
+          <div style={{ marginTop: "3rem", display: "flex", gap: "1.5rem", alignItems: "center" }}>
+            <button className="oracle-btn-result" onClick={() => {
+              setPhase("intro");
+              setAnswers({});
+              setCurrentQ(0);
+              setOracleText("");
+              setVisibleSections([]);
+              setSelectedOption(null);
+              setTextAnswer("");
+            }}>다시 시작</button>
+            <button className="oracle-btn-result" onClick={() => {
+              const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
+              navigator.clipboard.writeText(text);
+              alert("복사되었습니다");
+            }}>결과 복사</button>
+            <button className="back-link-result" onClick={onBack}>← 마음거울로</button>
+          </div>
         </div>
       )}
     </div>
