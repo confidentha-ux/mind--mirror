@@ -168,7 +168,7 @@ const VaseSVG = ({ flowersVisible = 0 }) => (
     viewBox="-60 -280 280 480"
     style={{
       position: "absolute",
-      right: "-40px",
+      right: "-10px",
       top: "50%",
       transform: "translateY(-50%)",
       opacity: 0.12,
@@ -679,11 +679,42 @@ export default function Oracle({ onBack }) {
 
       {/* 문 앞 */}
       {phase === "door" && (
-        <div style={{ width: "100%", maxWidth: 480, textAlign: "center", position: "relative", zIndex: 1 }}>
-          <div className="greek" style={{ color: "rgba(13,46,42,0.35)", marginBottom: "4rem" }}>γνῶθι σεαυτόν</div>
-          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.45)", marginBottom: "4rem", lineHeight: 1.9, animation: "flicker 4s ease-in-out infinite" }}>
+        <div style={{ width: "100%", maxWidth: 520, textAlign: "center", position: "relative", zIndex: 1 }}>
+          <div className="greek" style={{ color: "rgba(13,46,42,0.35)", marginBottom: "3rem" }}>γνῶθι σεαυτόν</div>
+          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.45)", marginBottom: "3rem", lineHeight: 1.9, animation: "flicker 4s ease-in-out infinite" }}>
             오라클이 당신의 답변을 읽고 있습니다
           </p>
+          {/* 교육 텍스트 */}
+          <div style={{ borderTop: "1px solid rgba(13,46,42,0.12)", paddingTop: "2rem", textAlign: "left", marginBottom: "3rem" }}>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(13,46,42,0.3)", marginBottom: "0.75rem" }}>우리가 스스로를 못 보는 이유</p>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(13,46,42,0.5)", lineHeight: 1.9, whiteSpace: "pre-line" }}>{`이상하지 않나요.
+가장 오래 함께 산 사람이 자신인데
+정작 자신을 가장 모르는 경우가 많아요.
+
+이유가 있어요.
+
+첫째, 우리는 보고 싶은 것만 봐요.
+이미 믿고 있는 것을 확인해주는 정보만
+자연스럽게 눈에 들어오거든요.
+"나는 이런 사람이야"라는 믿음이 생기면
+그 반대의 증거는 조용히 사라져요.
+
+둘째, 감정이 렌즈가 돼요.
+두렵거나 화가 났을 때
+우리는 자신을 객관적으로 보기 어려워요.
+감정이 현실을 해석하는 필터가 되거든요.
+
+셋째, 자신과 너무 오래 가까이 있다 보니
+정작 자신은 자신을 볼 수 없어요.
+
+넷째, 우리는 오랫동안 특정한 방식으로
+자신을 설명해왔어요.
+그러다 보면 그게 진짜인지
+습관인지 구분이 안 되기도 해요.
+
+그래서 거울이 필요해요.
+오라클은 그 거울이에요.`}</p>
+          </div>
           <button className="door-open-btn" onClick={openDoor}>문을 열다</button>
         </div>
       )}
