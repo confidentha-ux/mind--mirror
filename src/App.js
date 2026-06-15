@@ -612,7 +612,27 @@ export default function App() {
   if (step === "mindmirror-intro") {
     return (
       <div style={{minHeight:"100vh",background:"#fef6ed",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem",position:"relative",overflow:"hidden"}}>
-        <style>{FONTS}</style>
+        <style>{FONTS + `
+          @keyframes ripple {
+            0% { transform: scale(0.3); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 0; }
+          }
+          .ripple-a { animation: ripple 3.5s ease-out infinite; transform-origin: center; }
+          .ripple-b { animation: ripple 3.5s ease-out 0.7s infinite; transform-origin: center; }
+          .ripple-c { animation: ripple 3.5s ease-out 1.4s infinite; transform-origin: center; }
+          .ripple-d { animation: ripple 3.5s ease-out 2.1s infinite; transform-origin: center; }
+          .ripple-e { animation: ripple 3.5s ease-out 2.8s infinite; transform-origin: center; }
+        `}</style>
+
+        {/* 물결 애니메이션 — 오른쪽 하단 */}
+        <svg width="320" height="320" viewBox="0 0 200 200" style={{position:"absolute",right:"-60px",bottom:"-60px",pointerEvents:"none"}}>
+          <ellipse className="ripple-a" cx="100" cy="100" rx="8" ry="4" fill="none" stroke="#c4956a" strokeWidth="1.2"/>
+          <ellipse className="ripple-b" cx="100" cy="100" rx="25" ry="12" fill="none" stroke="#c4956a" strokeWidth="1"/>
+          <ellipse className="ripple-c" cx="100" cy="100" rx="45" ry="22" fill="none" stroke="#c4956a" strokeWidth="0.9"/>
+          <ellipse className="ripple-d" cx="100" cy="100" rx="68" ry="33" fill="none" stroke="#c4956a" strokeWidth="0.7"/>
+          <ellipse className="ripple-e" cx="100" cy="100" rx="90" ry="44" fill="none" stroke="#c4956a" strokeWidth="0.5"/>
+          <circle cx="100" cy="100" r="2.5" fill="#c4956a" opacity="0.4"/>
+        </svg></style>
         <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
           <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",color:"#c4956a",marginBottom:"1.5rem"}}>마음거울 · 1단계</div>
           <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.4rem,6vw,3.6rem)",fontWeight:400,lineHeight:1.15,color:"#2a1200",marginBottom:"2rem"}}>당신은<br/>어떻게<br/>생각하나요</h1>
