@@ -321,7 +321,40 @@ const Decoration = ({ type, color }) => {
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
-function FeedbackWidget() {
+function AnalyzingScreen({ stage }) {
+  const slides1 = [
+    { title: "인지란 무엇인가", text: `우리는 매일 수천 가지 결정을 내려요.\n그런데 그 결정들, 스스로 내리고 있다고 생각하시나요?\n\n인지는 우리가 세상을 받아들이고\n해석하고, 반응하는 방식이에요.\n\n보이는 것, 듣는 것, 느끼는 것을\n어떻게 처리하느냐 — 그게 인지예요.\n\n흥미로운 건, 이 방식이 사람마다 다르다는 거예요.\n같은 상황에서 어떤 사람은 불안을 느끼고\n어떤 사람은 흥분을 느껴요.\n\n그 차이가 바로 인지 구조예요.\n그리고 이 구조는 대부분\n우리도 모르는 사이에 형성됐어요.` },
+  ];
+  const slides2 = [
+    { title: "인지 구조란 무엇인가", text: `인지가 세상을 받아들이는 방식이라면,\n인지 구조는 그 방식이 굳어진 틀이에요.\n\n어린 시절부터 반복된 경험들이\n"이럴 땐 이렇게 해야 해"라는\n무의식적인 규칙을 만들어요.\n\n갈등이 생기면 먼저 말하는 사람,\n조용히 물러나는 사람.\n실패하면 자신을 탓하는 사람,\n상황을 탓하는 사람.\n\n틀린 게 아니에요.\n그 구조가 지금까지 당신을 지켜온 방식이에요.\n\n문제는 그 구조가\n이제는 맞지 않는 상황에서도\n여전히 작동한다는 거예요.` },
+  ];
+  const slides = stage === 1 ? slides1 : slides2;
+  const slide = slides[0];
+  const color = stage === 1 ? "#c4956a" : "#4a8ab4";
+  const textColor = stage === 1 ? "rgba(107,76,42,0.65)" : "rgba(74,138,180,0.65)";
+  const borderColor = stage === 1 ? "rgba(196,149,106,0.2)" : "rgba(74,138,180,0.2)";
+  const labelColor = stage === 1 ? "rgba(196,149,106,0.5)" : "rgba(74,138,180,0.5)";
+
+  return (
+    <div className="analyzing" style={{position:"relative"}}>
+      <svg width="300" height="300" viewBox="0 0 200 200" style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",pointerEvents:"none",zIndex:0,opacity:0.4}}>
+        <ellipse cx="100" cy="100" rx="8" ry="4" fill="none" stroke={color} strokeWidth="1.2" style={{animation:"rippleA 3.5s ease-out infinite"}}/>
+        <ellipse cx="100" cy="100" rx="28" ry="14" fill="none" stroke={color} strokeWidth="1" style={{animation:"rippleA 3.5s ease-out 0.7s infinite"}}/>
+        <ellipse cx="100" cy="100" rx="52" ry="26" fill="none" stroke={color} strokeWidth="0.8" style={{animation:"rippleA 3.5s ease-out 1.4s infinite"}}/>
+        <ellipse cx="100" cy="100" rx="76" ry="38" fill="none" stroke={color} strokeWidth="0.6" style={{animation:"rippleA 3.5s ease-out 2.1s infinite"}}/>
+        <ellipse cx="100" cy="100" rx="95" ry="47" fill="none" stroke={color} strokeWidth="0.4" style={{animation:"rippleA 3.5s ease-out 2.8s infinite"}}/>
+      </svg>
+      <div style={{position:"relative",zIndex:1,maxWidth:480,margin:"0 auto",textAlign:"center"}}>
+        <p className={stage===1?"analyzing-title":"analyzing-title2"}>당신의 이야기를<br/>읽고 있어요</p>
+        <p className={stage===1?"analyzing-sub":"analyzing-sub2"} style={{marginBottom:"3rem"}}>잠시만요</p>
+        <div style={{borderTop:`1px solid ${borderColor}`,paddingTop:"2rem",textAlign:"left"}}>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:labelColor,marginBottom:"0.75rem"}}>{slide.title}</p>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.85rem",fontWeight:300,color:textColor,lineHeight:1.9,whiteSpace:"pre-line"}}>{slide.text}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
   const [selected, setSelected] = React.useState(null);
   return (
     <div style={{marginTop:"2.5rem",paddingTop:"2rem",borderTop:"1px solid rgba(42,18,0,0.08)",textAlign:"center"}}>
@@ -345,7 +378,35 @@ function FeedbackWidget() {
   );
 }
 
+function FeedbackWidget({ dark = false }) {
+  const [selected, setSelected] = React.useState(null);
+  const textColor = dark ? "rgba(200,210,230,0.45)" : "rgba(42,18,0,0.45)";
+  const borderColor = dark ? "rgba(200,210,230,0.2)" : "rgba(42,18,0,0.15)";
+  const btnColor = dark ? "rgba(200,210,230,0.5)" : "rgba(42,18,0,0.5)";
+  const dividerColor = dark ? "rgba(200,210,230,0.1)" : "rgba(42,18,0,0.08)";
+  return (
+    <div style={{marginTop:"2.5rem",paddingTop:"2rem",borderTop:`1px solid ${dividerColor}`,textAlign:"center"}}>
+      <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:textColor,marginBottom:"1rem"}}>이 분석이 당신에게 맞나요?</p>
+      {!selected && (
+        <div style={{display:"flex",gap:"0.75rem",justifyContent:"center",flexWrap:"wrap"}}>
+          <button onClick={() => setSelected("yes")} style={{background:"none",border:`1px solid ${borderColor}`,fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:btnColor,padding:"0.4rem 1rem",cursor:"pointer"}}>👍 맞아요</button>
+          <button onClick={() => setSelected("no")} style={{background:"none",border:`1px solid ${borderColor}`,fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:btnColor,padding:"0.4rem 1rem",cursor:"pointer"}}>👎 아닌 것 같아요</button>
+          <button onClick={() => setSelected("unsure")} style={{background:"none",border:`1px solid ${borderColor}`,fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:btnColor,padding:"0.4rem 1rem",cursor:"pointer"}}>🤔 잘 모르겠어요</button>
+        </div>
+      )}
+      {selected === "yes" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:textColor}}>감사해요.</p>}
+      {selected === "unsure" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:textColor}}>그 모르겠다는 느낌도 중요한 정보예요.</p>}
+      {selected === "no" && (
+        <div>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.85rem",fontWeight:300,color:btnColor,lineHeight:1.9,marginBottom:"0.75rem"}}>맞지 않는 부분이 있으신가요?<br/>당신이 느낀 것을 말씀해주세요.</p>
+          <a href="https://forms.gle/1MK9PRZmTBpFsEPN8" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:btnColor,textDecoration:"underline",textUnderlineOffset:"3px"}}>피드백 남기기 →</a>
+        </div>
+      )}
+    </div>
+  );
+}
 
+export default function App() {
   const [stage, setStage] = useState(1);
   const [step, setStep] = useState("intro");
   const [currentQ, setCurrentQ] = useState(0);
@@ -868,36 +929,7 @@ function FeedbackWidget() {
         </div>
       )}
 
-      {step === "analyzing" && (() => {
-        const slides1 = [
-          { title: "인지란 무엇인가", text: `우리는 매일 수천 가지 결정을 내려요.\n그런데 그 결정들, 스스로 내리고 있다고 생각하시나요?\n\n인지는 우리가 세상을 받아들이고\n해석하고, 반응하는 방식이에요.\n\n보이는 것, 듣는 것, 느끼는 것을\n어떻게 처리하느냐 — 그게 인지예요.\n\n흥미로운 건, 이 방식이 사람마다 다르다는 거예요.\n같은 상황에서 어떤 사람은 불안을 느끼고\n어떤 사람은 흥분을 느껴요.\n\n그 차이가 바로 인지 구조예요.\n그리고 이 구조는 대부분\n우리도 모르는 사이에 형성됐어요.` },
-        ];
-        const slides2 = [
-          { title: "인지 구조란 무엇인가", text: `인지가 세상을 받아들이는 방식이라면,\n인지 구조는 그 방식이 굳어진 틀이에요.\n\n어린 시절부터 반복된 경험들이\n"이럴 땐 이렇게 해야 해"라는\n무의식적인 규칙을 만들어요.\n\n갈등이 생기면 먼저 말하는 사람,\n조용히 물러나는 사람.\n실패하면 자신을 탓하는 사람,\n상황을 탓하는 사람.\n\n틀린 게 아니에요.\n그 구조가 지금까지 당신을 지켜온 방식이에요.\n\n문제는 그 구조가\n이제는 맞지 않는 상황에서도\n여전히 작동한다는 거예요.` },
-        ];
-        const slides = stage === 1 ? slides1 : slides2;
-        const [slideIdx] = React.useState(0);
-        const slide = slides[slideIdx];
-        return (
-          <div className="analyzing" style={{position:"relative"}}>
-            <svg width="300" height="300" viewBox="0 0 200 200" style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",pointerEvents:"none",zIndex:0,opacity:0.4}}>
-              <ellipse cx="100" cy="100" rx="8" ry="4" fill="none" stroke={stage===1?"#c4956a":"#4a8ab4"} strokeWidth="1.2" style={{animation:"rippleA 3.5s ease-out infinite"}}/>
-              <ellipse cx="100" cy="100" rx="28" ry="14" fill="none" stroke={stage===1?"#c4956a":"#4a8ab4"} strokeWidth="1" style={{animation:"rippleA 3.5s ease-out 0.7s infinite"}}/>
-              <ellipse cx="100" cy="100" rx="52" ry="26" fill="none" stroke={stage===1?"#c4956a":"#4a8ab4"} strokeWidth="0.8" style={{animation:"rippleA 3.5s ease-out 1.4s infinite"}}/>
-              <ellipse cx="100" cy="100" rx="76" ry="38" fill="none" stroke={stage===1?"#c4956a":"#4a8ab4"} strokeWidth="0.6" style={{animation:"rippleA 3.5s ease-out 2.1s infinite"}}/>
-              <ellipse cx="100" cy="100" rx="95" ry="47" fill="none" stroke={stage===1?"#c4956a":"#4a8ab4"} strokeWidth="0.4" style={{animation:"rippleA 3.5s ease-out 2.8s infinite"}}/>
-            </svg>
-            <div style={{position:"relative",zIndex:1,maxWidth:480,margin:"0 auto",textAlign:"center"}}>
-              <p className={stage===1?"analyzing-title":"analyzing-title2"}>당신의 이야기를<br/>읽고 있어요</p>
-              <p className={stage===1?"analyzing-sub":"analyzing-sub2"} style={{marginBottom:"3rem"}}>잠시만요</p>
-              <div style={{borderTop:`1px solid ${stage===1?"rgba(196,149,106,0.2)":"rgba(74,138,180,0.2)"}`,paddingTop:"2rem",textAlign:"left"}}>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:stage===1?"rgba(196,149,106,0.5)":"rgba(74,138,180,0.5)",marginBottom:"0.75rem"}}>{slide.title}</p>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.85rem",fontWeight:300,color:stage===1?"rgba(107,76,42,0.65)":"rgba(74,138,180,0.65)",lineHeight:1.9,whiteSpace:"pre-line"}}>{slide.text}</p>
-              </div>
-            </div>
-          </div>
-        );
-      })()}
+      {step === "analyzing" && <AnalyzingScreen stage={stage} />}
 
       {step === "result" && (
         <div className="result-wrap" ref={resultRef}>
@@ -932,9 +964,4 @@ function FeedbackWidget() {
             <button className="restart-btn2" onClick={downloadResult}>결과 저장</button>
             <button className="restart-btn2" onClick={restart}>처음으로</button>
           </div>
-          <FeedbackWidget />
-        </div>
-      )}
-    </div>
-  );
-}
+          <FeedbackWidget dark={true} />
