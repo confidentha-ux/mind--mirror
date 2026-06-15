@@ -632,7 +632,7 @@ export default function App() {
           <ellipse className="ripple-d" cx="100" cy="100" rx="68" ry="33" fill="none" stroke="#c4956a" strokeWidth="0.7"/>
           <ellipse className="ripple-e" cx="100" cy="100" rx="90" ry="44" fill="none" stroke="#c4956a" strokeWidth="0.5"/>
           <circle cx="100" cy="100" r="2.5" fill="#c4956a" opacity="0.4"/>
-        </svg></style>
+        </svg>
         <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
           <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",color:"#c4956a",marginBottom:"1.5rem"}}>마음거울 · 1단계</div>
           <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.4rem,6vw,3.6rem)",fontWeight:400,lineHeight:1.15,color:"#2a1200",marginBottom:"2rem"}}>당신은<br/>어떻게<br/>생각하나요</h1>
