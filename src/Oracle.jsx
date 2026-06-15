@@ -480,7 +480,7 @@ export default function Oracle({ onBack }) {
 
   const parsed = oracleText ? parseOracle(oracleText) : {};
 
-  const bgColor = phase === "result" || phase === "final" ? "#e8e0f5" : "#7dd4c8";
+  const bgColor = phase === "result" ? "#e8e0f5" : phase === "final" ? "#2d5a2d" : "#7dd4c8";
   const textColor = phase === "result" ? "#2a1a4a" : "#0d2e2a";
 
   return (
@@ -724,9 +724,9 @@ export default function Oracle({ onBack }) {
 
           {visibleSections.includes("Oracle") && parsed["Oracle"] && (
             <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>신탁</div>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>오라클의 가설</div>
               <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap", paddingLeft: "1.25rem", borderLeft: "2px solid rgba(90,58,138,0.2)" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Oracle"]}
               </div>
             </div>
@@ -775,80 +775,86 @@ export default function Oracle({ onBack }) {
       {/* 마지막 장 */}
       {phase === "final" && (
         <div style={{ width: "100%", maxWidth: 580, paddingTop: "2rem", paddingBottom: "4rem" }}>
-          <div className="greek" style={{ color: "rgba(42,26,74,0.25)", marginBottom: "3rem", fontSize: "0.9rem" }}>γνῶθι σεαυτόν</div>
-          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
+          <div className="greek" style={{ color: "rgba(240,237,232,0.3)", marginBottom: "3rem", fontSize: "0.9rem" }}>γνῶθι σεαυτόν</div>
+
+          {/* 골드+라벤더 더블 테두리 액자 */}
+          <div style={{ position: "relative", padding: "3rem 2.5rem", border: "4px solid #c9a84c", boxShadow: "inset 0 0 0 8px #2d5a2d, inset 0 0 0 10px rgba(160,140,200,0.35)" }}>
+
+            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
 {`당신은 자신을 보았습니다.
 
 이 결과는 당신이 누구인지를 정의하지 않아요.
-오라클은 사람을 분류하거나 그의 미래를 예측하는 것이 아닙니다.
-
-매트릭스에서 네오는 자신이 선택받은 자인지
-확인받기 위해 오라클을 찾아갔어요.
-하지만 오라클이 준 건 확인이 아니라 질문이었죠.
-네오는 오라클을 떠난 후에야 스스로 선택했습니다.
-
+오라클은 사람을 분류하거나 당신의 미래를 예측하는 것도 아닙니다.
 오라클은 단지 당신이 반복적으로 선택해온 방식,
 세상을 해석해온 습관,
 그리고 무의식적으로 돌아가기 쉬운 길을 보여줄 뿐이에요.`}
-          </div>
+            </div>
 
-          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
+            <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
 
-          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
-{`그 구조는 당신의 강점이었고,
-당신을 여기까지 데려온 힘이었어요.
+            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
+{`당신이 지금까지 살아온 방식은
+당신의 강점이었고,
+여기까지 데려온 힘이었어요.
 
-하지만 강점도 한 방향으로만 반복된다면
-때로는 같은 문제를 반복하게 만들기도 해요.`}
-          </div>
-
-          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
-
-          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
-{`오라클은 당신이 보지 못했던 반복을 보여줄 뿐이에요.
+하지만 같은 방식이 한 방향으로만 반복된다면
+때로는 같은 문제를 반복하게 만들기도 해요.
 
 그리고 묻습니다.
 
 당신은 왜 늘 같은 길을 선택해왔나요?`}
-          </div>
+            </div>
 
-          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
+            <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
 
-          <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontStyle: "italic", color: "#2a1a4a", lineHeight: 2, whiteSpace: "pre-line" }}>
-{`예언을 들으면 내가 달라질 거라고,
-혹은 확신이 생길 거라 기대하지 마세요.
-달라질 나를 위해 새 선택을 해보세요.`}
-          </div>
+            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
+{`매트릭스에서 네오는 자신이 선택받은 자인지
+확인받기 위해 오라클을 찾아갔어요.
+하지만 오라클이 준 건 확인이 아니라 질문이었죠.
+네오는 오라클과 헤어진 뒤
+스스로 자신의 길을 생각하고 선택했습니다.
 
-          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
+뭔가를 알게 되면 확신이 생겨
+내가 달라질 거라고 기대하지 마세요.
+달라진 내가 되기 위한 새로운 선택,
+그것으로 충분합니다.`}
+            </div>
 
-          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
-{`오라클이 보여주고 싶은 건
-당신의 구조가 아니라 가능성이에요.
+            <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
 
-그것만이 유일한 길은 아니니까요.`}
-          </div>
+            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
+{`오라클은 당신의 전부를 본 것이 아니에요.
+당신이 쓴 몇 개의 문장으로
+당신이라는 사람 전체를 알 수는 없어요.
+오라클이 본 건 그 문장들 안에 있는 패턴이에요.
+당신의 일부분이고, 그것도 오늘의 일부분이에요.
 
-          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
+분석이 맞지 않는다고 느껴지신다면
+그 느낌 자체가 중요한 정보예요.
+무엇이 틀렸는지, 왜 다르게 느껴지는지 —
+분석지를 복사하셔서 당신의 AI와 상의해보세요.
+직접 인지구조 검사를 요청하시는 것도 좋아요.
 
-          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
-{`이 결과지를 복사해서
-당신의 AI와 더 깊이 이야기해보세요.`}
-          </div>
+가족이나 가까운 사람들에게 보여주시고
+피드백을 받아보세요.
+특히 이해에 어려움을 겪은 상대가 있으시다면
+함께 해보시고 분석지를 돌려가며 읽어보시면
+도움이 되실 거예요.`}
+            </div>
 
-          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
+            <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
 
-          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.4, whiteSpace: "pre-line" }}>
+            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
 {`그리고 언젠가 다시 오세요.
-과거의 당신이 오라클에게 했던 말과
-지금의 당신이 하는 말이 달라져 있기를 바랍니다.`}
-          </div>
+오늘 당신이 오라클에게 했던 말과
+그 때 당신이 할 말이 달라져 있으실 거예요.
 
-          <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.2)", margin: "2.5rem 0" }}/>
+그것이 바로 당신 자신에 대해
+조금이라도 새롭게 알게 되셨다는 증거니까요.
 
-          <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(42,26,74,0.5)", lineHeight: 2 }}>
-            당신 자신에 대해 조금이라도<br/>
-            알게 되셨다면, 그것으로 충분합니다.
+같이 기뻐하겠습니다.`}
+            </div>
+
           </div>
 
           <div style={{ marginTop: "3rem", display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
@@ -866,7 +872,7 @@ export default function Oracle({ onBack }) {
               navigator.clipboard.writeText(text);
               alert("복사되었습니다");
             }}>결과 복사</button>
-            <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(210,200,230,0.5)",textDecoration:"underline",textUnderlineOffset:"3px"}}>당신의 경험을 들려주세요 →</a>
+            <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(240,237,232,0.45)",textDecoration:"underline",textUnderlineOffset:"3px"}}>당신의 경험을 들려주세요 →</a>
             <button className="back-link-result" onClick={onBack}>← 마음거울로</button>
           </div>
         </div>
