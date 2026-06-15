@@ -160,11 +160,11 @@ const ORACLE_SYSTEM_PROMPT = `당신은 Story Oracle이다.
 반드시 ## Reflection, ## Recognition, ## Oracle, ## Story, ## Empowerment 헤더를 정확히 사용하라.`;
 
 // 꽃병 SVG — 단순한 선 드로잉
-const VaseSVG = () => (
+const VaseSVG = ({ flowersVisible = 0 }) => (
   <svg
-    width="320"
-    height="420"
-    viewBox="0 0 160 220"
+    width="340"
+    height="520"
+    viewBox="-60 -190 280 400"
     style={{
       position: "absolute",
       right: "-40px",
@@ -174,6 +174,140 @@ const VaseSVG = () => (
       pointerEvents: "none",
     }}
   >
+    {/* 꽃1: 왼쪽 바깥 낮게 — 5꽃잎 */}
+    {flowersVisible >= 1 && <g style={{transition:"opacity 0.6s ease"}}>
+      <line x1="70" y1="18" x2="-28" y2="-25" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <path d="M25,-4 Q12,-14 14,0" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(72 -36 -35)"/>
+      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(144 -36 -35)"/>
+      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(216 -36 -35)"/>
+      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(288 -36 -35)"/>
+      <circle cx="-36" cy="-35" r="5" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+    </g>}
+
+    {/* 꽃2: 오른쪽 바깥 낮게 — 8꽃잎 */}
+    {flowersVisible >= 2 && <g>
+      <line x1="90" y1="18" x2="188" y2="-25" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <path d="M135,-4 Q148,-14 146,0" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(45 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(90 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(135 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(180 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(225 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(270 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(315 196 -35)"/>
+      <circle cx="196" cy="-35" r="4" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+    </g>}
+
+    {/* 꽃3: 왼쪽 1번과 5번 사이 — 4꽃잎 */}
+    {flowersVisible >= 3 && <g>
+      <line x1="72" y1="18" x2="-10" y2="-65" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <path d="M38,-18 Q22,-28 24,-12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(90 -18 -77)"/>
+      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(180 -18 -77)"/>
+      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(270 -18 -77)"/>
+      <circle cx="-18" cy="-77" r="5" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+    </g>}
+
+    {/* 꽃4: 오른쪽 2번과 6번 사이 — 별꽃 */}
+    {flowersVisible >= 4 && <g>
+      <line x1="88" y1="18" x2="170" y2="-65" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <path d="M122,-18 Q138,-28 136,-12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <polygon points="178,-77 182,-68 191,-68 184,-62 187,-53 178,-58 169,-53 172,-62 165,-68 174,-68" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+    </g>}
+
+    {/* 꽃5: 왼쪽 중간 — 튤립 */}
+    {flowersVisible >= 5 && <g>
+      <line x1="74" y1="18" x2="14" y2="-95" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <path d="M52,-22 Q34,-34 36,-16" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M28,-62 Q12,-74 14,-56" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M14,-95 Q4,-113 14,-123 Q24,-113 14,-95" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <path d="M14,-95 Q0,-109 2,-123 Q10,-113 14,-95" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M14,-95 Q28,-109 26,-123 Q18,-113 14,-95" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+    </g>}
+
+    {/* 꽃6: 오른쪽 중간 — 국화 */}
+    {flowersVisible >= 6 && <g>
+      <line x1="86" y1="18" x2="146" y2="-95" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <path d="M108,-22 Q126,-34 124,-16" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M130,-62 Q148,-74 146,-56" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <circle cx="152" cy="-108" r="13" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <circle cx="152" cy="-108" r="7" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8" transform="rotate(30 152 -108)"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8" transform="rotate(60 152 -108)"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8" transform="rotate(90 152 -108)"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8" transform="rotate(120 152 -108)"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8" transform="rotate(150 152 -108)"/>
+    </g>}
+
+    {/* 꽃7: 왼쪽 높이 — 해바라기 */}
+    {flowersVisible >= 7 && <g>
+      <line x1="76" y1="18" x2="28" y2="-118" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <path d="M60,-22 Q42,-34 44,-16" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M46,-72 Q28,-84 30,-66" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <circle cx="22" cy="-132" r="10" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <circle cx="22" cy="-132" r="5" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <circle cx="22" cy="-132" r="2" fill="#0d2e2a" opacity="0.4"/>
+      <line x1="22" y1="-122" x2="22" y2="-118" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <line x1="22" y1="-142" x2="22" y2="-146" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <line x1="32" y1="-132" x2="36" y2="-132" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <line x1="12" y1="-132" x2="8" y2="-132" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <line x1="29" y1="-125" x2="33" y2="-121" stroke="#0d2e2a" strokeWidth="1"/>
+      <line x1="15" y1="-139" x2="11" y2="-143" stroke="#0d2e2a" strokeWidth="1"/>
+      <line x1="29" y1="-139" x2="33" y2="-143" stroke="#0d2e2a" strokeWidth="1"/>
+      <line x1="15" y1="-125" x2="11" y2="-121" stroke="#0d2e2a" strokeWidth="1"/>
+    </g>}
+
+    {/* 꽃8: 오른쪽 높이 — 로제트 */}
+    {flowersVisible >= 8 && <g>
+      <line x1="84" y1="18" x2="132" y2="-118" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <path d="M100,-22 Q118,-34 116,-16" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M114,-72 Q132,-84 130,-66" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <circle cx="138" cy="-130" r="12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <circle cx="138" cy="-130" r="7" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <circle cx="138" cy="-130" r="3" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M138,-142 Q144,-136 138,-130 Q132,-136 138,-142" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M138,-118 Q132,-124 138,-130 Q144,-124 138,-118" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M126,-130 Q132,-124 138,-130 Q132,-136 126,-130" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M150,-130 Q144,-136 138,-130 Q144,-124 150,-130" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+    </g>}
+
+    {/* 꽃9: 중앙 살짝 왼쪽 — 큰 데이지 */}
+    {flowersVisible >= 9 && <g>
+      <line x1="78" y1="18" x2="60" y2="-145" stroke="#0d2e2a" strokeWidth="1.3"/>
+      <path d="M72,-28 Q54,-40 56,-22" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M66,-88 Q48,-100 50,-82" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(60 57 -160)"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(120 57 -160)"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(180 57 -160)"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(240 57 -160)"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(300 57 -160)"/>
+      <circle cx="57" cy="-160" r="6" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+    </g>}
+
+    {/* 꽃10: 정중앙 최고높이 — 장미 완성 */}
+    {flowersVisible >= 10 && <g>
+      <line x1="80" y1="18" x2="80" y2="-145" stroke="#0d2e2a" strokeWidth="1.4"/>
+      <path d="M80,-35 Q98,-47 96,-29" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M80,-90 Q62,-102 64,-84" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <circle cx="80" cy="-163" r="18" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <circle cx="80" cy="-163" r="12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <circle cx="80" cy="-163" r="7" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <circle cx="80" cy="-163" r="3" fill="#0d2e2a" opacity="0.35"/>
+      <path d="M80,-181 Q88,-172 80,-163 Q72,-172 80,-181" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M80,-145 Q72,-154 80,-163 Q88,-154 80,-145" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M62,-163 Q71,-155 80,-163 Q71,-171 62,-163" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M98,-163 Q89,-171 80,-163 Q89,-155 98,-163" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <path d="M68,-150 Q74,-159 80,-163 Q74,-167 68,-176" fill="none" stroke="#0d2e2a" strokeWidth="0.8"/>
+      <path d="M92,-150 Q86,-159 80,-163 Q86,-167 92,-176" fill="none" stroke="#0d2e2a" strokeWidth="0.8"/>
+    </g>}
+
+    {/* 화병 (고정) */}
     <ellipse cx="80" cy="22" rx="20" ry="5" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
     <path d="M60,22 Q56,38 52,52" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
     <path d="M100,22 Q104,38 108,52" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
@@ -399,7 +533,7 @@ export default function Oracle({ onBack }) {
         .greek { font-family: 'Playfair Display', serif; font-size: 1rem; letter-spacing: 0.2em; font-style: italic; }
       `}</style>
 
-      {phase !== "result" && <VaseSVG />}
+      {phase !== "result" && <VaseSVG flowersVisible={phase === "questions" ? currentQ : phase === "door" || phase === "opening" ? 10 : 0} />}
 
       {/* 인트로 */}
       {phase === "intro" && (
@@ -587,6 +721,69 @@ export default function Oracle({ onBack }) {
           {visibleSections.length === 5 && (
             <div className="oracle-appear" style={{ marginTop: "2rem", paddingTop: "2.5rem", borderTop: "1px solid rgba(90,58,138,0.1)" }}>
               <div className="greek" style={{ color: "rgba(42,26,74,0.25)", marginBottom: "2rem" }}>γνῶθι σεαυτόν</div>
+
+              {/* 마지막 장 */}
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(42,26,74,0.65)", lineHeight: 2.2, marginBottom: "3rem", whiteSpace: "pre-line" }}>
+{`당신은 자신을 보았습니다.
+
+이 결과는 당신이 누구인지를 정의하지 않아요.
+오라클은 사람을 분류하거나 그의 미래를 예측하는 것이 아닙니다.
+
+매트릭스에서 네오는 자신이 선택받은 자인지
+확인받기 위해 오라클을 찾아갔어요.
+하지만 오라클이 준 건 확인이 아니라 질문이었죠.
+네오는 오라클을 떠난 후에야 스스로 선택했습니다.
+
+오라클은 단지 당신이 반복적으로 선택해온 방식,
+세상을 해석해온 습관,
+그리고 무의식적으로 돌아가기 쉬운 길을 보여줄 뿐이에요.
+
+⸻
+
+그 구조는 당신의 강점이었고,
+당신을 여기까지 데려온 힘이었어요.
+
+하지만 강점도 한 방향으로만 반복된다면
+때로는 같은 문제를 반복하게 만들기도 해요.
+
+⸻
+
+오라클은 당신이 보지 못했던 반복을 보여줄 뿐이에요.
+
+그리고 묻습니다.
+
+당신은 왜 늘 같은 길을 선택해왔나요?
+
+⸻
+
+예언을 들으면 내가 달라질 거라고,
+혹은 확신이 생길 거라 기대하지 마세요.
+달라질 나를 위해 새 선택을 해보세요.
+
+⸻
+
+오라클이 보여주고 싶은 건
+당신의 구조가 아니라 가능성이에요.
+
+그것만이 유일한 길은 아니니까요.
+
+⸻
+
+이 결과지를 복사해서
+당신의 AI와 더 깊이 이야기해보세요.
+
+⸻
+
+그리고 언젠가 다시 오세요.
+과거의 당신이 오라클에게 했던 말과
+지금의 당신이 하는 말이 달라져 있기를 바랍니다.
+
+⸻
+
+당신 자신에 대해 조금이라도
+알게 되셨다면, 그것으로 충분합니다.`}
+              </div>
+
               <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
                 <button className="oracle-btn-result" onClick={() => {
                   setPhase("intro");
