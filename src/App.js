@@ -355,28 +355,6 @@ function AnalyzingScreen({ stage }) {
     </div>
   );
 }
-  const [selected, setSelected] = React.useState(null);
-  return (
-    <div style={{marginTop:"2.5rem",paddingTop:"2rem",borderTop:"1px solid rgba(42,18,0,0.08)",textAlign:"center"}}>
-      <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.45)",marginBottom:"1rem"}}>이 분석이 당신에게 맞나요?</p>
-      {!selected && (
-        <div style={{display:"flex",gap:"0.75rem",justifyContent:"center"}}>
-          <button onClick={() => setSelected("yes")} style={{background:"none",border:"1px solid rgba(42,18,0,0.15)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(42,18,0,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>👍 맞아요</button>
-          <button onClick={() => setSelected("no")} style={{background:"none",border:"1px solid rgba(42,18,0,0.15)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(42,18,0,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>👎 아닌 것 같아요</button>
-          <button onClick={() => setSelected("unsure")} style={{background:"none",border:"1px solid rgba(42,18,0,0.15)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(42,18,0,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>🤔 잘 모르겠어요</button>
-        </div>
-      )}
-      {selected === "yes" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.4)"}}>감사해요.</p>}
-      {selected === "unsure" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.4)"}}>그 모르겠다는 느낌도 중요한 정보예요.</p>}
-      {selected === "no" && (
-        <div>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.85rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.9,marginBottom:"0.75rem"}}>맞지 않는 부분이 있으신가요?<br/>당신이 느낀 것을 말씀해주세요.</p>
-          <a href="https://forms.gle/1MK9PRZmTBpFsEPN8" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(42,18,0,0.5)",textDecoration:"underline",textUnderlineOffset:"3px"}}>피드백 남기기 →</a>
-        </div>
-      )}
-    </div>
-  );
-}
 
 function FeedbackWidget({ dark = false }) {
   const [selected, setSelected] = React.useState(null);
