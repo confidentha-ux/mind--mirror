@@ -323,6 +323,29 @@ const VaseSVG = ({ flowersVisible = 0 }) => (
   </svg>
 );
 
+function OracleFeedback() {
+  const [selected, setSelected] = React.useState(null);
+  return (
+    <div>
+      {!selected && (
+        <div style={{display:"flex",gap:"0.75rem",justifyContent:"center"}}>
+          <button onClick={() => setSelected("yes")} style={{background:"none",border:"1px solid rgba(90,58,138,0.2)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(90,58,138,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>👍 맞아요</button>
+          <button onClick={() => setSelected("no")} style={{background:"none",border:"1px solid rgba(90,58,138,0.2)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(90,58,138,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>👎 아닌 것 같아요</button>
+          <button onClick={() => setSelected("unsure")} style={{background:"none",border:"1px solid rgba(90,58,138,0.2)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(90,58,138,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>🤔 잘 모르겠어요</button>
+        </div>
+      )}
+      {selected === "yes" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(90,58,138,0.4)"}}>감사해요.</p>}
+      {selected === "unsure" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(90,58,138,0.4)"}}>그 모르겠다는 느낌도 중요한 정보예요.</p>}
+      {selected === "no" && (
+        <div>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.85rem",fontWeight:300,color:"rgba(90,58,138,0.55)",lineHeight:1.9,marginBottom:"0.75rem"}}>맞지 않는 부분이 있으신가요?<br/>당신이 느낀 것을 말씀해주세요.</p>
+          <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(90,58,138,0.5)",textDecoration:"underline",textUnderlineOffset:"3px"}}>피드백 남기기 →</a>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Oracle({ onBack }) {
   const [phase, setPhase] = useState("intro");
   const [currentQ, setCurrentQ] = useState(0);
@@ -683,7 +706,7 @@ export default function Oracle({ onBack }) {
             <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>당신의 말</div>
               <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.92rem", fontWeight: 300, color: "rgba(42,26,74,0.65)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Reflection"]}
               </div>
             </div>
@@ -693,7 +716,7 @@ export default function Oracle({ onBack }) {
             <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>오라클이 본 것</div>
               <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.95rem", fontWeight: 300, color: "rgba(42,26,74,0.75)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Recognition"]}
               </div>
             </div>
@@ -703,7 +726,7 @@ export default function Oracle({ onBack }) {
             <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>신탁</div>
               <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.05rem", fontStyle: "italic", fontWeight: 400, color: "#2a1a4a", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap", paddingLeft: "1.25rem", borderLeft: "2px solid rgba(90,58,138,0.2)" }}>
                 {parsed["Oracle"]}
               </div>
             </div>
@@ -711,9 +734,9 @@ export default function Oracle({ onBack }) {
 
           {visibleSections.includes("Story") && parsed["Story"] && (
             <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>듣고 싶었던 이야기</div>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>가설</div>
               <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", fontWeight: 400, color: "rgba(42,26,74,0.7)", lineHeight: 2.3, whiteSpace: "pre-wrap" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, fontStyle: "italic", color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Story"]}
               </div>
             </div>
@@ -723,7 +746,7 @@ export default function Oracle({ onBack }) {
             <div className="oracle-appear" style={{ marginBottom: "3rem" }}>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>문을 나서기 전에</div>
               <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
-              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", fontStyle: "italic", fontWeight: 400, color: "#2a1a4a", lineHeight: 1.9, whiteSpace: "pre-wrap" }}>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Empowerment"]}
               </div>
             </div>
@@ -731,6 +754,10 @@ export default function Oracle({ onBack }) {
 
           {visibleSections.length === 5 && (
             <div className="oracle-appear" style={{ marginTop: "2rem", paddingTop: "2rem", borderTop: "1px solid rgba(90,58,138,0.1)" }}>
+              <div style={{textAlign:"center",marginBottom:"1.5rem"}}>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(90,58,138,0.4)",marginBottom:"1rem"}}>이 분석이 당신에게 맞나요?</p>
+                <OracleFeedback />
+              </div>
               <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
                 <button className="oracle-btn-result" onClick={() => setPhase("final")}>오라클의 제안 →</button>
                 <button className="oracle-btn-result" onClick={() => {
