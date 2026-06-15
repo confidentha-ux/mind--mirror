@@ -120,7 +120,7 @@ const QUESTIONS2 = [
   }
 ];
 
-const systemPrompt = `당신은 따뜻하고 예리한 인지구조 분석가입니다.
+const systemPrompt = `당신은 따뜻하고 예리한 분석가입니다.
 사용자가 제공한 7가지 답변을 분석합니다.
 
 각 질문의 분석 의도:
@@ -133,50 +133,48 @@ const systemPrompt = `당신은 따뜻하고 예리한 인지구조 분석가입
 7. 빛났던 순간 → 자기효능감과 핵심 가치관
 
 분석 원칙:
-- 모든 항목에 실제 발화를 직접 인용할 것
-- 판단하지 말 것. 관찰 → 가능성 → 확인질문 구조로 기술할 것
-- 예: "~라고 하셨네요. 혹시 ~일 가능성이 있을까요? 그렇다면 ~은 어떻게 느껴지세요?"
-- 침묵 데이터는 반드시 양해를 구하고 생존전략 관점으로 볼 것
-- 예: "이 질문은 넘어가셨네요. 실례가 되지 않는다면 — 답하지 않는 것도 오랫동안 자신을 지켜온 방식일 수 있어요."
-- 아첨하지 말 것
-- 임상 진단이 아님을 명시할 것
+- 핵심 단어나 짧은 구절만 인용할 것. 긴 문장 인용 금지.
+- 절대 단정하지 말 것. 반드시 "~일 수 있어요" "~처럼 보여요" "~은 아닐까요" 형식으로.
+- 전문 용어 사용 금지. (동결, 투쟁-도피, 트라우마, 방어기제, 메타인지 등)
+- 관찰 → 가능성 → 확인질문 구조로 기술할 것.
+- 볼드(**텍스트**) 절대 사용 금지.
+- 소제목(###) 절대 사용 금지.
+- 침묵 데이터는 반드시 양해를 구하고 생존전략 관점으로 볼 것.
+- 아첨하지 말 것.
+- 각 섹션은 짧고 깊게. 길게 쓰지 말 것. 각 섹션 최대 4-5문장.
+- 전체가 하나의 흐름처럼 읽혀야 한다.
+- 존댓말로 쓸 것. 따뜻하되 거리를 유지할 것.
 
-출력 구조:
+출력 구조 (반드시 이 순서와 헤더를 정확히 사용할 것):
 
-## 여는 말
+## 여기까지 오셨네요
 "여기까지 답해주셨네요. 쉽지 않은 질문들이었을 텐데요."
+2-3문장으로 전체 인상을 따뜻하게 열 것.
 
-## 주요 감정 키워드
-3가지 감정 키워드와 그 연결고리. 키워드들이 어떻게 연결되는지 설명할 것.
+## 당신이 자주 느끼는 감정
+3가지 핵심 감정 키워드. 각각 한 단락. 짧은 인용과 함께 연결고리 설명.
+단정 금지.
 
-## 관계에서 반복되는 패턴
-관찰 → 가능성 → 확인질문 구조로 3가지.
+## 사람 사이에서 반복되는 것
+관찰 → 가능성 → 확인질문 구조로 2가지만.
+각각 3-4문장. 짧고 깊게.
 
-## 말하지 못한 말들
-관찰 → 가능성 → 확인질문 구조로 3가지.
+## 말하지 못한 말
+관찰 → 가능성 → 확인질문 구조로 2가지만.
+각각 3-4문장. 짧고 깊게.
 
-## 정체성의 일관성
-1번과 7번 교차 분석. 단정 없이 가능성으로.
+## 감정의 결
+전체 답변의 감정 온도와 문체. 관찰만. 단정 금지.
+3-4문장.
 
-## 정서 톤
-전체 답변의 감정 온도. 관찰만.
-
-## 침묵 데이터
-양해를 구하고, 생존전략 관점으로.
-
-## 시간 구조
-과거/현재/미래 중 어디에 머무는지.
-
-## 당신에게 드리는 질문 하나
+## 이제 질문은 당신에게
 분석 요약 아님. 스스로 궁금해질 질문 하나만.
-
-## 한계 고지
-임상 진단이 아닙니다. 당신이 쓴 말들에서 찾은 패턴을 돌려드리는 거예요.
+단 한 문장 혹은 두 문장.
 
 한국어로 작성하세요.`;
 
-const systemPrompt2 = `당신은 예리하고 정확한 인지구조 분석가입니다.
-사용자가 제공한 7가지 답변을 분석하여 사고 구조와 인지 스타일을 파악합니다.
+const systemPrompt2 = `당신은 예리하고 따뜻한 분석가입니다.
+사용자가 제공한 7가지 답변을 분석하여 사고 방식과 패턴을 파악합니다.
 
 각 질문의 분석 의도:
 1. 친구의 결정 → 갈등 처리 방식, 관계에서의 경계
@@ -188,40 +186,42 @@ const systemPrompt2 = `당신은 예리하고 정확한 인지구조 분석가�
 7. 지금 진짜 필요한 것 → 현재 상태, 핵심 욕구
 
 분석 원칙:
-- 모든 항목에 실제 발화를 직접 인용할 것
-- 판단하지 말 것. 관찰 → 가능성 → 확인질문 구조로 기술할 것
-- 침묵 데이터는 반드시 양해를 구하고 생존전략 관점으로 볼 것
-- 아첨하지 말 것
-- 임상 진단이 아님을 명시할 것
+- 핵심 단어나 짧은 구절만 인용할 것. 긴 문장 인용 금지.
+- 절대 단정하지 말 것. 반드시 "~일 수 있어요" "~처럼 보여요" "~은 아닐까요" 형식으로.
+- 전문 용어 사용 금지.
+- 관찰 → 가능성 → 확인질문 구조로 기술할 것.
+- 볼드(**텍스트**) 절대 사용 금지.
+- 소제목(###) 절대 사용 금지.
+- 각 섹션은 짧고 깊게. 길게 쓰지 말 것. 각 섹션 최대 4-5문장.
+- 전체가 하나의 흐름처럼 읽혀야 한다.
+- 존댓말로 쓸 것. 따뜻하되 거리를 유지할 것.
 
-출력 구조:
+출력 구조 (반드시 이 순서와 헤더를 정확히 사용할 것):
 
-## 여는 말
+## 두 번째 질문들까지
 "두 번째 질문들까지 답해주셨네요. 이번엔 조금 다른 층위의 이야기였을 거예요."
+2-3문장으로 전체 인상을 열 것.
 
-## 사고 이동 패턴
-분석형 / 직관형 / 서사형 / 전략형 중 어디에 가까운지. 근거와 함께. 관찰 → 가능성 → 확인질문 구조로.
+## 생각하는 방식
+이 사람이 정보를 처리하고 사고를 조직하는 방식.
+관찰 → 가능성 → 확인질문 구조로. 4-5문장.
+단정 금지. 전문 용어 금지.
 
-## 전제 구조
-이 사람이 세상을 어떻게 해석하는지. 어떤 가정 위에서 움직이는지.
+## 갈등을 해결하는 방식
+1번과 2번을 교차 분석.
+관찰 → 가능성 → 확인질문 구조로. 4-5문장.
 
-## 갈등 처리 방식
-1번과 2번을 교차 분석. 관찰 → 가능성 → 확인질문 구조로.
+## 몸이 먼저 아는 것
+4번 답변 중심. 몸의 신호와 인지의 연결.
+3-4문장. 단정 금지.
 
-## 메타인지 수준
-자기 관찰 빈도, 가설 유지 여부, 패턴 감지 속도. 관찰만.
+## 지금 당신에게 필요한 것
+7번 답변과 전체 패턴을 연결.
+단정 없이 가능성으로. 3-4문장.
 
-## 신체 신호와 인지의 관계
-4번 답변 중심. 몸과 머리가 어떻게 연결되어 있는지.
-
-## 지금 이 사람에게 필요한 것
-7번 답변과 전체 패턴을 연결. 단정 없이 가능성으로.
-
-## 당신에게 드리는 질문 하나
+## 이제 질문은 당신에게
 분석 요약 아님. 스스로 궁금해질 질문 하나만.
-
-## 한계 고지
-임상 진단이 아닙니다. 당신이 쓴 말들에서 찾은 패턴을 돌려드리는 거예요.
+단 한 문장 혹은 두 문장.
 
 한국어로 작성하세요.`;
 
@@ -614,13 +614,13 @@ export default function App() {
       <div style={{minHeight:"100vh",background:"#fef6ed",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem",position:"relative",overflow:"hidden"}}>
         <style>{FONTS}</style>
         <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
-          <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",color:"#c4956a",marginBottom:"1.5rem"}}>AI 인지구조 분석 — 1단계</div>
+          <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",color:"#c4956a",marginBottom:"1.5rem"}}>마음거울 · 1단계</div>
           <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.4rem,6vw,3.6rem)",fontWeight:400,lineHeight:1.15,color:"#2a1200",marginBottom:"2rem"}}>당신은<br/>어떻게<br/>생각하나요</h1>
           <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"#6b4c2a",lineHeight:1.9,marginBottom:"1.25rem"}}>살면서 왜 같은 상황이 반복되는지,<br/>왜 특정 순간에 늘 비슷한 감정이 오는지<br/>궁금했던 적 있나요.</p>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:".93rem",fontWeight:300,fontStyle:"italic",color:"#9a7856",lineHeight:1.9,marginBottom:"1.5rem"}}>일곱 가지 질문에 솔직하게 답해주시면,<br/>AI가 당신의 말에서 패턴을 찾아 돌려드려요.<br/>거울 하나 건네드리겠습니다.</p>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:".93rem",fontWeight:300,fontStyle:"italic",color:"#9a7856",lineHeight:1.9,marginBottom:"1.5rem"}}>일곱 가지 질문에 솔직하게 답해주시면,<br/>당신이 쓴 말들을 읽고 패턴을 돌려드려요.<br/>거울 하나 건네드리겠습니다.</p>
           <div style={{background:"rgba(196,149,106,0.1)",borderLeft:"3px solid #c4956a",padding:"1.1rem 1.25rem",marginBottom:"2rem"}}>
             <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".68rem",letterSpacing:".2em",textTransform:"uppercase",color:"#c4956a",marginBottom:".6rem"}}>시작 전에</div>
-            {["틀린 답은 없어요. 생각나는 대로, 편한 만큼만 쓰시면 돼요.","질문마다 자유롭게 돌아가서 수정할 수 있어요.","패스하고 싶은 질문은 건너뛰셔도 괜찮아요.","입력하신 내용은 저장되지 않아요.","임상 진단이 아니에요."].map((t,i) => (
+            {["틀린 답은 없어요. 생각나는 대로, 편한 만큼만 쓰시면 돼요.","많이 쓸수록 더 풍부한 분석을 받을 수 있어요.","질문마다 자유롭게 돌아가서 수정할 수 있어요.","패스하고 싶은 질문은 건너뛰셔도 괜찮아요.","입력하신 내용은 저장되지 않아요."].map((t,i) => (
               <div key={i} style={{fontFamily:"'Source Serif 4',serif",fontSize:".82rem",fontWeight:300,color:"#6b4c2a",lineHeight:1.85,display:"flex",alignItems:"flex-start",gap:".5rem",marginBottom:".2rem"}}>
                 <span style={{opacity:.5}}>—</span>{t}
               </div>
@@ -699,6 +699,10 @@ export default function App() {
         .result-title2{font-family:'Playfair Display',serif;font-size:1.9rem;color:#c8e0f0;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:2px solid #4a8ab4}
         .result-body{font-family:'Source Serif 4',serif;font-size:.93rem;font-weight:300;line-height:2;color:#3a2010;white-space:pre-wrap}
         .result-body2{font-family:'Source Serif 4',serif;font-size:.93rem;font-weight:300;line-height:2;color:#c8d8e8;white-space:pre-wrap}
+        .result-label{font-family:'Source Serif 4',serif;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:#c4956a;margin-top:2.5rem;margin-bottom:.4rem;display:block}
+        .result-divider{width:100%;height:1px;background:rgba(196,149,106,0.2);margin-bottom:1rem}
+        .result-label2{font-family:'Source Serif 4',serif;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:#4a8ab4;margin-top:2.5rem;margin-bottom:.4rem;display:block}
+        .result-divider2{width:100%;height:1px;background:rgba(74,138,180,0.2);margin-bottom:1rem}
         .result-body h2{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;font-style:italic;color:#2a1200;margin-top:2.5rem;margin-bottom:.75rem;padding-left:.75rem;border-left:3px solid #c4956a}
         .result-body2 h2{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;font-style:italic;color:#c8e0f0;margin-top:2.5rem;margin-bottom:.75rem;padding-left:.75rem;border-left:3px solid #4a8ab4}
         .result-body blockquote{font-style:italic;opacity:.75;padding-left:.75rem;border-left:2px solid #c4956a;margin:.5rem 0}
@@ -718,7 +722,7 @@ export default function App() {
 
       {step === "intro2" && (
         <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
-          <div style={{color:"#4a8ab4",fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",marginBottom:"1.5rem"}}>AI 인지구조 분석 — 2단계</div>
+          <div style={{color:"#4a8ab4",fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",marginBottom:"1.5rem"}}>마음거울 · 2단계</div>
           <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.4rem,6vw,3.6rem)",fontWeight:400,lineHeight:1.15,color:"#c8e0f0",marginBottom:"2rem"}}>당신은<br/>어떻게<br/>생각하나요</h1>
           <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"#8ab4d4",lineHeight:1.9,marginBottom:"1.25rem"}}>
             1단계가 감정과 관계 패턴을 봤다면,<br/>
@@ -800,7 +804,11 @@ export default function App() {
         <div className="result-wrap" ref={resultRef}>
           <div className="result-eyebrow">분석 보고서 — 1단계</div>
           <h2 className="result-title">감정과 관계 패턴</h2>
-          <div className="result-body" dangerouslySetInnerHTML={{__html: analysis.replace(/## (.+)/g,'<h2>$1</h2>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/"(.+?)"/g,'<blockquote>"$1"</blockquote>')}}/>
+          <div className="result-body" dangerouslySetInnerHTML={{__html: analysis
+            .replace(/## (.+)/g, '<div class="result-label">$1</div><div class="result-divider"></div>')
+            .replace(/\*\*(.+?)\*\*/g, '$1')
+            .replace(/\n\n/g, '</p><p>')
+          }}/>
           <div className="result-actions">
             <button className="copy-btn" onClick={copyResult}>결과 복사</button>
             <button className="restart-btn" onClick={downloadResult}>결과 저장</button>
@@ -814,7 +822,11 @@ export default function App() {
         <div className="result-wrap" ref={resultRef}>
           <div className="result-eyebrow2">분석 보고서 — 2단계</div>
           <h2 className="result-title2">사고 구조와 인지 스타일</h2>
-          <div className="result-body2" dangerouslySetInnerHTML={{__html: analysis2.replace(/## (.+)/g,'<h2>$1</h2>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/"(.+?)"/g,'<blockquote>"$1"</blockquote>')}}/>
+          <div className="result-body2" dangerouslySetInnerHTML={{__html: analysis2
+            .replace(/## (.+)/g, '<div class="result-label2">$1</div><div class="result-divider2"></div>')
+            .replace(/\*\*(.+?)\*\*/g, '$1')
+            .replace(/\n\n/g, '</p><p>')
+          }}/>
           <div className="result-actions">
             <button className="copy-btn2" onClick={copyResult}>결과 복사</button>
             <button className="restart-btn2" onClick={downloadResult}>결과 저장</button>
