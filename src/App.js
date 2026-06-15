@@ -120,7 +120,61 @@ const QUESTIONS2 = [
   }
 ];
 
-const systemPrompt = `당신은 따뜻하고 예리한 분석가입니다.
+const MIRROR_PRINCIPLES = `
+당신의 역할은 사용자를 진단하거나 규정하는 분석가가 아닙니다.
+당신의 역할은 사용자가 자신의 반복 패턴과 선택 구조를 스스로 발견하도록 돕는 거울입니다.
+
+반드시 지켜야 할 원칙:
+
+1. 사람을 정의하지 말고 반복되는 움직임을 관찰하라.
+금지: "당신은 이런 사람입니다" "당신의 본질은 이것입니다"
+권장: "여러 답변에서 이런 표현이 반복됩니다" "이런 상황에서 비슷한 선택이 나타납니다"
+
+2. 결론보다 흔적을 먼저 보여라.
+분석보다 먼저 사용자의 실제 표현, 반복된 단어, 반복된 장면을 보여주어라.
+사용자의 표현을 직접 인용하라.
+
+3. 패턴과 해석을 반드시 이 순서로 구분하라.
+① 반복적으로 등장한 표현
+② 반복적으로 등장한 상황
+③ 반복적으로 나타난 선택 방식
+④ AI가 제안하는 가능성 있는 해석
+⑤ 사용자가 탐색할 질문
+패턴과 해석을 섞지 마라.
+
+4. 해석은 가설로만 제시하라.
+금지: "이것이 원인입니다" "이것이 당신의 문제입니다"
+권장: "이런 가능성이 있습니다" "이런 전제가 작동할 수 있습니다"
+
+5. 장점과 비용을 함께 보여라.
+어떤 패턴도 문제로 규정하지 마라.
+예: "설명을 중요하게 여기는 경향은 깊은 이해를 돕지만 행동을 늦출 수도 있습니다"
+
+6. 사람보다 구조를 설명하라.
+금지: "당신은 불안한 사람입니다"
+권장: "불확실한 상황에서 안전성을 먼저 확인하려는 움직임이 반복됩니다"
+
+7. 사용자의 표현을 우선하라.
+AI의 해석보다 사용자가 실제로 한 말을 더 중요하게 다뤄라.
+
+8. 놀라운 통찰을 만들려 하지 마라.
+극적인 심리 분석, 존재를 규정하는 문장을 만들지 마라.
+목표는 감탄이 아니라 자기관찰이다.
+
+9. 여백을 남겨라.
+모든 것을 설명하려 하지 마라.
+사용자가 스스로 의미를 만들 수 있도록 일부 연결은 열어두어라.
+
+10. 볼드(**텍스트**) 절대 사용 금지.
+11. 소제목(###) 절대 사용 금지.
+12. 전문 용어 사용 금지. (동결, 투쟁-도피, 트라우마, 방어기제, 메타인지 등)
+13. 존댓말로 쓸 것. 따뜻하되 거리를 유지할 것.
+14. 각 섹션 최대 4-5문장. 짧고 깊게.
+15. 전체가 하나의 흐름처럼 읽혀야 한다.
+`;
+
+const systemPrompt = `${MIRROR_PRINCIPLES}
+
 사용자가 제공한 7가지 답변을 분석합니다.
 
 각 질문의 분석 의도:
@@ -131,19 +185,6 @@ const systemPrompt = `당신은 따뜻하고 예리한 분석가입니다.
 5. 반복되는 그 말, 그 상황 → 행동 패턴과 관계 반복
 6. 부러웠던 순간 → 결핍과 욕구
 7. 빛났던 순간 → 자기효능감과 핵심 가치관
-
-분석 원칙:
-- 핵심 단어나 짧은 구절만 인용할 것. 긴 문장 인용 금지.
-- 절대 단정하지 말 것. 반드시 "~일 수 있어요" "~처럼 보여요" "~은 아닐까요" 형식으로.
-- 전문 용어 사용 금지. (동결, 투쟁-도피, 트라우마, 방어기제, 메타인지 등)
-- 관찰 → 가능성 → 확인질문 구조로 기술할 것.
-- 볼드(**텍스트**) 절대 사용 금지.
-- 소제목(###) 절대 사용 금지.
-- 침묵 데이터는 반드시 양해를 구하고 생존전략 관점으로 볼 것.
-- 아첨하지 말 것.
-- 각 섹션은 짧고 깊게. 길게 쓰지 말 것. 각 섹션 최대 4-5문장.
-- 전체가 하나의 흐름처럼 읽혀야 한다.
-- 존댓말로 쓸 것. 따뜻하되 거리를 유지할 것.
 
 출력 구조 (반드시 이 순서와 헤더를 정확히 사용할 것):
 
@@ -168,12 +209,13 @@ const systemPrompt = `당신은 따뜻하고 예리한 분석가입니다.
 3-4문장.
 
 ## 이제 질문은 당신에게
-분석 요약 아님. 스스로 궁금해질 질문 하나만.
-단 한 문장 혹은 두 문장.
+분석 요약 아님. 스스로 궁금해질 관찰 유도 질문 1-3개.
+정답을 유도하지 말 것.
 
 한국어로 작성하세요.`;
 
-const systemPrompt2 = `당신은 예리하고 따뜻한 분석가입니다.
+const systemPrompt2 = `${MIRROR_PRINCIPLES}
+
 사용자가 제공한 7가지 답변을 분석하여 사고 방식과 패턴을 파악합니다.
 
 각 질문의 분석 의도:
@@ -185,17 +227,6 @@ const systemPrompt2 = `당신은 예리하고 따뜻한 분석가입니다.
 6. 복잡한 걸 이해하는 방식 → 인지 스타일, 학습 패턴
 7. 지금 진짜 필요한 것 → 현재 상태, 핵심 욕구
 
-분석 원칙:
-- 핵심 단어나 짧은 구절만 인용할 것. 긴 문장 인용 금지.
-- 절대 단정하지 말 것. 반드시 "~일 수 있어요" "~처럼 보여요" "~은 아닐까요" 형식으로.
-- 전문 용어 사용 금지.
-- 관찰 → 가능성 → 확인질문 구조로 기술할 것.
-- 볼드(**텍스트**) 절대 사용 금지.
-- 소제목(###) 절대 사용 금지.
-- 각 섹션은 짧고 깊게. 길게 쓰지 말 것. 각 섹션 최대 4-5문장.
-- 전체가 하나의 흐름처럼 읽혀야 한다.
-- 존댓말로 쓸 것. 따뜻하되 거리를 유지할 것.
-
 출력 구조 (반드시 이 순서와 헤더를 정확히 사용할 것):
 
 ## 두 번째 질문들까지
@@ -205,7 +236,6 @@ const systemPrompt2 = `당신은 예리하고 따뜻한 분석가입니다.
 ## 생각하는 방식
 이 사람이 정보를 처리하고 사고를 조직하는 방식.
 관찰 → 가능성 → 확인질문 구조로. 4-5문장.
-단정 금지. 전문 용어 금지.
 
 ## 갈등을 해결하는 방식
 1번과 2번을 교차 분석.
@@ -220,8 +250,8 @@ const systemPrompt2 = `당신은 예리하고 따뜻한 분석가입니다.
 단정 없이 가능성으로. 3-4문장.
 
 ## 이제 질문은 당신에게
-분석 요약 아님. 스스로 궁금해질 질문 하나만.
-단 한 문장 혹은 두 문장.
+분석 요약 아님. 스스로 궁금해질 관찰 유도 질문 1-3개.
+정답을 유도하지 말 것.
 
 한국어로 작성하세요.`;
 
@@ -291,7 +321,31 @@ const Decoration = ({ type, color }) => {
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
-export default function App() {
+export default function FeedbackWidget() {
+  const [selected, setSelected] = React.useState(null);
+  return (
+    <div style={{marginTop:"2.5rem",paddingTop:"2rem",borderTop:"1px solid rgba(42,18,0,0.08)",textAlign:"center"}}>
+      <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.45)",marginBottom:"1rem"}}>이 분석이 당신에게 맞나요?</p>
+      {!selected && (
+        <div style={{display:"flex",gap:"0.75rem",justifyContent:"center"}}>
+          <button onClick={() => setSelected("yes")} style={{background:"none",border:"1px solid rgba(42,18,0,0.15)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(42,18,0,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>👍 맞아요</button>
+          <button onClick={() => setSelected("no")} style={{background:"none",border:"1px solid rgba(42,18,0,0.15)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(42,18,0,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>👎 아닌 것 같아요</button>
+          <button onClick={() => setSelected("unsure")} style={{background:"none",border:"1px solid rgba(42,18,0,0.15)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(42,18,0,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>🤔 잘 모르겠어요</button>
+        </div>
+      )}
+      {selected === "yes" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.4)"}}>감사해요.</p>}
+      {selected === "unsure" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.4)"}}>그 모르겠다는 느낌도 중요한 정보예요.</p>}
+      {selected === "no" && (
+        <div>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.85rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.9,marginBottom:"0.75rem"}}>맞지 않는 부분이 있으신가요?<br/>당신이 느낀 것을 말씀해주세요.</p>
+          <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(42,18,0,0.5)",textDecoration:"underline",textUnderlineOffset:"3px"}}>피드백 남기기 →</a>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
   const [stage, setStage] = useState(1);
   const [step, setStep] = useState("intro");
   const [currentQ, setCurrentQ] = useState(0);
@@ -843,6 +897,7 @@ export default function App() {
             <button className="stage2-btn" onClick={startStage2}>2단계로 →</button>
             <button className="restart-btn" onClick={restart}>다시 시작</button>
           </div>
+          <FeedbackWidget />
         </div>
       )}
 
@@ -860,6 +915,7 @@ export default function App() {
             <button className="restart-btn2" onClick={downloadResult}>결과 저장</button>
             <button className="restart-btn2" onClick={restart}>처음으로</button>
           </div>
+          <FeedbackWidget />
         </div>
       )}
     </div>
