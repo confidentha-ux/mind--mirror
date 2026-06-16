@@ -5,10 +5,10 @@ import Oracle from "./Oracle";
 const QUESTIONS = [
   {
     id: 1,
-    title: "나는 누구인가요",
-    prompt: "먼저 자기 자신에 대해 편하게 이야기해 주세요. 어떤 사람인지, 어떤 일을 하는지, 중요하게 생각하는 게 뭔지 생각나는 대로 쓰시면 돼요. 많이 쓰시면 좋고요. 적게 쓰셔도 전혀 상관없어요.",
-    placeholder: "예: 나는 기본적으로 ___한 사람인 것 같아요. 왜냐하면...",
-    bg: "#e8d5c0", textColor: "#2a1200", accentColor: "#8b4513", borderColor: "#c4956a",
+    title: "빛났던 순간",
+    prompt: "스스로가 뿌듯하거나 자랑스러웠던 순간이 있으신가요? 크고 대단한 일이 아니어도 좋아요. 그때 어떤 기분이었는지, 기억나시는 대로 써주세요.",
+    placeholder: "예: 별것 아닌 것 같지만, 그때 나는 정말...",
+    bg: "#a8c8e0", textColor: "#05182a", accentColor: "#1a4d6e", borderColor: "#6a95b8",
     deco: "circle", skippable: false
   },
   {
@@ -17,7 +17,7 @@ const QUESTIONS = [
     prompt: "나에게 중요한 사람, 편한 사람, 그리고 거슬리는 사람 — 다 써보세요. 왜 그런지 이유도 함께요.",
     placeholder: "예: 나에게 중요한 사람은 ___인데, 왜냐하면...",
     bg: "#c8bfdf", textColor: "#1a0f35", accentColor: "#5c4a8a", borderColor: "#9b89c4",
-    deco: "mirror", skippable: false
+    deco: "shards", skippable: false
   },
   {
     id: 3,
@@ -25,23 +25,23 @@ const QUESTIONS = [
     prompt: "누군가에게 오해받거나 억울했던 적 있나요? 그때 하고 싶었던 말이 있었는데 하지 못했다면 여기서 해보세요.",
     placeholder: "예: 그때 나는 정말 ___하고 싶었는데...",
     bg: "#e8c8b8", textColor: "#2a0e00", accentColor: "#a0522d", borderColor: "#c47a5a",
-    deco: "shards", skippable: true
+    deco: "grid", skippable: false
   },
   {
     id: 4,
     title: "자꾸 떠오르는 것",
-    prompt: "오래 전 일인데도 자꾸 머릿속에 맴도는 사건, 장면이 있으신가요? 그게 왜 떠오르는지 생각해 보신 적 있으세요? 한 번도 생각해 보신 적 없으시다면 지금 해보시겠어요. 물론 패스하셔도 전혀 상관없어요.",
-    placeholder: "예: 몇 년이 지났는데도 자꾸 그 때가 ...",
+    prompt: "오래된 일인데도 자꾸 머릿속에 맴도는 장면이 있나요? 왜 떠오르는지 생각해 보신 적 있으세요? 패스하셔도 전혀 상관없어요.",
+    placeholder: "예: 몇 년이 지났는데도 자꾸 그 때가...",
     bg: "#e8d48a", textColor: "#1e1400", accentColor: "#8b6914", borderColor: "#c9a84c",
     deco: "spiral", skippable: true
   },
   {
     id: 5,
     title: "반복되는 그 말, 그 상황",
-    prompt: "살면서 '또 이러네' 싶었던 순간이 있으셨나요? 비슷한 상황, 비슷한 감정이 반복된다는 느낌이요. 반복적으로 꾸는 꿈은요? 어떤 상황이었는지, 그때 어떤 마음이었는지 써주세요.",
+    prompt: "살면서 '또 이러네' 싶었던 순간이 있으셨나요? 비슷한 상황, 비슷한 감정이 반복된다는 느낌이요. 어떤 상황이었는지, 그때 어떤 마음이었는지 써주세요.",
     placeholder: "예: 이상하게 나는 항상 ___한 상황에서...",
     bg: "#b8d4b0", textColor: "#0d200e", accentColor: "#2d6b32", borderColor: "#7a9e6e",
-    deco: "grid", skippable: false
+    deco: "star", skippable: false
   },
   {
     id: 6,
@@ -49,14 +49,14 @@ const QUESTIONS = [
     prompt: "누군가가, 아니면 어떤 순간이 부러우셨던 적이 있으신가요? 어떤 부분이 부러우셨는지, 기억나시는 대로 써주세요.",
     placeholder: "예: ___ 이 부러웠는데, 돌아보면 내가 원하는 건...",
     bg: "#f0b8c4", textColor: "#2a0a10", accentColor: "#9b2335", borderColor: "#c47a8a",
-    deco: "star", skippable: false
+    deco: "mirror", skippable: false
   },
   {
     id: 7,
-    title: "빛났던 순간",
-    prompt: "스스로가 뿌듯하거나 자랑스러웠던 순간이 있으신가요? 크고 대단한 일이 아니어도 좋아요. 그때 어떤 기분이었는지, 기억나시는 대로 써주세요.",
-    placeholder: "예: 별것 아닌 것 같지만, 그때 나는 정말...",
-    bg: "#a8c8e0", textColor: "#05182a", accentColor: "#1a4d6e", borderColor: "#6a95b8",
+    title: "나는 누구인가요",
+    prompt: "먼저 자기 자신에 대해 편하게 이야기해 주세요. 어떤 사람인지, 어떤 일을 하는지, 중요하게 생각하는 게 뭔지 생각나는 대로 쓰시면 돼요.",
+    placeholder: "예: 나는 기본적으로 ___한 사람인 것 같아요. 왜냐하면...",
+    bg: "#e8d5c0", textColor: "#2a1200", accentColor: "#8b4513", borderColor: "#c4956a",
     deco: "rays", skippable: false
   }
 ];
@@ -65,7 +65,7 @@ const QUESTIONS2 = [
   {
     id: 1,
     title: "친구의 결정",
-    prompt: "친한 사람이 당신이 보기엔 분명 좋지 않은 선택을 하려 해요. 이직, 이별, 큰 돈을 쓰는 일 같은 것들이요. 그 순간 당신 안에서 무슨 일이 일어나나요? 말하고 싶어지나요, 아니면 조용해지나요?",
+    prompt: "친한 사람이 당신이 보기엔 분명 좋지 않은 선택을 하려 해요. 그 순간 당신 안에서 무슨 일이 일어나나요? 말하고 싶어지나요, 아니면 조용해지나요?",
     placeholder: "떠오르는 대로 써주세요...",
     bg: "#1a2535", textColor: "#c8d8e8", accentColor: "#4a8ab4", borderColor: "#2a4a6a",
     deco: "circle", skippable: false
@@ -73,7 +73,7 @@ const QUESTIONS2 = [
   {
     id: 2,
     title: "반박 앞에서",
-    prompt: "당신이 확신하던 생각을 누군가 조목조목 반박했어요. 발표 후 피드백이든, 대화 중 의견 충돌이든. 그 자리에서 몸과 마음에 어떤 일이 일어났나요? 그리고 혼자가 됐을 때, 그 반박을 어떻게 대했나요?",
+    prompt: "당신이 확신하던 생각을 누군가 조목조목 반박했어요. 그 자리에서 몸과 마음에 어떤 일이 일어났나요? 그리고 혼자가 됐을 때, 그 반박을 어떻게 대했나요?",
     placeholder: "생각, 감정, 몸의 반응, 이후 행동까지...",
     bg: "#1e1e2e", textColor: "#c8c8e8", accentColor: "#6a5acd", borderColor: "#3a3a6a",
     deco: "shards", skippable: false
@@ -81,7 +81,7 @@ const QUESTIONS2 = [
   {
     id: 3,
     title: "막힌 문제",
-    prompt: "며칠째 붙잡고 있는데도 풀리지 않는 문제가 있어요. 일이든, 관계든, 결정이든. 그럴 때 당신은 어디로 가나요? 뭔가 알 것 같을 때까지 계속 파고드나요, 잠시 멈추나요, 누군가 만날 사람을 찾나요?",
+    prompt: "며칠째 붙잡고 있는데도 풀리지 않는 문제가 있어요. 일이든, 관계든, 결정이든. 그럴 때 당신은 어디로 가나요?",
     placeholder: "그때 당신의 상태도 함께 적어주세요...",
     bg: "#1a2520", textColor: "#c8e0c8", accentColor: "#3a8a5a", borderColor: "#2a5a3a",
     deco: "grid", skippable: false
@@ -89,7 +89,7 @@ const QUESTIONS2 = [
   {
     id: 4,
     title: "설명할 수 없는 신호",
-    prompt: "이유는 모르겠는데 몸이 먼저 아는 순간들이 있어요. 특정 사람을 보면 어깨에 힘이 들어간다거나, 어떤 장소에 가면 이유 없이 피곤해진다거나, 전화가 오기 전에 뭔가 이상한 느낌이 든다거나. 당신은 그런 신호를 어떻게 대해왔나요?",
+    prompt: "이유는 모르겠는데 몸이 먼저 아는 순간들이 있어요. 특정 사람을 보면 어깨에 힘이 들어간다거나, 어떤 장소에 가면 이유 없이 피곤해진다거나. 당신은 그런 신호를 어떻게 대해왔나요?",
     placeholder: "떠오르는 방식대로 적어주세요...",
     bg: "#251a20", textColor: "#e0c8d0", accentColor: "#8a3a5a", borderColor: "#5a2a3a",
     deco: "spiral", skippable: true
@@ -97,7 +97,7 @@ const QUESTIONS2 = [
   {
     id: 5,
     title: "예상 밖의 결과",
-    prompt: "열심히 준비했는데 결과가 완전히 달랐어요. 시험이든, 프로젝트든, 관계든. 그 순간 제일 먼저 떠오른 건 뭐였나요? 나 자신인가요, 상황인가요, 아니면 아무것도 안 떠올랐나요?",
+    prompt: "열심히 준비했는데 결과가 완전히 달랐어요. 그 순간 제일 먼저 떠오른 건 뭐였나요?",
     placeholder: "예: 나 자신, 운이나 타이밍, 특정한 누군가...",
     bg: "#201a25", textColor: "#d8c8e8", accentColor: "#7a4a9a", borderColor: "#4a2a6a",
     deco: "star", skippable: false
@@ -105,7 +105,7 @@ const QUESTIONS2 = [
   {
     id: 6,
     title: "복잡한 걸 이해하는 방식",
-    prompt: "복잡한 걸 받아들여야 할 때 당신만의 방식이 있어요. 혼자 오래 생각하거나, 글로 써보거나, 누군가와 이야기하거나, 그냥 자고 일어나거나. 어떻게 하나요? 그리고 그 방법이 안 통할 때는요?",
+    prompt: "복잡한 걸 받아들여야 할 때 당신만의 방식이 있어요. 어떻게 하나요? 그리고 그 방법이 안 통할 때는요?",
     placeholder: "당신만의 방식을 적어주세요...",
     bg: "#1a2030", textColor: "#c8d0e8", accentColor: "#3a5a9a", borderColor: "#2a3a6a",
     deco: "mirror", skippable: false
@@ -113,7 +113,7 @@ const QUESTIONS2 = [
   {
     id: 7,
     title: "지금 필요한 것",
-    prompt: "거창한 목표나 미래 얘기가 아니라요. 지금 이 순간, 오늘, 당신에게 필요한게 있다면 뭘까요? 떠오르는 대로 써주세요.",
+    prompt: "거창한 목표나 미래 얘기가 아니라요. 지금 이 순간, 오늘, 당신에게 필요한 게 있다면 뭘까요?",
     placeholder: "딱 하나만 꼽지 않아도 괜찮아요...",
     bg: "#202020", textColor: "#e0e0e0", accentColor: "#8a8a8a", borderColor: "#4a4a4a",
     deco: "rays", skippable: false
