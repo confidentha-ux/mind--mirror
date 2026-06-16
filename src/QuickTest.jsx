@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const QUESTIONS = [
   {
     id: 1,
-    text: "새로운 프로젝트를 맡게 되었다.\n일주일 안에 방향을 정해야 한다.\n\n보통 가장 먼저 무엇을 하나요?",
+    text: "새로운 프로젝트를 맡게 되었다.\n일주일 안에 방향을 정해야 한다.\n\n가장 먼저 무엇을 하나요?",
     options: [
       { text: "관련 자료와 사례를 찾아 정보를 모은다", type: "이해 후 행동형" },
       { text: "일단 작은 작업을 시작해 움직인다", type: "행동 후 이해형" },
@@ -25,7 +25,7 @@ const QUESTIONS = [
   },
   {
     id: 3,
-    text: "중요한 결정을 내려야 하는데\n정보가 부족하다.\n\n보통 어떻게 하나요?",
+    text: "중요한 결정을 내려야 하는데\n정보가 부족하다.\n\n어떻게 하나요?",
     options: [
       { text: "정보가 더 충분히 모일 때까지 찾는다", type: "이해 후 행동형" },
       { text: "일단 결정하고 이후에 수정한다", type: "행동 후 이해형" },
@@ -36,7 +36,7 @@ const QUESTIONS = [
   },
   {
     id: 4,
-    text: "예상과 전혀 다른 결과가 나왔다.\n\n가장 먼저 하는 행동은?",
+    text: "예상과 전혀 다른 결과가 나왔다.\n\n가장 먼저 하는 건?",
     options: [
       { text: "원인을 분석한다", type: "이해 후 행동형" },
       { text: "다시 시도한다", type: "행동 후 이해형" },
@@ -47,7 +47,7 @@ const QUESTIONS = [
   },
   {
     id: 5,
-    text: "누군가가 당신을 오해하고 있다.\n\n보통 어떻게 하나요?",
+    text: "누군가가 당신을 오해하고 있다.\n\n어떻게 하나요?",
     options: [
       { text: "충분히 설명하려고 노력한다", type: "이해 후 행동형" },
       { text: "시간이 지나면 괜찮아질 거라고 생각한다", type: "행동 후 이해형" },
@@ -58,7 +58,7 @@ const QUESTIONS = [
   },
   {
     id: 6,
-    text: "며칠째 해결되지 않는\n문제가 있다.\n\n보통 어떻게 움직이나요?",
+    text: "며칠째 해결되지 않는\n문제가 있다.\n\n어떻게 움직이나요?",
     options: [
       { text: "문제 자체의 정의와 범위를 다시 짚는다", type: "이해 후 행동형" },
       { text: "완전히 다른 방법을 시도한다", type: "행동 후 이해형" },
@@ -69,7 +69,7 @@ const QUESTIONS = [
   },
   {
     id: 7,
-    text: "처음 보는 주제를\n공부해야 한다.\n\n보통 어디서 시작하나요?",
+    text: "처음 보는 주제를\n공부해야 한다.\n\n어디서 시작하나요?",
     options: [
       { text: "개념과 원리부터 체계적으로 이해한다", type: "이해 후 행동형" },
       { text: "직접 해보면서 배운다", type: "행동 후 이해형" },
@@ -102,7 +102,7 @@ const QUESTIONS = [
   },
   {
     id: 10,
-    text: "하루 종일 고민이 생겼을 때\n\n보통 어떻게 정리하나요?",
+    text: "하루 종일 고민이 생겼을 때\n\n어떻게 정리하나요?",
     options: [
       { text: "생각을 계속 분석하고 구조화한다", type: "이해 후 행동형" },
       { text: "행동을 하면서 잊는다", type: "행동 후 이해형" },
@@ -113,7 +113,7 @@ const QUESTIONS = [
   },
   {
     id: 11,
-    text: "당신에게 중요한 두 가지가 충돌했다.\n\n예: 진실 vs 관계, 자유 vs 안정\n\n무엇을 기준으로 결정하는가?",
+    text: "당신에게 중요한 두 가지가 충돌했다.\n\n예: 진실 vs 관계, 자유 vs 안정\n\n무엇을 기준으로 결정하나요?",
     options: [
       { text: "더 옳다고 생각하는 것", type: "정확성 우선형" },
       { text: "더 오래 남을 것", type: "이해 후 행동형" },
@@ -397,45 +397,6 @@ export default function QuickTest({ onBack }) {
                 결정하고, 사람과 부딪히는 방식을 찾아드려요.<br/>
                 강점도, 막히는 지점도요.
               </p>
-            </div>
-
-            {/* 유형 버튼 */}
-            <div style={{marginBottom:"2rem"}}>
-              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.25em", textTransform:"uppercase", color:"rgba(90,58,138,0.35)", marginBottom:"0.75rem"}}>6가지 방식 — 눌러서 확인해보세요</div>
-              <div style={{display:"flex", flexWrap:"wrap", gap:"0.5rem", marginBottom:"0.75rem"}}>
-                {Object.entries(TYPE_BTN_COLORS).map(([t, c]) => (
-                  <button
-                    key={t}
-                    onClick={() => setActiveType(activeType === t ? null : t)}
-                    style={{
-                      background: activeType === t ? c.bg : "rgba(255,255,255,0.4)",
-                      border: `1px solid ${c.bg}`,
-                      color: activeType === t ? c.text : c.bg,
-                      fontFamily:"'Source Serif 4',serif",
-                      fontSize:"0.75rem",
-                      fontWeight: 300,
-                      padding:"0.5rem 0.9rem",
-                      cursor:"pointer",
-                      transition:"all 0.2s",
-                      borderRadius:"2px",
-                      whiteSpace:"nowrap",
-                      minWidth:"120px",
-                      textAlign:"center",
-                    }}
-                  >{t}</button>
-                ))}
-              </div>
-              {activeType && (
-                <div style={{
-                  background: TYPE_INFO[activeType].bg,
-                  border: `1px solid ${TYPE_INFO[activeType].border}`,
-                  padding:"1.1rem 1.25rem",
-                  animation:"fadeIn 0.2s ease",
-                }}>
-                  <p style={{fontFamily:"'Playfair Display',serif", fontSize:"1rem", fontStyle:"italic", color: TYPE_INFO[activeType].text, marginBottom:"0.4rem"}}>{activeType}</p>
-                  <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.83rem", fontWeight:300, color: TYPE_INFO[activeType].text, opacity:0.8, lineHeight:1.8}}>{TYPE_INFO[activeType].detail}</p>
-                </div>
-              )}
             </div>
 
             <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center"}}>
