@@ -324,7 +324,7 @@ const VaseSVG = ({ flowersVisible = 0 }) => (
 );
 
 function OracleFeedback() {
-  const [selected, setSelected] = React.useState(null);
+  const [selected, setSelected] = useState(null);
   return (
     <div>
       {!selected && (
