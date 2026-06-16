@@ -322,18 +322,34 @@ const Decoration = ({ type, color }) => {
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
 function AnalyzingScreen({ stage }) {
+  const [slideIdx, setSlideIdx] = useState(0);
+
   const slides1 = [
-    { title: "인지란 무엇인가", text: `우리는 매일 수천 가지 결정을 내려요.\n그런데 그 결정들, 스스로 내리고 있다고 생각하시나요?\n\n인지는 우리가 세상을 받아들이고\n해석하고, 반응하는 방식이에요.\n\n보이는 것, 듣는 것, 느끼는 것을\n어떻게 처리하느냐 — 그게 인지예요.\n\n흥미로운 건, 이 방식이 사람마다 다르다는 거예요.\n같은 상황에서 어떤 사람은 불안을 느끼고\n어떤 사람은 흥분을 느껴요.\n\n그 차이가 바로 인지 구조예요.\n그리고 이 구조는 대부분\n우리도 모르는 사이에 형성됐어요.` },
+    "우리는 같은 상황에서도 다르게 반응해요",
+    "그 차이가 바로 인지예요",
+    "보이는 것, 듣는 것을 어떻게 처리하느냐",
+    "이 방식은 대부분 우리도 모르는 사이에 형성됐어요",
   ];
   const slides2 = [
-    { title: "인지 구조란 무엇인가", text: `인지가 세상을 받아들이는 방식이라면,\n인지 구조는 그 방식이 굳어진 틀이에요.\n\n어린 시절부터 반복된 경험들이\n"이럴 땐 이렇게 해야 해"라는\n무의식적인 규칙을 만들어요.\n\n갈등이 생기면 먼저 말하는 사람,\n조용히 물러나는 사람.\n실패하면 자신을 탓하는 사람,\n상황을 탓하는 사람.\n\n틀린 게 아니에요.\n그 구조가 지금까지 당신을 지켜온 방식이에요.\n\n문제는 그 구조가\n이제는 맞지 않는 상황에서도\n여전히 작동한다는 거예요.` },
+    "인지 구조는 반복된 경험이 굳어진 틀이에요",
+    "갈등 앞에서, 실패 앞에서 나타나는 패턴",
+    "틀린 게 아니에요 — 지금까지 당신을 지켜온 방식이에요",
+    "문제는 그 구조가 맞지 않는 상황에서도 작동한다는 거예요",
   ];
+
   const slides = stage === 1 ? slides1 : slides2;
-  const slide = slides[0];
   const color = stage === 1 ? "#c4956a" : "#4a8ab4";
-  const textColor = stage === 1 ? "rgba(107,76,42,0.65)" : "rgba(74,138,180,0.65)";
-  const borderColor = stage === 1 ? "rgba(196,149,106,0.2)" : "rgba(74,138,180,0.2)";
-  const labelColor = stage === 1 ? "rgba(196,149,106,0.5)" : "rgba(74,138,180,0.5)";
+  const textColor = stage === 1 ? "rgba(107,76,42,0.85)" : "rgba(180,210,240,0.85)";
+  const labelColor = stage === 1 ? "rgba(196,149,106,0.6)" : "rgba(74,138,180,0.6)";
+  const borderColor = stage === 1 ? "rgba(196,149,106,0.25)" : "rgba(74,138,180,0.25)";
+  const label = stage === 1 ? "인지란 무엇인가" : "인지 구조란 무엇인가";
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlideIdx(i => (i + 1) % slides.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [slides.length]);
 
   return (
     <div className="analyzing" style={{position:"relative"}}>
@@ -347,9 +363,14 @@ function AnalyzingScreen({ stage }) {
       <div style={{position:"relative",zIndex:1,maxWidth:480,margin:"0 auto",textAlign:"center"}}>
         <p className={stage===1?"analyzing-title":"analyzing-title2"}>당신의 이야기를<br/>읽고 있어요</p>
         <p className={stage===1?"analyzing-sub":"analyzing-sub2"} style={{marginBottom:"3rem"}}>잠시만요</p>
-        <div style={{borderTop:`1px solid ${borderColor}`,paddingTop:"2rem",textAlign:"left"}}>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:labelColor,marginBottom:"0.75rem"}}>{slide.title}</p>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.85rem",fontWeight:300,color:textColor,lineHeight:1.9,whiteSpace:"pre-line"}}>{slide.text}</p>
+        <div style={{borderTop:`1px solid ${borderColor}`,paddingTop:"1.5rem"}}>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:labelColor,marginBottom:"1rem"}}>{label}</p>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,color:textColor,lineHeight:1.9,minHeight:"3rem",transition:"opacity 0.5s ease"}}>{slides[slideIdx]}</p>
+          <div style={{display:"flex",gap:"0.4rem",justifyContent:"center",marginTop:"1rem"}}>
+            {slides.map((_,i) => (
+              <div key={i} style={{width:"4px",height:"4px",borderRadius:"50%",background:i===slideIdx?color:`${color}40`,transition:"background 0.3s"}}/>
+            ))}
+          </div>
         </div>
       </div>
     </div>
