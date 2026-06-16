@@ -323,6 +323,36 @@ const VaseSVG = ({ flowersVisible = 0 }) => (
   </svg>
 );
 
+function OracleSlides() {
+  const [idx, setIdx] = useState(0);
+  const slides = [
+    "우리는 왜 자신을 잘 모를까요?",
+    "평생 자신과 함께 살았는데 정작 자신을 모르는 경우가 많아요",
+    "우리는 보고 싶은 것만 봐요",
+    "감정이 렌즈가 돼요 — 두려울 때 자신을 객관적으로 보기 어려워요",
+    "오랫동안 자신을 설명하다 보면 그게 진짜인지 습관인지 구분이 안 돼요",
+    "불행하게도 습관은 쉽게 사라지지 않고 낡은 방식은 끈질기게 존속돼요",
+    "그래서 거울이 필요해요. 오라클은 그 거울이에요",
+  ];
+
+  useEffect(() => {
+    const t = setInterval(() => setIdx(i => (i + 1) % slides.length), 3500);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div style={{ borderTop: "1px solid rgba(13,46,42,0.15)", paddingTop: "1.5rem" }}>
+      <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(13,46,42,0.35)", marginBottom: "1rem" }}>우리가 스스로를 못 보는 이유</p>
+      <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.9rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 1.9, minHeight: "3rem", transition: "opacity 0.5s ease" }}>{slides[idx]}</p>
+      <div style={{ display: "flex", gap: "0.4rem", justifyContent: "center", marginTop: "1rem" }}>
+        {slides.map((_, i) => (
+          <div key={i} style={{ width: "4px", height: "4px", borderRadius: "50%", background: i === idx ? "rgba(13,46,42,0.5)" : "rgba(13,46,42,0.15)", transition: "background 0.3s" }}/>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function OracleFeedback() {
   const [selected, setSelected] = useState(null);
   return (
@@ -684,38 +714,8 @@ export default function Oracle({ onBack }) {
           <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.45)", marginBottom: "3rem", lineHeight: 1.9, animation: "flicker 4s ease-in-out infinite" }}>
             오라클이 당신의 답변을 읽고 있습니다
           </p>
-          {/* 교육 텍스트 */}
-          <div style={{ borderTop: "1px solid rgba(13,46,42,0.12)", paddingTop: "2rem", textAlign: "left", marginBottom: "3rem" }}>
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(13,46,42,0.3)", marginBottom: "0.75rem" }}>우리가 스스로를 못 보는 이유</p>
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(13,46,42,0.5)", lineHeight: 1.9, whiteSpace: "pre-line" }}>{`이상하지 않나요.
-가장 오래 함께 산 사람이 자신인데
-정작 자신을 가장 모르는 경우가 많아요.
-
-이유가 있어요.
-
-첫째, 우리는 보고 싶은 것만 봐요.
-이미 믿고 있는 것을 확인해주는 정보만
-자연스럽게 눈에 들어오거든요.
-"나는 이런 사람이야"라는 믿음이 생기면
-그 반대의 증거는 조용히 사라져요.
-
-둘째, 감정이 렌즈가 돼요.
-두렵거나 화가 났을 때
-우리는 자신을 객관적으로 보기 어려워요.
-감정이 현실을 해석하는 필터가 되거든요.
-
-셋째, 자신과 너무 오래 가까이 있다 보니
-정작 자신은 자신을 볼 수 없어요.
-
-넷째, 우리는 오랫동안 특정한 방식으로
-자신을 설명해왔어요.
-그러다 보면 그게 진짜인지
-습관인지 구분이 안 되기도 해요.
-
-그래서 거울이 필요해요.
-오라클은 그 거울이에요.`}</p>
-          </div>
-          <button className="door-open-btn" onClick={openDoor}>문을 열다</button>
+          <OracleSlides />
+          <button className="door-open-btn" onClick={openDoor} style={{marginTop:"2.5rem"}}>문을 열다</button>
         </div>
       )}
 
