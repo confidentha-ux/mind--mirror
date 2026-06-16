@@ -357,7 +357,7 @@ function AnalyzingScreen({ stage }) {
 }
 
 function FeedbackWidget({ dark = false }) {
-  const [selected, setSelected] = React.useState(null);
+  const [selected, setSelected] = useState(null);
   const textColor = dark ? "rgba(200,210,230,0.45)" : "rgba(42,18,0,0.45)";
   const borderColor = dark ? "rgba(200,210,230,0.2)" : "rgba(42,18,0,0.15)";
   const btnColor = dark ? "rgba(200,210,230,0.5)" : "rgba(42,18,0,0.5)";
