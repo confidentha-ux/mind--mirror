@@ -322,34 +322,14 @@ const Decoration = ({ type, color }) => {
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
 function AnalyzingScreen({ stage }) {
-  const [slideIdx, setSlideIdx] = useState(0);
-
-  const slides1 = [
-    "우리는 같은 상황에서도 다르게 반응해요",
-    "그 차이가 바로 인지예요",
-    "보이는 것, 듣는 것을 어떻게 처리하느냐",
-    "이 방식은 대부분 우리도 모르는 사이에 형성됐어요",
-  ];
-  const slides2 = [
-    "인지 구조는 반복된 경험이 굳어진 틀이에요",
-    "갈등 앞에서, 실패 앞에서 나타나는 패턴",
-    "틀린 게 아니에요 — 지금까지 당신을 지켜온 방식이에요",
-    "문제는 그 구조가 맞지 않는 상황에서도 작동한다는 거예요",
-  ];
-
-  const slides = stage === 1 ? slides1 : slides2;
   const color = stage === 1 ? "#c4956a" : "#4a8ab4";
   const textColor = stage === 1 ? "rgba(107,76,42,0.85)" : "rgba(180,210,240,0.85)";
   const labelColor = stage === 1 ? "rgba(196,149,106,0.6)" : "rgba(74,138,180,0.6)";
   const borderColor = stage === 1 ? "rgba(196,149,106,0.25)" : "rgba(74,138,180,0.25)";
   const label = stage === 1 ? "인지란 무엇인가" : "인지 구조란 무엇인가";
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSlideIdx(i => (i + 1) % slides.length);
-    }, 3500);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+  const text = stage === 1
+    ? `우리는 같은 상황에서도 다르게 반응해요.\n\n그 차이가 바로 인지예요.\n보이는 것, 듣는 것을 어떻게 처리하느냐 —\n그게 인지예요.\n\n이 방식은 대부분\n우리도 모르는 사이에 형성됐어요.`
+    : `인지 구조는 반복된 경험이 굳어진 틀이에요.\n\n갈등 앞에서, 실패 앞에서 나타나는 패턴.\n\n틀린 게 아니에요 —\n지금까지 당신을 지켜온 방식이에요.\n\n문제는 그 구조가 맞지 않는 상황에서도\n작동한다는 거예요.`;
 
   return (
     <div className="analyzing" style={{position:"relative"}}>
@@ -363,14 +343,9 @@ function AnalyzingScreen({ stage }) {
       <div style={{position:"relative",zIndex:1,maxWidth:480,margin:"0 auto",textAlign:"center"}}>
         <p className={stage===1?"analyzing-title":"analyzing-title2"}>당신의 이야기를<br/>읽고 있어요</p>
         <p className={stage===1?"analyzing-sub":"analyzing-sub2"} style={{marginBottom:"3rem"}}>잠시만요</p>
-        <div style={{borderTop:`1px solid ${borderColor}`,paddingTop:"1.5rem"}}>
+        <div style={{borderTop:`1px solid ${borderColor}`,paddingTop:"1.5rem",textAlign:"left"}}>
           <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:labelColor,marginBottom:"1rem"}}>{label}</p>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,color:textColor,lineHeight:1.9,minHeight:"3rem",transition:"opacity 0.5s ease"}}>{slides[slideIdx]}</p>
-          <div style={{display:"flex",gap:"0.4rem",justifyContent:"center",marginTop:"1rem"}}>
-            {slides.map((_,i) => (
-              <div key={i} style={{width:"4px",height:"4px",borderRadius:"50%",background:i===slideIdx?color:`${color}40`,transition:"background 0.3s"}}/>
-            ))}
-          </div>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:textColor,lineHeight:2,whiteSpace:"pre-line"}}>{text}</p>
         </div>
       </div>
     </div>
