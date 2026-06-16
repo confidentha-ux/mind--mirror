@@ -943,3 +943,8 @@ export default function App() {
             <button className="restart-btn2" onClick={restart}>처음으로</button>
           </div>
           <FeedbackWidget dark={true} />
+        </div>
+      )}
+    </div>
+  );
+}
