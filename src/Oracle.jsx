@@ -114,7 +114,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 10,
     title: "마지막",
-    question: "지금까지 질문들에 답하면서\n가장 많이 떠오른 단어나 장면,\n혹은 감정이나 마음은 무엇입니까?",
+    question: "지금 이 순간,\n가장 크게 울리는 것은 무엇입니까?",
     type: "text",
   },
 ];
