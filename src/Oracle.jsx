@@ -784,7 +784,7 @@ export default function Oracle({ onBack }) {
                 <OracleFeedback />
               </div>
               <div style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}>
-                <button className="oracle-btn-result" onClick={() => setPhase("final")}>오라클의 제안 →</button>
+                <button className="oracle-btn-result" onClick={() => setPhase("final")}>오라클의 마지막 당부 →</button>
                 <button className="oracle-btn-result" onClick={() => {
                   const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
                   navigator.clipboard.writeText(text);
