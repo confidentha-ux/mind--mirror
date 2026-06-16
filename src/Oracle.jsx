@@ -324,31 +324,25 @@ const VaseSVG = ({ flowersVisible = 0 }) => (
 );
 
 function OracleSlides() {
-  const [idx, setIdx] = useState(0);
-  const slides = [
-    "우리는 왜 자신을 잘 모를까요?",
-    "평생 자신과 함께 살았는데 정작 자신을 모르는 경우가 많아요",
-    "우리는 보고 싶은 것만 봐요",
-    "감정이 렌즈가 돼요 — 두려울 때 자신을 객관적으로 보기 어려워요",
-    "오랫동안 자신을 설명하다 보면 그게 진짜인지 습관인지 구분이 안 돼요",
-    "불행하게도 습관은 쉽게 사라지지 않고 낡은 방식은 끈질기게 존속돼요",
-    "그래서 거울이 필요해요. 오라클은 그 거울이에요",
-  ];
-
-  useEffect(() => {
-    const t = setInterval(() => setIdx(i => (i + 1) % slides.length), 3500);
-    return () => clearInterval(t);
-  }, []);
-
   return (
-    <div style={{ borderTop: "1px solid rgba(13,46,42,0.15)", paddingTop: "1.5rem" }}>
+    <div style={{ borderTop: "1px solid rgba(13,46,42,0.15)", paddingTop: "1.5rem", textAlign: "left" }}>
       <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(13,46,42,0.35)", marginBottom: "1rem" }}>우리가 스스로를 못 보는 이유</p>
-      <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.9rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 1.9, minHeight: "3rem", transition: "opacity 0.5s ease" }}>{slides[idx]}</p>
-      <div style={{ display: "flex", gap: "0.4rem", justifyContent: "center", marginTop: "1rem" }}>
-        {slides.map((_, i) => (
-          <div key={i} style={{ width: "4px", height: "4px", borderRadius: "50%", background: i === idx ? "rgba(13,46,42,0.5)" : "rgba(13,46,42,0.15)", transition: "background 0.3s" }}/>
-        ))}
-      </div>
+      <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.75)", lineHeight: 2, whiteSpace: "pre-line" }}>{`우리는 왜 자신을 잘 모를까요?
+
+평생 자신과 함께 살았는데
+정작 자신을 모르는 경우가 많아요.
+
+우리는 보고 싶은 것만 봐요.
+감정이 렌즈가 돼요 — 두려울 때 자신을 객관적으로 보기 어려워요.
+
+오랫동안 자신을 설명하다 보면
+그게 진짜인지 습관인지 구분이 안 돼요.
+
+불행하게도 습관은 쉽게 사라지지 않고
+낡은 방식은 끈질기게 존속돼요.
+
+그래서 거울이 필요해요.
+오라클은 그 거울이에요.`}</p>
     </div>
   );
 }
@@ -889,7 +883,7 @@ export default function Oracle({ onBack }) {
           </div>
 
           <div style={{ marginTop: "3rem", display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
-            <button className="oracle-btn-result" onClick={() => {
+            <button className="oracle-btn-result" style={{borderColor:"rgba(240,237,232,0.4)",color:"rgba(240,237,232,0.7)"}} onClick={() => {
               setPhase("intro");
               setAnswers({});
               setCurrentQ(0);
@@ -898,13 +892,13 @@ export default function Oracle({ onBack }) {
               setSelectedOption(null);
               setTextAnswer("");
             }}>다시 시작</button>
-            <button className="oracle-btn-result" onClick={() => {
+            <button className="oracle-btn-result" style={{borderColor:"rgba(240,237,232,0.4)",color:"rgba(240,237,232,0.7)"}} onClick={() => {
               const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
               navigator.clipboard.writeText(text);
               alert("복사되었습니다");
             }}>결과 복사</button>
             <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(240,237,232,0.45)",textDecoration:"underline",textUnderlineOffset:"3px"}}>당신의 경험을 들려주세요 →</a>
-            <button className="back-link-result" onClick={onBack}>← 마음거울로</button>
+            <button className="back-link-result" style={{color:"rgba(240,237,232,0.35)"}} onClick={onBack}>← 마음거울로</button>
           </div>
         </div>
       )}
