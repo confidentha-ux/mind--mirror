@@ -739,10 +739,15 @@ export default function App() {
           <circle cx="100" cy="100" r="2.5" fill="#c4956a" opacity="0.4"/>
         </svg>
         <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
-          <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",color:"#c4956a",marginBottom:"1.5rem"}}>마음거울 · 1단계</div>
+          <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",color:"#c4956a",marginBottom:"1.5rem"}}>마음거울 · 나를 만나는 세 가지 방식</div>
           <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.4rem,6vw,3.6rem)",fontWeight:400,lineHeight:1.15,color:"#2a1200",marginBottom:"2rem"}}>당신은<br/>어떻게<br/>생각하나요</h1>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"#6b4c2a",lineHeight:1.9,marginBottom:"1.25rem"}}>살면서 왜 같은 상황이 반복되는지,<br/>왜 특정 순간에 늘 비슷한 감정이 오는지<br/>궁금했던 적 있나요.</p>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:".93rem",fontWeight:300,fontStyle:"italic",color:"#9a7856",lineHeight:1.9,marginBottom:"1.5rem"}}>일곱 가지 질문에 솔직하게 답해주시면,<br/>당신이 쓴 말들을 읽고 패턴을 돌려드려요.<br/>거울 하나 건네드리겠습니다.</p>
+
+          <div style={{marginBottom:"1.5rem"}}>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"#6b4c2a",lineHeight:1.9,marginBottom:"0.75rem"}}>나는 나를 잘 안다고 생각했다.<br/>왜 나는 매번 여기서 막히는 걸까?<br/>내가 한 말인데 내가 왜 그랬는지 모르겠다.<br/>나에 대해 설명하려다 말문이 막혔다.</p>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"#9a7856",lineHeight:1.9,marginBottom:"0.75rem"}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남이 준 말로 만들어졌으니까요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:".93rem",fontWeight:300,color:"#6b4c2a",lineHeight:1.9,marginBottom:"0.75rem"}}>당신이 쓴 말이 가장 정직한 자기소개가 되어야 해요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:".93rem",fontWeight:300,fontStyle:"italic",color:"#9a7856",lineHeight:1.9}}>답하다 보면 — 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간에 후회하는지 보이기 시작해요.</p>
+          </div>
           <div style={{background:"rgba(196,149,106,0.1)",borderLeft:"3px solid #c4956a",padding:"1.1rem 1.25rem",marginBottom:"2rem"}}>
             <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".68rem",letterSpacing:".2em",textTransform:"uppercase",color:"#c4956a",marginBottom:".6rem"}}>시작 전에</div>
             {["틀린 답은 없어요. 생각나는 대로, 편한 만큼만 쓰시면 돼요.","많이 쓸수록 더 풍부한 분석을 받을 수 있어요.","질문마다 자유롭게 돌아가서 수정할 수 있어요.","패스하고 싶은 질문은 건너뛰셔도 괜찮아요.","입력하신 내용은 저장되지 않아요."].map((t,i) => (
