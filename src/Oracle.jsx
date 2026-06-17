@@ -323,6 +323,56 @@ const VaseSVG = ({ flowersVisible = 0 }) => (
   </svg>
 );
 
+function TodaySentence({ onSave }) {
+  const [text, setText] = useState("");
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = () => {
+    if (!text.trim()) return;
+    onSave(text.trim());
+    setSaved(true);
+  };
+
+  if (saved) return null;
+
+  return (
+    <div style={{ marginTop: "0.75rem" }}>
+      <textarea
+        value={text}
+        onChange={e => setText(e.target.value)}
+        placeholder="오늘 여기서 발견한 것..."
+        rows={2}
+        style={{
+          width: "100%",
+          background: "rgba(255,255,255,0.07)",
+          border: "1px solid rgba(201,168,76,0.3)",
+          color: "rgba(240,237,232,0.8)",
+          fontFamily: "'Source Serif 4', serif",
+          fontSize: "0.88rem",
+          fontWeight: 300,
+          lineHeight: 1.8,
+          padding: "0.75rem 1rem",
+          resize: "none",
+          outline: "none",
+        }}
+      />
+      <button
+        onClick={handleSave}
+        style={{
+          marginTop: "0.5rem",
+          background: "none",
+          border: "1px solid rgba(201,168,76,0.4)",
+          color: "rgba(201,168,76,0.7)",
+          fontFamily: "'Source Serif 4', serif",
+          fontSize: "0.8rem",
+          padding: "0.4rem 1.2rem",
+          cursor: "pointer",
+        }}
+      >기록하기</button>
+    </div>
+  );
+}
+
 function OracleSlides() {
   return (
     <div style={{ borderTop: "1px solid rgba(13,46,42,0.15)", paddingTop: "1.5rem", textAlign: "left" }}>
@@ -584,7 +634,10 @@ export default function Oracle({ onBack }) {
       {phase !== "result" && <VaseSVG flowersVisible={phase === "questions" ? currentQ : phase === "door" || phase === "opening" ? 10 : 0} />}
 
       {/* 인트로 */}
-      {phase === "intro" && (
+      {phase === "intro" && (() => {
+        const saved = localStorage.getItem("oracle_today_sentence");
+        const prev = saved ? JSON.parse(saved) : null;
+        return (
         <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1 }}>
           <div style={{ marginBottom: "2.5rem" }}>
             <div style={{
@@ -649,11 +702,18 @@ export default function Oracle({ onBack }) {
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem" }}>
+            {prev && (
+              <div style={{ marginBottom: "0.5rem", padding: "1rem 1.25rem", border: "1px solid rgba(13,46,42,0.15)", width: "100%" }}>
+                <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(13,46,42,0.3)", marginBottom: "0.4rem" }}>지난번 당신의 한 문장 ({prev.date})</p>
+                <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.9rem", fontStyle: "italic", color: "rgba(13,46,42,0.6)", lineHeight: 1.8 }}>"{prev.sentence}"</p>
+              </div>
+            )}
             <button className="oracle-btn" onClick={() => setPhase("questions")}>문 앞에 서다</button>
             <button className="back-link" onClick={onBack}>← 돌아가기</button>
           </div>
         </div>
-      )}
+        );
+      })()}
 
       {/* 질문 */}
       {phase === "questions" && q && (
@@ -798,7 +858,12 @@ export default function Oracle({ onBack }) {
       )}
 
       {/* 마지막 장 */}
-      {phase === "final" && (
+      {phase === "final" && (() => {
+        const today = new Date();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        const savedSentence = localStorage.getItem("oracle_today_sentence");
+        return (
         <div style={{ width: "100%", maxWidth: 580, paddingTop: "2rem", paddingBottom: "4rem" }}>
           <div className="greek" style={{ color: "rgba(240,237,232,0.3)", marginBottom: "3rem", fontSize: "0.9rem" }}>γνῶθι σεαυτόν</div>
 
@@ -806,24 +871,15 @@ export default function Oracle({ onBack }) {
           <div style={{ position: "relative", padding: "3rem 2.5rem", border: "4px solid #c9a84c", boxShadow: "inset 0 0 0 8px #2d5a2d, inset 0 0 0 10px rgba(160,140,200,0.35)" }}>
 
             <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
-{`당신은 자신을 보았습니다.
+{`당신은 자신을 보았습니다. 쉽지 않은 일이에요.
 
-이 결과는 당신이 누구인지를 정의하지 않아요.
-오라클은 사람을 분류하거나 당신의 미래를 예측하는 것도 아닙니다.
-오라클은 단지 당신이 반복적으로 선택해온 방식,
-세상을 해석해온 습관,
-그리고 무의식적으로 돌아가기 쉬운 길을 보여줄 뿐이에요.`}
+이 결과는 당신이 누구인지를 정의하지 않아요. 오라클이 본 건 당신이 반복적으로 선택해온 방식, 세상을 해석해온 습관, 무의식적으로 돌아가기 쉬운 길이에요. 당신의 일부분이고, 오늘의 일부분이에요.`}
             </div>
 
             <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
 
             <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
-{`당신이 지금까지 살아온 방식은
-당신의 강점이었고,
-여기까지 데려온 힘이었어요.
-
-하지만 같은 방식이 한 방향으로만 반복된다면
-때로는 같은 문제를 반복하게 만들기도 해요.
+{`당신이 지금까지 살아온 방식은 당신의 강점이었고, 여기까지 데려온 힘이었어요. 하지만 같은 방식이 한 방향으로만 반복된다면 때로는 같은 문제를 반복하게 만들기도 해요.
 
 그리고 묻습니다.
 
@@ -833,52 +889,61 @@ export default function Oracle({ onBack }) {
             <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
 
             <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
-{`매트릭스에서 네오는 자신이 선택받은 자인지
-확인받기 위해 오라클을 찾아갔어요.
-하지만 오라클이 준 건 확인이 아니라 질문이었죠.
-네오는 오라클과 헤어진 뒤
-스스로 자신의 길을 생각하고 선택했습니다.
+{`매트릭스에서 네오는 자신이 선택받은 자인지 확인받기 위해 오라클을 찾아갔어요. 하지만 오라클이 준 건 확인이 아니라 질문이었죠. 네오는 오라클과 헤어진 뒤 스스로 선택했습니다.
 
-뭔가를 알게 되면 확신이 생겨
-내가 달라질 거라고 기대하지 마세요.
-달라진 내가 되기 위한 새로운 선택,
-그것으로 충분합니다.`}
+앎이 나를 바꿔줄 거라고 기대했던 적 있으신가요? 네오도 그랬어요. 달라지는 건 언제나 그 다음 선택이었어요.`}
             </div>
 
             <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
 
             <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
-{`오라클은 당신의 전부를 본 것이 아니에요.
-당신이 쓴 몇 개의 문장으로
-당신이라는 사람 전체를 알 수는 없어요.
-오라클이 본 건 그 문장들 안에 있는 패턴이에요.
-당신의 일부분이고, 그것도 오늘의 일부분이에요.
-
-분석이 맞지 않는다고 느껴지신다면
-그 느낌 자체가 중요한 정보예요.
-무엇이 틀렸는지, 왜 다르게 느껴지는지 —
-분석지를 복사하셔서 당신의 AI와 상의해보세요.
-직접 인지구조 검사를 요청하시는 것도 좋아요.
-
-가족이나 가까운 사람들에게 보여주시고
-피드백을 받아보세요.
-특히 이해에 어려움을 겪은 상대가 있으시다면
-함께 해보시고 분석지를 돌려가며 읽어보시면
-도움이 되실 거예요.`}
+{`이 경험을 혼자 닫지 마세요. 가까운 사람에게 보여주세요. 함께 해보고 분석지를 돌려가며 읽어보세요. 오래 함께했는데도 몰랐던 것들이 보이기 시작해요. 서로에 대한 이해가 달라지는 경험을 하실 거예요.`}
             </div>
 
             <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
 
             <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
-{`그리고 언젠가 다시 오세요.
-오늘 당신이 오라클에게 했던 말과
-그 때 당신이 할 말이 달라져 있으실 거예요.
-
-그것이 바로 당신 자신에 대해
-조금이라도 새롭게 알게 되셨다는 증거니까요.
-
-같이 기뻐하겠습니다.`}
+{`분석이 맞지 않는다고 느껴지신다면 그 느낌도 중요한 정보예요. 무엇이 틀렸는지, 왜 다르게 느껴지는지 — 분석지를 복사하셔서 당신의 AI와 상의해보세요. 직접 인지구조 검사를 요청하시는 것도 좋아요.`}
             </div>
+
+            <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
+
+            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, whiteSpace: "pre-line" }}>
+{`언젠가 다시 오세요. 오늘 당신이 오라클에게 했던 말과 그때 당신이 할 말이 달라져 있을 거예요. 그것이 바로 당신이 살아있다는 뜻이에요.`}
+            </div>
+
+            <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
+
+            {/* 한 문장 입력 */}
+            <div>
+              <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 1.9, marginBottom: "1rem" }}>
+                오늘은 {month}월 {day}일이에요.<br/>
+                오늘 여기서 발견한 것을 한 문장으로 써보세요.<br/>
+                하나만 가져간다면 — 무엇인가요?
+              </p>
+              {!savedSentence ? (
+                <TodaySentence onSave={(sentence) => {
+                  const data = { sentence, date: `${month}월 ${day}일`, timestamp: Date.now() };
+                  localStorage.setItem("oracle_today_sentence", JSON.stringify(data));
+                  window.location.reload();
+                }} />
+              ) : (
+                <div style={{ marginTop: "1rem" }}>
+                  <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontStyle: "italic", color: "#c9a84c", lineHeight: 1.9 }}>
+                    "{JSON.parse(savedSentence).sentence}"
+                  </p>
+                  <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.75rem", color: "rgba(240,237,232,0.3)", marginTop: "0.5rem" }}>
+                    {JSON.parse(savedSentence).date} 기록
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div style={{ width: "32px", height: "1px", background: "rgba(201,168,76,0.3)", margin: "2rem 0" }}/>
+
+            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", color: "rgba(240,237,232,0.5)", lineHeight: 1.9 }}>
+              오늘의 당신을 기억하세요.
+            </p>
 
           </div>
 
@@ -893,7 +958,9 @@ export default function Oracle({ onBack }) {
               setTextAnswer("");
             }}>다시 시작</button>
             <button className="oracle-btn-result" style={{borderColor:"rgba(240,237,232,0.4)",color:"rgba(240,237,232,0.7)"}} onClick={() => {
-              const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
+              const saved = localStorage.getItem("oracle_today_sentence");
+              const sentencePart = saved ? `\n\n오늘의 한 문장: "${JSON.parse(saved).sentence}"` : "";
+              const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}${sentencePart}`;
               navigator.clipboard.writeText(text);
               alert("복사되었습니다");
             }}>결과 복사</button>
@@ -901,7 +968,8 @@ export default function Oracle({ onBack }) {
             <button className="back-link-result" style={{color:"rgba(240,237,232,0.35)"}} onClick={onBack}>← 마음거울로</button>
           </div>
         </div>
-      )}
+        );
+      })()}
     </div>
   );
 }
