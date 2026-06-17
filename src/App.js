@@ -54,7 +54,7 @@ const QUESTIONS = [
   {
     id: 7,
     title: "나는 누구인가요",
-    prompt: "먼저 자기 자신에 대해 편하게 이야기해 주세요. 어떤 사람인지, 어떤 일을 하는지, 중요하게 생각하는 게 뭔지 생각나는 대로 쓰시면 돼요.",
+    prompt: "자기 자신에 대해 편하게 이야기해 주세요. 어떤 사람인지, 어떤 일을 하는지, 중요하게 생각하는 게 뭔지 생각나는 대로 쓰시면 돼요.",
     placeholder: "예: 나는 기본적으로 ___한 사람인 것 같아요. 왜냐하면...",
     bg: "#e8d5c0", textColor: "#2a1200", accentColor: "#8b4513", borderColor: "#c4956a",
     deco: "rays", skippable: false
