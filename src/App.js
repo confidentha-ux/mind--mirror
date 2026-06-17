@@ -582,82 +582,130 @@ export default function App() {
   // ── 메인 랜딩 ───────────────────────────────────────────────────
   if (step === "intro") {
     return (
-      <div style={{background:"#2d5a2d",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"2rem 1.25rem"}}>
+      <div style={{background:"#2d5a2d",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"3rem 1.5rem"}}>
         <style>{FONTS + `
-          .stair-item { cursor: pointer; transition: all 0.3s; }
-          .stair-item:hover { opacity: 1 !important; }
-          .stair-hint { font-family: 'Source Serif 4', serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 0.5rem; transition: all 0.3s; }
+          @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+          .fade1 { opacity:0; animation:fadeUp 0.6s ease forwards 0.3s; }
+          .fade2 { opacity:0; animation:fadeUp 0.6s ease forwards 0.9s; }
+          .fade3 { opacity:0; animation:fadeUp 0.6s ease forwards 1.5s; }
+          .fade4 { opacity:0; animation:fadeUp 0.6s ease forwards 2.1s; }
+          .fade5 { opacity:0; animation:fadeUp 0.6s ease forwards 2.9s; }
+          .fade6 { opacity:0; animation:fadeUp 0.6s ease forwards 3.7s; }
+          .fade7 { opacity:0; animation:fadeUp 0.6s ease forwards 4.5s; }
+          .fade8 { opacity:0; animation:fadeUp 0.6s ease forwards 5.1s; }
+          .intro-card-hover { transition:all 0.3s; cursor:pointer; }
+          .intro-card-hover:hover { transform:translateY(-2px); }
         `}</style>
-        <div style={{width:"100%",maxWidth:640}}>
+        <div style={{width:"100%",maxWidth:560}}>
 
           {/* 헤더 */}
-          <div style={{marginBottom:"4rem"}}>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"rgba(240,237,232,0.7)",lineHeight:2.2}}>
-              잘하고 싶은데 방법을 모르겠다면.<br/>
-              나를 설명할 말이 없다면.<br/>
-              왜 항상 같은 상황에서 막히는지 모르겠다면.
-            </p>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",fontStyle:"italic",color:"rgba(240,237,232,0.45)",marginTop:"1.25rem"}}>모르는 게 당연해요.</p>
+          <div style={{marginBottom:"3rem",paddingBottom:"2rem",borderBottom:"1px solid rgba(240,237,232,0.1)"}}>
+            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.35em",textTransform:"uppercase",color:"rgba(240,237,232,0.3)",marginBottom:"0.75rem"}}>마음거울</div>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.6rem,4vw,2.2rem)",fontWeight:400,fontStyle:"italic",color:"rgba(240,237,232,0.85)",lineHeight:1.35,marginBottom:"0.75rem"}}>나를 만나는<br/>세 가지 방식</h1>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.45)",lineHeight:1.8}}>세 가지 방식으로 가까이 다가가 봐요.</p>
           </div>
 
-          {/* 계단 구조 */}
-          <div style={{display:"flex",flexDirection:"column",gap:"0"}}>
+          {/* 건드림 */}
+          <div style={{marginBottom:"2.5rem"}}>
+            <p className="fade1" style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.8,marginBottom:"0.6rem"}}>나는 나를 잘 안다고 생각했다.</p>
+            <p className="fade2" style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.8,marginBottom:"0.6rem"}}>왜 나는 매번 여기서 막히는 걸까.</p>
+            <p className="fade3" style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.8,marginBottom:"0.6rem"}}>내가 한 말인데 내가 왜 그랬는지 모르겠다.</p>
+            <p className="fade4" style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.8}}>나에 대해 설명하려다 말문이 막혔다.</p>
+          </div>
 
-            {/* 01 나 사용 설명서 — 가장 크고 밝게 */}
-            <div className="stair-item" onClick={() => setShowQuickTest(true)}
-              style={{padding:"2rem 0",borderTop:"1px solid rgba(240,237,232,0.15)",opacity:1}}>
-              <div style={{display:"flex",alignItems:"baseline",gap:"1.25rem"}}>
-                <span style={{fontFamily:"'Playfair Display',serif",fontSize:"3.5rem",fontStyle:"italic",color:"rgba(240,237,232,0.2)",lineHeight:1,flexShrink:0}}>01</span>
-                <div>
-                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(240,237,232,0.4)",marginBottom:"0.4rem"}}>나는 어떻게 움직이는 사람일까</div>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.8rem",fontStyle:"italic",color:"#f0ede8",marginBottom:"0.5rem"}}>나 사용 설명서</div>
-                  <div className="stair-hint" style={{color:"rgba(240,237,232,0.5)"}}>여기서 시작해요 →</div>
-                </div>
+          {/* 안착 */}
+          <div className="fade5" style={{marginBottom:"2.5rem",paddingLeft:"1.25rem",borderLeft:"2px solid rgba(240,237,232,0.2)"}}>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",fontStyle:"italic",color:"rgba(240,237,232,0.45)",lineHeight:1.9}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남이 준 말로 만들어졌으니까.</p>
+          </div>
+
+          {/* 초대 */}
+          <div className="fade6" style={{marginBottom:"3rem"}}>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"rgba(240,237,232,0.8)",lineHeight:1.8}}>나는 나를 얼마나 알까요? —<br/>여기서 처음으로 내 언어로 나를 봐요.</p>
+          </div>
+
+          {/* 선택 */}
+          <div className="fade7" style={{position:"relative",paddingLeft:"3rem"}}>
+            <div style={{position:"absolute",left:14,top:20,bottom:20,width:1,background:"rgba(240,237,232,0.12)"}}/>
+
+            {/* 01 */}
+            <div className="intro-card-hover" style={{position:"relative",marginBottom:"1rem"}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#e6c800",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#2a1200"}}>01</span>
+              </div>
+              <div onClick={() => setShowQuickTest(true)} style={{background:"rgba(255,248,180,0.95)",padding:"1.35rem 1.6rem",borderLeft:"5px solid #e6c800",position:"relative",overflow:"hidden",minHeight:160}}>
+                <svg width="100" height="100" viewBox="0 0 200 200" style={{position:"absolute",right:-10,top:"50%",transform:"translateY(-50%)",opacity:0.08,pointerEvents:"none"}}>
+                  <circle cx="100" cy="100" r="88" fill="none" stroke="#2a1200" strokeWidth="1.5"/>
+                  <circle cx="100" cy="100" r="75" fill="none" stroke="#2a1200" strokeWidth="0.7" strokeDasharray="4,6"/>
+                  <circle cx="100" cy="100" r="55" fill="none" stroke="#2a1200" strokeWidth="1"/>
+                  <line x1="12" y1="100" x2="188" y2="100" stroke="#2a1200" strokeWidth="0.8"/>
+                  <line x1="100" y1="12" x2="100" y2="188" stroke="#2a1200" strokeWidth="0.8"/>
+                  <line x1="38" y1="38" x2="162" y2="162" stroke="#2a1200" strokeWidth="0.6"/>
+                  <line x1="162" y1="38" x2="38" y2="162" stroke="#2a1200" strokeWidth="0.6"/>
+                  <polygon points="100,25 95,100 105,100" fill="#2a1200"/>
+                  <polygon points="100,175 95,100 105,100" fill="none" stroke="#2a1200" strokeWidth="1.2"/>
+                  <circle cx="100" cy="100" r="7" fill="none" stroke="#2a1200" strokeWidth="1.5"/>
+                  <circle cx="100" cy="100" r="3.5" fill="#2a1200"/>
+                </svg>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)",marginBottom:"0.3rem"}}>내가 움직이는 방식</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.5rem"}}>나 사용 설명서</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>잘하고 싶은데 어디서 막히는지 모르겠다면 — 내가 어떻게 받아들이고 결정하고 사람을 만나는지, 11가지 질문으로 찾아요.</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#b09000"}}>여기서 시작해요 →</div>
               </div>
             </div>
 
-            {/* 02 마음거울 — 조금 작고 조용하게 */}
-            <div className="stair-item" onClick={() => setStep("mindmirror-intro")}
-              style={{padding:"1.75rem 0 1.75rem 2rem",borderTop:"1px solid rgba(240,237,232,0.1)",opacity:0.75}}>
-              <div style={{display:"flex",alignItems:"baseline",gap:"1.25rem"}}>
-                <span style={{fontFamily:"'Playfair Display',serif",fontSize:"2.8rem",fontStyle:"italic",color:"rgba(240,237,232,0.15)",lineHeight:1,flexShrink:0}}>02</span>
-                <div>
-                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(240,237,232,0.3)",marginBottom:"0.4rem"}}>나는 왜 같은 상황을 반복하는가</div>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.45rem",fontStyle:"italic",color:"rgba(240,237,232,0.8)",marginBottom:"0.5rem"}}>마음거울</div>
-                  <div className="stair-hint" style={{color:"rgba(240,237,232,0.35)"}}>01을 했다면 여기로 →</div>
-                </div>
+            <div style={{textAlign:"center",margin:"-0.25rem 0",color:"rgba(240,237,232,0.2)",fontSize:"0.8rem"}}>↓</div>
+
+            {/* 02 */}
+            <div className="intro-card-hover" style={{position:"relative",margin:"0 0 1rem"}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#9b89c4",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#fff"}}>02</span>
+              </div>
+              <div onClick={() => setStep("mindmirror-intro")} style={{background:"rgba(232,224,245,0.9)",padding:"1.35rem 1.6rem",borderLeft:"5px solid #9b89c4",position:"relative",overflow:"hidden",minHeight:160}}>
+                <svg width="100" height="100" viewBox="0 0 180 180" style={{position:"absolute",right:-10,top:"50%",transform:"translateY(-50%)",opacity:0.08,pointerEvents:"none"}}>
+                  <circle cx="90" cy="90" r="75" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
+                  <circle cx="90" cy="90" r="58" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
+                  <circle cx="90" cy="90" r="42" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
+                  <circle cx="90" cy="90" r="26" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
+                  <circle cx="90" cy="90" r="10" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
+                  <path d="M90,90 Q90,80 100,80 Q110,80 110,90 Q110,105 90,107 Q68,107 66,88 Q64,68 90,66 Q116,66 118,90 Q120,118 90,121 Q57,121 54,88 Q51,56 90,53 Q128,53 131,90 Q134,130 90,134 Q44,134 40,88" fill="none" stroke="#2a1200" strokeWidth="1.4" strokeLinecap="round"/>
+                  <circle cx="90" cy="90" r="3" fill="#2a1200"/>
+                </svg>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.3)",marginBottom:"0.3rem"}}>내가 반복하는 패턴</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(42,18,0,0.8)",marginBottom:"0.5rem"}}>마음거울</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.45)",lineHeight:1.8,marginBottom:"0.6rem"}}>왜 같은 상황이 계속 오는지 — 감정과 관계에서 사고 구조까지, 두 단계로 천천히 들어가요.</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#9b89c4"}}>01을 했다면 여기로 →</div>
               </div>
             </div>
 
-            {/* 03 오라클 — 가장 조용하게 */}
-            <div className="stair-item" onClick={() => setShowOracle(true)}
-              style={{padding:"1.5rem 0 1.5rem 4rem",borderTop:"1px solid rgba(240,237,232,0.07)",opacity:0.55,position:"relative"}}>
-              {/* 꽃병 SVG */}
-              <svg width="100" height="140" viewBox="0 0 160 220" style={{position:"absolute",right:0,bottom:0,opacity:0.12,pointerEvents:"none"}}>
-                <ellipse cx="80" cy="22" rx="20" ry="5" fill="none" stroke="#f0ede8" strokeWidth="1.8" strokeLinecap="round"/>
-                <path d="M60,22 Q56,38 52,52" fill="none" stroke="#f0ede8" strokeWidth="1.8" strokeLinecap="round"/>
-                <path d="M100,22 Q104,38 108,52" fill="none" stroke="#f0ede8" strokeWidth="1.8" strokeLinecap="round"/>
-                <path d="M52,52 Q30,70 28,110 Q26,148 32,170 Q38,188 50,196" fill="none" stroke="#f0ede8" strokeWidth="1.8" strokeLinecap="round"/>
-                <path d="M108,52 Q130,70 132,110 Q134,148 128,170 Q122,188 110,196" fill="none" stroke="#f0ede8" strokeWidth="1.8" strokeLinecap="round"/>
-                <path d="M54,48 Q80,52 106,48" fill="none" stroke="#f0ede8" strokeWidth="1.2" strokeLinecap="round"/>
-                <path d="M50,196 Q80,204 110,196" fill="none" stroke="#f0ede8" strokeWidth="1.8" strokeLinecap="round"/>
-                <ellipse cx="80" cy="200" rx="32" ry="6" fill="none" stroke="#f0ede8" strokeWidth="1.8" strokeLinecap="round"/>
-              </svg>
-              <div style={{display:"flex",alignItems:"baseline",gap:"1.25rem"}}>
-                <span style={{fontFamily:"'Playfair Display',serif",fontSize:"2.2rem",fontStyle:"italic",color:"rgba(240,237,232,0.1)",lineHeight:1,flexShrink:0}}>03</span>
-                <div>
-                  <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(240,237,232,0.22)",marginBottom:"0.4rem"}}>내가 아직 못 꺼낸 질문</div>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"rgba(240,237,232,0.6)",marginBottom:"0.5rem"}}>오라클</div>
-                  <div className="stair-hint" style={{color:"rgba(240,237,232,0.25)"}}>준비됐을 때 →</div>
-                </div>
+            <div style={{textAlign:"center",margin:"-0.25rem 0",color:"rgba(240,237,232,0.2)",fontSize:"0.8rem"}}>↓</div>
+
+            {/* 03 */}
+            <div className="intro-card-hover" style={{position:"relative",marginTop:0}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#7dd4c8",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#0d2e2a"}}>03</span>
+              </div>
+              <div onClick={() => setShowOracle(true)} style={{background:"rgba(200,240,236,0.85)",padding:"1.35rem 1.6rem",borderLeft:"5px solid #7dd4c8",position:"relative",overflow:"hidden",minHeight:160}}>
+                <svg width="70" height="100" viewBox="0 0 160 220" style={{position:"absolute",right:-5,bottom:-5,opacity:0.1,pointerEvents:"none"}}>
+                  <ellipse cx="80" cy="22" rx="20" ry="5" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
+                  <path d="M60,22 Q56,38 52,52" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
+                  <path d="M100,22 Q104,38 108,52" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
+                  <path d="M52,52 Q30,70 28,110 Q26,148 32,170 Q38,188 50,196" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
+                  <path d="M108,52 Q130,70 132,110 Q134,148 128,170 Q122,188 110,196" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
+                  <path d="M50,196 Q80,204 110,196" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
+                  <ellipse cx="80" cy="200" rx="32" ry="6" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
+                </svg>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(13,46,42,0.4)",marginBottom:"0.3rem"}}>내가 아직 못 꺼낸 질문</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(13,46,42,0.8)",marginBottom:"0.5rem"}}>오라클</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(13,46,42,0.5)",lineHeight:1.8,marginBottom:"0.6rem"}}>답이 아니에요. 당신 안에 이미 있는 것을 — 말이 되게 꺼내드려요.</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#7dd4c8"}}>네오처럼, 더 깊이 →</div>
               </div>
             </div>
 
           </div>
 
           {/* 하단 */}
-          <div style={{textAlign:"center",padding:"3rem 0 1rem"}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(240,237,232,0.2)",letterSpacing:"0.08em"}}>γνῶθι σεαυτόν · 너 자신을 알라</div>
+          <div className="fade8" style={{textAlign:"center",padding:"3rem 0 0.5rem"}}>
+            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"#c9a84c",letterSpacing:"0.08em"}}>γνῶθι σεαυτόν · 너 자신을 알라</div>
           </div>
 
         </div>
