@@ -600,9 +600,10 @@ export default function App() {
 
           {/* 헤더 */}
           <div style={{marginBottom:"3rem",paddingBottom:"2rem",borderBottom:"1px solid rgba(240,237,232,0.1)"}}>
-            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.35em",textTransform:"uppercase",color:"rgba(240,237,232,0.3)",marginBottom:"0.75rem"}}>마음거울</div>
+            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.4rem",fontStyle:"italic",color:"rgba(240,237,232,0.9)",marginBottom:"0.5rem"}}>마음거울</div>
             <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,6vw,2.8rem)",fontWeight:400,fontStyle:"italic",color:"rgba(240,237,232,0.85)",lineHeight:1.35,marginBottom:"0.75rem"}}>나를 만나는 세 가지 방식</h1>
-      </div>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.45)",lineHeight:1.8}}>세 가지 방식으로 가까이 다가가 봐요.</p>
+          </div>
 
           {/* 건드림 */}
           <div style={{marginBottom:"2.5rem"}}>
@@ -613,16 +614,21 @@ export default function App() {
           </div>
 
           {/* 안착 */}
-          <div className="fade5" style={{marginBottom:"2rem",paddingLeft:"1.25rem",borderLeft:"2px solid rgba(240,237,232,0.2)"}}>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",fontStyle:"italic",color:"rgba(240,237,232,0.45)",lineHeight:1.9}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남이 준 말로 만들어졌으니까요.</p>
+          <div className="fade5" style={{marginBottom:"1.5rem"}}>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,fontStyle:"italic",color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남이 준 말로 만들어졌으니까요.</p>
           </div>
 
           <div className="fade5" style={{marginBottom:"2.5rem"}}>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,color:"rgba(240,237,232,0.55)",lineHeight:1.9,marginBottom:"0.6rem"}}>당신이 쓴 말이 가장 정직한 자기소개가 되어야 해요.</p>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,fontStyle:"italic",color:"rgba(240,237,232,0.45)",lineHeight:1.9}}>답하다 보면 — 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간에 후회하는지 보이기 시작해요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9,marginBottom:"0.6rem"}}>당신이 쓴 말이 가장 정직한 자기소개가 되어야 해요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,fontStyle:"italic",color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>답하다 보면 — 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간에 후회하는지 보이기 시작해요.</p>
           </div>
 
-            {/* 선택 */}
+          {/* 초대 */}
+          <div className="fade6" style={{marginBottom:"3rem"}}>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,fontStyle:"italic",color:"rgba(240,237,232,0.65)",lineHeight:1.8}}>나는 나를 얼마나 알까요? —<br/>여기서 처음으로 내 언어로 나를 봐요.</p>
+          </div>
+
+          {/* 선택 */}
           <div className="fade7" style={{position:"relative",paddingLeft:"3rem"}}>
             <div style={{position:"absolute",left:14,top:20,bottom:20,width:1,background:"rgba(240,237,232,0.12)"}}/>
 
