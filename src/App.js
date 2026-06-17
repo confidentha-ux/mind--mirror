@@ -601,7 +601,7 @@ export default function App() {
           {/* 헤더 */}
           <div style={{marginBottom:"3rem",paddingBottom:"2rem",borderBottom:"1px solid rgba(240,237,232,0.1)"}}>
             <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.35em",textTransform:"uppercase",color:"rgba(240,237,232,0.3)",marginBottom:"0.75rem"}}>마음거울</div>
-            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.6rem,4vw,2.2rem)",fontWeight:400,fontStyle:"italic",color:"rgba(240,237,232,0.85)",lineHeight:1.35,marginBottom:"0.75rem"}}>나를 만나는<br/>세 가지 방식</h1>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,6vw,2.8rem)",fontWeight:400,fontStyle:"italic",color:"rgba(240,237,232,0.85)",lineHeight:1.35,marginBottom:"0.75rem"}}>나를 만나는<br/>세 가지 방식</h1>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.45)",lineHeight:1.8}}>세 가지 방식으로 가까이 다가가 봐요.</p>
           </div>
 
@@ -614,8 +614,13 @@ export default function App() {
           </div>
 
           {/* 안착 */}
-          <div className="fade5" style={{marginBottom:"2.5rem",paddingLeft:"1.25rem",borderLeft:"2px solid rgba(240,237,232,0.2)"}}>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",fontStyle:"italic",color:"rgba(240,237,232,0.45)",lineHeight:1.9}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남이 준 말로 만들어졌으니까.</p>
+          <div className="fade5" style={{marginBottom:"2rem",paddingLeft:"1.25rem",borderLeft:"2px solid rgba(240,237,232,0.2)"}}>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",fontStyle:"italic",color:"rgba(240,237,232,0.45)",lineHeight:1.9}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남이 준 말로 만들어졌으니까요.</p>
+          </div>
+
+          <div className="fade5" style={{marginBottom:"2.5rem"}}>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,color:"rgba(240,237,232,0.55)",lineHeight:1.9,marginBottom:"0.6rem"}}>당신이 쓴 말이 가장 정직한 자기소개가 되어야 해요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,fontStyle:"italic",color:"rgba(240,237,232,0.45)",lineHeight:1.9}}>답하다 보면 — 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간에 후회하는지 보이기 시작해요.</p>
           </div>
 
           {/* 초대 */}
