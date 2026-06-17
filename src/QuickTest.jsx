@@ -113,7 +113,7 @@ const QUESTIONS = [
   },
   {
     id: 11,
-    text: "당신에게 중요한 두 가지가 충돌했다.\n\n예: 진실 vs 관계, 자유 vs 안정\n\n무엇을 기준으로 결정하나요?",
+    text: "당신에게 중요한 두 가지가 충돌했다.\n(예: 진실 vs 관계, 자유 vs 안정)\n\n무엇을 기준으로 결정하나요?",
     options: [
       { text: "더 옳다고 생각하는 것", type: "정확성 우선형" },
       { text: "더 오래 남을 것", type: "이해 후 행동형" },
@@ -399,7 +399,7 @@ export default function QuickTest({ onBack }) {
               </p>
             </div>
 
-            <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center"}}>
+            <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center", justifyContent:"center"}}>
               <button className="qt-start-btn" onClick={() => setStep("test")}>시작하기</button>
               {onBack && <button className="qt-back-btn" onClick={onBack}>← 돌아가기</button>}
             </div>
@@ -503,7 +503,7 @@ export default function QuickTest({ onBack }) {
               </p>
             </div>
 
-            <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center"}}>
+            <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center", justifyContent:"center"}}>
               <button className="qt-start-btn" onClick={restart}>다시 해보기</button>
               {onBack && <button className="qt-back-btn" onClick={onBack}>마음거울로 →</button>}
             </div>
