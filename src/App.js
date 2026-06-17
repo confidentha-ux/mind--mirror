@@ -601,9 +601,8 @@ export default function App() {
           {/* 헤더 */}
           <div style={{marginBottom:"3rem",paddingBottom:"2rem",borderBottom:"1px solid rgba(240,237,232,0.1)"}}>
             <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.35em",textTransform:"uppercase",color:"rgba(240,237,232,0.3)",marginBottom:"0.75rem"}}>마음거울</div>
-            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,6vw,2.8rem)",fontWeight:400,fontStyle:"italic",color:"rgba(240,237,232,0.85)",lineHeight:1.35,marginBottom:"0.75rem"}}>나를 만나는<br/>세 가지 방식</h1>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.45)",lineHeight:1.8}}>세 가지 방식으로 가까이 다가가 봐요.</p>
-          </div>
+            <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2rem,6vw,2.8rem)",fontWeight:400,fontStyle:"italic",color:"rgba(240,237,232,0.85)",lineHeight:1.35,marginBottom:"0.75rem"}}>나를 만나는 세 가지 방식</h1>
+      </div>
 
           {/* 건드림 */}
           <div style={{marginBottom:"2.5rem"}}>
@@ -623,12 +622,7 @@ export default function App() {
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,fontStyle:"italic",color:"rgba(240,237,232,0.45)",lineHeight:1.9}}>답하다 보면 — 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간에 후회하는지 보이기 시작해요.</p>
           </div>
 
-          {/* 초대 */}
-          <div className="fade6" style={{marginBottom:"3rem"}}>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"rgba(240,237,232,0.8)",lineHeight:1.8}}>나는 나를 얼마나 알까요? —<br/>여기서 처음으로 내 언어로 나를 봐요.</p>
-          </div>
-
-          {/* 선택 */}
+            {/* 선택 */}
           <div className="fade7" style={{position:"relative",paddingLeft:"3rem"}}>
             <div style={{position:"absolute",left:14,top:20,bottom:20,width:1,background:"rgba(240,237,232,0.12)"}}/>
 
