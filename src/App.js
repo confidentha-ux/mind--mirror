@@ -602,7 +602,8 @@ export default function App() {
           <div style={{marginBottom:"3rem",paddingBottom:"2rem",borderBottom:"1px solid rgba(240,237,232,0.1)"}}>
             <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontStyle:"italic",color:"rgba(240,237,232,0.5)",marginBottom:"0.4rem"}}>마음거울</div>
             <h1 style={{fontFamily:"'Source Serif 4',serif",fontSize:"clamp(1.8rem,5vw,2.4rem)",fontWeight:400,color:"rgba(240,237,232,0.9)",lineHeight:1.2,marginBottom:"0.75rem"}}>나를 만나는 세 가지 방식</h1>
-                     </div>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.4)",lineHeight:1.8}}>세 가지 방식으로 가까이 다가가 봐요.</p>
+          </div>
 
           {/* 건드림 */}
           <div style={{marginBottom:"2.5rem"}}>
@@ -620,6 +621,11 @@ export default function App() {
           <div className="fade5" style={{marginBottom:"2.5rem"}}>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9,marginBottom:"0.5rem"}}>당신이 쓴 말이 가장 정직한 자기소개가 되어야 해요.</p>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>답하다 보면 — 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간에 후회하는지 보이기 시작해요.</p>
+          </div>
+
+          {/* 초대 */}
+          <div className="fade6" style={{marginBottom:"3rem"}}>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>나는 나를 얼마나 알까요? —<br/>여기서 처음으로 내 언어로 나를 봐요.</p>
           </div>
 
           {/* 선택 */}
@@ -645,8 +651,8 @@ export default function App() {
                   <circle cx="100" cy="100" r="7" fill="none" stroke="#2a1200" strokeWidth="1.5"/>
                   <circle cx="100" cy="100" r="3.5" fill="#2a1200"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)",marginBottom:"0.3rem"}}>내가 움직이는 방식</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.5rem"}}>나 사용 설명서</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)",marginBottom:"0.3rem"}}>어, 나 이런 사람이었어?</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.5rem"}}>내 디폴트 값 찾기</div>
                 <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>잘하고 싶은데 어디서 막히는지 모르겠다면 — 내가 어떻게 받아들이고 결정하고 사람을 만나는지, 11가지 질문으로 찾아요.</p>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#b09000"}}>여기서 시작해요 →</div>
               </div>
