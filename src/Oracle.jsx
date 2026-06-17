@@ -114,7 +114,7 @@ const ORACLE_QUESTIONS = [
   {
     id: 10,
     title: "마지막",
-    question: "지금 이 순간,\n가장 크게 울리는 것은 무엇입니까?",
+    question: "지금 이 순간, 문득 떠오르는 것은?\n(장면, 얼굴, 하고 싶은 말)",
     type: "text",
   },
 ];
@@ -759,7 +759,7 @@ export default function Oracle({ onBack }) {
 
           {visibleSections.includes("Story") && parsed["Story"] && (
             <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>가설</div>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>오라클의 제안</div>
               <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, fontStyle: "italic", color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>
                 {parsed["Story"]}
