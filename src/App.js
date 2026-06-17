@@ -608,19 +608,19 @@ export default function App() {
           {/* 건드림 */}
           <div style={{marginBottom:"2.5rem"}}>
             <p className="fade1" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9,marginBottom:"0.5rem"}}>나는 나를 잘 안다고 생각했다.</p>
-            <p className="fade2" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9,marginBottom:"0.5rem"}}>왜 나는 매번 여기서 막히는 걸까.</p>
+            <p className="fade2" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9,marginBottom:"0.5rem"}}>왜 나는 매번 여기서 막히는 걸까?</p>
             <p className="fade3" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9,marginBottom:"0.5rem"}}>내가 한 말인데 내가 왜 그랬는지 모르겠다.</p>
             <p className="fade4" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>나에 대해 설명하려다 말문이 막혔다.</p>
           </div>
 
           {/* 안착 */}
           <div className="fade5" style={{marginBottom:"1.5rem"}}>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남이 준 말로 만들어졌으니까요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남들이 해준 말로 만들어졌으니깐요.</p>
           </div>
 
           <div className="fade5" style={{marginBottom:"2.5rem"}}>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9,marginBottom:"0.5rem"}}>당신이 쓴 말이 가장 정직한 자기소개가 되어야 해요.</p>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>답하다 보면 — 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간에 후회하는지 보이기 시작해요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>답하다 보면 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간이 후회하는지 보이기 시작해요.</p>
           </div>
 
           {/* 초대 */}
