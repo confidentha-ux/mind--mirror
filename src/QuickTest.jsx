@@ -389,13 +389,26 @@ export default function QuickTest({ onBack }) {
             <CompassSVG linesVisible={11} style={{...bgSvgStyle}} />
 
             <div style={{textAlign:"center", marginBottom:"2.5rem"}}>
-              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.3em", textTransform:"uppercase", color:"rgba(90,58,138,0.45)", marginBottom:"1rem"}}>나 사용 설명서</div>
-              <h1 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.8rem,4vw,2.6rem)", fontWeight:400, fontStyle:"italic", color:"#2a1a4a", lineHeight:1.3, marginBottom:"1.25rem"}}>나는 어떻게<br/>움직이는 사람일까</h1>
-              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.88rem", fontWeight:300, color:"rgba(42,26,74,0.6)", lineHeight:1.9, maxWidth:400, margin:"0 auto"}}>
-                잘하고 싶은데 내 방식이 뭔지 모르겠다면.<br/>
-                11가지 상황 질문에 답하면 당신이 정보를 받아들이고,<br/>
-                결정하고, 사람과 부딪히는 방식을 찾아드려요.<br/>
-                강점도, 막히는 지점도요.
+              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.3em", textTransform:"uppercase", color:"rgba(90,58,138,0.45)", marginBottom:"1rem"}}>나 이런 사람이었어.</div>
+              <h1 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.8rem,4vw,2.6rem)", fontWeight:400, fontStyle:"italic", color:"#2a1a4a", lineHeight:1.3, marginBottom:"1.25rem"}}>내 디폴트 값 찾기</h1>
+              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.88rem", fontWeight:300, color:"rgba(42,26,74,0.6)", lineHeight:1.9, maxWidth:400, margin:"0 auto 1rem"}}>
+                누가 가르쳐준 적 없는데 늘 그렇게 하는 것들이 있어요.<br/>
+                스트레스받을 때, 결정할 때, 사람 앞에 설 때.<br/>
+                내가 자동으로 하는 것.<br/>
+                그게 내 디폴트예요. 한 번도 제대로 본 적 없었던.
+              </p>
+              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.88rem", fontWeight:300, color:"rgba(42,26,74,0.5)", lineHeight:1.9, maxWidth:400, margin:"0 auto 1rem"}}>
+                객관식이에요. 맞고 틀린 답 없어요.<br/>
+                그냥 지금 나한테 더 가까운 걸 고르면 돼요.
+              </p>
+              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.88rem", fontWeight:300, color:"rgba(42,26,74,0.5)", lineHeight:1.9, maxWidth:400, margin:"0 auto 1rem"}}>
+                11가지 상황에 답하다 보면<br/>
+                내가 정보를 어떻게 받아들이고, 어떻게 결정하고,<br/>
+                사람을 어떻게 만나는지 윤곽이 생겨요.<br/>
+                잘 되는 것도, 늘 거기서 막히는 이유도요.
+              </p>
+              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.88rem", fontWeight:300, fontStyle:"italic", color:"rgba(42,26,74,0.45)", lineHeight:1.9, maxWidth:400, margin:"0 auto"}}>
+                답하다 보면 — 아, 나 이런 사람이었구나 싶을 거예요.
               </p>
             </div>
 
@@ -475,7 +488,7 @@ export default function QuickTest({ onBack }) {
               marginBottom:"2rem",
               textAlign:"center",
             }}>
-              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.28em", textTransform:"uppercase", color:"rgba(42,26,74,0.45)", marginBottom:"1.5rem"}}>나 사용 설명서</div>
+              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.28em", textTransform:"uppercase", color:"rgba(42,26,74,0.45)", marginBottom:"1.5rem"}}>내 디폴트 값 찾기</div>
               <img src={`/${TYPE_IMAGES[result]}`} alt={result} style={{width:180, height:180, objectFit:"contain", marginBottom:"1.5rem"}}/>
               <h2 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.6rem,4vw,2.2rem)", fontStyle:"italic", fontWeight:400, color:"#2a1a4a", marginBottom:"0.75rem"}}>{result}</h2>
               <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(42,26,74,0.7)", lineHeight:1.9, marginBottom:"1rem"}}>{typeInfo.desc}</p>
