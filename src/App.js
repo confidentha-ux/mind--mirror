@@ -602,7 +602,7 @@ export default function App() {
           <div style={{marginBottom:"3rem",paddingBottom:"2rem",borderBottom:"1px solid rgba(240,237,232,0.1)"}}>
             <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontStyle:"italic",color:"rgba(240,237,232,0.5)",marginBottom:"0.4rem"}}>마음거울</div>
             <h1 style={{fontFamily:"'Source Serif 4',serif",fontSize:"clamp(1.8rem,5vw,2.4rem)",fontWeight:400,color:"rgba(240,237,232,0.9)",lineHeight:1.2,marginBottom:"0.75rem"}}>나를 만나는 세 가지 방식</h1>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.4)",lineHeight:1.8}}>세 가지 방식으로 가까이 다가가 봐요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.4)",lineHeight:1.8}}>자기 자신에게 가까이 다가가 봐요.</p>
           </div>
 
           {/* 건드림 */}
@@ -625,7 +625,7 @@ export default function App() {
 
           {/* 초대 */}
           <div className="fade6" style={{marginBottom:"3rem"}}>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>나는 나를 얼마나 알까요? —<br/>여기서 처음으로 내 언어로 나를 봐요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>여기서 처음으로 내 언어로 나를 봐요.</p>
           </div>
 
           {/* 선택 */}
