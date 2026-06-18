@@ -627,23 +627,16 @@ export default function Oracle({ onBack, onComprehensive }) {
             <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.78rem", fontWeight: 300, color: "rgba(13,46,42,0.45)", letterSpacing: "0.08em" }}>γνῶθι σεαυτόν (그노티 세아우톤)</div>
           </div>
           <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "1.5rem" }}>
-            2,500년 전 델포이 신전에 새겨진 말.<br/>소크라테스가 평생의 화두로 삼은 질문입니다.<br/>가장 오래된 질문이 아직도 가장 어렵습니다.
+            디폴트 값에서는 내가 먼저 향하는 방향을 보았습니다. 내 마음의 첫 화면에서는 일이 생겼을 때 가장 먼저 떠오르는 반응을 적어보았습니다. 내 마음의 OS에서는 그 반응들이 어떤 구조로 반복되는지 확인했습니다.
           </p>
           <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "1.5rem" }}>
-            당신은 아직 자신을 다 모릅니다.<br/>마음거울 오라클은 거기서 시작해요.
+            이제 오라클을 만나볼 차례입니다.
           </p>
           <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "2rem" }}>
-            고대 그리스인들은 신탁을 구하러 가기 전,<br/>이 말 앞에 멈춰 섰습니다.<br/>오라클은 답을 주는 존재가 아니에요.<br/>당신이 아직 던지지 못한 질문을 돌려주는 존재입니다.
+            《매트릭스》에서 네오는 자신이 선택받은 자인지 확인하기 위해 오라클을 찾아갑니다. 하지만 오라클은 네오에게 정답을 알려주지 않았습니다. 대신 네오가 다른 선택을 할 수 있다는 가능성을 보게 했습니다. 오라클이 꽃병을 말하기 전까지, 네오는 꽃병을 의식하지 못했습니다. 말을 듣는 순간, 네오는 자신이 무엇을 보고 있었고 무엇을 놓치고 있었는지 알아차립니다.
           </p>
-          <div style={{ width: "40px", height: "1px", background: "rgba(13,46,42,0.2)", margin: "2rem 0" }}/>
-          <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "1.5rem" }}>
-            영화 매트릭스에서 네오는 자신이 선택받은 자임을<br/>확인받기 위해 오라클을 찾아갔습니다.<br/>그러나 오라클이 준 건 확인이 아니라 질문이었어요.<br/>네오는 오라클을 떠난 후에야 스스로 선택했습니다.
-          </p>
-          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.6)", lineHeight: 2, marginBottom: "2.5rem", paddingLeft: "1.2rem", borderLeft: "1px solid rgba(13,46,42,0.2)" }}>
-            "조심해."<br/>네오가 돌아보는 순간 꽃병이 떨어졌습니다.<br/>"내가 말하지 않았다면 어땠을까?"
-          </p>
-          <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "3rem" }}>
-            이 오라클은 열 가지 질문을 통해<br/>지금 당신이 반복하고 있는 장면,<br/>실제로 원하는 것,<br/>스스로에게 던지고 있는 진짜 질문을 찾아드립니다.<br/>답을 드리지 않아요.<br/>당신이 이미 알고 있었지만<br/>아직 말로 꺼내지 못한 것들을 비춰드립니다.
+          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.55)", lineHeight: 2, marginBottom: "2.5rem", paddingLeft: "1.2rem", borderLeft: "1px solid rgba(13,46,42,0.2)" }}>
+            이 섹션의 질문들은 당신에게 답을 주기 위한 것이 아닙니다. 익숙하게 선택하던 방향 옆에, 아직 보지 못한 질문을 하나 더 열기 위한 것입니다.
           </p>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem" }}>
             {prev && (
@@ -793,6 +786,8 @@ export default function Oracle({ onBack, onComprehensive }) {
 
           <div style={{ position: "relative", padding: "3rem 2.5rem", border: "4px solid #c9a84c", boxShadow: "inset 0 0 0 8px #2d5a2d, inset 0 0 0 10px rgba(160,140,200,0.35)" }}>
 
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>델포이 신전의 문에는 오래된 문장이 새겨져 있었습니다. 너 자신을 알라. 사람들은 신탁을 얻기 위해 그곳을 찾아갔습니다. 앞날을 알고 싶어서, 선택의 답을 듣고 싶어서, 자신이 가야 할 길을 확인받고 싶어서. 하지만 신탁을 구하기 전, 그들은 먼저 이 문장 앞에 섰습니다.</p>
+
             <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>당신은 자신을 보았습니다. 쉽지 않은 일이에요.</p>
 
             <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>이 결과는 당신이 누구인지를 정의하지 않습니다. 오라클이 본 것은 당신이 반복적으로 선택해온 방식, 세상을 해석해온 습관, 무의식적으로 돌아가기 쉬운 길입니다. 그것은 당신의 전부가 아니라, 오늘 드러난 당신의 한 부분입니다.</p>
@@ -803,7 +798,7 @@ export default function Oracle({ onBack, onComprehensive }) {
 
             <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>이 결과는 누군가와 함께 읽을 때 더 다르게 보일 수 있습니다. 서로의 분석지를 나눠 읽다 보면, 오래 함께했는데도 몰랐던 모습이 보일 수 있습니다. 익숙한 사람을 새롭게 이해하게 될지도 모릅니다.</p>
 
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>분석이 맞지 않는다고 느껴진다면, 그 느낌도 중요한 정보입니다. 무엇이 다르게 느껴지는지 적어보고, 필요하다면 당신의 AI와 다시 살펴보세요. 직접 인지구조 검사를 요청해보셔도 좋습니다.</p>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>분석이 맞지 않는다고 느껴진다면, 그 느낌도 중요한 정보입니다. 무엇이 다르게 느껴지는지 적어보고, 필요하다면 당신의 AI와 다시 살펴보세요. 당신의 AI에게 다시 인지구조 검사를 요청해보셔도 좋습니다.</p>
 
             <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>언젠가 다시 오세요. 오늘 당신이 오라클에게 했던 말과, 그때 당신이 할 말은 달라져 있을 것입니다. 그것이 바로 당신이 살아있다는 뜻입니다.</p>
 
@@ -829,9 +824,14 @@ export default function Oracle({ onBack, onComprehensive }) {
               )}
             </div>
 
-            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", color: "rgba(240,237,232,0.5)", lineHeight: 1.9, marginTop: "2rem" }}>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", color: "rgba(240,237,232,0.5)", lineHeight: 1.9, marginTop: "2rem", marginBottom: "2rem" }}>
               오늘의 당신을 기억하세요.
             </p>
+
+            <div style={{ paddingTop: "1.5rem", borderTop: "1px solid rgba(201,168,76,0.15)" }}>
+              <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(240,237,232,0.35)", lineHeight: 1.9, marginBottom: "0.75rem" }}>이 거울은 아직 완성되는 중입니다. 당신이 남긴 한마디가 다음 사람의 거울을 더 선명하게 만듭니다.</p>
+              <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.8rem", color: "rgba(201,168,76,0.55)", textDecoration: "underline", textUnderlineOffset: "3px" }}>피드백 남기기 →</a>
+            </div>
 
           </div>
 
