@@ -676,7 +676,7 @@ export default function App() {
                   <circle cx="90" cy="90" r="3" fill="#2a1200"/>
                 </svg>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.3)",marginBottom:"0.3rem"}}>내가 반복하는 패턴</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(42,18,0,0.8)",marginBottom:"0.5rem"}}>마음거울</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(42,18,0,0.8)",marginBottom:"0.5rem"}}>내 마음의 첫화면</div>
                 <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.45)",lineHeight:1.8,marginBottom:"0.6rem"}}>왜 같은 상황이 계속 오는지 — 감정과 관계에서 사고 구조까지, 두 단계로 천천히 들어가요.</p>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#9b89c4"}}>01을 했다면 여기로 →</div>
               </div>
@@ -700,7 +700,7 @@ export default function App() {
                   <ellipse cx="80" cy="200" rx="32" ry="6" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
                 </svg>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(13,46,42,0.4)",marginBottom:"0.3rem"}}>내가 아직 못 꺼낸 질문</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(13,46,42,0.8)",marginBottom:"0.5rem"}}>오라클</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(13,46,42,0.8)",marginBottom:"0.5rem"}}>내 마음의 새창열기</div>
                 <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(13,46,42,0.5)",lineHeight:1.8,marginBottom:"0.6rem"}}>답이 아니에요. 당신 안에 이미 있는 것을 — 말이 되게 꺼내드려요.</p>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#7dd4c8"}}>네오처럼, 더 깊이 →</div>
               </div>
@@ -858,11 +858,11 @@ export default function App() {
 
       {step === "intro2" && (
         <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
-          <div style={{color:"#4a8ab4",fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",marginBottom:"1.5rem"}}>마음거울 · 2단계</div>
+          <div style={{color:"#4a8ab4",fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",marginBottom:"1.5rem"}}>내 마음의 OS</div>
           <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.4rem,6vw,3.6rem)",fontWeight:400,lineHeight:1.15,color:"#c8e0f0",marginBottom:"2rem"}}>당신은<br/>어떻게<br/>생각하나요</h1>
           <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"1rem",fontWeight:300,color:"#8ab4d4",lineHeight:1.9,marginBottom:"1.25rem"}}>
-            1단계가 감정과 관계 패턴을 봤다면,<br/>
-            2단계는 사고 구조와 인지 스타일을 봐요.<br/>
+            내 마음의 첫화면이 감정과 관계 패턴을 봤다면,<br/>
+            내 마음의 OS는 사고 구조와 작동 방식을 봐요.<br/>
             더 깊은 층위의 질문들이에요.
           </p>
           <div style={{background:"rgba(74,138,180,0.1)",borderLeft:"3px solid #4a8ab4",padding:"1.1rem 1.25rem",marginBottom:"2rem"}}>
@@ -953,7 +953,7 @@ export default function App() {
       {step === "result2" && (
         <div className="result-wrap" ref={resultRef}>
           <div className="result-eyebrow2">분석 보고서 — 2단계</div>
-          <h2 className="result-title2">사고 구조와 인지 스타일</h2>
+          <h2 className="result-title2">내 마음의 OS</h2>
           <div className="result-body2" dangerouslySetInnerHTML={{__html: analysis2
             .replace(/## (.+)/g, '<div class="result-label2">$1</div><div class="result-divider2"></div>')
             .replace(/\*\*(.+?)\*\*/g, '$1')
