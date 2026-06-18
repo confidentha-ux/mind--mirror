@@ -703,7 +703,7 @@ export default function App() {
               <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#AFC8CF",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#1F3A32"}}>04</span>
               </div>
-              <div onClick={() => setShowOracle(true)} style={{background:"#2D4A2D",padding:"1.35rem 1.6rem",borderLeft:"5px solid #C9A84C",border:"1px solid #C9A84C",position:"relative",overflow:"hidden",minHeight:160}}>
+              <div onClick={() => setShowOracle(true)} style={{background:"#1F3A32",padding:"1.35rem 1.6rem",border:"1px solid #B89A5E",position:"relative",overflow:"hidden",minHeight:160}}>
                 {/* 브라우저 창 아이콘 */}
                 <svg width="90" height="80" viewBox="0 0 90 80" style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",opacity:0.2,pointerEvents:"none"}}>
                   <rect x="2" y="2" width="60" height="46" rx="3" fill="none" stroke="#c9a84c" strokeWidth="1.8"/>
