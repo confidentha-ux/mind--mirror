@@ -951,8 +951,8 @@ export default function App() {
 
       {step === "result" && (
         <div className="result-wrap" ref={resultRef}>
-          <div className="result-eyebrow">분석 보고서 — 1단계</div>
-          <h2 className="result-title">감정과 관계 패턴</h2>
+          <div className="result-eyebrow">내 마음의 첫 화면 — 분석 결과</div>
+          <h2 className="result-title">내 마음의 첫 화면</h2>
           <div className="result-body" dangerouslySetInnerHTML={{__html: analysis
             .replace(/## (.+)/g, '<div class="result-label">$1</div><div class="result-divider"></div>')
             .replace(/\*\*(.+?)\*\*/g, '$1')
@@ -961,7 +961,7 @@ export default function App() {
           <div className="result-actions">
             <button className="copy-btn" onClick={copyResult}>결과 복사</button>
             <button className="restart-btn" onClick={downloadResult}>결과 저장</button>
-            <button className="stage2-btn" onClick={startStage2}>2단계로 →</button>
+            <button className="stage2-btn" onClick={startStage2}>내 마음의 OS →</button>
             <button className="restart-btn" onClick={restart}>다시 시작</button>
           </div>
           <FeedbackWidget />
@@ -970,7 +970,7 @@ export default function App() {
 
       {step === "result2" && (
         <div className="result-wrap" ref={resultRef}>
-          <div className="result-eyebrow2">분석 보고서 — 2단계</div>
+          <div className="result-eyebrow2">내 마음의 OS — 분석 결과</div>
           <h2 className="result-title2">내 마음의 OS</h2>
           <div className="result-body2" dangerouslySetInnerHTML={{__html: analysis2
             .replace(/## (.+)/g, '<div class="result-label2">$1</div><div class="result-divider2"></div>')
