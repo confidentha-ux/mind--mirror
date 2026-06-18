@@ -230,7 +230,7 @@ export default function Comprehensive({ onBack, onNext }) {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "linear-gradient(180deg, #7ba8c4 0%, #3a6a8a 100%)",
+      background: "#1F3A32",
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "center",
@@ -272,7 +272,7 @@ export default function Comprehensive({ onBack, onNext }) {
             fontFamily: "'Source Serif 4', serif",
             fontSize: "0.88rem", fontWeight: 300,
             color: "rgba(240,237,232,0.4)", lineHeight: 1.9,
-          }}>따로 보면 조각이었던 것들이 — 여기서 하나의 그림이 돼요.<br/>세 개의 결과가 하나의 사람을 가리키고 있어요.</p>
+          }}>반복된 것과 어긋난 것이 함께 보일 때, 지금의 내가 더 선명해집니다.</p>
         </div>
 
         {/* 골드 더블 테두리 액자 */}
@@ -280,7 +280,7 @@ export default function Comprehensive({ onBack, onNext }) {
           position: "relative",
           padding: "3rem 2.5rem",
           border: "4px solid #c9a84c",
-          boxShadow: "inset 0 0 0 8px #3a6a8a, inset 0 0 0 10px rgba(150,200,230,0.25)",
+          boxShadow: "inset 0 0 0 8px #1F3A32, inset 0 0 0 10px rgba(184,154,94,0.2)",
           marginBottom: "3rem",
         }}>
 
@@ -313,8 +313,8 @@ export default function Comprehensive({ onBack, onNext }) {
                   marginBottom: "1.25rem",
                 }}>
                   {hasAny
-                    ? "각 도구가 혼자선 볼 수 없었던 것을\n세 개를 겹쳐봤을 때 드러나는 패턴을 찾아드려요."
-                    : "도구를 하나 이상 완료하면 교차 분석을 시작할 수 있어요."}
+                    ? "지금까지의 답들은 모두 같은 방향을 가리키지 않을 수 있습니다. 반복된 길과 새로 열린 가능성을 함께 비춰드릴게요."
+                    : "도구를 하나 이상 완료하면 전체화면을 시작할 수 있어요."}
                 </p>
                 {hasAny && (
                   <button
@@ -328,7 +328,7 @@ export default function Comprehensive({ onBack, onNext }) {
                       textTransform: "uppercase",
                       padding: "0.65rem 1.5rem", cursor: "pointer",
                     }}
-                  >교차 분석 시작 →</button>
+                  >전체화면 보기 →</button>
                 )}
               </div>
             )}
@@ -339,7 +339,7 @@ export default function Comprehensive({ onBack, onNext }) {
                 fontSize: "0.95rem", fontStyle: "italic",
                 color: "rgba(240,237,232,0.4)",
                 animation: "breathe 2s ease-in-out infinite",
-              }}>세 개의 결과를 겹쳐 읽고 있어요...</p>
+              }}>어긋난 답도 중요한 답입니다. 잠시 후, 당신의 답들이 하나의 장면으로 모입니다...</p>
             )}
 
             {comprehensive && !loading && (
@@ -414,7 +414,7 @@ export default function Comprehensive({ onBack, onNext }) {
           <div style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: "0.85rem", fontStyle: "italic",
-            color: "#c9a84c", letterSpacing: "0.08em",
+            color: "#B89A5E", letterSpacing: "0.08em",
           }}>γνῶθι σεαυτόν · 너 자신을 알라</div>
         </div>
 
