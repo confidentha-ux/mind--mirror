@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import QuickTest from "./QuickTest";
 import Oracle from "./Oracle";
+import Comprehensive from "./Comprehensive";
 
 const QUESTIONS = [
   {
@@ -391,6 +392,7 @@ export default function App() {
   const [charCount, setCharCount] = useState(0);
   const [showQuickTest, setShowQuickTest] = useState(false);
   const [showOracle, setShowOracle] = useState(false);
+  const [showComprehensive, setShowComprehensive] = useState(false);
   const textareaRef = useRef(null);
   const resultRef = useRef(null);
 
@@ -571,12 +573,15 @@ export default function App() {
     localStorage.removeItem("mindmirror_result2");
   };
 
-  // ── QuickTest / Oracle ──────────────────────────────────────────
+  // ── QuickTest / Oracle / Comprehensive ─────────────────────────
   if (showQuickTest) {
     return <QuickTest onBack={() => setShowQuickTest(false)} />;
   }
+  if (showComprehensive) {
+    return <Comprehensive onBack={() => setShowComprehensive(false)} />;
+  }
   if (showOracle) {
-    return <Oracle onBack={() => setShowOracle(false)} />;
+    return <Oracle onBack={() => setShowOracle(false)} onComprehensive={() => { setShowOracle(false); setShowComprehensive(true); }} />;
   }
 
   // ── 메인 랜딩 ───────────────────────────────────────────────────
