@@ -512,7 +512,7 @@ export default function QuickTest({ onBack }) {
             <div style={{background:"rgba(255,255,255,0.4)", border:"1px solid rgba(90,58,138,0.1)", padding:"1rem 1.25rem", marginBottom:"2rem"}}>
               <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.78rem", fontWeight:300, color:"rgba(42,26,74,0.5)", lineHeight:1.8}}>
                 이 결과는 이 브라우저에 임시 저장돼요.<br/>
-                마음거울 → 오라클까지 완주하면 세 가지 결과를 통합 분석해드려요.
+                내 디폴트 → 새창열기까지 완주하면 네 가지 결과를 통합 분석해드려요.
               </p>
             </div>
 
