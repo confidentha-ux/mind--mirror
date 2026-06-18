@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import Comprehensive from "./Comprehensive";
 
 const ORACLE_QUESTIONS = [
   {
@@ -399,7 +398,7 @@ function OracleFeedback() {
   );
 }
 
-export default function Oracle({ onBack }) {
+export default function Oracle({ onBack, onComprehensive }) {
   const [phase, setPhase] = useState("intro");
   const [showComprehensive, setShowComprehensive] = useState(false);
   const [currentQ, setCurrentQ] = useState(0);
@@ -412,8 +411,20 @@ export default function Oracle({ onBack }) {
   const [visibleSections, setVisibleSections] = useState([]);
   const resultRef = useRef(null);
 
+  useEffect(() => {
+    if (phase !== "result" || !oracleText) return;
+    setVisibleSections([]);
+    const sections = ["Reflection", "Recognition", "Oracle", "Story", "Empowerment"];
+    sections.forEach((s, i) => {
+      setTimeout(() => {
+        setVisibleSections((prev) => [...prev, s]);
+      }, i * 1800);
+    });
+  }, [phase, oracleText]);
+
   if (showComprehensive) {
-    return <Comprehensive onNext={() => { setShowComprehensive(false); setPhase("final"); }} onBack={() => setShowComprehensive(false)} />;
+    if (onComprehensive) onComprehensive();
+    return null;
   }
 
   const q = ORACLE_QUESTIONS[currentQ];
@@ -510,17 +521,6 @@ export default function Oracle({ onBack }) {
       setPhase("result");
     }
   }
-
-  useEffect(() => {
-    if (phase !== "result" || !oracleText) return;
-    setVisibleSections([]);
-    const sections = ["Reflection", "Recognition", "Oracle", "Story", "Empowerment"];
-    sections.forEach((s, i) => {
-      setTimeout(() => {
-        setVisibleSections((prev) => [...prev, s]);
-      }, i * 1800);
-    });
-  }, [phase, oracleText]);
 
   function parseOracle(text) {
     const sections = {};
