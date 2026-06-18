@@ -582,7 +582,7 @@ export default function App() {
   // ── 메인 랜딩 ───────────────────────────────────────────────────
   if (step === "intro") {
     return (
-      <div style={{background:"#2d5a2d",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"3rem 1.5rem"}}>
+      <div style={{background:"linear-gradient(180deg, #2D4A2D 0%, #3D5C3A 50%, #2D4A2D 100%)",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"3rem 1.5rem"}}>
         <style>{FONTS + `
           @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
           .fade1 { opacity:0; animation:fadeUp 0.6s ease forwards 0.3s; }
@@ -601,8 +601,7 @@ export default function App() {
           {/* 헤더 */}
           <div style={{marginBottom:"3rem",paddingBottom:"2rem",borderBottom:"1px solid rgba(240,237,232,0.1)"}}>
             <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontStyle:"italic",color:"rgba(240,237,232,0.5)",marginBottom:"0.4rem"}}>마음거울</div>
-            <h1 style={{fontFamily:"'Source Serif 4',serif",fontSize:"clamp(1.8rem,5vw,2.4rem)",fontWeight:400,color:"rgba(240,237,232,0.9)",lineHeight:1.2,marginBottom:"0.75rem"}}>나를 만나는 세 가지 방식</h1>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.4)",lineHeight:1.8}}>자기 자신에게 가까이 다가가 봐요.</p>
+            <h1 style={{fontFamily:"'Source Serif 4',serif",fontSize:"clamp(1.8rem,5vw,2.4rem)",fontWeight:400,color:"rgba(240,237,232,0.9)",lineHeight:1.2,marginBottom:"0.75rem"}}>나를 만나는 네 가지 방식</h1>
           </div>
 
           {/* 건드림 */}
@@ -615,17 +614,12 @@ export default function App() {
 
           {/* 안착 */}
           <div className="fade5" style={{marginBottom:"1.5rem"}}>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남들이 해준 말로 만들어졌으니깐요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남이 준 말로 만들어졌으니까요.</p>
           </div>
 
           <div className="fade5" style={{marginBottom:"2.5rem"}}>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9,marginBottom:"0.5rem"}}>당신이 쓴 말이 가장 정직한 자기소개가 되어야 해요.</p>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>답하다 보면 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간이 후회하는지 보이기 시작해요.</p>
-          </div>
-
-          {/* 초대 */}
-          <div className="fade6" style={{marginBottom:"3rem"}}>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>여기서 처음으로 내 언어로 나를 봐요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:1.9}}>답하다 보면 — 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간에 후회하는지 보이기 시작해요.</p>
           </div>
 
           {/* 선택 */}
@@ -653,7 +647,7 @@ export default function App() {
                 </svg>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)",marginBottom:"0.3rem"}}>어, 나 이런 사람이었어?</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.5rem"}}>내 디폴트 값 찾기</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>잘하고 싶은데 어디서 막히는지 모르겠다면 — 내가 어떻게 받아들이고 결정하고 사람을 만나는지, 11가지 질문으로 찾아요.</p>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>누가 가르쳐준 적 없는데 늘 그렇게 해온 것.<br/>11개의 짧은 객관식 질문으로 내가 자주 돌아가는 기본 반응을 확인해요.</p>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#b09000"}}>여기서 시작해요 →</div>
               </div>
             </div>
@@ -677,17 +671,32 @@ export default function App() {
                 </svg>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.3)",marginBottom:"0.3rem"}}>내가 반복하는 패턴</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(42,18,0,0.8)",marginBottom:"0.5rem"}}>내 마음의 첫화면</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.45)",lineHeight:1.8,marginBottom:"0.6rem"}}>왜 같은 상황이 계속 오는지 — 감정과 관계에서 사고 구조까지, 두 단계로 천천히 들어가요.</p>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.45)",lineHeight:1.8,marginBottom:"0.6rem"}}>일이 생겼을 때, 내 마음에 먼저 뜨는 것을 봅니다.<br/>내 반응의 출발점을 살펴봐요.</p>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#9b89c4"}}>01을 했다면 여기로 →</div>
               </div>
             </div>
 
             <div style={{textAlign:"center",margin:"-0.25rem 0",color:"rgba(240,237,232,0.2)",fontSize:"0.8rem"}}>↓</div>
 
-            {/* 03 */}
+            {/* 03 내 마음의 OS */}
+            <div className="intro-card-hover" style={{position:"relative",margin:"0 0 1rem"}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#4a8ab4",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#fff"}}>03</span>
+              </div>
+              <div onClick={() => { setStage(2); setStep("intro2"); }} style={{background:"rgba(210,225,240,0.9)",padding:"1.35rem 1.6rem",borderLeft:"5px solid #4a8ab4",position:"relative",overflow:"hidden",minHeight:160}}>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(13,30,50,0.35)",marginBottom:"0.3rem"}}>생각하기 전에 이미 움직이는 것</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(13,30,50,0.8)",marginBottom:"0.5rem"}}>내 마음의 OS</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(13,30,50,0.5)",lineHeight:1.8,marginBottom:"0.6rem"}}>생각하기 전에 이미 움직이고 있는 것.<br/>첫 반응 아래에서 반복적으로 작동하는 해석과 판단의 방식이에요.</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#4a8ab4"}}>02를 했다면 여기로 →</div>
+              </div>
+            </div>
+
+            <div style={{textAlign:"center",margin:"-0.25rem 0",color:"rgba(240,237,232,0.2)",fontSize:"0.8rem"}}>↓</div>
+
+            {/* 04 내 마음의 새창열기 */}
             <div className="intro-card-hover" style={{position:"relative",marginTop:0}}>
               <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#7dd4c8",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#0d2e2a"}}>03</span>
+                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#0d2e2a"}}>04</span>
               </div>
               <div onClick={() => setShowOracle(true)} style={{background:"rgba(200,240,236,0.85)",padding:"1.35rem 1.6rem",borderLeft:"5px solid #7dd4c8",position:"relative",overflow:"hidden",minHeight:160}}>
                 <svg width="70" height="100" viewBox="0 0 160 220" style={{position:"absolute",right:-5,bottom:-5,opacity:0.1,pointerEvents:"none"}}>
@@ -699,10 +708,10 @@ export default function App() {
                   <path d="M50,196 Q80,204 110,196" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
                   <ellipse cx="80" cy="200" rx="32" ry="6" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(13,46,42,0.4)",marginBottom:"0.3rem"}}>내가 아직 못 꺼낸 질문</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(13,46,42,0.4)",marginBottom:"0.3rem"}}>다른 가능성을 하나 더</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(13,46,42,0.8)",marginBottom:"0.5rem"}}>내 마음의 새창열기</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(13,46,42,0.5)",lineHeight:1.8,marginBottom:"0.6rem"}}>답이 아니에요. 당신 안에 이미 있는 것을 — 말이 되게 꺼내드려요.</p>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#7dd4c8"}}>네오처럼, 더 깊이 →</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(13,46,42,0.5)",lineHeight:1.8,marginBottom:"0.6rem"}}>다른 가능성을 하나 더 열어봅니다.<br/>지금까지 본 나를 바탕으로 — 다음 장면에서 다르게 볼 수 있는 선택을 열어봐요.</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#7dd4c8"}}>여기가 마지막 문이에요 →</div>
               </div>
             </div>
 
