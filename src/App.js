@@ -628,27 +628,27 @@ export default function App() {
 
             {/* 01 */}
             <div className="intro-card-hover" style={{position:"relative",marginBottom:"1rem"}}>
-              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#e6c800",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#2a1200"}}>01</span>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#C9A84C",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#1e2814"}}>01</span>
               </div>
-              <div onClick={() => setShowQuickTest(true)} style={{background:"rgba(255,248,180,0.95)",padding:"1.35rem 1.6rem",borderLeft:"5px solid #e6c800",position:"relative",overflow:"hidden",minHeight:160}}>
+              <div onClick={() => setShowQuickTest(true)} style={{background:"#E8EDE4",padding:"1.35rem 1.6rem",borderLeft:"5px solid #C9A84C",position:"relative",overflow:"hidden",minHeight:160}}>
                 <svg width="100" height="100" viewBox="0 0 200 200" style={{position:"absolute",right:-10,top:"50%",transform:"translateY(-50%)",opacity:0.08,pointerEvents:"none"}}>
-                  <circle cx="100" cy="100" r="88" fill="none" stroke="#2a1200" strokeWidth="1.5"/>
-                  <circle cx="100" cy="100" r="75" fill="none" stroke="#2a1200" strokeWidth="0.7" strokeDasharray="4,6"/>
-                  <circle cx="100" cy="100" r="55" fill="none" stroke="#2a1200" strokeWidth="1"/>
-                  <line x1="12" y1="100" x2="188" y2="100" stroke="#2a1200" strokeWidth="0.8"/>
-                  <line x1="100" y1="12" x2="100" y2="188" stroke="#2a1200" strokeWidth="0.8"/>
-                  <line x1="38" y1="38" x2="162" y2="162" stroke="#2a1200" strokeWidth="0.6"/>
-                  <line x1="162" y1="38" x2="38" y2="162" stroke="#2a1200" strokeWidth="0.6"/>
-                  <polygon points="100,25 95,100 105,100" fill="#2a1200"/>
-                  <polygon points="100,175 95,100 105,100" fill="none" stroke="#2a1200" strokeWidth="1.2"/>
-                  <circle cx="100" cy="100" r="7" fill="none" stroke="#2a1200" strokeWidth="1.5"/>
-                  <circle cx="100" cy="100" r="3.5" fill="#2a1200"/>
+                  <circle cx="100" cy="100" r="88" fill="none" stroke="#2a3020" strokeWidth="1.5"/>
+                  <circle cx="100" cy="100" r="75" fill="none" stroke="#2a3020" strokeWidth="0.7" strokeDasharray="4,6"/>
+                  <circle cx="100" cy="100" r="55" fill="none" stroke="#2a3020" strokeWidth="1"/>
+                  <line x1="12" y1="100" x2="188" y2="100" stroke="#2a3020" strokeWidth="0.8"/>
+                  <line x1="100" y1="12" x2="100" y2="188" stroke="#2a3020" strokeWidth="0.8"/>
+                  <line x1="38" y1="38" x2="162" y2="162" stroke="#2a3020" strokeWidth="0.6"/>
+                  <line x1="162" y1="38" x2="38" y2="162" stroke="#2a3020" strokeWidth="0.6"/>
+                  <polygon points="100,25 95,100 105,100" fill="#2a3020"/>
+                  <polygon points="100,175 95,100 105,100" fill="none" stroke="#2a3020" strokeWidth="1.2"/>
+                  <circle cx="100" cy="100" r="7" fill="none" stroke="#2a3020" strokeWidth="1.5"/>
+                  <circle cx="100" cy="100" r="3.5" fill="#2a3020"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.35)",marginBottom:"0.3rem"}}>어, 나 이런 사람이었어?</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"#2a1200",marginBottom:"0.5rem"}}>내 디폴트 값 찾기</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>누가 가르쳐준 적 없는데 늘 그렇게 해온 것.<br/>11개의 짧은 객관식 질문으로 내가 자주 돌아가는 기본 반응을 확인해요.</p>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#b09000"}}>여기서 시작해요 →</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(30,40,20,0.4)",marginBottom:"0.3rem"}}>어, 나 이런 사람이었어?</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"#1e2814",marginBottom:"0.5rem"}}>내 디폴트 값 찾기</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(30,40,20,0.6)",lineHeight:1.8,marginBottom:"0.6rem"}}>누가 가르쳐준 적 없는데 늘 그렇게 해온 것.<br/>11개의 짧은 객관식 질문으로 내가 자주 돌아가는 기본 반응을 확인해요.</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#8a6e00"}}>여기서 시작해요 →</div>
               </div>
             </div>
 
@@ -656,23 +656,23 @@ export default function App() {
 
             {/* 02 */}
             <div className="intro-card-hover" style={{position:"relative",margin:"0 0 1rem"}}>
-              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#9b89c4",display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#7a9e6e",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#fff"}}>02</span>
               </div>
-              <div onClick={() => setStep("mindmirror-intro")} style={{background:"rgba(232,224,245,0.9)",padding:"1.35rem 1.6rem",borderLeft:"5px solid #9b89c4",position:"relative",overflow:"hidden",minHeight:160}}>
+              <div onClick={() => setStep("mindmirror-intro")} style={{background:"#D4DDD0",padding:"1.35rem 1.6rem",borderLeft:"5px solid #C9A84C",position:"relative",overflow:"hidden",minHeight:160}}>
                 <svg width="100" height="100" viewBox="0 0 180 180" style={{position:"absolute",right:-10,top:"50%",transform:"translateY(-50%)",opacity:0.08,pointerEvents:"none"}}>
-                  <circle cx="90" cy="90" r="75" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
-                  <circle cx="90" cy="90" r="58" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
-                  <circle cx="90" cy="90" r="42" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
-                  <circle cx="90" cy="90" r="26" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
-                  <circle cx="90" cy="90" r="10" fill="none" stroke="#2a1200" strokeWidth="0.7"/>
-                  <path d="M90,90 Q90,80 100,80 Q110,80 110,90 Q110,105 90,107 Q68,107 66,88 Q64,68 90,66 Q116,66 118,90 Q120,118 90,121 Q57,121 54,88 Q51,56 90,53 Q128,53 131,90 Q134,130 90,134 Q44,134 40,88" fill="none" stroke="#2a1200" strokeWidth="1.4" strokeLinecap="round"/>
-                  <circle cx="90" cy="90" r="3" fill="#2a1200"/>
+                  <circle cx="90" cy="90" r="75" fill="none" stroke="#1a2a18" strokeWidth="0.7"/>
+                  <circle cx="90" cy="90" r="58" fill="none" stroke="#1a2a18" strokeWidth="0.7"/>
+                  <circle cx="90" cy="90" r="42" fill="none" stroke="#1a2a18" strokeWidth="0.7"/>
+                  <circle cx="90" cy="90" r="26" fill="none" stroke="#1a2a18" strokeWidth="0.7"/>
+                  <circle cx="90" cy="90" r="10" fill="none" stroke="#1a2a18" strokeWidth="0.7"/>
+                  <path d="M90,90 Q90,80 100,80 Q110,80 110,90 Q110,105 90,107 Q68,107 66,88 Q64,68 90,66 Q116,66 118,90 Q120,118 90,121 Q57,121 54,88 Q51,56 90,53 Q128,53 131,90 Q134,130 90,134 Q44,134 40,88" fill="none" stroke="#1a2a18" strokeWidth="1.4" strokeLinecap="round"/>
+                  <circle cx="90" cy="90" r="3" fill="#1a2a18"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(42,18,0,0.3)",marginBottom:"0.3rem"}}>내가 반복하는 패턴</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(42,18,0,0.8)",marginBottom:"0.5rem"}}>내 마음의 첫화면</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(42,18,0,0.45)",lineHeight:1.8,marginBottom:"0.6rem"}}>일이 생겼을 때, 내 마음에 먼저 뜨는 것을 봅니다.<br/>내 반응의 출발점을 살펴봐요.</p>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#9b89c4"}}>01을 했다면 여기로 →</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(20,35,18,0.4)",marginBottom:"0.3rem"}}>내가 반복하는 패턴</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(20,35,18,0.85)",marginBottom:"0.5rem"}}>내 마음의 첫화면</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(20,35,18,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>일이 생겼을 때, 내 마음에 먼저 뜨는 것을 봅니다.<br/>내 반응의 출발점을 살펴봐요.</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#5a7a50"}}>01을 했다면 여기로 →</div>
               </div>
             </div>
 
@@ -680,14 +680,14 @@ export default function App() {
 
             {/* 03 내 마음의 OS */}
             <div className="intro-card-hover" style={{position:"relative",margin:"0 0 1rem"}}>
-              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#4a8ab4",display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#5a8a50",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#fff"}}>03</span>
               </div>
-              <div onClick={() => { setStage(2); setStep("intro2"); }} style={{background:"rgba(210,225,240,0.9)",padding:"1.35rem 1.6rem",borderLeft:"5px solid #4a8ab4",position:"relative",overflow:"hidden",minHeight:160}}>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(13,30,50,0.35)",marginBottom:"0.3rem"}}>생각하기 전에 이미 움직이는 것</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(13,30,50,0.8)",marginBottom:"0.5rem"}}>내 마음의 OS</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(13,30,50,0.5)",lineHeight:1.8,marginBottom:"0.6rem"}}>생각하기 전에 이미 움직이고 있는 것.<br/>첫 반응 아래에서 반복적으로 작동하는 해석과 판단의 방식이에요.</p>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#4a8ab4"}}>02를 했다면 여기로 →</div>
+              <div onClick={() => { setStage(2); setStep("intro2"); }} style={{background:"#C2D0BC",padding:"1.35rem 1.6rem",borderLeft:"5px solid #C9A84C",position:"relative",overflow:"hidden",minHeight:160}}>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(15,30,12,0.4)",marginBottom:"0.3rem"}}>생각하기 전에 이미 움직이는 것</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(15,30,12,0.85)",marginBottom:"0.5rem"}}>내 마음의 OS</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(15,30,12,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>생각하기 전에 이미 움직이고 있는 것.<br/>첫 반응 아래에서 반복적으로 작동하는 해석과 판단의 방식이에요.</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#3a6a30"}}>02를 했다면 여기로 →</div>
               </div>
             </div>
 
@@ -695,23 +695,23 @@ export default function App() {
 
             {/* 04 내 마음의 새창열기 */}
             <div className="intro-card-hover" style={{position:"relative",marginTop:0}}>
-              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#7dd4c8",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#0d2e2a"}}>04</span>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#C9A84C",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#1e2c14"}}>04</span>
               </div>
-              <div onClick={() => setShowOracle(true)} style={{background:"rgba(200,240,236,0.85)",padding:"1.35rem 1.6rem",borderLeft:"5px solid #7dd4c8",position:"relative",overflow:"hidden",minHeight:160}}>
-                <svg width="70" height="100" viewBox="0 0 160 220" style={{position:"absolute",right:-5,bottom:-5,opacity:0.1,pointerEvents:"none"}}>
-                  <ellipse cx="80" cy="22" rx="20" ry="5" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
-                  <path d="M60,22 Q56,38 52,52" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
-                  <path d="M100,22 Q104,38 108,52" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
-                  <path d="M52,52 Q30,70 28,110 Q26,148 32,170 Q38,188 50,196" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
-                  <path d="M108,52 Q130,70 132,110 Q134,148 128,170 Q122,188 110,196" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
-                  <path d="M50,196 Q80,204 110,196" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
-                  <ellipse cx="80" cy="200" rx="32" ry="6" fill="none" stroke="#0d2e2a" strokeWidth="2"/>
+              <div onClick={() => setShowOracle(true)} style={{background:"#2D4A2D",padding:"1.35rem 1.6rem",borderLeft:"5px solid #C9A84C",border:"1px solid #C9A84C",position:"relative",overflow:"hidden",minHeight:160}}>
+                <svg width="70" height="100" viewBox="0 0 160 220" style={{position:"absolute",right:-5,bottom:-5,opacity:0.15,pointerEvents:"none"}}>
+                  <ellipse cx="80" cy="22" rx="20" ry="5" fill="none" stroke="#c9a84c" strokeWidth="2"/>
+                  <path d="M60,22 Q56,38 52,52" fill="none" stroke="#c9a84c" strokeWidth="2"/>
+                  <path d="M100,22 Q104,38 108,52" fill="none" stroke="#c9a84c" strokeWidth="2"/>
+                  <path d="M52,52 Q30,70 28,110 Q26,148 32,170 Q38,188 50,196" fill="none" stroke="#c9a84c" strokeWidth="2"/>
+                  <path d="M108,52 Q130,70 132,110 Q134,148 128,170 Q122,188 110,196" fill="none" stroke="#c9a84c" strokeWidth="2"/>
+                  <path d="M50,196 Q80,204 110,196" fill="none" stroke="#c9a84c" strokeWidth="2"/>
+                  <ellipse cx="80" cy="200" rx="32" ry="6" fill="none" stroke="#c9a84c" strokeWidth="2"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(13,46,42,0.4)",marginBottom:"0.3rem"}}>다른 가능성을 하나 더</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(13,46,42,0.8)",marginBottom:"0.5rem"}}>내 마음의 새창열기</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(13,46,42,0.5)",lineHeight:1.8,marginBottom:"0.6rem"}}>다른 가능성을 하나 더 열어봅니다.<br/>지금까지 본 나를 바탕으로 — 다음 장면에서 다르게 볼 수 있는 선택을 열어봐요.</p>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#7dd4c8"}}>여기가 마지막 문이에요 →</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(201,168,76,0.5)",marginBottom:"0.3rem"}}>다른 가능성을 하나 더</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.3rem",fontStyle:"italic",color:"rgba(240,237,232,0.85)",marginBottom:"0.5rem"}}>내 마음의 새창열기</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(240,237,232,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>다른 가능성을 하나 더 열어봅니다.<br/>지금까지 본 나를 바탕으로 — 다음 장면에서 다르게 볼 수 있는 선택을 열어봐요.</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#c9a84c"}}>여기가 마지막 문이에요 →</div>
               </div>
             </div>
 
