@@ -326,8 +326,8 @@ export default function QuickTest({ onBack }) {
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .qt-option {
           width: 100%;
-          background: rgba(247,242,232,0.92);
-          border: 1px solid rgba(247,242,232,0.2);
+          background: rgba(38,50,44,0.5);
+          border: 1px solid rgba(247,242,232,0.1);
           padding: 1rem 1.25rem;
           cursor: pointer;
           transition: all 0.2s;
@@ -335,13 +335,13 @@ export default function QuickTest({ onBack }) {
           font-family: 'Source Serif 4', serif;
           font-size: 0.88rem;
           font-weight: 300;
-          color: #26322C;
+          color: rgba(247,242,232,0.8);
           line-height: 1.6;
           margin-bottom: 0.5rem;
           border-radius: 2px;
         }
-        .qt-option:hover { background: rgba(247,242,232,1); }
-        .qt-option.selected { background: #1F3A32; border-color: #B89A5E; color: #F7F2E8; }
+        .qt-option:hover { background: rgba(38,50,44,0.7); border-color: rgba(247,242,232,0.2); }
+        .qt-option.selected { background: rgba(184,154,94,0.2); border-color: #B89A5E; color: #F7F2E8; }
         .qt-start-btn {
           background: #B89A5E;
           border: none;
@@ -430,8 +430,8 @@ export default function QuickTest({ onBack }) {
               fontFamily:"'Playfair Display',serif",
               fontSize:"clamp(1.2rem,3vw,1.6rem)",
               fontWeight:400, fontStyle:"italic",
-              color:"#F7F2E8", lineHeight:1.7,
-              marginBottom:"2rem", whiteSpace:"pre-line",
+              color:"#F7F2E8", lineHeight:1.4,
+              marginBottom:"1.5rem", whiteSpace:"pre-line",
             }}>
               {QUESTIONS[current].text}
             </h2>
