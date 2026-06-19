@@ -851,7 +851,7 @@ export default function Oracle({ onBack, onComprehensive }) {
               navigator.clipboard.writeText(text);
               alert("복사되었습니다");
             }}>결과 복사</button>
-            <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(240,237,232,0.45)",textDecoration:"underline",textUnderlineOffset:"3px"}}>당신의 경험을 들려주세요 →</a>
+
             <button className="back-link-result" style={{color:"rgba(240,237,232,0.35)"}} onClick={onBack}>← 마음거울로</button>
           </div>
         </div>
