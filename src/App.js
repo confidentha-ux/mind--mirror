@@ -616,12 +616,11 @@ export default function App() {
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>잘 답하려고 애쓰지 않아도 괜찮습니다. 지금의 나와 가장 가까운 것을 고르고, 지금 떠오르는 말을 그대로 적어보세요.</p>
             <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(247,242,232,0.45)",lineHeight:1.9}}>답을 고르고 적는 동안, 가장 조용한 자기소개가 시작됩니다.</p>
           </div>
-
-          <div className="fade6" style={{marginBottom:"2rem",paddingBottom:"2rem",borderBottom:"1px solid rgba(247,242,232,0.08)"}}>
+<div className="fade8" style={{marginBottom:"2rem",paddingBottom:"2rem",borderBottom:"1px solid rgba(247,242,232,0.08)"}}>
             <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"#B89A5E",letterSpacing:"0.08em"}}>모든 답은 마지막에 하나의 전체화면으로 모입니다.<br/>그리고 당신은 오래된 질문 앞에 서게 됩니다.</p>
             <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(184,154,94,0.6)",letterSpacing:"0.08em",marginTop:"0.5rem"}}>너 자신을 알라.</p>
           </div>
-
+          
           {/* 선택 */}
           <div className="fade7" style={{position:"relative",paddingLeft:"3rem"}}>
             <div style={{position:"absolute",left:14,top:20,bottom:20,width:1,background:"rgba(247,242,232,0.12)"}}/>
