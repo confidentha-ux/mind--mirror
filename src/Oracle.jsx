@@ -175,129 +175,129 @@ const VaseSVG = ({ flowersVisible = 0 }) => (
     }}
   >
     {flowersVisible >= 1 && <g style={{transition:"opacity 0.6s ease"}}>
-      <line x1="70" y1="18" x2="-28" y2="-25" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <path d="M25,-4 Q12,-14 14,0" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(72 -36 -35)"/>
-      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(144 -36 -35)"/>
-      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(216 -36 -35)"/>
-      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(288 -36 -35)"/>
-      <circle cx="-36" cy="-35" r="5" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <line x1="70" y1="18" x2="-28" y2="-25" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <path d="M25,-4 Q12,-14 14,0" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(72 -36 -35)"/>
+      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(144 -36 -35)"/>
+      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(216 -36 -35)"/>
+      <ellipse cx="-36" cy="-35" rx="7" ry="12" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(288 -36 -35)"/>
+      <circle cx="-36" cy="-35" r="5" fill="none" stroke="#F7F2E8" strokeWidth="1.2"/>
     </g>}
     {flowersVisible >= 2 && <g>
-      <line x1="90" y1="18" x2="188" y2="-25" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <path d="M135,-4 Q148,-14 146,0" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(45 196 -35)"/>
-      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(90 196 -35)"/>
-      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(135 196 -35)"/>
-      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(180 196 -35)"/>
-      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(225 196 -35)"/>
-      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(270 196 -35)"/>
-      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(315 196 -35)"/>
-      <circle cx="196" cy="-35" r="4" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <line x1="90" y1="18" x2="188" y2="-25" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <path d="M135,-4 Q148,-14 146,0" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(45 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(90 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(135 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(180 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(225 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(270 196 -35)"/>
+      <ellipse cx="196" cy="-35" rx="5" ry="10" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(315 196 -35)"/>
+      <circle cx="196" cy="-35" r="4" fill="none" stroke="#F7F2E8" strokeWidth="1.2"/>
     </g>}
     {flowersVisible >= 3 && <g>
-      <line x1="72" y1="18" x2="-10" y2="-65" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <path d="M38,-18 Q22,-28 24,-12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(90 -18 -77)"/>
-      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(180 -18 -77)"/>
-      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(270 -18 -77)"/>
-      <circle cx="-18" cy="-77" r="5" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <line x1="72" y1="18" x2="-10" y2="-65" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <path d="M38,-18 Q22,-28 24,-12" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(90 -18 -77)"/>
+      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(180 -18 -77)"/>
+      <ellipse cx="-18" cy="-77" rx="7" ry="12" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(270 -18 -77)"/>
+      <circle cx="-18" cy="-77" r="5" fill="none" stroke="#F7F2E8" strokeWidth="1.2"/>
     </g>}
     {flowersVisible >= 4 && <g>
-      <line x1="88" y1="18" x2="170" y2="-65" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <path d="M122,-18 Q138,-28 136,-12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <polygon points="178,-77 182,-68 191,-68 184,-62 187,-53 178,-58 169,-53 172,-62 165,-68 174,-68" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <line x1="88" y1="18" x2="170" y2="-65" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <path d="M122,-18 Q138,-28 136,-12" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <polygon points="178,-77 182,-68 191,-68 184,-62 187,-53 178,-58 169,-53 172,-62 165,-68 174,-68" fill="none" stroke="#F7F2E8" strokeWidth="1.2"/>
     </g>}
     {flowersVisible >= 5 && <g>
-      <line x1="74" y1="18" x2="14" y2="-95" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <path d="M52,-22 Q34,-34 36,-16" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M28,-62 Q10,-74 12,-56" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M14,-95 Q4,-113 14,-123 Q24,-113 14,-95" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <path d="M14,-95 Q0,-109 2,-123 Q10,-113 14,-95" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M14,-95 Q28,-109 26,-123 Q18,-113 14,-95" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <line x1="74" y1="18" x2="14" y2="-95" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <path d="M52,-22 Q34,-34 36,-16" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M28,-62 Q10,-74 12,-56" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M14,-95 Q4,-113 14,-123 Q24,-113 14,-95" fill="none" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <path d="M14,-95 Q0,-109 2,-123 Q10,-113 14,-95" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M14,-95 Q28,-109 26,-123 Q18,-113 14,-95" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
     </g>}
     {flowersVisible >= 6 && <g>
-      <line x1="86" y1="18" x2="146" y2="-95" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <path d="M108,-22 Q126,-34 124,-16" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M130,-62 Q148,-74 146,-56" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <circle cx="152" cy="-108" r="13" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <circle cx="152" cy="-108" r="7" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8"/>
-      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8" transform="rotate(30 152 -108)"/>
-      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8" transform="rotate(60 152 -108)"/>
-      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8" transform="rotate(90 152 -108)"/>
-      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8" transform="rotate(120 152 -108)"/>
-      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="0.8" transform="rotate(150 152 -108)"/>
+      <line x1="86" y1="18" x2="146" y2="-95" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <path d="M108,-22 Q126,-34 124,-16" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M130,-62 Q148,-74 146,-56" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <circle cx="152" cy="-108" r="13" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <circle cx="152" cy="-108" r="7" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="0.8"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="0.8" transform="rotate(30 152 -108)"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="0.8" transform="rotate(60 152 -108)"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="0.8" transform="rotate(90 152 -108)"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="0.8" transform="rotate(120 152 -108)"/>
+      <ellipse cx="152" cy="-108" rx="3" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="0.8" transform="rotate(150 152 -108)"/>
     </g>}
     {flowersVisible >= 7 && <g>
-      <line x1="76" y1="18" x2="28" y2="-118" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <path d="M60,-22 Q42,-34 44,-16" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M46,-72 Q28,-84 30,-66" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <circle cx="22" cy="-132" r="10" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <circle cx="22" cy="-132" r="5" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <circle cx="22" cy="-132" r="2" fill="#0d2e2a" opacity="0.4"/>
-      <line x1="22" y1="-122" x2="22" y2="-118" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <line x1="22" y1="-142" x2="22" y2="-146" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <line x1="32" y1="-132" x2="36" y2="-132" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <line x1="12" y1="-132" x2="8" y2="-132" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <line x1="29" y1="-125" x2="33" y2="-121" stroke="#0d2e2a" strokeWidth="1"/>
-      <line x1="15" y1="-139" x2="11" y2="-143" stroke="#0d2e2a" strokeWidth="1"/>
-      <line x1="29" y1="-139" x2="33" y2="-143" stroke="#0d2e2a" strokeWidth="1"/>
-      <line x1="15" y1="-125" x2="11" y2="-121" stroke="#0d2e2a" strokeWidth="1"/>
+      <line x1="76" y1="18" x2="28" y2="-118" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <path d="M60,-22 Q42,-34 44,-16" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M46,-72 Q28,-84 30,-66" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <circle cx="22" cy="-132" r="10" fill="none" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <circle cx="22" cy="-132" r="5" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <circle cx="22" cy="-132" r="2" fill="#F7F2E8" opacity="0.4"/>
+      <line x1="22" y1="-122" x2="22" y2="-118" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <line x1="22" y1="-142" x2="22" y2="-146" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <line x1="32" y1="-132" x2="36" y2="-132" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <line x1="12" y1="-132" x2="8" y2="-132" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <line x1="29" y1="-125" x2="33" y2="-121" stroke="#F7F2E8" strokeWidth="1"/>
+      <line x1="15" y1="-139" x2="11" y2="-143" stroke="#F7F2E8" strokeWidth="1"/>
+      <line x1="29" y1="-139" x2="33" y2="-143" stroke="#F7F2E8" strokeWidth="1"/>
+      <line x1="15" y1="-125" x2="11" y2="-121" stroke="#F7F2E8" strokeWidth="1"/>
     </g>}
     {flowersVisible >= 8 && <g>
-      <line x1="84" y1="18" x2="132" y2="-118" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <path d="M100,-22 Q118,-34 116,-16" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M114,-72 Q132,-84 130,-66" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <circle cx="138" cy="-130" r="12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <circle cx="138" cy="-130" r="7" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <circle cx="138" cy="-130" r="3" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M138,-142 Q144,-136 138,-130 Q132,-136 138,-142" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M138,-118 Q132,-124 138,-130 Q144,-124 138,-118" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M126,-130 Q132,-124 138,-130 Q132,-136 126,-130" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M150,-130 Q144,-136 138,-130 Q144,-124 150,-130" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
+      <line x1="84" y1="18" x2="132" y2="-118" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <path d="M100,-22 Q118,-34 116,-16" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M114,-72 Q132,-84 130,-66" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <circle cx="138" cy="-130" r="12" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <circle cx="138" cy="-130" r="7" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <circle cx="138" cy="-130" r="3" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M138,-142 Q144,-136 138,-130 Q132,-136 138,-142" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M138,-118 Q132,-124 138,-130 Q144,-124 138,-118" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M126,-130 Q132,-124 138,-130 Q132,-136 126,-130" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M150,-130 Q144,-136 138,-130 Q144,-124 150,-130" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
     </g>}
     {flowersVisible >= 9 && <g>
-      <line x1="78" y1="18" x2="60" y2="-145" stroke="#0d2e2a" strokeWidth="1.3"/>
-      <path d="M72,-28 Q54,-40 56,-22" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M66,-88 Q48,-100 50,-82" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(60 57 -160)"/>
-      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(120 57 -160)"/>
-      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(180 57 -160)"/>
-      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(240 57 -160)"/>
-      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#0d2e2a" strokeWidth="1" transform="rotate(300 57 -160)"/>
-      <circle cx="57" cy="-160" r="6" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
+      <line x1="78" y1="18" x2="60" y2="-145" stroke="#F7F2E8" strokeWidth="1.3"/>
+      <path d="M72,-28 Q54,-40 56,-22" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M66,-88 Q48,-100 50,-82" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(60 57 -160)"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(120 57 -160)"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(180 57 -160)"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(240 57 -160)"/>
+      <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(300 57 -160)"/>
+      <circle cx="57" cy="-160" r="6" fill="none" stroke="#F7F2E8" strokeWidth="1.2"/>
     </g>}
     {flowersVisible >= 10 && <g>
-      <line x1="80" y1="18" x2="80" y2="-145" stroke="#0d2e2a" strokeWidth="1.4"/>
-      <path d="M80,-35 Q98,-47 96,-29" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M80,-90 Q62,-102 64,-84" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <circle cx="80" cy="-163" r="18" fill="none" stroke="#0d2e2a" strokeWidth="1.2"/>
-      <circle cx="80" cy="-163" r="12" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <circle cx="80" cy="-163" r="7" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <circle cx="80" cy="-163" r="3" fill="#0d2e2a" opacity="0.35"/>
-      <path d="M80,-181 Q88,-172 80,-163 Q72,-172 80,-181" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M80,-145 Q72,-154 80,-163 Q88,-154 80,-145" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M62,-163 Q71,-155 80,-163 Q71,-171 62,-163" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M98,-163 Q89,-171 80,-163 Q89,-155 98,-163" fill="none" stroke="#0d2e2a" strokeWidth="1"/>
-      <path d="M68,-150 Q74,-159 80,-163 Q74,-167 68,-176" fill="none" stroke="#0d2e2a" strokeWidth="0.8"/>
-      <path d="M92,-150 Q86,-159 80,-163 Q86,-167 92,-176" fill="none" stroke="#0d2e2a" strokeWidth="0.8"/>
+      <line x1="80" y1="18" x2="80" y2="-145" stroke="#F7F2E8" strokeWidth="1.4"/>
+      <path d="M80,-35 Q98,-47 96,-29" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M80,-90 Q62,-102 64,-84" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <circle cx="80" cy="-163" r="18" fill="none" stroke="#F7F2E8" strokeWidth="1.2"/>
+      <circle cx="80" cy="-163" r="12" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <circle cx="80" cy="-163" r="7" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <circle cx="80" cy="-163" r="3" fill="#F7F2E8" opacity="0.35"/>
+      <path d="M80,-181 Q88,-172 80,-163 Q72,-172 80,-181" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M80,-145 Q72,-154 80,-163 Q88,-154 80,-145" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M62,-163 Q71,-155 80,-163 Q71,-171 62,-163" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M98,-163 Q89,-171 80,-163 Q89,-155 98,-163" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
+      <path d="M68,-150 Q74,-159 80,-163 Q74,-167 68,-176" fill="none" stroke="#F7F2E8" strokeWidth="0.8"/>
+      <path d="M92,-150 Q86,-159 80,-163 Q86,-167 92,-176" fill="none" stroke="#F7F2E8" strokeWidth="0.8"/>
     </g>}
-    <ellipse cx="80" cy="22" rx="20" ry="5" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
-    <path d="M60,22 Q56,38 52,52" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
-    <path d="M100,22 Q104,38 108,52" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
-    <path d="M52,52 Q30,70 28,110 Q26,148 32,170 Q38,188 50,196" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
-    <path d="M108,52 Q130,70 132,110 Q134,148 128,170 Q122,188 110,196" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
-    <path d="M54,48 Q80,52 106,48" fill="none" stroke="#0d2e2a" strokeWidth="1.2" strokeLinecap="round"/>
-    <path d="M52,56 Q80,60 108,56" fill="none" stroke="#0d2e2a" strokeWidth="1" strokeLinecap="round"/>
-    <path d="M30,118 Q80,124 130,118" fill="none" stroke="#0d2e2a" strokeWidth="1" strokeLinecap="round"/>
-    <path d="M29,130 Q80,136 131,130" fill="none" stroke="#0d2e2a" strokeWidth="1" strokeLinecap="round"/>
-    <path d="M50,196 Q80,204 110,196" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
-    <ellipse cx="80" cy="200" rx="32" ry="6" fill="none" stroke="#0d2e2a" strokeWidth="1.8" strokeLinecap="round"/>
+    <ellipse cx="80" cy="22" rx="20" ry="5" fill="none" stroke="#F7F2E8" strokeWidth="1.8" strokeLinecap="round"/>
+    <path d="M60,22 Q56,38 52,52" fill="none" stroke="#F7F2E8" strokeWidth="1.8" strokeLinecap="round"/>
+    <path d="M100,22 Q104,38 108,52" fill="none" stroke="#F7F2E8" strokeWidth="1.8" strokeLinecap="round"/>
+    <path d="M52,52 Q30,70 28,110 Q26,148 32,170 Q38,188 50,196" fill="none" stroke="#F7F2E8" strokeWidth="1.8" strokeLinecap="round"/>
+    <path d="M108,52 Q130,70 132,110 Q134,148 128,170 Q122,188 110,196" fill="none" stroke="#F7F2E8" strokeWidth="1.8" strokeLinecap="round"/>
+    <path d="M54,48 Q80,52 106,48" fill="none" stroke="#F7F2E8" strokeWidth="1.2" strokeLinecap="round"/>
+    <path d="M52,56 Q80,60 108,56" fill="none" stroke="#F7F2E8" strokeWidth="1" strokeLinecap="round"/>
+    <path d="M30,118 Q80,124 130,118" fill="none" stroke="#F7F2E8" strokeWidth="1" strokeLinecap="round"/>
+    <path d="M29,130 Q80,136 131,130" fill="none" stroke="#F7F2E8" strokeWidth="1" strokeLinecap="round"/>
+    <path d="M50,196 Q80,204 110,196" fill="none" stroke="#F7F2E8" strokeWidth="1.8" strokeLinecap="round"/>
+    <ellipse cx="80" cy="200" rx="32" ry="6" fill="none" stroke="#F7F2E8" strokeWidth="1.8" strokeLinecap="round"/>
   </svg>
 );
 
@@ -566,8 +566,8 @@ export default function Oracle({ onBack, onComprehensive }) {
           text-align: left; padding: 0.85rem 1.1rem; cursor: pointer;
           transition: all 0.3s; margin-bottom: 0.45rem; border-radius: 1px; line-height: 1.5;
         }
-        .oracle-option:hover { background: rgba(13,46,42,0.06); border-color: rgba(13,46,42,0.35); color: #0d2e2a; }
-        .oracle-option.selected { background: rgba(13,46,42,0.1); border-color: rgba(13,46,42,0.5); color: #0d2e2a; }
+        .oracle-option:hover { background: rgba(13,46,42,0.06); border-color: rgba(13,46,42,0.35); color: #F7F2E8; }
+        .oracle-option.selected { background: rgba(13,46,42,0.1); border-color: rgba(13,46,42,0.5); color: #F7F2E8; }
         .oracle-btn {
           background: transparent; border: 1px solid rgba(247,242,232,0.4);
           color: rgba(247,242,232,0.75); font-family: 'Source Serif 4', serif;
@@ -584,12 +584,12 @@ export default function Oracle({ onBack, onComprehensive }) {
         }
         .oracle-btn-result:hover { border-color: rgba(90,58,138,0.7); color: #2a1a4a; }
         .door-open-btn {
-          background: transparent; border: 1px solid rgba(13,46,42,0.4); color: #0d2e2a;
+          background: transparent; border: 1px solid rgba(13,46,42,0.4); color: #F7F2E8;
           font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic;
           cursor: pointer; padding: 1.1rem 3rem; transition: all 0.4s;
           animation: breathe 3s ease-in-out infinite; letter-spacing: 0.03em;
         }
-        .door-open-btn:hover { background: rgba(13,46,42,0.07); border-color: #0d2e2a; animation: none; opacity: 1; }
+        .door-open-btn:hover { background: rgba(13,46,42,0.07); border-color: #F7F2E8; animation: none; opacity: 1; }
         .back-link {
           background: transparent; border: none; color: rgba(247,242,232,0.35);
           font-family: 'Source Serif 4', serif; font-size: 0.7rem;
@@ -604,10 +604,10 @@ export default function Oracle({ onBack, onComprehensive }) {
         .back-link-result:hover { color: rgba(90,58,138,0.65); }
         .oracle-textarea {
           width: 100%; background: transparent; border: none;
-          border-bottom: 1px solid rgba(13,46,42,0.2); color: #0d2e2a;
+          border-bottom: 1px solid rgba(13,46,42,0.2); color: #F7F2E8;
           font-family: 'Source Serif 4', serif; font-size: 0.93rem; font-weight: 300;
           line-height: 1.95; padding: 0.5rem 0; resize: none; outline: none;
-          min-height: 130px; caret-color: #0d2e2a; box-sizing: border-box;
+          min-height: 130px; caret-color: #F7F2E8; box-sizing: border-box;
         }
         .oracle-textarea::placeholder { color: rgba(13,46,42,0.2); }
         .oracle-textarea:focus { border-bottom-color: rgba(13,46,42,0.4); }
@@ -660,7 +660,7 @@ export default function Oracle({ onBack, onComprehensive }) {
           <div style={{ fontSize: "0.58rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(13,46,42,0.35)", marginBottom: "0.6rem", fontFamily: "'Source Serif 4', serif" }}>
             {currentQ + 1} / {ORACLE_QUESTIONS.length} — {q.title}
           </div>
-          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1rem, 2.8vw, 1.25rem)", fontWeight: 400, fontStyle: "italic", color: "#0d2e2a", lineHeight: 1.7, marginBottom: "2.2rem", whiteSpace: "pre-line" }}>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1rem, 2.8vw, 1.25rem)", fontWeight: 400, fontStyle: "italic", color: "#F7F2E8", lineHeight: 1.7, marginBottom: "2.2rem", whiteSpace: "pre-line" }}>
             {q.question}
           </h2>
           {!isTextQ && (
@@ -675,7 +675,7 @@ export default function Oracle({ onBack, onComprehensive }) {
                 <input
                   type="text" value={otherText} onChange={(e) => setOtherText(e.target.value)}
                   placeholder="직접 입력해주세요" autoFocus
-                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(13,46,42,0.3)", color: "#0d2e2a", fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, padding: "0.6rem 0", outline: "none", marginTop: "0.5rem", boxSizing: "border-box" }}
+                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(13,46,42,0.3)", color: "#F7F2E8", fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, padding: "0.6rem 0", outline: "none", marginTop: "0.5rem", boxSizing: "border-box" }}
                 />
               )}
             </div>
