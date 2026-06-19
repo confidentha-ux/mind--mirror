@@ -722,11 +722,6 @@ export default function App() {
             <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(184,154,94,0.5)",marginTop:"0.5rem"}}>너 자신을 알라.</p>
           </div>
 
-          {/* 하단 */}
-          <div style={{textAlign:"left",padding:"2rem 0 0.5rem"}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(184,154,94,0.3)",letterSpacing:"0.08em"}}>γνῶθι σεαυτόν</div>
-          </div>
-
         </div>
       </div>
     );
