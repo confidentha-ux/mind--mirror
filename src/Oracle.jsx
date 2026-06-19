@@ -370,7 +370,7 @@ function OracleSlides() {
 낡은 방식은 끈질기게 존속돼요.
 
 그래서 거울이 필요해요.
-오라클은 그 거울이에요.`}</p>
+마음거울은 그 거울이에요.`}</p>
     </div>
   );
 }
@@ -569,12 +569,12 @@ export default function Oracle({ onBack, onComprehensive }) {
         .oracle-option:hover { background: rgba(13,46,42,0.06); border-color: rgba(13,46,42,0.35); color: #0d2e2a; }
         .oracle-option.selected { background: rgba(13,46,42,0.1); border-color: rgba(13,46,42,0.5); color: #0d2e2a; }
         .oracle-btn {
-          background: transparent; border: 1px solid rgba(13,46,42,0.3);
-          color: rgba(13,46,42,0.65); font-family: 'Source Serif 4', serif;
+          background: transparent; border: 1px solid rgba(247,242,232,0.4);
+          color: rgba(247,242,232,0.75); font-family: 'Source Serif 4', serif;
           font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
           cursor: pointer; padding: 0.7rem 1.8rem; transition: all 0.3s;
         }
-        .oracle-btn:hover { border-color: rgba(13,46,42,0.6); color: #0d2e2a; }
+        .oracle-btn:hover { border-color: rgba(247,242,232,0.8); color: #F7F2E8; }
         .oracle-btn:disabled { opacity: 0.2; cursor: default; }
         .oracle-btn-result {
           background: transparent; border: 1px solid rgba(90,58,138,0.3);
@@ -591,11 +591,11 @@ export default function Oracle({ onBack, onComprehensive }) {
         }
         .door-open-btn:hover { background: rgba(13,46,42,0.07); border-color: #0d2e2a; animation: none; opacity: 1; }
         .back-link {
-          background: transparent; border: none; color: rgba(13,46,42,0.3);
+          background: transparent; border: none; color: rgba(247,242,232,0.35);
           font-family: 'Source Serif 4', serif; font-size: 0.7rem;
           letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; padding: 0; transition: all 0.3s;
         }
-        .back-link:hover { color: rgba(13,46,42,0.65); }
+        .back-link:hover { color: rgba(247,242,232,0.7); }
         .back-link-result {
           background: transparent; border: none; color: rgba(90,58,138,0.3);
           font-family: 'Source Serif 4', serif; font-size: 0.7rem;
@@ -623,7 +623,7 @@ export default function Oracle({ onBack, onComprehensive }) {
         return (
         <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1 }}>
           <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#AFC8CF", marginBottom: "1.5rem" }}>내 마음의 새 창</div>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.4rem,6vw,3.6rem)", fontWeight: 400, fontStyle: "italic", color: "#F7F2E8", lineHeight: 1.15, marginBottom: "2rem" }}>익숙한 선택 옆에,<br/>새로 열리는<br/>가능성.</h1>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, fontStyle: "italic", color: "#F7F2E8", lineHeight: 1.2, marginBottom: "2rem" }}>익숙한 선택 옆에,<br/>새로 열리는<br/>가능성.</h1>
 
           <div style={{ marginBottom: "1.5rem" }}>
             <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(247,242,232,0.75)", lineHeight: 2.1, marginBottom: "0.75rem" }}>지금까지 우리는 내가 먼저 향하는 방향과 반복되는 선택의 구조를 살펴보았습니다. 이제는 그 방식 옆에 아직 보지 못한 질문을 하나 더 열어봅니다.</p>
@@ -697,7 +697,7 @@ export default function Oracle({ onBack, onComprehensive }) {
         <div style={{ width: "100%", maxWidth: 520, textAlign: "center", position: "relative", zIndex: 1 }}>
           <div className="greek" style={{ color: "rgba(13,46,42,0.35)", marginBottom: "3rem" }}>γνῶθι σεαυτόν</div>
           <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.45)", marginBottom: "3rem", lineHeight: 1.9, animation: "flicker 4s ease-in-out infinite" }}>
-            오라클이 당신의 답변을 읽고 있습니다
+            마음거울이 당신의 답변을 읽고 있습니다
           </p>
           <OracleSlides />
           <button className="door-open-btn" onClick={openDoor} style={{marginTop:"2.5rem"}}>문을 열다</button>
@@ -726,21 +726,21 @@ export default function Oracle({ onBack, onComprehensive }) {
           )}
           {visibleSections.includes("Recognition") && parsed["Recognition"] && (
             <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>오라클이 본 것</div>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>마음거울이 본 것</div>
               <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>{parsed["Recognition"]}</div>
             </div>
           )}
           {visibleSections.includes("Oracle") && parsed["Oracle"] && (
             <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>오라클의 가설</div>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>마음거울의 가설</div>
               <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>{parsed["Oracle"]}</div>
             </div>
           )}
           {visibleSections.includes("Story") && parsed["Story"] && (
             <div className="oracle-appear" style={{ marginBottom: "2.5rem" }}>
-              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>오라클의 제안</div>
+              <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(90,58,138,0.45)", marginBottom: "0.4rem" }}>마음거울의 제안</div>
               <div style={{ width: "100%", height: "1px", background: "rgba(90,58,138,0.15)", marginBottom: "1rem" }}/>
               <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, fontStyle: "italic", color: "rgba(42,26,74,0.7)", lineHeight: 2.2, whiteSpace: "pre-wrap" }}>{parsed["Story"]}</div>
             </div>
@@ -760,7 +760,7 @@ export default function Oracle({ onBack, onComprehensive }) {
               </div>
               <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
                 <button className="oracle-btn-result" onClick={() => setShowComprehensive(true)}>종합 분석 보기 →</button>
-                <button className="oracle-btn-result" onClick={() => setPhase("final")}>오라클의 마지막 당부 →</button>
+                <button className="oracle-btn-result" onClick={() => setPhase("final")}>마지막 장으로 →</button>
                 <button className="oracle-btn-result" onClick={() => {
                   const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
                   navigator.clipboard.writeText(text);
