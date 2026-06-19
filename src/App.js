@@ -719,7 +719,7 @@ export default function App() {
           {/* 모든 답은 */}
           <div className="fade8" style={{padding:"2.5rem 0 0"}}>
             <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"#B89A5E",letterSpacing:"0.05em",lineHeight:1.8}}>모든 답은 마지막에 "나의 전체화면"으로 모입니다.<br/>그리고 당신은 오래된 질문 앞에 서게 됩니다.</p>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(184,154,94,0.5)",marginTop:"0.5rem"}}>너 자신을 알라.γνῶθι σεαυτόν</p>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(184,154,94,0.5)",marginTop:"0.5rem"}}>너 자신을 알라.</p>
           </div>
 
           {/* 하단 */}
