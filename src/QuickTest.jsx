@@ -464,7 +464,7 @@ export default function QuickTest({ onBack }) {
               marginBottom:"2rem",
               textAlign:"center",
             }}>
-              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.28em", textTransform:"uppercase", color:"rgba(42,26,74,0.45)", marginBottom:"1.5rem"}}>내 디폴트 값 찾기</div>
+              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.28em", textTransform:"uppercase", color:"rgba(42,26,74,0.45)", marginBottom:"1.5rem"}}>내 기본값 찾기</div>
               <img src={`/${TYPE_IMAGES[result]}`} alt={result} style={{width:180, height:180, objectFit:"contain", marginBottom:"1.5rem"}}/>
               <h2 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.6rem,4vw,2.2rem)", fontStyle:"italic", fontWeight:400, color:"#2a1a4a", marginBottom:"0.75rem"}}>{result}</h2>
               <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(42,26,74,0.7)", lineHeight:1.9, marginBottom:"1rem"}}>{typeInfo.desc}</p>
