@@ -862,7 +862,7 @@ export default function App() {
       {step === "intro2" && (
         <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
           <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",color:"#8F8464",marginBottom:"1.5rem"}}>내 마음의 운영체계</div>
-          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,4vw,2.6rem)",fontWeight:400,lineHeight:1.2,color:"#F7F2E8",marginBottom:"2rem"}}>반복이 만든 마음의 결.</h1>
+          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,4vw,2.6rem)",fontWeight:400,lineHeight:1.2,color:"#F7F2E8",marginBottom:"2rem"}}>반복이 만든 마음의 결</h1>
 
           <div style={{marginBottom:"1.5rem"}}>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.75)",lineHeight:1.9,marginBottom:"0.75rem"}}>내 마음의 초기화면 에서는 일이 생겼을 때 내 마음에 자동으로 뜨는 반응을 적어 보았습니다. 이제 그 답들을 하나씩 따로 보지 않고, 그 사이에 반복해서 나타나는 흐름을 살펴봅니다. 나는 무엇을 먼저 보고, 무엇을 중요하게 여기고, 결국 어떤 선택을 해왔던 걸까요? </p>
