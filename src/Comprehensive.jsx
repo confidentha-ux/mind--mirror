@@ -254,25 +254,25 @@ export default function Comprehensive({ onBack, onNext }) {
         </div>
 
         {/* 제목 */}
-        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+        <div style={{ marginBottom: "3rem" }}>
           <div style={{
             fontFamily: "'Source Serif 4', serif",
             fontSize: "0.6rem", letterSpacing: "0.3em",
             textTransform: "uppercase",
-            color: "rgba(201,168,76,0.5)", marginBottom: "0.75rem",
-          }}>종합 분석</div>
+            color: "#D6B870", marginBottom: "1.5rem",
+          }}>내 마음의 전체화면</div>
           <h1 style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(1.6rem,4vw,2.2rem)",
+            fontSize: "clamp(2.4rem,6vw,3.6rem)",
             fontWeight: 400, fontStyle: "italic",
-            color: "rgba(240,237,232,0.9)",
-            lineHeight: 1.35, marginBottom: "0.75rem",
-          }}>내 마음의 전체화면</h1>
+            color: "rgba(247,242,232,0.9)",
+            lineHeight: 1.15, marginBottom: "2rem",
+          }}>반복된 것과<br/>어긋난 것이<br/>함께 보일 때.</h1>
           <p style={{
             fontFamily: "'Source Serif 4', serif",
-            fontSize: "0.88rem", fontWeight: 300,
-            color: "rgba(240,237,232,0.4)", lineHeight: 1.9,
-          }}>반복된 것과 어긋난 것이 함께 보일 때, 지금의 내가 더 선명해집니다.</p>
+            fontSize: "0.93rem", fontWeight: 300,
+            color: "rgba(247,242,232,0.6)", lineHeight: 1.9,
+          }}>지금까지의 답들은 모두 같은 방향을 가리키지 않을 수 있습니다. 반복된 길과 새로 열린 가능성을 함께 비춰드릴게요.</p>
         </div>
 
         {/* 골드 더블 테두리 액자 */}
