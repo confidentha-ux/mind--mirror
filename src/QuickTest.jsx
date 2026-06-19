@@ -456,21 +456,6 @@ export default function QuickTest({ onBack }) {
         {/* 결과 */}
         {step === "result" && typeInfo && (
           <div style={{animation:"fadeIn 0.6s ease"}}>
-            {/* 나침반 → 신전 전환 */}
-            <div style={{position:"absolute", right:"-50px", top:"50%", transform:"translateY(-50%)", pointerEvents:"none"}}>
-              <CompassSVG linesVisible={11} style={{
-                opacity: showTemple ? 0 : 0.13,
-                transform: showTemple ? "scale(1.3)" : "scale(1)",
-                transition: "opacity 0.8s ease, transform 0.8s ease",
-              }}/>
-              <TempleSVG style={{
-                position:"absolute", top:0, left:0,
-                opacity: showTemple ? 0.13 : 0,
-                transform: showTemple ? "scale(1)" : "scale(0.5)",
-                transition: "opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s",
-              }}/>
-            </div>
-
             {/* 결과 카드 */}
             <div style={{
               background: "#d4c8f0",
@@ -497,14 +482,6 @@ export default function QuickTest({ onBack }) {
                   <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.82rem", fontWeight:300, color:"rgba(42,26,74,0.7)", lineHeight:1.8}}>{typeInfo.weakness}</p>
                 </div>
               </div>
-            </div>
-
-            {/* 저장 안내 */}
-            <div style={{background:"rgba(255,255,255,0.4)", border:"1px solid rgba(90,58,138,0.1)", padding:"1rem 1.25rem", marginBottom:"2rem"}}>
-              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.78rem", fontWeight:300, color:"rgba(42,26,74,0.5)", lineHeight:1.8}}>
-                이 결과는 이 브라우저에 임시 저장돼요.<br/>
-                마음거울 → 오라클까지 완주하면 세 가지 결과를 통합 분석해드려요.
-              </p>
             </div>
 
             <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center", justifyContent:"center"}}>
