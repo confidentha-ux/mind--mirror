@@ -759,7 +759,7 @@ export default function App() {
 
         <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
           <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",color:"#A8B8A3",marginBottom:"1.5rem"}}>내 마음의 초기화면</div>
-          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.4rem,6vw,3.6rem)",fontWeight:400,lineHeight:1.15,color:"#1F3A32",marginBottom:"2rem"}}>일이 생겼을 때,<br/>마음에 가장<br/>먼저 뜨는 것을.</h1>
+          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,4vw,2.6rem)",fontWeight:400,lineHeight:1.2,color:"#1F3A32",marginBottom:"2rem"}}>일이 생겼을 때,<br/>마음에 가장<br/>먼저 뜨는 것을.</h1>
 
           <div style={{marginBottom:"1.5rem"}}>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"#26322C",lineHeight:1.9,marginBottom:"0.75rem"}}>어떤 상황을 만나면 마음에는 먼저 떠오르는 말, 감정, 장면이 있습니다. 이 섹션에서는 그 초기 반응을 적어봅니다.</p>
@@ -867,7 +867,7 @@ export default function App() {
       {step === "intro2" && (
         <div style={{width:"100%",maxWidth:640,position:"relative",zIndex:1}}>
           <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".7rem",letterSpacing:".25em",textTransform:"uppercase",color:"#8F8464",marginBottom:"1.5rem"}}>내 마음의 OS</div>
-          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(2.4rem,6vw,3.6rem)",fontWeight:400,lineHeight:1.15,color:"#F7F2E8",marginBottom:"2rem"}}>반복이<br/>남긴<br/>마음의 결.</h1>
+          <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,4vw,2.6rem)",fontWeight:400,lineHeight:1.2,color:"#F7F2E8",marginBottom:"2rem"}}>반복이<br/>남긴<br/>마음의 결.</h1>
 
           <div style={{marginBottom:"1.5rem"}}>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.75)",lineHeight:1.9,marginBottom:"0.75rem"}}>내 마음의 초기화면에서는 일이 생겼을 때 내 마음에 가장 먼저 뜨는 반응을 적어보았습니다. 이제 그 답들을 하나씩 연결해봅니다.</p>
