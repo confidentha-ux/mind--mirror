@@ -329,8 +329,8 @@ function AnalyzingScreen({ stage }) {
   const borderColor = stage === 1 ? "rgba(196,149,106,0.25)" : "rgba(74,138,180,0.25)";
   const label = stage === 1 ? "첫 반응에는 내가 지켜온 것이 묻어납니다" : "반복은 이유 없이 생기지 않습니다";
   const text = stage === 1
-    ? `마음에 가장 먼저 떠오른 말은 우연이 아닐 수 있습니다.\n그 안에는 내가 중요하게 여기는 것, 조심해온 것, 오래 붙들고 있던 감각이 담겨 있습니다.\n\n잘 쓴 답인지보다 중요한 것은\n그 순간 내 마음이 무엇을 먼저 보여주었는지입니다.\n\n잠시 후, 당신의 첫 화면을 함께 읽어봅니다.`
-    : `내가 자주 돌아가는 방식은 단순한 습관이 아닐 수 있습니다.\n한때는 나를 지켜주던 방식이었고, 나를 앞으로 움직이게 한 힘이었을 수 있습니다.\n\n다만 같은 방식이 모든 상황에 반복될 때,\n우리는 같은 문 앞에 다시 서게 됩니다.\n\n잠시 후, 당신의 답들 사이에 남아 있는 마음의 결을 살펴봅니다.`;
+    ? `마음에 가장 먼저 떠오른 말은 우연이 아닐 수 있습니다.\n그 안에는 내가 중요하게 여기는 것, 조심해온 것, 오래 붙들고 있던 감각이 담겨 있습니다.\n\n답이 맞는 답인지가 있는 것이 아닙니다.\n내 마음이 무엇을 먼저 보여 주었는지가 중요합니다.\n\n잠시 후, 당신의 첫 화면을 함께 읽어봅니다.`
+    : `내가 자주 돌아가는 방식은 단순한 습관이 아닐 수 있습니다.\n한때는 나를 지켜주던 방식이었고, 나를 앞으로 움직이게 한 힘이었을 수 있습니다.\n\n다만, 같은 방식이 모든 상황에 반복될 때\n우리는 같은 문 앞에 또다시 서게 됩니다.\n\n잠시 후, 당신의 답들 사이에 남아 있는 마음의 결을 살펴봅니다.`;
 
   return (
     <div className="analyzing" style={{position:"relative"}}>
@@ -612,9 +612,9 @@ export default function App() {
           {/* 인트로 */}
           <div className="fade5" style={{marginBottom:"2.5rem"}}>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>나는 나를 안다고 생각했지만, 내가 반복하는 방식은 잘 보지 못했습니다.</p>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>마음거울은 당신이 누구인지 단정하지 않습니다. 대신 당신이 상황 앞에서 무엇을 먼저 보고, 어떤 반응으로 움직이고, 자주 돌아가는 선택은 무엇인지 조용히 비춥니다.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>마음거울은 당신이 누구인지 단정하지 않습니다. 대신 당신이 상황 앞에서 무엇을 먼저 보고, 어떤 반응을 보이고, 자주 돌아가는 선택은 무엇인지 조용히 비춥니다.</p>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>잘 답하려고 애쓰지 않아도 괜찮습니다. 지금의 나와 가장 가까운 것을 고르고, 지금 떠오르는 말을 그대로 적어보세요.</p>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(247,242,232,0.45)",lineHeight:1.9}}>답을 고르고 적는 동안 다시 써보는 자기소개가 시작됩니다.</p>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(247,242,232,0.45)",lineHeight:1.9}}>답을 고르고 적는 동안 아마 당신은 당신에 대해 다시 생각하게 되실거에요. 새로운 자기소개를 쓰시게 될거에요.</p>
           </div>
 
           {/* 선택 */}
@@ -660,7 +660,7 @@ export default function App() {
                 </svg>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(31,58,50,0.45)",marginBottom:"0.4rem"}}>마음에 먼저 떠오르는 말</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#1F3A32",marginBottom:"0.5rem"}}>내 마음의 초기화면</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(38,50,44,0.65)",lineHeight:1.8,marginBottom:"0.6rem"}}>말, 감정, 장면으로 내 안에 가장 먼저 올라오는 반응을 적어보며 내가 보이는 반응의 출발점을 살펴봅니다.</p>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(38,50,44,0.65)",lineHeight:1.8,marginBottom:"0.6rem"}}>말, 감정, 장면으로 내 안에 먼저 올라오는 반응을 적으며 내가 보이는 반응의 출발점을 살펴봅니다.</p>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#5a7a5a"}}>내 초기화면 적어보기 →</div>
               </div>
             </div>
