@@ -538,7 +538,7 @@ export default function Oracle({ onBack, onComprehensive }) {
 
   const parsed = oracleText ? parseOracle(oracleText) : {};
 
-  const bgColor = phase === "result" ? "#F7F2E8" : phase === "final" ? "#1F3A32" : "#F7F2E8";
+  const bgColor = phase === "result" ? "#F7F2E8" : phase === "final" ? "#1F3A32" : "#1F3A32";
 
   return (
     <div style={{
