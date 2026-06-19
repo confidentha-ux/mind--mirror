@@ -559,15 +559,15 @@ export default function Oracle({ onBack, onComprehensive }) {
         @keyframes flicker { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.85; } }
         .oracle-appear { animation: fadeUp 1.8s ease forwards; opacity: 0; }
         .oracle-option {
-          width: 100%; background: transparent;
-          border: 1px solid rgba(13,46,42,0.15);
-          color: rgba(13,46,42,0.65);
+  width: 100%; background: rgba(247,242,232,0.08);
+  border: 1px solid rgba(247,242,232,0.2);
+  color: rgba(247,242,232,0.8);
           font-family: 'Source Serif 4', serif; font-size: 0.87rem; font-weight: 300;
           text-align: left; padding: 0.85rem 1.1rem; cursor: pointer;
           transition: all 0.3s; margin-bottom: 0.45rem; border-radius: 1px; line-height: 1.5;
         }
-        .oracle-option:hover { background: rgba(13,46,42,0.06); border-color: rgba(13,46,42,0.35); color: #F7F2E8; }
-        .oracle-option.selected { background: rgba(13,46,42,0.1); border-color: rgba(13,46,42,0.5); color: #F7F2E8; }
+        .oracle-option:hover { background: rgba(247,242,232,0.15); border-color: rgba(247,242,232,0.4); color: #F7F2E8; }
+.oracle-option.selected { background: rgba(184,154,94,0.2); border-color: #B89A5E; color: #F7F2E8; }
         .oracle-btn {
           background: transparent; border: 1px solid rgba(247,242,232,0.4);
           color: rgba(247,242,232,0.75); font-family: 'Source Serif 4', serif;
@@ -604,7 +604,7 @@ export default function Oracle({ onBack, onComprehensive }) {
         .back-link-result:hover { color: rgba(90,58,138,0.65); }
         .oracle-textarea {
           width: 100%; background: transparent; border: none;
-          border-bottom: 1px solid rgba(13,46,42,0.2); color: #F7F2E8;
+          border-bottom: 1px solid rgba(247,242,232,0.2); color: #F7F2E8;
           font-family: 'Source Serif 4', serif; font-size: 0.93rem; font-weight: 300;
           line-height: 1.95; padding: 0.5rem 0; resize: none; outline: none;
           min-height: 130px; caret-color: #F7F2E8; box-sizing: border-box;
