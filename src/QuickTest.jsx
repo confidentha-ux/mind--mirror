@@ -313,7 +313,7 @@ export default function QuickTest({ onBack }) {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#e8e0f5",
+      background: "#1F3A32",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -344,9 +344,9 @@ export default function QuickTest({ onBack }) {
         .qt-option:hover { background: rgba(255,255,255,0.75); border-color: rgba(90,58,138,0.35); color: #2a1a4a; }
         .qt-option.selected { background: #2a1a4a; border-color: #2a1a4a; color: #f0eafa; }
         .qt-start-btn {
-          background: #c8b8e8;
+          background: #B89A5E;
           border: none;
-          color: #2a1a4a;
+          color: #1F3A32;
           font-family: 'Source Serif 4', serif;
           font-size: 0.82rem;
           letter-spacing: 0.18em;
@@ -355,11 +355,11 @@ export default function QuickTest({ onBack }) {
           cursor: pointer;
           transition: background 0.2s;
         }
-        .qt-start-btn:hover { background: #b8a0d8; }
+        .qt-start-btn:hover { background: #a08850; }
         .qt-back-btn {
           background: transparent;
-          border: 1px solid rgba(90,58,138,0.25);
-          color: rgba(90,58,138,0.55);
+          border: 1px solid rgba(184,154,94,0.4);
+          color: rgba(247,242,232,0.5);
           font-family: 'Source Serif 4', serif;
           font-size: 0.78rem;
           letter-spacing: 0.15em;
@@ -368,16 +368,16 @@ export default function QuickTest({ onBack }) {
           cursor: pointer;
           transition: all 0.2s;
         }
-        .qt-back-btn:hover { border-color: rgba(90,58,138,0.5); color: #2a1a4a; }
+        .qt-back-btn:hover { border-color: rgba(184,154,94,0.7); color: #F7F2E8; }
         .qt-ghost-btn {
           background: transparent; border: none;
-          color: rgba(90,58,138,0.35);
+          color: rgba(247,242,232,0.35);
           font-family: 'Source Serif 4', serif;
           font-size: 0.72rem; letter-spacing: 0.15em;
           text-transform: uppercase; cursor: pointer; padding: 0;
           transition: color 0.2s;
         }
-        .qt-ghost-btn:hover { color: rgba(90,58,138,0.65); }
+        .qt-ghost-btn:hover { color: rgba(247,242,232,0.65); }
       `}</style>
 
       <div style={{width:"100%", maxWidth:560, position:"relative", zIndex:1}}>
@@ -385,35 +385,28 @@ export default function QuickTest({ onBack }) {
         {/* 인트로 */}
         {step === "intro" && (
           <div style={{animation:"fadeIn 0.5s ease"}}>
-            {/* 나침반 완성본 배경 */}
             <CompassSVG linesVisible={11} style={{...bgSvgStyle}} />
 
-            <div style={{textAlign:"center", marginBottom:"2.5rem"}}>
-              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.3em", textTransform:"uppercase", color:"rgba(90,58,138,0.45)", marginBottom:"1rem"}}>나 이런 사람이었어.</div>
-              <h1 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.8rem,4vw,2.6rem)", fontWeight:400, fontStyle:"italic", color:"#2a1a4a", lineHeight:1.3, marginBottom:"1.25rem"}}>내 디폴트 값 찾기</h1>
-              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.88rem", fontWeight:300, color:"rgba(42,26,74,0.6)", lineHeight:1.9, maxWidth:400, margin:"0 auto 1rem"}}>
-                누가 가르쳐준 적 없는데 늘 그렇게 하는 것들이 있어요.<br/>
-                스트레스받을 때, 결정할 때, 사람 앞에 설 때.<br/>
-                내가 자동으로 하는 것.<br/>
-                그게 내 디폴트예요. 한 번도 제대로 본 적 없었던.
-              </p>
-              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.88rem", fontWeight:300, color:"rgba(42,26,74,0.5)", lineHeight:1.9, maxWidth:400, margin:"0 auto 1rem"}}>
-                객관식이에요. 맞고 틀린 답 없어요.<br/>
-                그냥 지금 나한테 더 가까운 걸 고르면 돼요.
-              </p>
-              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.88rem", fontWeight:300, color:"rgba(42,26,74,0.5)", lineHeight:1.9, maxWidth:400, margin:"0 auto 1rem"}}>
-                11가지 상황에 답하다 보면<br/>
-                내가 정보를 어떻게 받아들이고, 어떻게 결정하고,<br/>
-                사람을 어떻게 만나는지 윤곽이 생겨요.<br/>
-                잘 되는 것도, 늘 거기서 막히는 이유도요.
-              </p>
-              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.88rem", fontWeight:300, fontStyle:"italic", color:"rgba(42,26,74,0.45)", lineHeight:1.9, maxWidth:400, margin:"0 auto"}}>
-                답하다 보면 — 아, 나 이런 사람이었구나 싶을 거예요.
-              </p>
+            <div style={{textAlign:"left", marginBottom:"2.5rem"}}>
+              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.3em", textTransform:"uppercase", color:"#B89A5E", marginBottom:"1.5rem"}}>내 마음의 기본값</div>
+              <h1 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(2.4rem,6vw,3.6rem)", fontWeight:400, fontStyle:"italic", color:"#F7F2E8", lineHeight:1.15, marginBottom:"2rem"}}>내 마음이<br/>먼저 향하는<br/>방향.</h1>
+
+              <div style={{marginBottom:"1.5rem"}}>
+                <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(247,242,232,0.75)", lineHeight:1.9, marginBottom:"0.75rem"}}>우리는 어떤 상황 앞에서, 자신도 모르게 먼저 향하는 방향이 있습니다. 누군가는 원인을 찾고, 누군가는 사람의 마음을 살피고, 누군가는 바로 움직이려 합니다.</p>
+                <p style={{fontFamily:"'Playfair Display',serif", fontSize:"0.95rem", fontStyle:"italic", color:"#B89A5E", lineHeight:1.9, marginBottom:"0.75rem"}}>11개의 짧은 객관식 질문을 통해 내가 상황 앞에서 무엇을 먼저 보고, 어떤 쪽으로 움직이는지 살펴봅니다.</p>
+                <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(247,242,232,0.6)", lineHeight:1.9}}>깊게 고민하지 않아도 괜찮습니다. 지금의 나와 가장 가까운 선택지를 고르면 됩니다.</p>
+              </div>
+
+              <div style={{background:"rgba(184,154,94,0.1)", borderLeft:"3px solid #B89A5E", padding:"1.1rem 1.25rem", marginBottom:"2rem"}}>
+                <div style={{fontFamily:"'Source Serif 4',serif", fontSize:".68rem", letterSpacing:".2em", textTransform:"uppercase", color:"#B89A5E", marginBottom:".6rem"}}>시작 전에</div>
+                <div style={{fontFamily:"'Source Serif 4',serif", fontSize:".82rem", fontWeight:300, color:"rgba(247,242,232,0.65)", lineHeight:1.85, display:"flex", alignItems:"flex-start", gap:".5rem"}}>
+                  <span style={{opacity:.5}}>—</span>맞고 틀린 답 없어요. 지금 나한테 가장 가까운 걸 고르면 돼요.
+                </div>
+              </div>
             </div>
 
-            <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center", justifyContent:"center"}}>
-              <button className="qt-start-btn" onClick={() => setStep("test")}>시작하기</button>
+            <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center"}}>
+              <button className="qt-start-btn" onClick={() => setStep("test")}>가볍게 시작하기</button>
               {onBack && <button className="qt-back-btn" onClick={onBack}>← 돌아가기</button>}
             </div>
           </div>
@@ -512,7 +505,7 @@ export default function QuickTest({ onBack }) {
             <div style={{background:"rgba(255,255,255,0.4)", border:"1px solid rgba(90,58,138,0.1)", padding:"1rem 1.25rem", marginBottom:"2rem"}}>
               <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.78rem", fontWeight:300, color:"rgba(42,26,74,0.5)", lineHeight:1.8}}>
                 이 결과는 이 브라우저에 임시 저장돼요.<br/>
-                내 디폴트 → 새창열기까지 완주하면 네 가지 결과를 통합 분석해드려요.
+                마음거울 → 오라클까지 완주하면 세 가지 결과를 통합 분석해드려요.
               </p>
             </div>
 
