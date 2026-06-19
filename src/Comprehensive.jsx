@@ -37,7 +37,7 @@ const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니�
 행동, 감정, 사고 중 두 개 이상에서 반복되는 구조.
 장점과 비용을 함께. 단정 없이.
 
-## 세 결과가 함께 드러낸 것
+## 네 결과가 함께 드러낸 것
 각 도구를 따로 봤을 땐 보이지 않았는데, 겹쳐봤을 때 비로소 보이는 것.
 긴장, 모순, 공백, 또는 아직 말해지지 않은 것.
 
@@ -45,7 +45,7 @@ const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니�
 지금 이 순간 가장 의미 있어 보이는 관찰 하나.
 질문 형식으로 끝낼 것.
 
-한국어로 작성하세요.`;
+한국어로 작성하네요.`;
 
 // Canvas 해돋이 애니메이션
 function SunriseCanvas() {
@@ -210,7 +210,7 @@ export default function Comprehensive({ onBack, onNext }) {
       const text = data.content?.[0]?.text || "";
       setComprehensive(text);
     } catch (e) {
-      setComprehensive("## 세 개의 거울이 본 것\n잠시 연결이 되지 않았어요. 다시 시도해주세요.");
+      setComprehensive("## 네 개의 거울이 본 것\n잠시 연결이 되지 않았어요. 다시 시도해주세요.");
     }
     setLoading(false);
   }
@@ -345,9 +345,9 @@ export default function Comprehensive({ onBack, onNext }) {
             {comprehensive && !loading && (
               <div>
                 {[
-                  { key: "세 개의 거울이 가리킨 곳", eyebrow: "세 개의 거울이 가리킨 곳" },
+                  { key: "네 개의 거울이 가리킨 곳", eyebrow: "네 개의 거울이 가리킨 곳" },
                   { key: "반복되는 구조", eyebrow: "반복되는 구조" },
-                  { key: "세 결과가 함께 드러낸 것", eyebrow: "세 결과가 함께 드러낸 것" },
+                  { key: "네 결과가 함께 드러낸 것", eyebrow: "네 결과가 함께 드러낸 것" },
                   { key: "오늘의 당신에게", eyebrow: "오늘의 당신에게" },
                 ].map(({ key, eyebrow }) => {
                   const content = parseSection(comprehensive, key);
