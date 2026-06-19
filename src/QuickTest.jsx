@@ -302,12 +302,11 @@ export default function QuickTest({ onBack }) {
   // 배경 SVG 스타일 (오른쪽 고정)
   const bgSvgStyle = {
     position: "absolute",
-    right: "-50px",
-    top: "50%",
-    transform: "translateY(-50%)",
-    opacity: 0.13,
+    right: "-20px",
+    top: "-20px",
+    opacity: 0.08,
     pointerEvents: "none",
-    transition: "opacity 0.8s ease, transform 0.8s ease",
+    transition: "opacity 0.8s ease",
   };
 
   return (
@@ -327,8 +326,8 @@ export default function QuickTest({ onBack }) {
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         .qt-option {
           width: 100%;
-          background: rgba(255,255,255,0.45);
-          border: 1px solid rgba(90,58,138,0.15);
+          background: rgba(247,242,232,0.92);
+          border: 1px solid rgba(247,242,232,0.2);
           padding: 1rem 1.25rem;
           cursor: pointer;
           transition: all 0.2s;
@@ -336,13 +335,13 @@ export default function QuickTest({ onBack }) {
           font-family: 'Source Serif 4', serif;
           font-size: 0.88rem;
           font-weight: 300;
-          color: rgba(42,26,74,0.7);
+          color: #26322C;
           line-height: 1.6;
           margin-bottom: 0.5rem;
           border-radius: 2px;
         }
-        .qt-option:hover { background: rgba(255,255,255,0.75); border-color: rgba(90,58,138,0.35); color: #2a1a4a; }
-        .qt-option.selected { background: #2a1a4a; border-color: #2a1a4a; color: #f0eafa; }
+        .qt-option:hover { background: rgba(247,242,232,1); }
+        .qt-option.selected { background: #1F3A32; border-color: #B89A5E; color: #F7F2E8; }
         .qt-start-btn {
           background: #B89A5E;
           border: none;
@@ -420,11 +419,10 @@ export default function QuickTest({ onBack }) {
 
             <div style={{marginBottom:"3rem"}}>
               <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"0.75rem"}}>
-                <span style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.65rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(90,58,138,0.4)"}}>{current + 1} / {QUESTIONS.length}</span>
-                {onBack && <button className="qt-ghost-btn" onClick={onBack}>✕</button>}
+                <span style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.65rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(247,242,232,0.5)"}}>{current + 1} / {QUESTIONS.length}</span>
               </div>
-              <div style={{width:"100%", height:"1px", background:"rgba(90,58,138,0.12)"}}>
-                <div style={{height:"100%", width:`${progress}%`, background:"rgba(90,58,138,0.4)", transition:"width 0.4s ease"}}/>
+              <div style={{width:"100%", height:"1px", background:"rgba(247,242,232,0.12)"}}>
+                <div style={{height:"100%", width:`${progress}%`, background:"#B89A5E", transition:"width 0.4s ease"}}/>
               </div>
             </div>
 
@@ -432,7 +430,7 @@ export default function QuickTest({ onBack }) {
               fontFamily:"'Playfair Display',serif",
               fontSize:"clamp(1.2rem,3vw,1.6rem)",
               fontWeight:400, fontStyle:"italic",
-              color:"#2a1a4a", lineHeight:1.7,
+              color:"#F7F2E8", lineHeight:1.7,
               marginBottom:"2rem", whiteSpace:"pre-line",
             }}>
               {QUESTIONS[current].text}
