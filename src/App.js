@@ -614,7 +614,7 @@ export default function App() {
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>나는 나를 안다고 생각했지만, 내가 반복하는 방식은 잘 보지 못했습니다.</p>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>마음거울은 당신이 누구인지 단정하지 않습니다. 대신 당신이 상황 앞에서 무엇을 먼저 보고, 어떤 반응을 보이고, 자주 돌아가는 선택은 무엇인지 조용히 비춥니다.</p>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>잘 답하려고 애쓰지 않아도 괜찮습니다. 지금의 나와 가장 가까운 것을 고르고, 지금 떠오르는 말을 그대로 적어보세요.</p>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(247,242,232,0.45)",lineHeight:1.9}}>답을 고르고 적는 동안 아마 당신은 당신에 대해 다시 생각하게 되실거에요. 새로운 자기소개를 쓰시게 될거에요.</p>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(247,242,232,0.45)",lineHeight:1.9}}>답을 고르고 적는 동안 당신은 새로운 자기소개를 만나게 될겁니다.</p>
           </div>
 
           {/* 선택 */}
