@@ -353,9 +353,9 @@ function TodaySentence({ onSave }) {
 
 function OracleSlides() {
   return (
-    <div style={{ borderTop: "1px solid rgba(13,46,42,0.15)", paddingTop: "1.5rem", textAlign: "left" }}>
-      <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(13,46,42,0.35)", marginBottom: "1rem" }}>우리가 스스로를 못 보는 이유</p>
-      <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.75)", lineHeight: 2, whiteSpace: "pre-line" }}>{`우리는 왜 자신을 잘 모를까요?
+    <div style={{ borderTop: "1px solid rgba(247,242,232,0.15)", paddingTop: "1.5rem", textAlign: "left" }}>
+      <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(247,242,232,0.35)", marginBottom: "1rem" }}>우리가 스스로를 못 보는 이유</p>
+      <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(247,242,232,0.75)", lineHeight: 2, whiteSpace: "pre-line" }}>{`우리는 왜 자신을 잘 모를까요?
 
 평생 자신과 함께 살았는데
 정작 자신을 모르는 경우가 많아요.
@@ -584,12 +584,12 @@ export default function Oracle({ onBack, onComprehensive }) {
         }
         .oracle-btn-result:hover { border-color: rgba(90,58,138,0.7); color: #2a1a4a; }
         .door-open-btn {
-          background: transparent; border: 1px solid rgba(13,46,42,0.4); color: #F7F2E8;
+          background: transparent; border: 1px solid rgba(247,242,232,0.4); color: #F7F2E8;
           font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic;
           cursor: pointer; padding: 1.1rem 3rem; transition: all 0.4s;
           animation: breathe 3s ease-in-out infinite; letter-spacing: 0.03em;
         }
-        .door-open-btn:hover { background: rgba(13,46,42,0.07); border-color: #F7F2E8; animation: none; opacity: 1; }
+        .door-open-btn:hover { background: rgba(247,242,232,0.07); border-color: #F7F2E8; animation: none; opacity: 1; }
         .back-link {
           background: transparent; border: none; color: rgba(247,242,232,0.35);
           font-family: 'Source Serif 4', serif; font-size: 0.7rem;
@@ -609,8 +609,8 @@ export default function Oracle({ onBack, onComprehensive }) {
           line-height: 1.95; padding: 0.5rem 0; resize: none; outline: none;
           min-height: 130px; caret-color: #F7F2E8; box-sizing: border-box;
         }
-        .oracle-textarea::placeholder { color: rgba(13,46,42,0.2); }
-        .oracle-textarea:focus { border-bottom-color: rgba(13,46,42,0.4); }
+        .oracle-textarea::placeholder { color: rgba(247,242,232,0.2); }
+        .oracle-textarea:focus { border-bottom-color: rgba(247,242,232,0.4); }
         .greek { font-family: 'Playfair Display', serif; font-size: 1rem; letter-spacing: 0.2em; font-style: italic; }
       `}</style>
 
@@ -654,10 +654,10 @@ export default function Oracle({ onBack, onComprehensive }) {
       {/* 질문 */}
       {phase === "questions" && q && (
         <div style={{ width: "100%", maxWidth: 540, position: "relative", zIndex: 1 }}>
-          <div style={{ width: "100%", height: "1px", background: "rgba(13,46,42,0.1)", marginBottom: "3.5rem" }}>
-            <div style={{ height: "100%", width: `${progress}%`, background: "rgba(13,46,42,0.35)", transition: "width 0.6s ease" }} />
+          <div style={{ width: "100%", height: "1px", background: "rgba(247,242,232,0.1)", marginBottom: "3.5rem" }}>
+            <div style={{ height: "100%", width: `${progress}%`, background: "rgba(247,242,232,0.35)", transition: "width 0.6s ease" }} />
           </div>
-          <div style={{ fontSize: "0.58rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(13,46,42,0.35)", marginBottom: "0.6rem", fontFamily: "'Source Serif 4', serif" }}>
+          <div style={{ fontSize: "0.58rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(247,242,232,0.35)", marginBottom: "0.6rem", fontFamily: "'Source Serif 4', serif" }}>
             {currentQ + 1} / {ORACLE_QUESTIONS.length} — {q.title}
           </div>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1rem, 2.8vw, 1.25rem)", fontWeight: 400, fontStyle: "italic", color: "#F7F2E8", lineHeight: 1.7, marginBottom: "2.2rem", whiteSpace: "pre-line" }}>
@@ -675,7 +675,7 @@ export default function Oracle({ onBack, onComprehensive }) {
                 <input
                   type="text" value={otherText} onChange={(e) => setOtherText(e.target.value)}
                   placeholder="직접 입력해주세요" autoFocus
-                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(13,46,42,0.3)", color: "#F7F2E8", fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, padding: "0.6rem 0", outline: "none", marginTop: "0.5rem", boxSizing: "border-box" }}
+                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(247,242,232,0.3)", color: "#F7F2E8", fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, padding: "0.6rem 0", outline: "none", marginTop: "0.5rem", boxSizing: "border-box" }}
                 />
               )}
             </div>
@@ -695,8 +695,8 @@ export default function Oracle({ onBack, onComprehensive }) {
       {/* 문 앞 */}
       {phase === "door" && (
         <div style={{ width: "100%", maxWidth: 520, textAlign: "center", position: "relative", zIndex: 1 }}>
-          <div className="greek" style={{ color: "rgba(13,46,42,0.35)", marginBottom: "3rem" }}>γνῶθι σεαυτόν</div>
-          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.45)", marginBottom: "3rem", lineHeight: 1.9, animation: "flicker 4s ease-in-out infinite" }}>
+          <div className="greek" style={{ color: "rgba(247,242,232,0.35)", marginBottom: "3rem" }}>γνῶθι σεαυτόν</div>
+          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(247,242,232,0.45)", marginBottom: "3rem", lineHeight: 1.9, animation: "flicker 4s ease-in-out infinite" }}>
             마음거울이 당신의 답변을 읽고 있습니다
           </p>
           <OracleSlides />
@@ -707,8 +707,8 @@ export default function Oracle({ onBack, onComprehensive }) {
       {/* 열리는 중 */}
       {phase === "opening" && (
         <div style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
-          <div className="greek" style={{ color: "rgba(13,46,42,0.35)", marginBottom: "2rem" }}>γνῶθι σεαυτόν</div>
-          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.4)", animation: "breathe 2s ease-in-out infinite" }}>
+          <div className="greek" style={{ color: "rgba(247,242,232,0.35)", marginBottom: "2rem" }}>γνῶθι σεαυτόν</div>
+          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(247,242,232,0.4)", animation: "breathe 2s ease-in-out infinite" }}>
             잠시 기다려주세요
           </p>
         </div>
