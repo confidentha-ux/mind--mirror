@@ -364,7 +364,7 @@ function OracleSlides() {
 감정이 렌즈가 돼요 — 두려울 때 자신을 객관적으로 보기 어려워요.
 
 오랫동안 자신을 설명하다 보면
-그게 진짜 나인지 습관인지 구분이 안 돼요.
+그게 진짜인지 습관인지 구분이 안 돼요.
 
 불행하게도 습관은 쉽게 사라지지 않고
 낡은 방식은 끈질기게 존속돼요.
@@ -391,7 +391,7 @@ function OracleFeedback() {
       {selected === "no" && (
         <div>
           <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.85rem",fontWeight:300,color:"rgba(90,58,138,0.55)",lineHeight:1.9,marginBottom:"0.75rem"}}>맞지 않는 부분이 있으신가요?<br/>당신이 느낀 것을 말씀해주세요.</p>
-          
+          <a href="https://forms.gle/1MK9PRZmTBpFsEPN8" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(90,58,138,0.5)",textDecoration:"underline",textUnderlineOffset:"3px"}}>피드백 남기기 →</a>
         </div>
       )}
     </div>
@@ -538,7 +538,7 @@ export default function Oracle({ onBack, onComprehensive }) {
 
   const parsed = oracleText ? parseOracle(oracleText) : {};
 
-  const bgColor = phase === "result" ? "#e8e0f5" : phase === "final" ? "#2d5a2d" : "#7dd4c8";
+  const bgColor = phase === "result" ? "#F7F2E8" : phase === "final" ? "#1F3A32" : "#F7F2E8";
 
   return (
     <div style={{
@@ -622,30 +622,29 @@ export default function Oracle({ onBack, onComprehensive }) {
         const prev = saved ? JSON.parse(saved) : null;
         return (
         <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1 }}>
-          <div style={{ marginBottom: "2.5rem" }}>
-            <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.8rem", fontWeight: 700, fontStyle: "italic", color: "#0d2e2a", marginBottom: "0.4rem", lineHeight: 1.2 }}>너 자신을 알라</div>
-            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.78rem", fontWeight: 300, color: "rgba(13,46,42,0.45)", letterSpacing: "0.08em" }}>γνῶθι σεαυτόν (그노티 세아우톤)</div>
+          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#AFC8CF", marginBottom: "1.5rem" }}>내 마음의 새 창</div>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.4rem,6vw,3.6rem)", fontWeight: 400, fontStyle: "italic", color: "#F7F2E8", lineHeight: 1.15, marginBottom: "2rem" }}>익숙한 선택 옆에,<br/>새로 열리는<br/>가능성.</h1>
+
+          <div style={{ marginBottom: "1.5rem" }}>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(247,242,232,0.75)", lineHeight: 2.1, marginBottom: "0.75rem" }}>지금까지 우리는 내가 먼저 향하는 방향과 반복되는 선택의 구조를 살펴보았습니다. 이제는 그 방식 옆에 아직 보지 못한 질문을 하나 더 열어봅니다.</p>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", color: "#AFC8CF", lineHeight: 2, marginBottom: "0.75rem" }}>짧은 객관식 질문을 따라가며 내가 늘 하던 선택 말고, 다르게 볼 수 있는 지점을 확인합니다.</p>
           </div>
-          <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "1.5rem" }}>
-            디폴트 값에서는 내가 먼저 향하는 방향을 보았습니다. 내 마음의 첫 화면에서는 일이 생겼을 때 가장 먼저 떠오르는 반응을 적어보았습니다. 내 마음의 OS에서는 그 반응들이 어떤 구조로 반복되는지 확인했습니다.
-          </p>
-          <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "1.5rem" }}>
-            이제 오라클을 만나볼 차례입니다.
-          </p>
-          <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(13,46,42,0.7)", lineHeight: 2.1, marginBottom: "2rem" }}>
-            《매트릭스》에서 네오는 자신이 선택받은 자인지 확인하기 위해 오라클을 찾아갑니다. 하지만 오라클은 네오에게 정답을 알려주지 않았습니다. 대신 네오가 다른 선택을 할 수 있다는 가능성을 보게 했습니다. 오라클이 꽃병을 말하기 전까지, 네오는 꽃병을 의식하지 못했습니다. 말을 듣는 순간, 네오는 자신이 무엇을 보고 있었고 무엇을 놓치고 있었는지 알아차립니다.
-          </p>
-          <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(13,46,42,0.55)", lineHeight: 2, marginBottom: "2.5rem", paddingLeft: "1.2rem", borderLeft: "1px solid rgba(13,46,42,0.2)" }}>
-            이 섹션의 질문들은 당신에게 답을 주기 위한 것이 아닙니다. 익숙하게 선택하던 방향 옆에, 아직 보지 못한 질문을 하나 더 열기 위한 것입니다.
-          </p>
+
+          <div style={{ background: "rgba(175,200,207,0.1)", borderLeft: "3px solid #AFC8CF", padding: "1.1rem 1.25rem", marginBottom: "2rem" }}>
+            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: ".68rem", letterSpacing: ".2em", textTransform: "uppercase", color: "#AFC8CF", marginBottom: ".6rem" }}>시작 전에</div>
+            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: ".82rem", fontWeight: 300, color: "rgba(247,242,232,0.65)", lineHeight: 1.85, display: "flex", alignItems: "flex-start", gap: ".5rem" }}>
+              <span style={{ opacity: .5 }}>—</span>맞고 틀린 답 없어요. 지금 나한테 가장 가까운 걸 고르면 돼요.
+            </div>
+          </div>
+
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem" }}>
             {prev && (
-              <div style={{ marginBottom: "0.5rem", padding: "1rem 1.25rem", border: "1px solid rgba(13,46,42,0.15)", width: "100%" }}>
-                <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(13,46,42,0.3)", marginBottom: "0.4rem" }}>지난번 당신의 한 문장 ({prev.date})</p>
-                <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.9rem", fontStyle: "italic", color: "rgba(13,46,42,0.6)", lineHeight: 1.8 }}>"{prev.sentence}"</p>
+              <div style={{ marginBottom: "0.5rem", padding: "1rem 1.25rem", border: "1px solid rgba(175,200,207,0.2)", width: "100%" }}>
+                <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(175,200,207,0.4)", marginBottom: "0.4rem" }}>지난번 당신의 한 문장 ({prev.date})</p>
+                <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.9rem", fontStyle: "italic", color: "rgba(247,242,232,0.6)", lineHeight: 1.8 }}>"{prev.sentence}"</p>
               </div>
             )}
-            <button className="oracle-btn" onClick={() => setPhase("questions")}>문 앞에 서다</button>
+            <button className="oracle-btn" onClick={() => setPhase("questions")}>새 창 열기</button>
             <button className="back-link" onClick={onBack}>← 돌아가기</button>
           </div>
         </div>
@@ -784,27 +783,27 @@ export default function Oracle({ onBack, onComprehensive }) {
         <div style={{ width: "100%", maxWidth: 580, paddingTop: "2rem", paddingBottom: "4rem" }}>
           <div className="greek" style={{ color: "rgba(240,237,232,0.3)", marginBottom: "3rem", fontSize: "0.9rem" }}>γνῶθι σεαυτόν</div>
 
-          <div style={{ position: "relative", padding: "3rem 2.5rem", border: "4px solid #c9a84c", boxShadow: "inset 0 0 0 8px #2d5a2d, inset 0 0 0 10px rgba(160,140,200,0.35)" }}>
+          <div style={{ position: "relative", padding: "3rem 2.5rem", border: "4px solid #B89A5E", boxShadow: "inset 0 0 0 8px #1F3A32, inset 0 0 0 10px rgba(184,154,94,0.2)" }}>
 
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>델포이 신전의 문에는 오래된 문장이 새겨져 있었습니다. 너 자신을 알라. 사람들은 신탁을 얻기 위해 그곳을 찾아갔습니다. 앞날을 알고 싶어서, 선택의 답을 듣고 싶어서, 자신이 가야 할 길을 확인받고 싶어서. 하지만 신탁을 구하기 전, 그들은 먼저 이 문장 앞에 섰습니다.</p>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.1rem", fontStyle: "italic", color: "#B89A5E", lineHeight: 1.8, marginBottom: "2rem" }}>너 자신을 알라.</p>
+
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>델포이 신전의 문에는 오래된 문장이 새겨져 있었습니다. 사람들은 신탁을 얻기 위해 그곳을 찾아갔습니다. 하지만 신탁을 구하기 전, 그들은 먼저 이 문장 앞에 섰습니다.</p>
 
             <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>당신은 자신을 보았습니다. 쉽지 않은 일이에요.</p>
 
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>이 결과는 당신이 누구인지를 정의하지 않습니다. 오라클이 본 것은 당신이 반복적으로 선택해온 방식, 세상을 해석해온 습관, 무의식적으로 돌아가기 쉬운 길입니다. 그것은 당신의 전부가 아니라, 오늘 드러난 당신의 한 부분입니다.</p>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>이 결과는 당신이 누구인지를 정의하지 않습니다. 마음거울이 본 것은 당신이 반복적으로 선택해온 방식, 세상을 해석해온 습관, 무의식적으로 돌아가기 쉬운 길입니다. 그것은 당신의 전부가 아니라, 오늘 드러난 당신의 한 부분입니다.</p>
 
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>당신이 지금까지 살아온 방식은 당신의 강점이었고, 여기까지 데려온 힘이었습니다. 하지만 같은 방식이 한 방향으로만 반복될 때, 우리는 때로 같은 문제 앞에 다시 서게 됩니다. 그리고 이제 조용히 묻습니다. 앞으로도 같은 길을 선택하시겠어요?</p>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>그리고 이제 조용히 묻습니다. 앞으로도 같은 길을 선택하시겠어요?</p>
 
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>《매트릭스》에서 네오는 자신이 선택받은 자인지 확인받기 위해 오라클을 찾아갑니다. 하지만 오라클이 준 것은 확인이 아니라 질문이었습니다. 네오는 오라클과 헤어진 뒤, 스스로 선택했습니다. 앎이 나를 바꿔줄 거라고 기대했던 적 있으신가요? 달라지는 것은 언제나 그다음 선택입니다.</p>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>앎이 나를 바꿔줄 거라고 기대했던 적 있으신가요? 달라지는 것은 언제나 그다음 선택입니다.</p>
 
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>이 결과는 누군가와 함께 읽을 때 더 다르게 보일 수 있습니다. 서로의 분석지를 나눠 읽다 보면, 오래 함께했는데도 몰랐던 모습이 보일 수 있습니다. 익숙한 사람을 새롭게 이해하게 될지도 모릅니다.</p>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>이 결과를 누군가와 함께 읽어보셔도 좋습니다. 또는 당신의 AI에게 가져가 다시 물어보셔도 좋습니다. 같은 결과도 다른 질문 앞에서는 다르게 읽힐 수 있습니다.</p>
 
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>분석이 맞지 않는다고 느껴진다면, 그 느낌도 중요한 정보입니다. 무엇이 다르게 느껴지는지 적어보고, 필요하다면 당신의 AI와 다시 살펴보세요. 당신의 AI에게 다시 인지구조 검사를 요청해보셔도 좋습니다.</p>
-
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>언젠가 다시 오세요. 오늘 당신이 오라클에게 했던 말과, 그때 당신이 할 말은 달라져 있을 것입니다. 그것이 바로 당신이 살아있다는 뜻입니다.</p>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "2rem" }}>언젠가 다시 돌아오세요. 오늘 당신이 했던 말과, 그때 당신이 할 말은 달라져 있을 것입니다. 그것이 바로 당신이 살아있다는 뜻입니다.</p>
 
             <div>
               <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(240,237,232,0.75)", lineHeight: 2, marginBottom: "1rem" }}>
-                오늘은 {month}월 {day}일입니다. 오늘 여기서 발견한 것을 한 문장으로 써보세요. 하나만 가져간다면 — 무엇인가요?
+                오늘 여기서 발견한 것을 한 문장으로 남겨보세요. 하나만 가져간다면 — 무엇인가요?
               </p>
               {!savedSentence ? (
                 <TodaySentence onSave={(sentence) => {
@@ -828,9 +827,9 @@ export default function Oracle({ onBack, onComprehensive }) {
               오늘의 당신을 기억하세요.
             </p>
 
-            <div style={{ paddingTop: "1.5rem", borderTop: "1px solid rgba(201,168,76,0.15)" }}>
+            <div style={{ paddingTop: "1.5rem", borderTop: "1px solid rgba(184,154,94,0.15)" }}>
               <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(240,237,232,0.35)", lineHeight: 1.9, marginBottom: "0.75rem" }}>이 거울은 아직 완성되는 중입니다. 당신이 남긴 한마디가 다음 사람의 거울을 더 선명하게 만듭니다.</p>
-              <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.8rem", color: "rgba(201,168,76,0.55)", textDecoration: "underline", textUnderlineOffset: "3px" }}>피드백 남기기 →</a>
+              <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.8rem", color: "rgba(184,154,94,0.55)", textDecoration: "underline", textUnderlineOffset: "3px" }}>피드백 남기기 →</a>
             </div>
 
           </div>
