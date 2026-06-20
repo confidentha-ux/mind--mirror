@@ -180,7 +180,7 @@ export default function Comprehensive({ onBack, onNext }) {
 
   async function generateComprehensive() {
     setLoading(true);
-    if (quick) parts.push(`[첫 번째 검사 – 기본 성향]\n유형: ${quick.type}\n${quick.desc}\n${quick.de`
+    if (quick) parts.push(`[첫 번째 검사 – 기본 성향]\n유형: ${quick.type}\n${quick.desc}`);
     if (result1) parts.push(`[두 번째 검사 – 감정과 관계 패턴]\n${result1}`);
     if (result2) parts.push(`[세 번째 검사 – 사고 구조]\n${result2}`);
     if (oracleRaw) parts.push(`[네 번째 검사 – 가능성 탐색]\n${oracleRaw}`);
