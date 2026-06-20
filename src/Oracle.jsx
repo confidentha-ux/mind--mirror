@@ -638,6 +638,7 @@ export default function Oracle({ onBack, onComprehensive }) {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem" }}>
+           <div style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#AFC8CF", marginBottom: "1.5rem" }}>내 마음의 새 창</div>
             {prev && (
               <div style={{ marginBottom: "0.5rem", padding: "1rem 1.25rem", border: "1px solid rgba(175,200,207,0.2)", width: "100%" }}>
                 <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(175,200,207,0.4)", marginBottom: "0.4rem" }}>지난번 당신의 한 문장 ({prev.date})</p>
