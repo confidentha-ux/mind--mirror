@@ -24,7 +24,7 @@ const QUESTIONS = [
     id: 3,
     title: "억울했던 순간",
     prompt: "누군가에게 오해받거나 억울했던 적 있나요? 그때 하고 싶었던 말이 있었는데 하지 못했다면 여기서 해보세요.",
-    placeholder: "예: 그때 나는 정말 ___하고 싶었는데...",
+    placeholder: "예: 그때 정말 ___하고 싶었는데...",
     bg: "#e8c8b8", textColor: "#2a0e00", accentColor: "#a0522d", borderColor: "#c47a5a",
     deco: "grid", skippable: false
   },
@@ -40,7 +40,7 @@ const QUESTIONS = [
     id: 5,
     title: "반복되는 그 말, 그 상황",
     prompt: "살면서 '또 이러네' 싶었던 순간이 있으셨나요? 비슷한 상황, 비슷한 감정이 반복된다는 느낌이요. 어떤 상황이었는지, 그때 어떤 마음이었는지 써주세요.",
-    placeholder: "예: 이상하게 나는 항상 ___한 상황에서...",
+    placeholder: "예: 이상하게 항상 ___한 상황에서...",
     bg: "#b8d4b0", textColor: "#0d200e", accentColor: "#2d6b32", borderColor: "#7a9e6e",
     deco: "star", skippable: false
   },
@@ -54,9 +54,9 @@ const QUESTIONS = [
   },
   {
     id: 7,
-    title: "나는 누구인가요",
-    prompt: "자기 자신에 대해 편하게 이야기해 주세요. 어떤 사람인지, 어떤 일을 하는지, 중요하게 생각하는 게 뭔지 생각나는 대로 쓰시면 돼요.",
-    placeholder: "예: 나는 기본적으로 ___한 사람인 것 같아요. 왜냐하면...",
+    title: "누구인가요",
+    prompt: "자기 자신에 대해 편하게 이야기해 주세요. 어떤 사람인지, 어떤 일을 하는지, 중요하게 생각하는 게 뭔지 생각대로 쓰시면 돼요.",
+    placeholder: "예: 기본적으로 ___한 사람인 것 같아요. 왜냐하면...",
     bg: "#e8d5c0", textColor: "#2a1200", accentColor: "#8b4513", borderColor: "#c4956a",
     deco: "rays", skippable: false
   }
@@ -179,7 +179,7 @@ const systemPrompt = `${MIRROR_PRINCIPLES}
 사용자가 제공한 7가지 답변을 분석합니다.
 
 각 질문의 분석 의도:
-1. 나는 누구인가요 → 자기개념과 정체성 언어
+1. 누구인가요 → 자기개념과 정체성 언어
 2. 내 사람들 → 관계 스키마와 대상 분류 방식
 3. 억울했던 순간 → 귀인 방식, 억압된 감정
 4. 자꾸 떠오르는 것 → 미해결 감정, 무의식적 집착
@@ -611,10 +611,10 @@ export default function App() {
 
           {/* 인트로 */}
           <div className="fade5" style={{marginBottom:"2.5rem"}}>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>나는 나를 안다고 생각했지만, 내가 반복하는 방식은 잘 보지 못했습니다.</p>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>마음거울은 당신이 누구인지 단정하지 않습니다. 대신 당신이 상황 앞에서 무엇을 먼저 보고, 어떤 반응을 보이고, 자주 하게되는 선택이 무엇인지 조용히 비춥니다.</p>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>잘 답하려고 애쓰지 않아도 괜찮습니다. 지금의 나와 가장 가까운 것을 고르고, 지금 떠오르는 말을 그대로 적어보세요.</p>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(247,242,232,0.45)",lineHeight:1.9}}>답을 고르고 적는 동안 당신은 새로운 자기소개를 만나게 될겁니다.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>나는 나를 안다고 생각했지만,<br/>내가 반복하는 방식은 잘 보지 못했습니다.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>마음거울은 당신이 누구인지 단정하지 않습니다.<br/>대신 당신이 상황 앞에서 무엇을 먼저 보고, <br/>어떤 반응을 보이고,<br/> 자주 하게되는 선택이 무엇인지 조용히 비춥니다.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>잘 답하려고 애쓰지 않아도 괜찮습니다.<br/>지금의 나와 가장 가까운 것을 고르고, 지금 떠오르는 말을 그대로 적어보세요.</p>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(247,242,232,0.45)",lineHeight:1.9}}>답을 고르고 적는 동안<br/>당신은 새로운 자기소개를 만나게 될겁니다.</p>
           </div>
 
           {/* 선택 */}
@@ -636,9 +636,9 @@ export default function App() {
                   <rect x="4" y="64" width="72" height="22" rx="11" fill="none" stroke="#2D4A2D" strokeWidth="2"/>
                   <circle cx="18" cy="75" r="7" fill="none" stroke="#2D4A2D" strokeWidth="1.8"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(31,58,50,0.45)",marginBottom:"0.4rem"}}>내 마음이 먼저 향하는 방향</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(31,58,50,0.45)",marginBottom:"0.4rem"}}>내 마음이 향하는 방향</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#1F3A32",marginBottom:"0.5rem"}}>내 마음의 기본값</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(38,50,44,0.7)",lineHeight:1.8,marginBottom:"0.6rem"}}>11개의 짧은 객관식 질문으로 내가 상황 앞에서 무엇을 먼저 보고, 어떤 쪽으로 움직이는지 살펴봅니다.</p>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(38,50,44,0.7)",lineHeight:1.8,marginBottom:"0.6rem"}}>11개의 짧은 객관식 질문으로 내가 기본적으로 무엇을 먼저 보고, 어떤 쪽으로 움직이는지 살펴봅니다.</p>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#8a6e3a"}}>가볍게 시작하기 →</div>
               </div>
             </div>
@@ -660,7 +660,7 @@ export default function App() {
                 </svg>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(31,58,50,0.45)",marginBottom:"0.4rem"}}>마음에 먼저 떠오르는 말</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#1F3A32",marginBottom:"0.5rem"}}>내 마음의 초기화면</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(38,50,44,0.65)",lineHeight:1.8,marginBottom:"0.6rem"}}>말, 감정, 장면으로 내 안에 먼저 올라오는 반응을 적으며 내가 보이는 반응의 출발점을 살펴봅니다.</p>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(38,50,44,0.65)",lineHeight:1.8,marginBottom:"0.6rem"}}>말, 감정, 장면으로 내 안에 먼저 올라오는 반응을 적으며<br/>내가 보이는 반응의 출발점을 살펴봅니다.</p>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#5a7a5a"}}>내 초기화면 적어보기 →</div>
               </div>
             </div>
@@ -681,7 +681,7 @@ export default function App() {
                 </svg>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(31,58,50,0.45)",marginBottom:"0.4rem"}}>반복이 남긴 마음의 결</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"#1F3A32",marginBottom:"0.5rem"}}>내 마음의 운영체계</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(38,50,44,0.65)",lineHeight:1.8,marginBottom:"0.6rem"}}>하나의 반응아래 더 깊은 곳에서는 내가 자주 사용하는 생각의 길이 있습니다. 그 길이 어떻게 생겼는지 살펴봅니다.</p>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(38,50,44,0.65)",lineHeight:1.8,marginBottom:"0.6rem"}}>내가 하는 반응 아래 깊은 곳에는 자주 사용하는 생각의 길이 있습니다.<br/>그 길이 어떻게 생겼는지 살펴봅니다.</p>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#5a5438"}}>내 운영체계 확인하기 →</div>
               </div>
             </div>
@@ -707,9 +707,9 @@ export default function App() {
                   <circle cx="36" cy="25" r="2" fill="none" stroke="#c9a84c" strokeWidth="1.2"/>
                   <circle cx="43" cy="25" r="2" fill="none" stroke="#c9a84c" strokeWidth="1.2"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(175,200,207,0.6)",marginBottom:"0.4rem"}}>익숙한 선택 옆에 다시 열리는 새로운 가능성</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(175,200,207,0.6)",marginBottom:"0.4rem"}}>다시 열리는 새로운 가능성</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"rgba(247,242,232,0.9)",marginBottom:"0.5rem"}}>내 마음의 새 창</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(247,242,232,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>짧은 객관식 질문을 따라가며 내가 늘 하던 선택 외에 새롭게 볼 수 있는 지점들을 확인해 봅니다.</p>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(247,242,232,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>짧은 객관식 질문을 따라가며 늘 하던 선택 외에 <br/>새로운 선택들을 확인해 봅니다.</p>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#AFC8CF"}}>새 창 열기 →</div>
               </div>
             </div>
