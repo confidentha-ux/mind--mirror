@@ -272,7 +272,7 @@ export default function Comprehensive({ onBack, onNext }) {
             fontFamily: "'Source Serif 4', serif",
             fontSize: "0.93rem", fontWeight: 300,
             color: "rgba(247,242,232,0.6)", lineHeight: 1.9,
-          }}>지금까지의 답들이 모두 같은 방향을 가리키지 않을 수 있습니다. 반복된 길들 사이 새로 열린 가능성을 함께 찾도록 비춰드릴게요.</p>
+          }}>지금까지의 답들이 모두 같은 방향을 가리키지 않을 수 있습니다.<br/>반복된 길들 사이 새로 열린 가능성을 함께 찾도록 비춰드릴게요.</p>
         </div>
 
          {/* 오늘의 한 문장 */}
