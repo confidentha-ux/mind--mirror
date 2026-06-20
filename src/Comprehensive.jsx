@@ -264,7 +264,7 @@ export default function Comprehensive({ onBack, onNext }) {
             color: "rgba(247,242,232,0.6)", lineHeight: 1.9,
          }}>내 마음의 전체화면은 앞선 결과를 다시 요약하지 않습니다. 답들 사이에서 반복되는 흐름과, 유난히 다르게 빛나는 지점을 함께 봅니다.</p>
 <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(247,242,232,0.6)", lineHeight: 1.9, marginBottom: "0.75rem" }}>나는 어디에서 익숙한 나로 돌아갔고, 어디에서 다른 가능성을 보였을까요?</p>
-<p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(247,242,232,0.6)", lineHeight: 1.9, marginBottom: "0.75rem" }}>이제 흩어져 있던 답들이 하나의 장면으로 모입니다.
+<p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(247,242,232,0.6)", lineHeight: 1.9, marginBottom: "0.75rem" }}>이제 흩어져 있던 답들이 하나의 장면으로 모입니다.</p>
          </div>
 
         {/* 오늘의 한 문장 */}
