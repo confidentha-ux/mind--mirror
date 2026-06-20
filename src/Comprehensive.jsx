@@ -403,6 +403,3 @@ export default function Comprehensive({ onBack, onNext }) {
     </div>
   );
 }
-```
-
-핵심 수정: AI 교차 분석 `<div>`에 `marginBottom: "3rem"` 추가하고 닫는 태그 위치 바로잡았어. 이걸로 배포하면 에러 사라질 거야.
