@@ -626,8 +626,8 @@ export default function Oracle({ onBack, onComprehensive }) {
           <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, fontStyle: "italic", color: "#F7F2E8", lineHeight: 1.2, marginBottom: "2rem" }}>새로 열리는 가능성</h1>
 
           <div style={{ marginBottom: "1.5rem" }}>
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(247,242,232,0.75)", lineHeight: 2.1, marginBottom: "0.75rem" }}>지금까지는 내가 먼저 향하는 방향과 반복되는 선택들의 구조를 살펴보았습니다. 이제는 그 방식 옆에 아직 보지 못한 질문을 하나 더 열어봅니다.</p>
-            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", color: "#AFC8CF", lineHeight: 2, marginBottom: "0.75rem" }}>짧은 객관식 질문을 따라가며 내가 늘 하던 선택 외에 새롭게 시도해 볼 수 있는 지점들을 확인하려 합니다.</p>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(247,242,232,0.75)", lineHeight: 2.1, marginBottom: "0.75rem" }}>지금까지는 내가 먼저 향하는 방향과 <br/>반복되는 선택들의 구조를 살펴보았습니다. <br/>이제는 그 방식 옆에 아직 보지 못한 질문을 하나 더 열어봅니다.</p>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", color: "#AFC8CF", lineHeight: 2, marginBottom: "0.75rem" }}>짧은 객관식 질문을 따라가며<br/> 내가 늘 하던 선택 외에 새롭게 시도해 볼 수 있는 지점들을 확인하려 합니다.</p>
           </div>
 
           <div style={{ background: "rgba(175,200,207,0.1)", borderLeft: "3px solid #AFC8CF", padding: "1.1rem 1.25rem", marginBottom: "2rem" }}>
