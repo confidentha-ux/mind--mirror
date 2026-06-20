@@ -180,11 +180,10 @@ export default function Comprehensive({ onBack, onNext }) {
 
   async function generateComprehensive() {
     setLoading(true);
-    const parts = [];
-    if (quick) parts.push(`[내 디폴트 값 찾기]\n유형: ${quick.type}\n${quick.desc}\n${quick.detail || ""}`);
-    if (result1) parts.push(`[내 마음의 첫화면 — 감정과 관계 패턴]\n${result1}`);
-    if (result2) parts.push(`[내 마음의 OS — 사고 구조]\n${result2}`);
-    if (oracleRaw) parts.push(`[내 마음의 새창열기 — 오라클]\n${oracleRaw}`);
+    if (quick) parts.push(`[첫 번째 검사 – 기본 성향]\n유형: ${quick.type}\n${quick.desc}\n${quick.de`
+if (result1) parts.push(`[두 번째 검사 – 감정과 관계 패턴]\n${result1}`);
+if (result2) parts.push(`[세 번째 검사 – 사고 구조]\n${result2}`);
+if (oracleRaw) parts.push(`[네 번째 검사 – 가능성 탐색]\n${oracleRaw}`);
 
     try {
       const res = await fetch("/api/analyze", {
