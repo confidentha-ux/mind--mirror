@@ -1,3 +1,6 @@
+아래 전체 코드로 `src/Comprehensive.jsx` 교체해:
+
+```jsx
 import { useState, useEffect, useRef } from "react";
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
@@ -45,9 +48,8 @@ const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니�
 지금 이 순간 가장 의미 있어 보이는 관찰 하나.
 질문 형식으로 끝낼 것.
 
-한국어로 작성하네요.`;
+한국어로 작성하세요.`;
 
-// Canvas 해돋이 애니메이션
 function SunriseCanvas() {
   const canvasRef = useRef(null);
   const animRef = useRef(null);
@@ -67,7 +69,6 @@ function SunriseCanvas() {
     function draw() {
       ctx.clearRect(0, 0, 480, 200);
 
-      // 바깥 햇살
       const op1 = Math.max(0, 0.12 + 0.2 * Math.sin(t));
       for (const deg of [-90, -75, -60, 90, 75, 60]) {
         const p = rayPoint(deg, R);
@@ -75,7 +76,6 @@ function SunriseCanvas() {
         ctx.strokeStyle = `rgba(201,168,76,${op1})`; ctx.lineWidth = 0.8; ctx.stroke();
       }
 
-      // 중간 햇살
       const op2 = Math.max(0, 0.22 + 0.3 * Math.sin(t + 0.8));
       for (const deg of [-45, -30, 45, 30]) {
         const p = rayPoint(deg, R);
@@ -83,7 +83,6 @@ function SunriseCanvas() {
         ctx.strokeStyle = `rgba(201,168,76,${op2})`; ctx.lineWidth = 1; ctx.stroke();
       }
 
-      // 중심 햇살
       const op3 = Math.max(0, 0.45 + 0.4 * Math.sin(t + 1.6));
       for (const deg of [-15, 0, 15]) {
         const p = rayPoint(deg, R);
@@ -91,7 +90,6 @@ function SunriseCanvas() {
         ctx.strokeStyle = `rgba(201,168,76,${op3})`; ctx.lineWidth = 1.3; ctx.stroke();
       }
 
-      // 수평선 근처 촘촘한 햇살
       const opH = Math.max(0, 0.55 + 0.35 * Math.sin(t + 0.3));
       for (let deg = -90; deg <= 90; deg += 5) {
         if (Math.abs(deg) < 45) continue;
@@ -101,7 +99,6 @@ function SunriseCanvas() {
         ctx.lineWidth = 0.6; ctx.stroke();
       }
 
-      // 동심 반원
       [150, 110, 75].forEach((r, i) => {
         const ops = [op1, op2, op3];
         ctx.beginPath();
@@ -110,11 +107,9 @@ function SunriseCanvas() {
         ctx.lineWidth = 0.6; ctx.stroke();
       });
 
-      // 수평선
       ctx.beginPath(); ctx.moveTo(0, cy); ctx.lineTo(480, cy);
       ctx.strokeStyle = "rgba(240,237,232,0.6)"; ctx.lineWidth = 1.5; ctx.stroke();
 
-      // 태양 — 반원
       const glowOp = Math.max(0, 0.5 + 0.4 * Math.sin(t));
       ctx.beginPath(); ctx.arc(cx, cy, 58, Math.PI, 0, false);
       ctx.closePath(); ctx.fillStyle = `rgba(201,168,76,${glowOp * 0.12})`; ctx.fill();
@@ -170,7 +165,6 @@ export default function Comprehensive({ onBack, onNext }) {
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
 
-  // localStorage
   const quickRaw = localStorage.getItem("mindmirror_quicktest");
   const result1 = localStorage.getItem("mindmirror_result1") || "";
   const result2 = localStorage.getItem("mindmirror_result2") || "";
@@ -275,94 +269,93 @@ export default function Comprehensive({ onBack, onNext }) {
           }}>지금까지의 답들이 모두 같은 방향을 가리키지 않을 수 있습니다.<br/>반복된 길들 사이 새로 열린 가능성을 함께 찾도록 비춰드릴게요.</p>
         </div>
 
-         {/* 오늘의 한 문장 */}
-          {today && (
-            <div style={{ marginBottom: "2.5rem" }}>
-              <div style={{
+        {/* 오늘의 한 문장 */}
+        {today && (
+          <div style={{ marginBottom: "2.5rem" }}>
+            <div style={{
+              fontFamily: "'Source Serif 4', serif",
+              fontSize: "0.62rem", letterSpacing: "0.25em",
+              textTransform: "uppercase", color: "rgba(201,168,76,0.45)",
+              marginBottom: "0.4rem",
+            }}>오늘의 한 문장 · {today.date}</div>
+            <div style={{ width: "100%", height: "1px", background: "rgba(201,168,76,0.2)", marginBottom: "1rem" }} />
+            <div style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "1.1rem", fontStyle: "italic",
+              color: "#c9a84c", lineHeight: 1.85,
+            }}>"{today.sentence}"</div>
+          </div>
+        )}
+
+        {/* AI 교차 분석 */}
+        <div style={{ marginBottom: "3rem" }}>
+          {!comprehensive && !loading && (
+            <div>
+              <p style={{
                 fontFamily: "'Source Serif 4', serif",
-                fontSize: "0.62rem", letterSpacing: "0.25em",
-                textTransform: "uppercase", color: "rgba(201,168,76,0.45)",
-                marginBottom: "0.4rem",
-              }}>오늘의 한 문장 · {today.date}</div>
-              <div style={{ width: "100%", height: "1px", background: "rgba(201,168,76,0.2)", marginBottom: "1rem" }}/>
-              <div style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "1.1rem", fontStyle: "italic",
-                color: "#c9a84c", lineHeight: 1.85,
-              }}>"{today.sentence}"</div>
+                fontSize: "0.88rem", fontWeight: 300,
+                color: "rgba(240,237,232,0.4)", lineHeight: 1.9,
+                marginBottom: "1.25rem",
+              }}>
+                {hasAny
+                  ? "지금까지의 답들은 모두 같은 방향을 가리키지 않을 수 있습니다. 반복된 길과 새로 열린 가능성을 함께 비춰드릴게요."
+                  : "도구를 하나 이상 완료하면 전체화면을 시작할 수 있어요."}
+              </p>
+              {hasAny && (
+                <button
+                  onClick={generateComprehensive}
+                  style={{
+                    background: "none",
+                    border: "1px solid rgba(201,168,76,0.4)",
+                    color: "rgba(240,237,232,0.7)",
+                    fontFamily: "'Source Serif 4', serif",
+                    fontSize: "0.78rem", letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    padding: "0.65rem 1.5rem", cursor: "pointer",
+                  }}
+                >전체화면 보기 →</button>
+              )}
             </div>
           )}
 
-          {/* AI 교차 분석 */}
-          <div>
-            {!comprehensive && !loading && (
-              <div>
-                <p style={{
-                  fontFamily: "'Source Serif 4', serif",
-                  fontSize: "0.88rem", fontWeight: 300,
-                  color: "rgba(240,237,232,0.4)", lineHeight: 1.9,
-                  marginBottom: "1.25rem",
-                }}>
-                  {hasAny
-                    ? "지금까지의 답들은 모두 같은 방향을 가리키지 않을 수 있습니다. 반복된 길과 새로 열린 가능성을 함께 비춰드릴게요."
-                    : "도구를 하나 이상 완료하면 전체화면을 시작할 수 있어요."}
-                </p>
-                {hasAny && (
-                  <button
-                    onClick={generateComprehensive}
-                    style={{
-                      background: "none",
-                      border: "1px solid rgba(201,168,76,0.4)",
-                      color: "rgba(240,237,232,0.7)",
+          {loading && (
+            <p style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: "0.95rem", fontStyle: "italic",
+              color: "rgba(240,237,232,0.4)",
+              animation: "breathe 2s ease-in-out infinite",
+            }}>어긋난 답도 중요한 답입니다. 잠시 후, 당신의 답들이 나의 전체 화면으로 모입니다...</p>
+          )}
+
+          {comprehensive && !loading && (
+            <div>
+              {[
+                { key: "네 개의 거울이 가리킨 곳", eyebrow: "네 개의 거울이 가리킨 곳" },
+                { key: "반복되는 구조", eyebrow: "반복되는 구조" },
+                { key: "네 결과가 함께 드러낸 것", eyebrow: "네 결과가 함께 드러낸 것" },
+                { key: "오늘의 당신에게", eyebrow: "오늘의 당신에게" },
+              ].map(({ key, eyebrow }) => {
+                const content = parseSection(comprehensive, key);
+                return content ? (
+                  <div key={key} style={{ marginBottom: "1.75rem" }}>
+                    <div style={{
                       fontFamily: "'Source Serif 4', serif",
-                      fontSize: "0.78rem", letterSpacing: "0.18em",
+                      fontSize: "0.6rem", letterSpacing: "0.22em",
                       textTransform: "uppercase",
-                      padding: "0.65rem 1.5rem", cursor: "pointer",
-                    }}
-                  >전체화면 보기 →</button>
-                )}
-              </div>
-            )}
-
-            {loading && (
-              <p style={{
-                fontFamily: "'Playfair Display', serif",
-                fontSize: "0.95rem", fontStyle: "italic",
-                color: "rgba(240,237,232,0.4)",
-                animation: "breathe 2s ease-in-out infinite",
-              }}>어긋난 답도 중요한 답입니다. 잠시 후, 당신의 답들이 나의 전체 화면으로 모입니다...</p>
-            )}
-
-            {comprehensive && !loading && (
-              <div>
-                {[
-                  { key: "네 개의 거울이 가리킨 곳", eyebrow: "네 개의 거울이 가리킨 곳" },
-                  { key: "반복되는 구조", eyebrow: "반복되는 구조" },
-                  { key: "네 결과가 함께 드러낸 것", eyebrow: "네 결과가 함께 드러낸 것" },
-                  { key: "오늘의 당신에게", eyebrow: "오늘의 당신에게" },
-                ].map(({ key, eyebrow }) => {
-                  const content = parseSection(comprehensive, key);
-                  return content ? (
-                    <div key={key} style={{ marginBottom: "1.75rem" }}>
-                      <div style={{
-                        fontFamily: "'Source Serif 4', serif",
-                        fontSize: "0.6rem", letterSpacing: "0.22em",
-                        textTransform: "uppercase",
-                        color: "rgba(201,168,76,0.35)",
-                        marginBottom: "0.6rem",
-                      }}>{eyebrow}</div>
-                      <div style={{
-                        fontFamily: "'Source Serif 4', serif",
-                        fontSize: "0.9rem", fontWeight: 300,
-                        color: "rgba(240,237,232,0.65)",
-                        lineHeight: 2, whiteSpace: "pre-wrap",
-                      }}>{content}</div>
-                    </div>
-                  ) : null;
-                })}
-              </div>
-            )}
-          </div>
+                      color: "rgba(201,168,76,0.35)",
+                      marginBottom: "0.6rem",
+                    }}>{eyebrow}</div>
+                    <div style={{
+                      fontFamily: "'Source Serif 4', serif",
+                      fontSize: "0.9rem", fontWeight: 300,
+                      color: "rgba(240,237,232,0.65)",
+                      lineHeight: 2, whiteSpace: "pre-wrap",
+                    }}>{content}</div>
+                  </div>
+                ) : null;
+              })}
+            </div>
+          )}
         </div>
 
         {/* 버튼 */}
@@ -413,3 +406,6 @@ export default function Comprehensive({ onBack, onNext }) {
     </div>
   );
 }
+```
+
+핵심 수정: AI 교차 분석 `<div>`에 `marginBottom: "3rem"` 추가하고 닫는 태그 위치 바로잡았어. 이걸로 배포하면 에러 사라질 거야.
