@@ -567,7 +567,7 @@ export default function Oracle({ onBack, onComprehensive }) {
           transition: all 0.3s; margin-bottom: 0.45rem; border-radius: 1px; line-height: 1.5;
         }
         .oracle-option:hover { background: rgba(247,242,232,0.15); border-color: rgba(247,242,232,0.4); color: #F7F2E8; }
-.oracle-option.selected { background: rgba(184,154,94,0.2); border-color: #B89A5E; color: #F7F2E8; }
+.oracle-option.selected { background: rgba(175,200,207,0.2); border-color: #AFC8CF; color: #F7F2E8; }
         .oracle-btn {
           background: transparent; border: 1px solid rgba(247,242,232,0.4);
           color: rgba(247,242,232,0.75); font-family: 'Source Serif 4', serif;
