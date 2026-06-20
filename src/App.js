@@ -710,7 +710,7 @@ export default function App() {
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(175,200,207,0.6)",marginBottom:"0.4rem"}}>다시 열리는 새로운 가능성</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",fontStyle:"italic",color:"rgba(247,242,232,0.9)",marginBottom:"0.5rem"}}>내 마음의 새 창</div>
                 <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(247,242,232,0.55)",lineHeight:1.8,marginBottom:"0.6rem"}}>짧은 객관식 질문을 따라가며 늘 하던 선택 외에 <br/>새로운 선택들을 확인해 봅니다.</p>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#AFC8CF"}}>새 창 열기 →</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"#AFC8CF"}}> 새 창 열기 →</div>
               </div>
             </div>
 
