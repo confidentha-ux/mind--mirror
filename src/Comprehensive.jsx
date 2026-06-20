@@ -267,24 +267,15 @@ export default function Comprehensive({ onBack, onNext }) {
             fontWeight: 400, fontStyle: "italic",
             color: "rgba(247,242,232,0.9)",
             lineHeight: 1.15, marginBottom: "2rem",
-          }}>반복된 것과<br/>어긋난 것이<br/>함께 보일 때.</h1>
+          }}>반복된 것과 어긋난 것이 함께 보일 때</h1>
           <p style={{
             fontFamily: "'Source Serif 4', serif",
             fontSize: "0.93rem", fontWeight: 300,
             color: "rgba(247,242,232,0.6)", lineHeight: 1.9,
-          }}>지금까지의 답들은 모두 같은 방향을 가리키지 않을 수 있습니다. 반복된 길과 새로 열린 가능성을 함께 비춰드릴게요.</p>
+          }}>지금까지의 답들이 모두 같은 방향을 가리키지 않을 수 있습니다. 반복된 길들 사이 새로 열린 가능성을 함께 찾도록 비춰드릴게요.</p>
         </div>
 
-        {/* 골드 더블 테두리 액자 */}
-        <div style={{
-          position: "relative",
-          padding: "3rem 2.5rem",
-          border: "4px solid #c9a84c",
-          boxShadow: "inset 0 0 0 8px #1F3A32, inset 0 0 0 10px rgba(184,154,94,0.2)",
-          marginBottom: "3rem",
-        }}>
-
-          {/* 오늘의 한 문장 */}
+         {/* 오늘의 한 문장 */}
           {today && (
             <div style={{ marginBottom: "2.5rem" }}>
               <div style={{
@@ -339,7 +330,7 @@ export default function Comprehensive({ onBack, onNext }) {
                 fontSize: "0.95rem", fontStyle: "italic",
                 color: "rgba(240,237,232,0.4)",
                 animation: "breathe 2s ease-in-out infinite",
-              }}>어긋난 답도 중요한 답입니다. 잠시 후, 당신의 답들이 하나의 장면으로 모입니다...</p>
+              }}>어긋난 답도 중요한 답입니다. 잠시 후, 당신의 답들이 나의 전체 화면으로 모입니다...</p>
             )}
 
             {comprehensive && !loading && (
