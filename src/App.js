@@ -691,8 +691,16 @@ export default function App() {
                 <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#F7F2E8"}}>04</span>
               </div>
               <div onClick={() => setShowOracle(true)} style={{background:"#1F3A32",padding:"1.35rem 1.6rem",border:"1px solid #8FA8A0",position:"relative",overflow:"hidden",minHeight:160}}>
-                <svg width="90" height="80" viewBox="0 0 90 80" style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",opacity:0.2,pointerEvents:"none"}}>
-                  <rect x="2" y="2" width="60" height="46" rx="3" fill="none" stroke="#8FA8A0" strokeWidth="1.8"/>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="90" height="90" style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",opacity:0.4,pointerEvents:"none"}}>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#8FA8A0" strokeWidth="1" opacity="0.3"/>
+  <circle cx="100" cy="100" r="78" fill="none" stroke="#8FA8A0" strokeWidth="1" opacity="0.4"/>
+  <circle cx="100" cy="100" r="66" fill="none" stroke="#8FA8A0" strokeWidth="1.2" opacity="0.5"/>
+  <circle cx="100" cy="100" r="54" fill="none" stroke="#8FA8A0" strokeWidth="1.2" opacity="0.6"/>
+  <circle cx="100" cy="100" r="42" fill="none" stroke="#8FA8A0" strokeWidth="1.5" opacity="0.7"/>
+  <circle cx="100" cy="100" r="30" fill="none" stroke="#8FA8A0" strokeWidth="1.5" opacity="0.8"/>
+  <circle cx="100" cy="100" r="18" fill="none" stroke="#8FA8A0" strokeWidth="2" opacity="0.9"/>
+  <circle cx="100" cy="100" r="7" fill="#8FA8A0" opacity="0.9"/>
+</svg>
                   <line x1="2" y1="12" x2="62" y2="12" stroke="#8FA8A0" strokeWidth="1.8"/>
                   <circle cx="9" cy="7" r="2" fill="none" stroke="#8FA8A0" strokeWidth="1.2"/>
                   <circle cx="16" cy="7" r="2" fill="none" stroke="#8FA8A0" strokeWidth="1.2"/>
