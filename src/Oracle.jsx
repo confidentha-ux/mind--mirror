@@ -3,128 +3,122 @@ import { useState, useEffect, useRef } from "react";
 const ORACLE_QUESTIONS = [
   {
     id: 1,
-    title: "에너지",
-    question: "지난 일주일을 떠올려보세요.\n당신의 삶에서 가장 많은 자리를 차지한 것은 무엇입니까?",
+    title: "선택 후",
+    question: "선택을 끝낸 뒤, 나는 주로 무엇을 다시 생각하는가?",
     options: [
-      "정보를 찾고 공부하는 일",
-      "사람들과 이야기하거나 관계를 유지하는 일",
-      "해야 할 일을 처리하는 일",
-      "혼자 생각하고 정리하는 일",
-      "새로운 가능성을 탐색하는 일",
-      "버티고 회복하는 일",
+      "내가 놓친 정보가 있었는지",
+      "더 빨리 움직였어야 했는지",
+      "상대가 어떻게 받아들였을지",
+      "위험한 선택은 아니었는지",
+      "다른 가능성을 닫아버린 건 아닌지",
+      "이 선택이 내 삶의 방향과 맞는지",
+      "내가 왜 이렇게 불편한지",
     ],
   },
   {
     id: 2,
-    title: "반복 장면",
-    question: "당신의 삶이 영화라면,\n반복되는 장면은 무엇입니까?",
+    title: "불편함",
+    question: "결정한 뒤에도 마음이 편하지 않을 때, 나는 보통 무엇을 의심하는가?",
     options: [
-      "출발선에 서 있지만 아직 뛰지 않는 장면",
-      "짐을 싸다가 다시 내려놓는 장면",
-      "사람들 사이에서 혼자 조용히 맞춰가는 장면",
-      "지도 없이 혼자 걷고 있는 장면",
-      "새로운 문을 열었다가 다시 닫는 장면",
-      "같은 교차로에서 다시 멈추는 장면",
+      "내 판단이 충분히 정확했는가",
+      "내가 너무 늦게 행동했는가",
+      "누군가를 실망시킨 것은 아닌가",
+      "손해나 문제가 생기지는 않을까",
+      "더 좋은 길이 있었던 것은 아닐까",
+      "이게 정말 내가 원하는 길인가",
+      "내 감정이 나에게 무엇을 말하고 있는가",
     ],
   },
   {
     id: 3,
-    title: "반복 독백",
-    question: "마음속으로 스스로에게\n되뇌이듯 하는 말은 무엇입니까?",
+    title: "자기변명",
+    question: "내가 자주 하는 자기변명은 무엇인가?",
     options: [
-      "아직 준비가 덜 됐다",
-      "지금은 때가 아니다",
-      "언젠가는 알게 될 것이다",
-      "누가 답을 알려주면 좋겠다",
-      "내가 원하는 게 뭔지 모르겠다",
-      "나는 원래 이런 사람이다",
+      "\"더 알아보고 결정하려고 했을 뿐이야.\"",
+      "\"일단 해봐야 알잖아.\"",
+      "\"사람 마음을 생각하지 않을 수 없잖아.\"",
+      "\"조심해서 나쁠 건 없잖아.\"",
+      "\"가능성을 열어두는 게 중요하잖아.\"",
+      "\"의미 없는 일은 하고 싶지 않았어.\"",
+      "\"그때 내 마음이 너무 힘들었어.\"",
     ],
   },
   {
     id: 4,
-    title: "회피",
-    question: "스스로 생각하기에\n자신이 미루는 일은 어떤 종류입니까?",
+    title: "감정",
+    question: "선택 후에 내가 가장 자주 느끼는 감정은?",
     options: [
-      "오래 미뤄온 결정",
-      "누군가와 나눠야 할 진짜 대화",
-      "시작하면 돌아올 수 없을 것 같은 일",
-      "아무도 없을 때 찾아오는 나 자신",
-      "끝내야 하는데 손이 가지 않는 일",
-      "특별히 떠오르지 않는다",
+      "찜찜함 — 더 정확히 알았어야 했다는 느낌",
+      "답답함 — 더 빨리 했어야 했다는 느낌",
+      "미안함 — 누군가에게 영향을 준 것 같다는 느낌",
+      "불안함 — 문제가 생길 것 같다는 느낌",
+      "아쉬움 — 다른 가능성을 놓친 것 같다는 느낌",
+      "허무함 — 이게 무슨 의미인지 모르겠다는 느낌",
+      "피로감 — 감정적으로 너무 많이 소모됐다는 느낌",
     ],
   },
   {
     id: 5,
-    title: "감정",
-    question: "지난 한 달간\n불현듯 자신에게 많이 찾아온 감정은 무엇입니까?",
+    title: "혼잣말",
+    question: "일이 끝난 뒤, 내가 가장 자주 하는 말은?",
     options: [
-      "뭔가 곧 일어날 것 같은 두근거림",
-      "이유 없이 긴장이 풀리지 않는 느낌",
-      "해야 할 말이 목 안에 걸려 있는 느낌",
-      "아무도 없는 방에 혼자 있는 느낌",
-      "다 해도 아무것도 없는 것 같은 느낌",
-      "말로 설명이 안 되는 무언가",
+      "\"분석을 더 했어야 했어.\"",
+      "\"그냥 바로 했어야 했어.\"",
+      "\"그 사람 입장을 더 생각했어야 했어.\"",
+      "\"처음부터 위험했어.\"",
+      "\"다른 방법도 있었을 텐데.\"",
+      "\"이게 나에게 맞는 일이었나?\"",
+      "\"내가 왜 이렇게 힘들었지?\"",
     ],
   },
   {
     id: 6,
-    title: "갈망",
-    question: "당신이 당신의 인생에서\n늘 원했던 것은 어떤 종류입니까?",
+    title: "붙잡힘",
+    question: "나를 가장 오래 붙잡는 것은 무엇인가?",
     options: [
-      "안정과 안전",
-      "사랑과 연결",
-      "자유와 여유",
-      "성장과 변화",
-      "이해와 인정",
-      "의미와 목적",
+      "이해되지 않는 원인",
+      "하지 못한 행동",
+      "어긋난 관계",
+      "예상하지 못한 위험",
+      "사라진 가능성",
+      "잃어버린 의미",
+      "정리되지 않은 감정",
     ],
   },
   {
     id: 7,
-    title: "관계",
-    question: "주변 사람들과의 관계에서\n반복되는 장면은 무엇입니까?",
+    title: "바꾸고 싶은 것",
+    question: "같은 상황이 다시 온다면, 나는 무엇을 바꾸고 싶은가?",
     options: [
-      "먼저 다가가지 못하고 기다린다",
-      "맞춰주다가 어느 순간 멀어진다",
-      "가까워질수록 조심스러워진다",
-      "혼자 해결하고 나중에 말한다",
-      "말하고 싶지만 때를 놓친다",
-      "관계보다 일이나 생각이 먼저다",
+      "더 정확한 기준을 세우고 싶다",
+      "더 빨리 움직이고 싶다",
+      "내 선택과 타인의 반응을 분리하고 싶다",
+      "위험을 보되 멈추지는 않고 싶다",
+      "가능성을 보되 하나는 선택하고 싶다",
+      "의미를 찾되 실행도 하고 싶다",
+      "감정을 느끼되 감정에 끌려가지는 않고 싶다",
     ],
   },
   {
     id: 8,
-    title: "미완성",
-    question: "당신의 마음 한구석에\n오래전부터 남아 있는 것은 무엇입니까?",
-    options: [
-      "하지 못한 선택",
-      "끝내지 못한 일",
-      "놓친 관계",
-      "이루지 못한 꿈",
-      "답을 얻지 못한 질문",
-      "특별히 떠오르지 않는다",
-    ],
+    title: "반복 장면",
+    question: "당신의 삶이 영화라면, 반복되는 장면은?",
+    type: "text",
   },
   {
     id: 9,
     title: "문",
-    question: "만약 지금 당신 앞에\n오래전부터 서 있었던 문이 하나 있다면,\n그 문 너머에는 무엇이 있을 것 같습니까?",
-    type: "text",
-  },
-  {
-    id: 10,
-    title: "마지막",
-    question: "지금 이 순간, 문득 떠오르는 것은?\n(장면, 얼굴, 하고 싶은 말)",
+    question: "지금 당신 앞에 오래전부터 서 있었던 문이 하나 있다면,\n그 너머에는?",
     type: "text",
   },
 ];
 
-const ORACLE_SYSTEM_PROMPT = `당신은 Story Oracle이다.
+const ORACLE_SYSTEM_PROMPT = `당신은 마음거울의 분석가이다.
 
 당신의 역할은 사용자를 진단하거나 평가하는 것이 아니다.
 당신은 사용자의 답변 속에서 반복되는 패턴, 긴장, 갈망, 모순을 발견하고 그것을 비추어 주는 존재이다.
 당신은 심리학자도, 상담사도, 점쟁이도 아니다.
-당신은 사용자가 스스로 자기 삶의 저자가 되도록 돕는 오라클이다.
+당신은 사용자가 스스로 자기 삶의 저자가 되도록 돕는 거울이다.
 
 절대 하지 말 것:
 - 사용자를 유형으로 규정하지 말 것
@@ -135,7 +129,7 @@ const ORACLE_SYSTEM_PROMPT = `당신은 Story Oracle이다.
 
 언어 원칙:
 - 반드시 존댓말로 쓸 것. ~요, ~습니다 형식으로. 반말 절대 금지.
-- 신탁의 목소리로 말할 것. 짧고 시적이고 여백이 있어야 한다
+- 짧고 시적이고 여백이 있어야 한다
 - 각 섹션은 간결하게. 전체가 하나의 흐름처럼 읽혀야 한다
 - Oracle 섹션은 반드시 "혹시" 또는 "어쩌면"으로 시작하는 문장을 포함한다
 - Empowerment는 단 한 문장의 질문으로 끝낸다
@@ -272,21 +266,6 @@ const VaseSVG = ({ flowersVisible = 0 }) => (
       <ellipse cx="57" cy="-160" rx="7" ry="13" fill="none" stroke="#F7F2E8" strokeWidth="1" transform="rotate(300 57 -160)"/>
       <circle cx="57" cy="-160" r="6" fill="none" stroke="#F7F2E8" strokeWidth="1.2"/>
     </g>}
-    {flowersVisible >= 10 && <g>
-      <line x1="80" y1="18" x2="80" y2="-145" stroke="#F7F2E8" strokeWidth="1.4"/>
-      <path d="M80,-35 Q98,-47 96,-29" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
-      <path d="M80,-90 Q62,-102 64,-84" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
-      <circle cx="80" cy="-163" r="18" fill="none" stroke="#F7F2E8" strokeWidth="1.2"/>
-      <circle cx="80" cy="-163" r="12" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
-      <circle cx="80" cy="-163" r="7" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
-      <circle cx="80" cy="-163" r="3" fill="#F7F2E8" opacity="0.35"/>
-      <path d="M80,-181 Q88,-172 80,-163 Q72,-172 80,-181" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
-      <path d="M80,-145 Q72,-154 80,-163 Q88,-154 80,-145" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
-      <path d="M62,-163 Q71,-155 80,-163 Q71,-171 62,-163" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
-      <path d="M98,-163 Q89,-171 80,-163 Q89,-155 98,-163" fill="none" stroke="#F7F2E8" strokeWidth="1"/>
-      <path d="M68,-150 Q74,-159 80,-163 Q74,-167 68,-176" fill="none" stroke="#F7F2E8" strokeWidth="0.8"/>
-      <path d="M92,-150 Q86,-159 80,-163 Q86,-167 92,-176" fill="none" stroke="#F7F2E8" strokeWidth="0.8"/>
-    </g>}
     <ellipse cx="80" cy="22" rx="20" ry="5" fill="none" stroke="#F7F2E8" strokeWidth="1.8" strokeLinecap="round"/>
     <path d="M60,22 Q56,38 52,52" fill="none" stroke="#F7F2E8" strokeWidth="1.8" strokeLinecap="round"/>
     <path d="M100,22 Q104,38 108,52" fill="none" stroke="#F7F2E8" strokeWidth="1.8" strokeLinecap="round"/>
@@ -323,7 +302,7 @@ function TodaySentence({ onSave }) {
         style={{
           width: "100%",
           background: "rgba(255,255,255,0.07)",
-          border: "1px solid rgba(201,168,76,0.3)",
+          border: "1px solid rgba(143,168,160,0.3)",
           color: "rgba(240,237,232,0.8)",
           fontFamily: "'Source Serif 4', serif",
           fontSize: "0.88rem",
@@ -339,8 +318,8 @@ function TodaySentence({ onSave }) {
         style={{
           marginTop: "0.5rem",
           background: "none",
-          border: "1px solid rgba(201,168,76,0.4)",
-          color: "rgba(201,168,76,0.7)",
+          border: "1px solid rgba(143,168,160,0.4)",
+          color: "rgba(143,168,160,0.7)",
           fontFamily: "'Source Serif 4', serif",
           fontSize: "0.8rem",
           padding: "0.4rem 1.2rem",
@@ -381,17 +360,17 @@ function OracleFeedback() {
     <div>
       {!selected && (
         <div style={{display:"flex",gap:"0.75rem",justifyContent:"center"}}>
-          <button onClick={() => setSelected("yes")} style={{background:"none",border:"1px solid rgba(90,58,138,0.2)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(90,58,138,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>👍 맞아요</button>
-          <button onClick={() => setSelected("no")} style={{background:"none",border:"1px solid rgba(90,58,138,0.2)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(90,58,138,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>👎 아닌 것 같아요</button>
-          <button onClick={() => setSelected("unsure")} style={{background:"none",border:"1px solid rgba(90,58,138,0.2)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(90,58,138,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>🤔 잘 모르겠어요</button>
+          <button onClick={() => setSelected("yes")} style={{background:"none",border:"1px solid rgba(143,168,160,0.2)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(143,168,160,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>👍 맞아요</button>
+          <button onClick={() => setSelected("no")} style={{background:"none",border:"1px solid rgba(143,168,160,0.2)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(143,168,160,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>👎 아닌 것 같아요</button>
+          <button onClick={() => setSelected("unsure")} style={{background:"none",border:"1px solid rgba(143,168,160,0.2)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(143,168,160,0.5)",padding:"0.4rem 1rem",cursor:"pointer"}}>🤔 잘 모르겠어요</button>
         </div>
       )}
-      {selected === "yes" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(90,58,138,0.4)"}}>감사해요.</p>}
-      {selected === "unsure" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(90,58,138,0.4)"}}>그 모르겠다는 느낌도 중요한 정보예요.</p>}
+      {selected === "yes" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(143,168,160,0.4)"}}>감사해요.</p>}
+      {selected === "unsure" && <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(143,168,160,0.4)"}}>그 모르겠다는 느낌도 중요한 정보예요.</p>}
       {selected === "no" && (
         <div>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.85rem",fontWeight:300,color:"rgba(90,58,138,0.55)",lineHeight:1.9,marginBottom:"0.75rem"}}>맞지 않는 부분이 있으신가요?<br/>당신이 느낀 것을 말씀해주세요.</p>
-          <a href="https://forms.gle/1MK9PRZmTBpFsEPN8" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(90,58,138,0.5)",textDecoration:"underline",textUnderlineOffset:"3px"}}>피드백 남기기 →</a>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.85rem",fontWeight:300,color:"rgba(143,168,160,0.55)",lineHeight:1.9,marginBottom:"0.75rem"}}>맞지 않는 부분이 있으신가요?<br/>당신이 느낀 것을 말씀해주세요.</p>
+          <a href="https://forms.gle/1MK9PRZmTBpFsEPN8" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(143,168,160,0.5)",textDecoration:"underline",textUnderlineOffset:"3px"}}>피드백 남기기 →</a>
         </div>
       )}
     </div>
@@ -517,7 +496,7 @@ export default function Oracle({ onBack, onComprehensive }) {
       setOracleText(text);
       setPhase("result");
     } catch (e) {
-      setOracleText("## Reflection\n오라클이 잠시 침묵하고 있습니다.\n\n## Recognition\n다시 시도해주세요.\n\n## Oracle\n어쩌면 지금은 때가 아닐 수 있습니다.\n\n## Story\n문은 여전히 거기 있습니다.\n\n## Empowerment\n다시 문 앞에 서겠습니까?");
+      setOracleText("## Reflection\n마음거울이 잠시 침묵하고 있습니다.\n\n## Recognition\n다시 시도해주세요.\n\n## Oracle\n어쩌면 지금은 때가 아닐 수 있습니다.\n\n## Story\n문은 여전히 거기 있습니다.\n\n## Empowerment\n다시 문 앞에 서겠습니까?");
       setPhase("result");
     }
   }
@@ -538,7 +517,7 @@ export default function Oracle({ onBack, onComprehensive }) {
 
   const parsed = oracleText ? parseOracle(oracleText) : {};
 
-  const bgColor = phase === "result" ? "#F7F2E8" : phase === "final" ? "#1F3A32" : "#1F3A32";
+  const bgColor = phase === "result" ? "#F7F2E8" : "#1F3A32";
 
   return (
     <div style={{
@@ -559,15 +538,15 @@ export default function Oracle({ onBack, onComprehensive }) {
         @keyframes flicker { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.85; } }
         .oracle-appear { animation: fadeUp 1.8s ease forwards; opacity: 0; }
         .oracle-option {
-  width: 100%; background: rgba(247,242,232,0.08);
-  border: 1px solid rgba(247,242,232,0.2);
-  color: rgba(247,242,232,0.8);
+          width: 100%; background: rgba(247,242,232,0.08);
+          border: 1px solid rgba(247,242,232,0.2);
+          color: rgba(247,242,232,0.8);
           font-family: 'Source Serif 4', serif; font-size: 0.87rem; font-weight: 300;
           text-align: left; padding: 0.85rem 1.1rem; cursor: pointer;
           transition: all 0.3s; margin-bottom: 0.45rem; border-radius: 1px; line-height: 1.5;
         }
         .oracle-option:hover { background: rgba(247,242,232,0.15); border-color: rgba(247,242,232,0.4); color: #F7F2E8; }
-.oracle-option.selected { background: rgba(175,200,207,0.2); border-color: #AFC8CF; color: #F7F2E8; }
+        .oracle-option.selected { background: rgba(143,168,160,0.2); border-color: #8FA8A0; color: #F7F2E8; }
         .oracle-btn {
           background: transparent; border: 1px solid rgba(247,242,232,0.4);
           color: rgba(247,242,232,0.75); font-family: 'Source Serif 4', serif;
@@ -584,12 +563,11 @@ export default function Oracle({ onBack, onComprehensive }) {
         }
         .oracle-btn-result:hover { border-color: rgba(90,58,138,0.7); color: #2a1a4a; }
         .door-open-btn {
-          background: transparent; border: 1px solid rgba(247,242,232,0.4); color: #F7F2E8;
-          font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic;
-          cursor: pointer; padding: 1.1rem 3rem; transition: all 0.4s;
-          animation: breathe 3s ease-in-out infinite; letter-spacing: 0.03em;
+          background: rgba(143,168,160,0.15); border: 1px solid #8FA8A0; color: #8FA8A0;
+          font-family: 'Source Serif 4', serif; font-size: 0.82rem; letter-spacing: 0.18em;
+          text-transform: uppercase; cursor: pointer; padding: 1rem 2.5rem; transition: all 0.4s;
         }
-        .door-open-btn:hover { background: rgba(247,242,232,0.07); border-color: #F7F2E8; animation: none; opacity: 1; }
+        .door-open-btn:hover { background: rgba(143,168,160,0.25); border-color: #8FA8A0; opacity: 1; }
         .back-link {
           background: transparent; border: none; color: rgba(247,242,232,0.35);
           font-family: 'Source Serif 4', serif; font-size: 0.7rem;
@@ -614,7 +592,7 @@ export default function Oracle({ onBack, onComprehensive }) {
         .greek { font-family: 'Playfair Display', serif; font-size: 1rem; letter-spacing: 0.2em; font-style: italic; }
       `}</style>
 
-      {phase !== "result" && <VaseSVG flowersVisible={phase === "questions" ? currentQ : phase === "door" || phase === "opening" ? 10 : 0} />}
+      {phase !== "result" && <VaseSVG flowersVisible={phase === "questions" ? currentQ : phase === "door" || phase === "opening" ? 9 : 0} />}
 
       {/* 인트로 */}
       {phase === "intro" && (() => {
@@ -622,30 +600,30 @@ export default function Oracle({ onBack, onComprehensive }) {
         const prev = saved ? JSON.parse(saved) : null;
         return (
         <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1 }}>
-          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#AFC8CF", marginBottom: "1.5rem" }}>내 마음의 새 창</div>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, fontStyle: "italic", color: "#F7F2E8", lineHeight: 1.2, marginBottom: "2rem" }}>새로 열리는 가능성</h1>
+          <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#8FA8A0", marginBottom: "1.5rem" }}>내 마음의 메모리</div>
+          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, fontStyle: "italic", color: "#F7F2E8", lineHeight: 1.2, marginBottom: "2rem" }}>내 마음의 메모리</h1>
 
           <div style={{ marginBottom: "1.5rem" }}>
-            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(247,242,232,0.75)", lineHeight: 2.1, marginBottom: "0.75rem" }}>지금까지는 내가 먼저 향하는 방향과 <br/>반복되는 선택들의 구조를 살펴보았습니다. <br/>이제는 그 방식 옆에 아직 보지 못한 질문을 하나 더 열어봅니다.</p>
-            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", color: "#AFC8CF", lineHeight: 2, marginBottom: "0.75rem" }}>짧은 객관식 질문을 따라가며<br/> 내가 늘 하던 선택 외에 새롭게 시도해 볼 수 있는 지점들을 확인하려 합니다.</p>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(247,242,232,0.75)", lineHeight: 2.1, marginBottom: "0.75rem" }}>선택은 끝났는데도<br/>마음이 다시 열어보는 창이 있습니다.</p>
+            <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(247,242,232,0.75)", lineHeight: 2.1, marginBottom: "0.75rem" }}>사람마다 선택 뒤에 자주 돌아가는 자리가 달라요.<br/>그 자리가 당신이 중요하게 여기는 것을 보여줘요.</p>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.95rem", fontStyle: "italic", color: "#8FA8A0", lineHeight: 2, marginBottom: "0.75rem" }}>가장 가까운 답을 골라주세요.</p>
           </div>
 
-          <div style={{ background: "rgba(175,200,207,0.1)", borderLeft: "3px solid #AFC8CF", padding: "1.1rem 1.25rem", marginBottom: "2rem" }}>
-            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: ".68rem", letterSpacing: ".2em", textTransform: "uppercase", color: "#AFC8CF", marginBottom: ".6rem" }}>시작 전에</div>
+          <div style={{ background: "rgba(143,168,160,0.1)", borderLeft: "3px solid #8FA8A0", padding: "1.1rem 1.25rem", marginBottom: "2rem" }}>
+            <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: ".68rem", letterSpacing: ".2em", textTransform: "uppercase", color: "#8FA8A0", marginBottom: ".6rem" }}>시작 전에</div>
             <div style={{ fontFamily: "'Source Serif 4', serif", fontSize: ".82rem", fontWeight: 300, color: "rgba(247,242,232,0.65)", lineHeight: 1.85, display: "flex", alignItems: "flex-start", gap: ".5rem" }}>
               <span style={{ opacity: .5 }}>—</span>맞고 틀린 답 없어요. 지금 나한테 가장 가까운 걸 고르면 돼요.
             </div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem" }}>
-           <div style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#AFC8CF", marginBottom: "1.5rem" }}>내 마음의 새 창</div>
             {prev && (
-              <div style={{ marginBottom: "0.5rem", padding: "1rem 1.25rem", border: "1px solid rgba(175,200,207,0.2)", width: "100%" }}>
-                <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(175,200,207,0.4)", marginBottom: "0.4rem" }}>지난번 당신의 한 문장 ({prev.date})</p>
+              <div style={{ marginBottom: "0.5rem", padding: "1rem 1.25rem", border: "1px solid rgba(143,168,160,0.2)", width: "100%" }}>
+                <p style={{ fontFamily: "'Source Serif 4', serif", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(143,168,160,0.4)", marginBottom: "0.4rem" }}>지난번 당신의 한 문장 ({prev.date})</p>
                 <p style={{ fontFamily: "'Playfair Display', serif", fontSize: "0.9rem", fontStyle: "italic", color: "rgba(247,242,232,0.6)", lineHeight: 1.8 }}>"{prev.sentence}"</p>
               </div>
             )}
-            <button className="oracle-btn" onClick={() => setPhase("questions")}>새 창 열기</button>
+            <button className="door-open-btn" onClick={() => setPhase("questions")}>시작하기</button>
             <button className="back-link" onClick={onBack}>← 돌아가기</button>
           </div>
         </div>
@@ -701,7 +679,7 @@ export default function Oracle({ onBack, onComprehensive }) {
             마음거울이 당신의 답변을 읽고 있습니다
           </p>
           <OracleSlides />
-          <button className="door-open-btn" onClick={openDoor} style={{ marginTop: "2.5rem", background: "rgba(175,200,207,0.15)", border: "1px solid #AFC8CF", color: "#AFC8CF" }}>새 창 열기</button>
+          <button className="door-open-btn" onClick={openDoor} style={{ marginTop: "2.5rem" }}>시작하기</button>
         </div>
       )}
 
@@ -852,7 +830,6 @@ export default function Oracle({ onBack, onComprehensive }) {
               navigator.clipboard.writeText(text);
               alert("복사되었습니다");
             }}>결과 복사</button>
-
             <button className="back-link-result" style={{color:"rgba(240,237,232,0.35)"}} onClick={onBack}>← 마음거울로</button>
           </div>
         </div>
