@@ -700,8 +700,7 @@ export default function App() {
   <circle cx="100" cy="100" r="30" fill="none" stroke="#8FA8A0" strokeWidth="1.5" opacity="0.8"/>
   <circle cx="100" cy="100" r="18" fill="none" stroke="#8FA8A0" strokeWidth="2" opacity="0.9"/>
   <circle cx="100" cy="100" r="7" fill="#8FA8A0" opacity="0.9"/>
-</svg>
-                  <line x1="2" y1="12" x2="62" y2="12" stroke="#8FA8A0" strokeWidth="1.8"/>
+              <line x1="2" y1="12" x2="62" y2="12" stroke="#8FA8A0" strokeWidth="1.8"/>
                   <circle cx="9" cy="7" r="2" fill="none" stroke="#8FA8A0" strokeWidth="1.2"/>
                   <circle cx="16" cy="7" r="2" fill="none" stroke="#8FA8A0" strokeWidth="1.2"/>
                   <circle cx="23" cy="7" r="2" fill="none" stroke="#8FA8A0" strokeWidth="1.2"/>
