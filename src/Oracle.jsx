@@ -701,7 +701,7 @@ export default function Oracle({ onBack, onComprehensive }) {
             마음거울이 당신의 답변을 읽고 있습니다
           </p>
           <OracleSlides />
-          <button className="door-open-btn" onClick={openDoor} style={{marginTop:"2.5rem"}}>새창 열기</button>
+          <button className="door-open-btn" onClick={openDoor} style={{ marginTop: "2.5rem", background: "rgba(175,200,207,0.15)", border: "1px solid #AFC8CF", color: "#AFC8CF" }}>새 창 열기</button>
         </div>
       )}
 
