@@ -392,9 +392,9 @@ export default function QuickTest({ onBack }) {
               <h1 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(2.4rem,6vw,3.6rem)", fontWeight:400, fontStyle:"italic", color:"#F7F2E8", lineHeight:1.15, marginBottom:"2rem"}}>내 마음이<br/>먼저 향하는<br/>방향</h1>
 
               <div style={{marginBottom:"1.5rem"}}>
-                <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(247,242,232,0.75)", lineHeight:1.9, marginBottom:"0.75rem"}}>우리는 어떤 상황 앞에서, 자신도 모르게 먼저 향하는 방향이 있습니다.<br/누군가는 원인을 찾고,<br/누군가는 사람의 마음을 살피고,<br/누군가는 바로 움직이려 합니다.</p>
-                <p style={{fontFamily:"'Playfair Display',serif", fontSize:"0.95rem", fontStyle:"italic", color:"#B89A5E", lineHeight:1.9, marginBottom:"0.75rem"}}>11개의 짧은 객관식 질문을 통해<br/내가 상황 앞에서 무엇을 먼저 보고,<br/어떤 쪽으로 움직이는지 살펴봅니다.</p>
-                <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(247,242,232,0.6)", lineHeight:1.9}}>깊게 고민하지 않아도 괜찮습니다.<br/ 지금의 나와 가장 가까운 선택지를 고르면 됩니다.</p>
+                <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(247,242,232,0.75)", lineHeight:1.9, marginBottom:"0.75rem"}}>우리는 어떤 상황 앞에서, 자신도 모르게 먼저 향하는 방향이 있습니다.<br/>누군가는 원인을 찾고,<br/>누군가는 사람의 마음을 살피고,<br/>누군가는 바로 움직이려 합니다.</p>
+                <p style={{fontFamily:"'Playfair Display',serif", fontSize:"0.95rem", fontStyle:"italic", color:"#B89A5E", lineHeight:1.9, marginBottom:"0.75rem"}}>11개의 짧은 객관식 질문을 통해<br/>내가 상황 앞에서 무엇을 먼저 보고,<br/>어떤 쪽으로 움직이는지 살펴봅니다.</p>
+                <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(247,242,232,0.6)", lineHeight:1.9}}>깊게 고민하지 않아도 괜찮습니다.<br/>지금의 나와 가장 가까운 선택지를 고르면 됩니다.</p>
               </div>
 
               <div style={{background:"rgba(184,154,94,0.1)", borderLeft:"3px solid #B89A5E", padding:"1.1rem 1.25rem", marginBottom:"2rem"}}>
