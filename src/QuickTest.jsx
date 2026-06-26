@@ -174,7 +174,7 @@ const TYPE_INFO = {
 
 // 질문마다 배경 팔레트 — 밝은 카드색에서 점점 진하게
 const Q_PALETTE = [
-  { bg: "#E8C99A", text: "#3A2410" },
+  { bg: "#3A2410", text: "#3A2410" },
   { bg: "#DDB87A", text: "#3A2410" },
   { bg: "#D4A868", text: "#3A2410" },
   { bg: "#C89558", text: "#3A2410" },
@@ -259,7 +259,7 @@ export default function QuickTest({ onBack }) {
   return (
     <div style={{
       minHeight: "100vh",
-      background: step === "intro" ? "#E8C99A" : step === "test" ? qPalette.bg : "#F7F2E8",
+      background: step === "intro" ? "#3A2410" : step === "test" ? qPalette.bg : "#F7F2E8",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
