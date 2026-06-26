@@ -57,7 +57,7 @@ const MEMORY_QUESTIONS = [
     id: 4,
     type: "single_with_input",
     title: "내면의 말",
-    question: "그 순간 내 안에서 떠오른 말은 무엇에 가까운가요?",
+    question: "그런 비슷한 상황이 되면 내 안에서 떠오르는 말은 무엇에 가까운가요?",
     options: [
       "나는 또 부족한 사람이다",
       "상대가 나를 가볍게 보고 있다",
@@ -74,7 +74,7 @@ const MEMORY_QUESTIONS = [
     id: 5,
     type: "multi_with_input",
     title: "몸의 반응",
-    question: "그 순간 나는 어떻게 반응했나요?",
+    question: "비슷한 상황에서 나는 주로 어떻게 반응했나요?",
     options: [
       "얼굴이 뜨거워졌다",
       "말이 빨라졌다",
@@ -121,7 +121,7 @@ const MEMORY_QUESTIONS = [
     id: 8,
     type: "single_with_input",
     title: "관계",
-    question: "이 반응은 어떤 관계에서 자주 나타나나요?",
+    question: "그 반응은 어떤 관계에서 자주 나타나나요?",
     options: [
       "가족",
       "친구",
