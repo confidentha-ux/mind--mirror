@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const QUESTIONS = [
   {
@@ -139,60 +139,55 @@ const TYPE_INFO = {
     detail: "정보를 충분히 모으고 구조를 파악한 다음 행동해요. 불확실한 상태에서의 결정이 불편하고, 한번 방향을 잡으면 일관성 있게 나아가는 편이에요.",
     strength: "한번 방향 잡으면 흔들리지 않아요. 준비된 사람의 움직임이에요.",
     weakness: '"일단 해봐"가 제일 어려운 말이에요. 정보가 없으면 발이 안 떨어져요.',
-    bg: "#d8d8e0", text: "#2a2a3a", border: "#a0a0b4",
-    btnBg: "#8a8a9a", btnText: "#ffffff",
   },
   "행동 후 이해형": {
     desc: "일단 움직이면서 배우는 사람이에요.",
     detail: "이론보다 실전이 편해요. 해보면서 익히고, 실패해도 빠르게 수정해요. 기다리는 것보다 뭔가 하는 게 더 자연스러운 사람이에요.",
     strength: "남들이 고민할 때 이미 움직여요. 실전에서 가장 빠르게 배우는 사람이에요.",
     weakness: "기다리는 게 고역이에요. 가만히 있으면 오히려 불안해져요.",
-    bg: "#f0b8c4", text: "#6a1020", border: "#c47a8a",
-    btnBg: "#c0405a", btnText: "#ffffff",
   },
   "관계 우선형": {
     desc: "사람이 있어야 힘이 나는 사람이에요.",
     detail: "혼자보다 함께할 때 더 좋은 결과가 나온다고 믿어요. 다른 사람의 감정을 먼저 살피고, 관계에서 에너지를 얻어요.",
     strength: "사람 마음을 먼저 읽어요. 팀이 있으면 혼자보다 훨씬 강해지는 사람이에요.",
     weakness: "혼자 결정하는 순간이 유독 힘들어요. 누군가 한 명만 있어도 달라져요.",
-    bg: "#2d5a2d", text: "#ffffff", border: "#4a8a4a",
-    btnBg: "#2d5a2d", btnText: "#ffffff",
   },
   "안정 우선형": {
     desc: "지속 가능한 것을 선택하는 사람이에요.",
     detail: "변화보다 안정에서 힘을 얻어요. 리스크를 미리 점검하고, 오래 유지될 수 있는 방향을 선호해요. 신중함이 강점이에요.",
     strength: "오래 가는 선택을 해요. 리스크를 먼저 보는 사람이 팀에 꼭 필요한 이유예요.",
     weakness: "변화가 강요될 때 에너지가 확 떨어져요. 예측 불가능한 상황이 가장 소모적이에요.",
-    bg: "#b8d4b0", text: "#0d3010", border: "#7a9e6e",
-    btnBg: "#4a8a3a", btnText: "#ffffff",
   },
   "직관 신뢰형": {
     desc: "느낌을 믿고 움직이는 사람이에요.",
     detail: "논리보다 직감이 먼저 와요. 설명하기 어렵지만 맞다는 느낌을 중요하게 여기고, 그 감각이 실제로 잘 맞는 편이에요.",
     strength: "설명 못 해도 맞는 방향을 알아요. 그 감각이 실제로 자주 맞아요.",
     weakness: '"왜 그렇게 생각해요?" 이 질문이 제일 난처해요. 논리로 설명해야 할 때 막혀요.',
-    bg: "#a8c8e0", text: "#05203a", border: "#6a95b8",
-    btnBg: "#3a6a9a", btnText: "#ffffff",
   },
   "정확성 우선형": {
     desc: "틀리면 안 된다는 사람이에요.",
     detail: "정확성과 완성도를 중요하게 여겨요. 애매한 상태가 불편하고, 근거와 논리가 있어야 안심이 돼요. 꼼꼼함이 강점이에요.",
     strength: "디테일에서 판가름 나는 일은 당신 차지예요. 한 번 한 일은 믿을 수 있어요.",
     weakness: "완벽하지 않으면 내보내기 싫어요. 그래서 시작보다 마무리가 늦어질 때가 있어요.",
-    bg: "#e8a0a0", text: "#5a1010", border: "#c47070",
-    btnBg: "#c04040", btnText: "#ffffff",
   },
 };
 
-const TYPE_BTN_COLORS = {
-  "이해 후 행동형": { bg: "#8a8a9a", text: "#ffffff" },
-  "행동 후 이해형": { bg: "#c0405a", text: "#ffffff" },
-  "관계 우선형":   { bg: "#2d5a2d", text: "#ffffff" },
-  "안정 우선형":   { bg: "#4a7a3a", text: "#ffffff" },
-  "직관 신뢰형":   { bg: "#3a6a9a", text: "#ffffff" },
-  "정확성 우선형": { bg: "#b84040", text: "#ffffff" },
-};
+// 질문마다 배경 팔레트 — 밝은 카드색에서 점점 진하게
+const Q_PALETTE = [
+  { bg: "#E8C99A", text: "#3A2410" },
+  { bg: "#DDB87A", text: "#3A2410" },
+  { bg: "#D4A868", text: "#3A2410" },
+  { bg: "#C89558", text: "#3A2410" },
+  { bg: "#BC8248", text: "#3A2410" },
+  { bg: "#B07040", text: "#F7F2E8" },
+  { bg: "#A46038", text: "#F7F2E8" },
+  { bg: "#985234", text: "#F7F2E8" },
+  { bg: "#8C4A30", text: "#F7F2E8" },
+  { bg: "#804230", text: "#F7F2E8" },
+  { bg: "#743A28", text: "#F7F2E8" },
+];
 
+const ACCENT = "#8C6640";
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
 function shuffle(arr) {
@@ -204,48 +199,6 @@ function shuffle(arr) {
   return a;
 }
 
-// 나침반 SVG
-const CompassSVG = ({ linesVisible, style = {} }) => {
-  const lines = [
-    <circle key={1} cx="100" cy="100" r="88" fill="none" stroke="#9b7fd4" strokeWidth="1.5"/>,
-    <circle key={2} cx="100" cy="100" r="75" fill="none" stroke="#9b7fd4" strokeWidth="0.7" strokeDasharray="4,6"/>,
-    <circle key={3} cx="100" cy="100" r="55" fill="none" stroke="#9b7fd4" strokeWidth="1"/>,
-    <line key={4} x1="12" y1="100" x2="188" y2="100" stroke="#9b7fd4" strokeWidth="0.8"/>,
-    <line key={5} x1="100" y1="12" x2="100" y2="188" stroke="#9b7fd4" strokeWidth="0.8"/>,
-    <g key={6}><line x1="38" y1="38" x2="162" y2="162" stroke="#9b7fd4" strokeWidth="0.6"/><line x1="162" y1="38" x2="38" y2="162" stroke="#9b7fd4" strokeWidth="0.6"/></g>,
-    <g key={7}><line x1="100" y1="12" x2="100" y2="22" stroke="#9b7fd4" strokeWidth="2.5"/><line x1="100" y1="178" x2="100" y2="188" stroke="#9b7fd4" strokeWidth="1.5"/><line x1="12" y1="100" x2="22" y2="100" stroke="#9b7fd4" strokeWidth="1.5"/><line x1="178" y1="100" x2="188" y2="100" stroke="#9b7fd4" strokeWidth="1.5"/></g>,
-    <polygon key={8} points="100,25 95,100 105,100" fill="#9b7fd4"/>,
-    <polygon key={9} points="100,175 95,100 105,100" fill="none" stroke="#9b7fd4" strokeWidth="1.2"/>,
-    <circle key={10} cx="100" cy="100" r="7" fill="none" stroke="#9b7fd4" strokeWidth="1.5"/>,
-    <g key={11}><text x="100" y="10" textAnchor="middle" fontFamily="serif" fontSize="12" fontStyle="italic" fill="#9b7fd4">N</text><circle cx="100" cy="100" r="3.5" fill="#9b7fd4"/></g>,
-  ];
-  return (
-    <svg width="200" height="200" viewBox="0 0 200 200" style={style}>
-      {lines.filter((_, i) => i < linesVisible)}
-    </svg>
-  );
-};
-
-// 신전 SVG
-const TempleSVG = ({ style = {} }) => (
-  <svg width="200" height="250" viewBox="0 0 200 250" style={style}>
-    <text x="100" y="20" textAnchor="middle" fontFamily="serif" fontSize="15" fontStyle="italic" fill="#9b7fd4" opacity="0.9">γνῶθι σεαυτόν</text>
-    <text x="100" y="34" textAnchor="middle" fontFamily="serif" fontSize="9" fill="rgba(42,26,74,0.5)">너 자신을 알라</text>
-    <line x1="40" y1="40" x2="160" y2="40" stroke="#9b7fd4" strokeWidth="0.5" opacity="0.3"/>
-    <line x1="20" y1="225" x2="180" y2="225" stroke="#9b7fd4" strokeWidth="1.5"/>
-    <line x1="25" y1="213" x2="175" y2="213" stroke="#9b7fd4" strokeWidth="1.5"/>
-    <line x1="48" y1="213" x2="48" y2="115" stroke="#9b7fd4" strokeWidth="1.5"/>
-    <line x1="80" y1="213" x2="80" y2="115" stroke="#9b7fd4" strokeWidth="1.5"/>
-    <line x1="120" y1="213" x2="120" y2="115" stroke="#9b7fd4" strokeWidth="1.5"/>
-    <line x1="152" y1="213" x2="152" y2="115" stroke="#9b7fd4" strokeWidth="1.5"/>
-    <line x1="30" y1="115" x2="170" y2="115" stroke="#9b7fd4" strokeWidth="1.5"/>
-    <line x1="25" y1="102" x2="175" y2="102" stroke="#9b7fd4" strokeWidth="1.5"/>
-    <line x1="25" y1="102" x2="100" y2="55" stroke="#9b7fd4" strokeWidth="1.5"/>
-    <line x1="175" y1="102" x2="100" y2="55" stroke="#9b7fd4" strokeWidth="1.5"/>
-    <path d="M88,213 L88,160 Q100,148 112,160 L112,213" fill="none" stroke="#9b7fd4" strokeWidth="1.2"/>
-  </svg>
-);
-
 export default function QuickTest({ onBack }) {
   const [step, setStep] = useState("intro");
   const [current, setCurrent] = useState(0);
@@ -253,24 +206,11 @@ export default function QuickTest({ onBack }) {
   const [selected, setSelected] = useState(null);
   const [result, setResult] = useState(null);
   const [shuffledOptions, setShuffledOptions] = useState([]);
-  const [activeType, setActiveType] = useState(null);
-  const [showTemple, setShowTemple] = useState(false);
 
-  useEffect(() => {
-    if (step === "test") {
-      setShuffledOptions(shuffle(QUESTIONS[current].options));
-      setSelected(null);
-    }
-  }, [current, step]);
-
-  useEffect(() => {
-    if (step === "result") {
-      // 나침반 → 신전 스케일 전환
-      setTimeout(() => setShowTemple(true), 800);
-    } else {
-      setShowTemple(false);
-    }
-  }, [step]);
+  const handleStart = () => {
+    setShuffledOptions(shuffle(QUESTIONS[0].options));
+    setStep("test");
+  };
 
   const handleSelect = (option) => {
     setSelected(option);
@@ -278,216 +218,243 @@ export default function QuickTest({ onBack }) {
       const newAnswers = [...answers, option.type];
       setAnswers(newAnswers);
       if (current < QUESTIONS.length - 1) {
-        setCurrent(current + 1);
+        const next = current + 1;
+        setCurrent(next);
+        setShuffledOptions(shuffle(QUESTIONS[next].options));
+        setSelected(null);
       } else {
         const counts = {};
         newAnswers.forEach(t => { counts[t] = (counts[t] || 0) + 1; });
         const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
         setResult(top);
-        const resultData = { type: top, desc: TYPE_INFO[top].desc, detail: TYPE_INFO[top].detail, counts };
-        localStorage.setItem("mindmirror_quicktest", JSON.stringify(resultData));
         setStep("result");
       }
     }, 350);
   };
 
+  const handleBack = () => {
+    if (current > 0) {
+      const prev = current - 1;
+      setCurrent(prev);
+      setAnswers(answers.slice(0, prev));
+      setShuffledOptions(shuffle(QUESTIONS[prev].options));
+      setSelected(null);
+    } else {
+      setStep("intro");
+    }
+  };
+
   const restart = () => {
-    setStep("intro"); setCurrent(0); setAnswers([]);
-    setSelected(null); setResult(null); setShowTemple(false);
+    setStep("intro");
+    setCurrent(0);
+    setAnswers([]);
+    setSelected(null);
+    setResult(null);
   };
 
   const progress = (current / QUESTIONS.length) * 100;
   const typeInfo = result ? TYPE_INFO[result] : null;
-
-  // 배경 SVG 스타일 (오른쪽 고정)
-  const bgSvgStyle = {
-    position: "absolute",
-    right: "-20px",
-    top: "-20px",
-    opacity: 0.08,
-    pointerEvents: "none",
-    transition: "opacity 0.8s ease",
-  };
+  const qPalette = Q_PALETTE[current] || Q_PALETTE[Q_PALETTE.length - 1];
 
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#1F3A32",
+      background: step === "intro" ? "#E8C99A" : step === "test" ? qPalette.bg : "#F7F2E8",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       padding: "2rem 1.25rem",
       position: "relative",
       overflow: "hidden",
+      transition: "background 0.5s ease",
     }}>
       <style>{`
         ${FONTS}
         * { box-sizing: border-box; margin: 0; padding: 0; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-          .qt-option {
-  width: 100%;
-  background: rgba(38,50,44,0.5);
-  border: 1px solid rgba(247,242,232,0.1);
-  outline: none;
-  padding: 1rem 1.25rem;
-          cursor: pointer;
-          transition: all 0.2s;
-          text-align: left;
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.88rem;
-          font-weight: 300;
-          color: rgba(247,242,232,0.8);
-          line-height: 1.6;
-          margin-bottom: 0.5rem;
-          border-radius: 2px;
-        }
-        .qt-option:hover { background: rgba(38,50,44,0.7); border-color: rgba(247,242,232,0.2); }
-        .qt-option.selected { background: rgba(184,154,94,0.2); border-color: #B89A5E; color: #F7F2E8; }
-        .qt-start-btn {
-          background: #B89A5E;
-          border: none;
-          color: #1F3A32;
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.82rem;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          padding: 1.1rem 2.8rem;
-          cursor: pointer;
-          transition: background 0.2s;
-        }
-        .qt-start-btn:hover { background: #a08850; }
-        .qt-back-btn {
-          background: transparent;
-          border: 1px solid rgba(184,154,94,0.4);
-          color: rgba(247,242,232,0.5);
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.78rem;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          padding: 1.1rem 1.8rem;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-        .qt-back-btn:hover { border-color: rgba(184,154,94,0.7); color: #F7F2E8; }
-        .qt-ghost-btn {
-          background: transparent; border: none;
-          color: rgba(247,242,232,0.35);
-          font-family: 'Source Serif 4', serif;
-          font-size: 0.72rem; letter-spacing: 0.15em;
-          text-transform: uppercase; cursor: pointer; padding: 0;
-          transition: color 0.2s;
-        }
-        .qt-ghost-btn:hover { color: rgba(247,242,232,0.65); }
+        @keyframes breathe { 0%,100%{opacity:0.4} 50%{opacity:1} }
       `}</style>
 
-      <div style={{width:"100%", maxWidth:560, position:"relative", zIndex:1}}>
+      <div style={{ width: "100%", maxWidth: 560, position: "relative", zIndex: 1 }}>
 
         {/* 인트로 */}
         {step === "intro" && (
-          <div style={{animation:"fadeIn 0.5s ease"}}>
-            <CompassSVG linesVisible={11} style={{...bgSvgStyle}} />
+          <div style={{ animation: "fadeIn 0.5s ease" }}>
+            <div style={{
+              fontFamily: "'Source Serif 4',serif",
+              fontSize: "0.6rem", letterSpacing: "0.3em",
+              textTransform: "uppercase", color: ACCENT, marginBottom: "1.5rem",
+            }}>내 마음의 기본값</div>
 
-            <div style={{textAlign:"left", marginBottom:"2.5rem"}}>
-              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.3em", textTransform:"uppercase", color:"#B89A5E", marginBottom:"1.5rem"}}>내 마음의 기본값</div>
-              <h1 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(2.4rem,6vw,3.6rem)", fontWeight:400, fontStyle:"italic", color:"#F7F2E8", lineHeight:1.15, marginBottom:"2rem"}}>내 마음이<br/>먼저 향하는<br/>방향</h1>
+            <h1 style={{
+              fontFamily: "'Playfair Display',serif",
+              fontSize: "clamp(1.8rem,4vw,2.6rem)",
+              fontWeight: 400, color: "#3A2410",
+              lineHeight: 1.2, marginBottom: "2rem",
+            }}>내 마음이 먼저 향하는 방향</h1>
 
-              <div style={{marginBottom:"1.5rem"}}>
-                <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(247,242,232,0.75)", lineHeight:1.9, marginBottom:"0.75rem"}}>우리는 어떤 상황 앞에서, 자신도 모르게 먼저 향하는 방향이 있습니다.<br/>누군가는 원인을 찾고,<br/>누군가는 사람의 마음을 살피고,<br/>누군가는 바로 움직이려 합니다.</p>
-                <p style={{fontFamily:"'Playfair Display',serif", fontSize:"0.95rem", fontStyle:"italic", color:"#B89A5E", lineHeight:1.9, marginBottom:"0.75rem"}}>11개의 짧은 객관식 질문을 통해<br/>내가 상황 앞에서 무엇을 먼저 보고,<br/>어떤 쪽으로 움직이는지 살펴봅니다.</p>
-                <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(247,242,232,0.6)", lineHeight:1.9}}>깊게 고민하지 않아도 괜찮습니다.<br/>지금의 나와 가장 가까운 선택지를 고르면 됩니다.</p>
-              </div>
-
-              <div style={{background:"rgba(184,154,94,0.1)", borderLeft:"3px solid #B89A5E", padding:"1.1rem 1.25rem", marginBottom:"2rem"}}>
-                <div style={{fontFamily:"'Source Serif 4',serif", fontSize:".68rem", letterSpacing:".2em", textTransform:"uppercase", color:"#B89A5E", marginBottom:".6rem"}}>시작 전에</div>
-                <div style={{fontFamily:"'Source Serif 4',serif", fontSize:".82rem", fontWeight:300, color:"rgba(247,242,232,0.65)", lineHeight:1.85, display:"flex", alignItems:"flex-start", gap:".5rem"}}>
-                  <span style={{opacity:.5}}>—</span>맞고 틀린 답 없어요. 지금 나한테 가장 가까운 걸 고르면 돼요.
-                </div>
-              </div>
+            <div style={{ marginBottom: "1.5rem" }}>
+              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(58,36,16,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>
+                우리는 어떤 상황 앞에서, 자신도 모르게 먼저 향하는 방향이 있습니다.<br />
+                누군가는 원인을 찾고, 누군가는 사람의 마음을 살피고,<br />
+                누군가는 바로 움직이려 합니다.
+              </p>
+              <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "0.95rem", fontStyle: "italic", color: ACCENT, lineHeight: 1.9, marginBottom: "0.75rem" }}>
+                11개의 짧은 질문을 통해<br />
+                내가 상황 앞에서 무엇을 먼저 보고,<br />
+                어떤 쪽으로 움직이는지 살펴봅니다.
+              </p>
+              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(58,36,16,0.6)", lineHeight: 1.9 }}>
+                깊게 고민하지 않아도 괜찮습니다.<br />
+                지금의 나와 가장 가까운 선택지를 고르면 됩니다.
+              </p>
             </div>
 
-            <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center"}}>
-              <button className="qt-start-btn" onClick={() => setStep("test")}>가볍게 시작하기</button>
-              {onBack && <button className="qt-back-btn" onClick={onBack}>← 돌아가기</button>}
+            <div style={{
+              background: "rgba(140,102,64,0.1)", borderLeft: "3px solid " + ACCENT,
+              padding: "1.1rem 1.25rem", marginBottom: "2rem",
+            }}>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: ACCENT, marginBottom: "0.6rem" }}>시작 전에</div>
+              {["맞고 틀린 답 없어요. 지금 나한테 가장 가까운 걸 고르면 돼요.", "선택지를 고르면 바로 다음 질문으로 넘어가요.", "11개 모두 객관식이에요."].map((t, i) => (
+                <div key={i} style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(58,36,16,0.7)", lineHeight: 1.85, display: "flex", alignItems: "flex-start", gap: "0.5rem", marginBottom: "0.2rem" }}>
+                  <span style={{ opacity: 0.5 }}>—</span>{t}
+                </div>
+              ))}
+            </div>
+
+            <div style={{ width: "48px", height: "1px", background: ACCENT, margin: "2rem 0" }} />
+
+            <div style={{ marginBottom: "2rem" }}>
+              {QUESTIONS.map((q, i) => (
+                <div key={q.id} style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "0.4rem 0", borderBottom: "1px solid rgba(140,102,64,0.2)" }}>
+                  <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.7rem", color: ACCENT, opacity: 0.8, minWidth: "1.5rem" }}>{i + 1}</span>
+                  <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "#3A2410" }}>{q.text.split("\n")[0]}</span>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+              <button onClick={handleStart} style={{
+                background: ACCENT, border: "none", color: "#F7F2E8",
+                fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem",
+                letterSpacing: "0.18em", textTransform: "uppercase",
+                padding: "1.1rem 2.8rem", cursor: "pointer",
+              }}>가볍게 시작하기</button>
+              {onBack && (
+                <button onClick={onBack} style={{
+                  background: "transparent", border: "1px solid rgba(140,102,64,0.4)",
+                  color: "rgba(58,36,16,0.6)", fontFamily: "'Source Serif 4',serif",
+                  fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
+                  padding: "1.1rem 1.8rem", cursor: "pointer",
+                }}>← 마음거울로</button>
+              )}
             </div>
           </div>
         )}
 
         {/* 질문 */}
         {step === "test" && (
-          <div style={{animation:"fadeIn 0.3s ease"}}>
-            {/* 나침반 — 문제 풀수록 채워짐 */}
-            <CompassSVG linesVisible={current} style={{...bgSvgStyle}} />
-
-            <div style={{marginBottom:"3rem"}}>
-              <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"0.75rem"}}>
-                <span style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.65rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(247,242,232,0.5)"}}>{current + 1} / {QUESTIONS.length}</span>
+          <div style={{ animation: "fadeIn 0.3s ease", color: qPalette.text }}>
+            <div style={{ marginBottom: "3rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
+                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: qPalette.text, opacity: 0.5 }}>
+                  {current + 1} / {QUESTIONS.length}
+                </span>
               </div>
-              <div style={{width:"100%", height:"1px", background:"rgba(247,242,232,0.12)"}}>
-                <div style={{height:"100%", width:`${progress}%`, background:"#B89A5E", transition:"width 0.4s ease"}}/>
+              <div style={{ width: "100%", height: "1px", background: "rgba(0,0,0,0.1)" }}>
+                <div style={{ height: "100%", width: (progress + "%"), background: ACCENT, transition: "width 0.4s ease" }} />
               </div>
             </div>
 
             <h2 style={{
-              fontFamily:"'Playfair Display',serif",
-              fontSize:"clamp(1.2rem,3vw,1.6rem)",
-              fontWeight:400, fontStyle:"italic",
-              color:"#F7F2E8", lineHeight:1.4,
-              marginBottom:"1.5rem", whiteSpace:"pre-line",
+              fontFamily: "'Playfair Display',serif",
+              fontSize: "clamp(1.4rem,3.5vw,1.8rem)",
+              fontWeight: 400, color: qPalette.text,
+              lineHeight: 1.5, marginBottom: "2rem", whiteSpace: "pre-line",
             }}>
               {QUESTIONS[current].text}
             </h2>
 
-            <div>
+            <div style={{ marginBottom: "2rem" }}>
               {shuffledOptions.map((opt, i) => (
-                <button
-                  key={i}
-                  className={`qt-option ${selected === opt ? "selected" : ""}`}
+                <button key={i}
                   onClick={() => handleSelect(opt)}
-                >
-                  <span style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.65rem", letterSpacing:"0.15em", marginRight:"0.75rem", opacity:0.4}}>
+                  style={{
+                    width: "100%", background: selected === opt ? "rgba(140,102,64,0.2)" : "rgba(0,0,0,0.06)",
+                    border: selected === opt ? "1px solid " + ACCENT : "1px solid rgba(0,0,0,0.12)",
+                    outline: "none", padding: "1rem 1.25rem", cursor: "pointer",
+                    textAlign: "left", fontFamily: "'Source Serif 4',serif",
+                    fontSize: "0.88rem", fontWeight: 300, color: qPalette.text,
+                    lineHeight: 1.6, marginBottom: "0.5rem", borderRadius: "2px",
+                    transition: "all 0.2s",
+                  }}>
+                  <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.65rem", letterSpacing: "0.15em", marginRight: "0.75rem", opacity: 0.4 }}>
                     {String.fromCharCode(65 + i)}
                   </span>
                   {opt.text}
                 </button>
               ))}
             </div>
+
+            <div style={{ display: "flex", justifyContent: "flex-start" }}>
+              <button onClick={handleBack} style={{
+                background: "transparent", border: "none",
+                fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem",
+                letterSpacing: "0.12em", textTransform: "uppercase",
+                cursor: "pointer", color: qPalette.text, opacity: 0.4,
+                padding: 0, transition: "opacity 0.2s",
+              }}>← 이전</button>
+            </div>
           </div>
         )}
 
         {/* 결과 */}
         {step === "result" && typeInfo && (
-          <div style={{animation:"fadeIn 0.6s ease"}}>
-            {/* 결과 카드 */}
+          <div style={{ animation: "fadeIn 0.6s ease" }}>
+            <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(38,50,44,0.4)", marginBottom: "0.5rem" }}>내 마음의 기본값 — 분석 결과</div>
+            <div style={{ width: "100%", height: "1px", background: "rgba(38,50,44,0.12)", marginBottom: "2rem" }} />
+
             <div style={{
               background: "#d4c8f0",
-              border:"1px solid rgba(90,58,138,0.2)",
-              padding:"2.5rem 2rem",
-              marginBottom:"2rem",
-              textAlign:"center",
+              border: "1px solid rgba(90,58,138,0.2)",
+              padding: "2.5rem 2rem",
+              marginBottom: "2rem",
+              textAlign: "center",
             }}>
-              <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.28em", textTransform:"uppercase", color:"rgba(42,26,74,0.45)", marginBottom:"1.5rem"}}>내 기본값 찾기</div>
-              <img src={`/${TYPE_IMAGES[result]}`} alt={result} style={{width:180, height:180, objectFit:"contain", marginBottom:"1.5rem"}}/>
-              <h2 style={{fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.6rem,4vw,2.2rem)", fontStyle:"italic", fontWeight:400, color:"#2a1a4a", marginBottom:"0.75rem"}}>{result}</h2>
-              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(42,26,74,0.7)", lineHeight:1.9, marginBottom:"1rem"}}>{typeInfo.desc}</p>
-              <div style={{width:"32px", height:"1px", background:"rgba(90,58,138,0.25)", margin:"1.25rem auto"}}/>
-              <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.85rem", fontWeight:300, color:"rgba(42,26,74,0.6)", lineHeight:1.9, marginBottom:"1.5rem"}}>{typeInfo.detail}</p>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(42,26,74,0.45)", marginBottom: "1.5rem" }}>내 기본값 찾기</div>
+              <img src={"/" + TYPE_IMAGES[result]} alt={result} style={{ width: 180, height: 180, objectFit: "contain", marginBottom: "1.5rem" }} />
+              <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.6rem,4vw,2.2rem)", fontWeight: 400, color: "#2a1a4a", marginBottom: "0.75rem" }}>{result}</h2>
+              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 1.9, marginBottom: "1rem" }}>{typeInfo.desc}</p>
+              <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.25)", margin: "1.25rem auto" }} />
+              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(42,26,74,0.6)", lineHeight: 1.9, marginBottom: "1.5rem" }}>{typeInfo.detail}</p>
 
-              {/* 강점 / 막히는 지점 */}
-              <div style={{display:"flex", gap:"1rem", textAlign:"left"}}>
-                <div style={{flex:1, background:"rgba(255,255,255,0.35)", padding:"1rem", borderRadius:"2px"}}>
-                  <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.62rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(42,26,74,0.4)", marginBottom:"0.5rem"}}>강점</div>
-                  <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.82rem", fontWeight:300, color:"rgba(42,26,74,0.7)", lineHeight:1.8}}>{typeInfo.strength}</p>
+              <div style={{ display: "flex", gap: "1rem", textAlign: "left" }}>
+                <div style={{ flex: 1, background: "rgba(255,255,255,0.35)", padding: "1rem", borderRadius: "2px" }}>
+                  <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(42,26,74,0.4)", marginBottom: "0.5rem" }}>강점</div>
+                  <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 1.8 }}>{typeInfo.strength}</p>
                 </div>
-                <div style={{flex:1, background:"rgba(255,255,255,0.35)", padding:"1rem", borderRadius:"2px"}}>
-                  <div style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.62rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(42,26,74,0.4)", marginBottom:"0.5rem"}}>막히는 지점</div>
-                  <p style={{fontFamily:"'Source Serif 4',serif", fontSize:"0.82rem", fontWeight:300, color:"rgba(42,26,74,0.7)", lineHeight:1.8}}>{typeInfo.weakness}</p>
+                <div style={{ flex: 1, background: "rgba(255,255,255,0.35)", padding: "1rem", borderRadius: "2px" }}>
+                  <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(42,26,74,0.4)", marginBottom: "0.5rem" }}>막히는 지점</div>
+                  <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 1.8 }}>{typeInfo.weakness}</p>
                 </div>
               </div>
             </div>
 
-            <div style={{display:"flex", gap:"0.75rem", flexWrap:"wrap", alignItems:"center", justifyContent:"center"}}>
-              <button className="qt-start-btn" onClick={restart}>다시 해보기</button>
-              {onBack && <button className="qt-back-btn" onClick={onBack}>마음거울로 →</button>}
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+              <button onClick={restart} style={{
+                background: ACCENT, border: "none", color: "#F7F2E8",
+                fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem",
+                letterSpacing: "0.18em", textTransform: "uppercase",
+                padding: "1.1rem 2.8rem", cursor: "pointer",
+              }}>다시 해보기</button>
+              {onBack && (
+                <button onClick={onBack} style={{
+                  background: "transparent", border: "1px solid rgba(38,50,44,0.25)",
+                  color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif",
+                  fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
+                  padding: "1.1rem 1.8rem", cursor: "pointer",
+                }}>← 마음거울로</button>
+              )}
             </div>
           </div>
         )}
