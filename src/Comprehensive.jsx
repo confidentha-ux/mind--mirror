@@ -302,7 +302,7 @@ export default function Comprehensive({ onBack, onNext }) {
           {onNext && (
             <button onClick={onNext} style={{background:"none",border:"1px solid rgba(240,237,232,0.3)",color:"rgba(240,237,232,0.6)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",padding:"0.5rem 1.25rem",cursor:"pointer"}}>다음 →</button>
           )}
-          <button onClick={onBack} style={{background:"none",border:"none",color:"rgba(240,237,232,0.3)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",cursor:"pointer"}}>← 돌아가기</button>
+          <button onClick={onBack} style={{background:"none",border:"none",color:"rgba(240,237,232,0.3)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",cursor:"pointer"}}>마지막 장으로 →</button>
         </div>
 
         {/* 하단 */}
