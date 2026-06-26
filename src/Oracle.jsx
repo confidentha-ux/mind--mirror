@@ -191,16 +191,22 @@ function OracleFeedback() {
   );
 }
 
-export default function Oracle({ onBack, onComprehensive }) {
-  const [phase, setPhase] = useState("intro");
-  const [showComprehensive, setShowComprehensive] = useState(false);
+export default function Oracle({ onBack, onComprehensive, initialPhase = "intro" }) {
+  const [phase, setPhase] = useState(initialPhase);
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState({});
   const [selectedOption, setSelectedOption] = useState(null);
   const [textAnswer, setTextAnswer] = useState("");
-  const [oracleText, setOracleText] = useState("");
+  const [oracleText, setOracleText] = useState(() => localStorage.getItem("mindmirror_oracle") || "");
   const [visibleSections, setVisibleSections] = useState([]);
   const resultRef = useRef(null);
+
+  useEffect(() => {
+    // final phase로 시작할 때 기존 oracle 결과 파싱을 위해 섹션 즉시 표시
+    if (initialPhase === "final") {
+      setVisibleSections(["Reflection", "Recognition", "Oracle", "Story", "Empowerment"]);
+    }
+  }, [initialPhase]);
 
   useEffect(() => {
     if (phase !== "result" || !oracleText) return;
@@ -212,11 +218,6 @@ export default function Oracle({ onBack, onComprehensive }) {
       }, i * 1800);
     });
   }, [phase, oracleText]);
-
-  if (showComprehensive) {
-    if (onComprehensive) onComprehensive();
-    return null;
-  }
 
   const q = ORACLE_QUESTIONS[currentQ];
   const isTextQ = q?.type === "text";
@@ -264,7 +265,7 @@ export default function Oracle({ onBack, onComprehensive }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
-          max_tokens: 1500,
+          max_tokens: 4000,
           system: ORACLE_SYSTEM_PROMPT,
           messages: [{ role: "user", content: `다음은 사용자의 응답입니다:\n\n${formatted}` }],
         }),
@@ -295,7 +296,7 @@ export default function Oracle({ onBack, onComprehensive }) {
   }
 
   const parsed = oracleText ? parseOracle(oracleText) : {};
-  const bgColor = phase === "result" ? "#F7F2E8" : "#1F3A32";
+  const bgColor = (phase === "result" || phase === "final") ? "#F7F2E8" : "#1F3A32";
 
   return (
     <div style={{minHeight:"100vh",background:bgColor,display:"flex",alignItems:"center",justifyContent:"center",padding:"3rem 1.5rem",position:"relative",overflow:"hidden",transition:"background 1s ease"}}>
@@ -357,7 +358,9 @@ export default function Oracle({ onBack, onComprehensive }) {
         .oracle-textarea::placeholder { color: rgba(247,242,232,0.2); }
       `}</style>
 
-      {phase !== "result" && <VaseSVG flowersVisible={phase === "questions" ? currentQ : phase === "opening" ? 5 : 0} />}
+      {phase !== "result" && phase !== "final" && (
+        <VaseSVG flowersVisible={phase === "questions" ? currentQ : phase === "opening" ? 5 : 0} />
+      )}
 
       {/* 인트로 */}
       {phase === "intro" && (
@@ -377,7 +380,7 @@ export default function Oracle({ onBack, onComprehensive }) {
           </div>
           <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",gap:"1.2rem"}}>
             <button className="oracle-btn" onClick={() => setPhase("questions")}>시작하기</button>
-            <button className="back-link" onClick={onBack}>← 돌아가기</button>
+            <button className="back-link" onClick={onBack}>← 마음거울로</button>
           </div>
         </div>
       )}
@@ -469,7 +472,7 @@ export default function Oracle({ onBack, onComprehensive }) {
                 <OracleFeedback />
               </div>
               <div style={{display:"flex",gap:"1.5rem",alignItems:"center",flexWrap:"wrap"}}>
-                <button className="oracle-btn-result" onClick={() => setShowComprehensive(true)}>종합 분석 보기 →</button>
+                <button className="oracle-btn-result" onClick={onComprehensive}>종합 분석 보기 →</button>
                 <button className="oracle-btn-result" onClick={() => setPhase("final")}>마지막 장으로 →</button>
                 <button className="oracle-btn-result" onClick={() => {
                   const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
@@ -520,7 +523,7 @@ export default function Oracle({ onBack, onComprehensive }) {
               <button className="oracle-btn-result" style={{borderColor:"rgba(240,237,232,0.4)",color:"rgba(240,237,232,0.7)"}} onClick={() => {
                 setPhase("intro"); setAnswers({}); setCurrentQ(0);
                 setOracleText(""); setVisibleSections([]); setSelectedOption(null); setTextAnswer("");
-              }}>다시 시작</button>
+              }}>마음거울로</button>
               <button className="oracle-btn-result" style={{borderColor:"rgba(240,237,232,0.4)",color:"rgba(240,237,232,0.7)"}} onClick={() => {
                 const saved = localStorage.getItem("oracle_today_sentence");
                 const sentencePart = saved ? `\n\n오늘의 한 문장: "${JSON.parse(saved).sentence}"` : "";
