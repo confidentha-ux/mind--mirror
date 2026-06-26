@@ -308,6 +308,7 @@ export default function App() {
   const [charCount, setCharCount] = useState(0);
   const [showQuickTest, setShowQuickTest] = useState(false);
   const [showOracle, setShowOracle] = useState(false);
+  const [oracleInitialPhase, setOracleInitialPhase] = useState("intro");
   const [showComprehensive, setShowComprehensive] = useState(false);
   const [showNewWindow, setShowNewWindow] = useState(false);
   const textareaRef = useRef(null);
@@ -491,14 +492,28 @@ export default function App() {
   };
 
   if (showQuickTest) return <QuickTest onBack={() => setShowQuickTest(false)} />;
-  if (showComprehensive) return <Comprehensive onBack={() => setShowComprehensive(false)} />;
+  if (showComprehensive) return (
+    <Comprehensive
+      onBack={() => {
+        setShowComprehensive(false);
+        setOracleInitialPhase("final");
+        setShowOracle(true);
+      }}
+    />
+  );
   if (showNewWindow) return <NewWindow onBack={() => setShowNewWindow(false)} />;
-  if (showOracle) return <Oracle onBack={() => setShowOracle(false)} onComprehensive={() => { setShowOracle(false); setShowComprehensive(true); }} />;
+  if (showOracle) return (
+    <Oracle
+      initialPhase={oracleInitialPhase}
+      onBack={() => { setShowOracle(false); setOracleInitialPhase("intro"); }}
+      onComprehensive={() => { setShowOracle(false); setOracleInitialPhase("intro"); setShowComprehensive(true); }}
+    />
+  );
 
   // ── 메인 랜딩 ───────────────────────────────────────────────────
   if (step === "intro") {
     return (
-      <div style={{background:"#1F3A32",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"3rem 1.5rem"}}>
+      <div style={{background:"#26322C",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"3rem 1.5rem"}}>
         <style>{FONTS + `
           @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
           .fade5 { opacity:0; animation:fadeUp 0.6s ease forwards 2.9s; }
@@ -529,21 +544,21 @@ export default function App() {
 
             {/* 01 내 마음의 기본값 */}
             <div className="intro-card-hover" style={{position:"relative",marginBottom:"0.75rem"}}>
-              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#B89A5E",display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#8C6640",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#F7F2E8"}}>01</span>
               </div>
-              <div onClick={() => setShowQuickTest(true)} style={{background:"#EDE8DC",padding:"1.4rem 1.8rem",borderLeft:"4px solid #B89A5E",position:"relative",overflow:"hidden",minHeight:140}}>
+              <div onClick={() => setShowQuickTest(true)} style={{background:"#E8C99A",padding:"1.4rem 1.8rem",borderLeft:"4px solid #8C6640",borderRadius:"0 4px 4px 0",position:"relative",overflow:"hidden",minHeight:140}}>
                 <svg width="80" height="90" viewBox="0 0 80 90" style={{position:"absolute",right:16,top:"50%",transform:"translateY(-50%)",opacity:0.12,pointerEvents:"none"}}>
-                  <rect x="4" y="4" width="72" height="22" rx="11" fill="none" stroke="#2D4A2D" strokeWidth="2"/>
-                  <circle cx="18" cy="15" r="7" fill="none" stroke="#2D4A2D" strokeWidth="1.8"/>
-                  <rect x="4" y="34" width="72" height="22" rx="11" fill="none" stroke="#2D4A2D" strokeWidth="2"/>
-                  <circle cx="62" cy="45" r="7" fill="none" stroke="#2D4A2D" strokeWidth="1.8"/>
-                  <rect x="4" y="64" width="72" height="22" rx="11" fill="none" stroke="#2D4A2D" strokeWidth="2"/>
-                  <circle cx="18" cy="75" r="7" fill="none" stroke="#2D4A2D" strokeWidth="1.8"/>
+                  <rect x="4" y="4" width="72" height="22" rx="11" fill="none" stroke="#3A2410" strokeWidth="2"/>
+                  <circle cx="18" cy="15" r="7" fill="none" stroke="#3A2410" strokeWidth="1.8"/>
+                  <rect x="4" y="34" width="72" height="22" rx="11" fill="none" stroke="#3A2410" strokeWidth="2"/>
+                  <circle cx="62" cy="45" r="7" fill="none" stroke="#3A2410" strokeWidth="1.8"/>
+                  <rect x="4" y="64" width="72" height="22" rx="11" fill="none" stroke="#3A2410" strokeWidth="2"/>
+                  <circle cx="18" cy="75" r="7" fill="none" stroke="#3A2410" strokeWidth="1.8"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(31,58,50,0.45)",marginBottom:"0.35rem"}}>설치한 적 없는데 실행되고 있는 것.</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#1F3A32",marginBottom:"0.4rem"}}>내 마음의 기본값</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(38,50,44,0.7)",lineHeight:1.75,marginBottom:"0.5rem"}}>누가 가르쳐준 적 없는데 늘 그렇게 해온 것들이 있어요.<br/>여기서 시작해요 →</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(58,36,16,0.5)",marginBottom:"0.35rem"}}>설치한 적 없는데 실행되고 있는 것.</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#3A2410",marginBottom:"0.4rem"}}>내 마음의 기본값</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(58,36,16,0.7)",lineHeight:1.75,marginBottom:"0.5rem"}}>누가 가르쳐준 적 없는데 늘 그렇게 해온 것들이 있어요.<br/>여기서 시작해요 →</p>
               </div>
             </div>
 
@@ -551,19 +566,19 @@ export default function App() {
 
             {/* 02 내 마음의 초기화면 */}
             <div className="intro-card-hover" style={{position:"relative",marginBottom:"0.75rem"}}>
-              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#8FA89E",display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#8C7A6A",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#F7F2E8"}}>02</span>
               </div>
-              <div onClick={() => setStep("mindmirror-intro")} style={{background:"#C8D8C4",padding:"1.4rem 1.8rem",borderLeft:"4px solid #8FA89E",position:"relative",overflow:"hidden",minHeight:140}}>
+              <div onClick={() => setStep("mindmirror-intro")} style={{background:"#E6DDD0",padding:"1.4rem 1.8rem",borderLeft:"4px solid #8C7A6A",borderRadius:"0 4px 4px 0",position:"relative",overflow:"hidden",minHeight:140}}>
                 <svg width="90" height="90" viewBox="0 0 90 90" style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",opacity:0.12,pointerEvents:"none"}}>
-                  <circle cx="45" cy="45" r="40" fill="none" stroke="#2D4A2D" strokeWidth="2"/>
-                  <circle cx="45" cy="45" r="28" fill="none" stroke="#2D4A2D" strokeWidth="2"/>
-                  <circle cx="45" cy="45" r="16" fill="none" stroke="#2D4A2D" strokeWidth="2"/>
-                  <circle cx="45" cy="45" r="6" fill="none" stroke="#2D4A2D" strokeWidth="2"/>
+                  <circle cx="45" cy="45" r="40" fill="none" stroke="#3A2E24" strokeWidth="2"/>
+                  <circle cx="45" cy="45" r="28" fill="none" stroke="#3A2E24" strokeWidth="2"/>
+                  <circle cx="45" cy="45" r="16" fill="none" stroke="#3A2E24" strokeWidth="2"/>
+                  <circle cx="45" cy="45" r="6" fill="none" stroke="#3A2E24" strokeWidth="2"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(31,58,50,0.45)",marginBottom:"0.35rem"}}>켜지자마자 뜨는 것.</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#1F3A32",marginBottom:"0.4rem"}}>내 마음의 초기화면</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(38,50,44,0.65)",lineHeight:1.75,marginBottom:"0.5rem"}}>일이 생겼을 때, 내 마음에 먼저 뜨는 것을 봅니다.<br/>01을 했다면 여기로 →</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(58,46,36,0.5)",marginBottom:"0.35rem"}}>켜지자마자 뜨는 것.</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#3A2E24",marginBottom:"0.4rem"}}>내 마음의 초기화면</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(58,46,36,0.65)",lineHeight:1.75,marginBottom:"0.5rem"}}>일이 생겼을 때, 내 마음에 먼저 뜨는 것을 봅니다.<br/>01을 했다면 여기로 →</p>
               </div>
             </div>
 
@@ -571,18 +586,18 @@ export default function App() {
 
             {/* 03 내 마음의 운영체계 */}
             <div className="intro-card-hover" style={{position:"relative",marginBottom:"0.75rem"}}>
-              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#7A8C78",display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#4A7A52",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#F7F2E8"}}>03</span>
               </div>
-              <div onClick={() => { setStage(2); setStep("intro2"); }} style={{background:"#C4BBA8",padding:"1.4rem 1.8rem",borderLeft:"4px solid #7A8C78",position:"relative",overflow:"hidden",minHeight:140}}>
+              <div onClick={() => { setStage(2); setStep("intro2"); }} style={{background:"#C2D4C0",padding:"1.4rem 1.8rem",borderLeft:"4px solid #4A7A52",borderRadius:"0 4px 4px 0",position:"relative",overflow:"hidden",minHeight:140}}>
                 <svg width="90" height="80" viewBox="0 0 90 80" style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",opacity:0.12,pointerEvents:"none"}}>
-                  <path d="M45,4 L84,22 L45,40 L6,22 Z" fill="none" stroke="#2D4A2D" strokeWidth="2" strokeLinejoin="round"/>
-                  <path d="M6,34 L45,52 L84,34" fill="none" stroke="#2D4A2D" strokeWidth="2" strokeLinecap="round"/>
-                  <path d="M6,46 L45,64 L84,46" fill="none" stroke="#2D4A2D" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M45,4 L84,22 L45,40 L6,22 Z" fill="none" stroke="#1E2E1E" strokeWidth="2" strokeLinejoin="round"/>
+                  <path d="M6,34 L45,52 L84,34" fill="none" stroke="#1E2E1E" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M6,46 L45,64 L84,46" fill="none" stroke="#1E2E1E" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(31,58,50,0.45)",marginBottom:"0.35rem"}}>생각하기 전에 이미 움직이고 있는 것.</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#1F3A32",marginBottom:"0.4rem"}}>내 마음의 운영체계</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(38,50,44,0.65)",lineHeight:1.75,marginBottom:"0.5rem"}}>첫 반응 아래에서 반복적으로 작동하는 해석과 판단의 방식이에요.<br/>02를 했다면 여기로 →</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(30,46,30,0.5)",marginBottom:"0.35rem"}}>생각하기 전에 이미 움직이고 있는 것.</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#1E2E1E",marginBottom:"0.4rem"}}>내 마음의 운영체계</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(30,46,30,0.65)",lineHeight:1.75,marginBottom:"0.5rem"}}>첫 반응 아래에서 반복적으로 작동하는 해석과 판단의 방식이에요.<br/>02를 했다면 여기로 →</p>
               </div>
             </div>
 
@@ -590,23 +605,23 @@ export default function App() {
 
             {/* 04 내 마음의 메모리 */}
             <div className="intro-card-hover" style={{position:"relative",marginBottom:"0.75rem"}}>
-              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#8FA8A0",display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#2E6A5E",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#F7F2E8"}}>04</span>
               </div>
-              <div onClick={() => setShowOracle(true)} style={{background:"#8FA8A0",padding:"1.4rem 1.8rem",borderLeft:"4px solid #6A8880",position:"relative",overflow:"hidden",minHeight:140}}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="90" height="90" style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",opacity:0.3,pointerEvents:"none"}}>
-                  <circle cx="100" cy="100" r="90" fill="none" stroke="#1F3A32" strokeWidth="1" opacity="0.3"/>
-                  <circle cx="100" cy="100" r="78" fill="none" stroke="#1F3A32" strokeWidth="1" opacity="0.4"/>
-                  <circle cx="100" cy="100" r="66" fill="none" stroke="#1F3A32" strokeWidth="1.2" opacity="0.5"/>
-                  <circle cx="100" cy="100" r="54" fill="none" stroke="#1F3A32" strokeWidth="1.2" opacity="0.6"/>
-                  <circle cx="100" cy="100" r="42" fill="none" stroke="#1F3A32" strokeWidth="1.5" opacity="0.7"/>
-                  <circle cx="100" cy="100" r="30" fill="none" stroke="#1F3A32" strokeWidth="1.5" opacity="0.8"/>
-                  <circle cx="100" cy="100" r="18" fill="none" stroke="#1F3A32" strokeWidth="2" opacity="0.9"/>
-                  <circle cx="100" cy="100" r="7" fill="#1F3A32" opacity="0.9"/>
+              <div onClick={() => { setOracleInitialPhase("intro"); setShowOracle(true); }} style={{background:"#A8C0B8",padding:"1.4rem 1.8rem",borderLeft:"4px solid #2E6A5E",borderRadius:"0 4px 4px 0",position:"relative",overflow:"hidden",minHeight:140}}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="90" height="90" style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",opacity:0.25,pointerEvents:"none"}}>
+                  <circle cx="100" cy="100" r="90" fill="none" stroke="#1A2E28" strokeWidth="1" opacity="0.3"/>
+                  <circle cx="100" cy="100" r="78" fill="none" stroke="#1A2E28" strokeWidth="1" opacity="0.4"/>
+                  <circle cx="100" cy="100" r="66" fill="none" stroke="#1A2E28" strokeWidth="1.2" opacity="0.5"/>
+                  <circle cx="100" cy="100" r="54" fill="none" stroke="#1A2E28" strokeWidth="1.2" opacity="0.6"/>
+                  <circle cx="100" cy="100" r="42" fill="none" stroke="#1A2E28" strokeWidth="1.5" opacity="0.7"/>
+                  <circle cx="100" cy="100" r="30" fill="none" stroke="#1A2E28" strokeWidth="1.5" opacity="0.8"/>
+                  <circle cx="100" cy="100" r="18" fill="none" stroke="#1A2E28" strokeWidth="2" opacity="0.9"/>
+                  <circle cx="100" cy="100" r="7" fill="#1A2E28" opacity="0.9"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(31,58,50,0.6)",marginBottom:"0.35rem"}}>지워지지 않고 계속 불러오는 것.</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#1F3A32",marginBottom:"0.4rem"}}>내 마음의 메모리</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(31,58,50,0.7)",lineHeight:1.75,marginBottom:"0.5rem"}}>선택은 끝났는데도 지워지지 않고 남아있는 것들이 있어요.<br/>03을 했다면 여기로 →</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(26,46,40,0.55)",marginBottom:"0.35rem"}}>지워지지 않고 계속 불러오는 것.</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#1A2E28",marginBottom:"0.4rem"}}>내 마음의 메모리</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(26,46,40,0.7)",lineHeight:1.75,marginBottom:"0.5rem"}}>선택은 끝났는데도 지워지지 않고 남아있는 것들이 있어요.<br/>03을 했다면 여기로 →</p>
               </div>
             </div>
 
@@ -614,25 +629,25 @@ export default function App() {
 
             {/* 05 내 마음의 새창열기 */}
             <div className="intro-card-hover" style={{position:"relative",marginBottom:"0.75rem"}}>
-              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#C9A84C",display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#3A5278",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#F7F2E8"}}>05</span>
               </div>
-              <div onClick={() => setShowNewWindow(true)} style={{background:"#2D4A3E",padding:"1.4rem 1.8rem",border:"1px solid #C9A84C",position:"relative",overflow:"hidden",minHeight:140}}>
-                <svg width="90" height="80" viewBox="0 0 90 80" style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",opacity:0.2,pointerEvents:"none"}}>
-                  <rect x="2" y="2" width="60" height="46" rx="3" fill="none" stroke="#C9A84C" strokeWidth="1.8"/>
-                  <line x1="2" y1="12" x2="62" y2="12" stroke="#C9A84C" strokeWidth="1.8"/>
-                  <circle cx="9" cy="7" r="2" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
-                  <circle cx="16" cy="7" r="2" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
-                  <circle cx="23" cy="7" r="2" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
-                  <rect x="22" y="20" width="60" height="46" rx="3" fill="none" stroke="#C9A84C" strokeWidth="1.8"/>
-                  <line x1="22" y1="30" x2="82" y2="30" stroke="#C9A84C" strokeWidth="1.8"/>
-                  <circle cx="29" cy="25" r="2" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
-                  <circle cx="36" cy="25" r="2" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
-                  <circle cx="43" cy="25" r="2" fill="none" stroke="#C9A84C" strokeWidth="1.2"/>
+              <div onClick={() => setShowNewWindow(true)} style={{background:"#B0BED0",padding:"1.4rem 1.8rem",borderLeft:"4px solid #3A5278",borderRadius:"0 4px 4px 0",position:"relative",overflow:"hidden",minHeight:140}}>
+                <svg width="90" height="80" viewBox="0 0 90 80" style={{position:"absolute",right:12,top:"50%",transform:"translateY(-50%)",opacity:0.18,pointerEvents:"none"}}>
+                  <rect x="2" y="2" width="60" height="46" rx="3" fill="none" stroke="#1A2234" strokeWidth="1.8"/>
+                  <line x1="2" y1="12" x2="62" y2="12" stroke="#1A2234" strokeWidth="1.8"/>
+                  <circle cx="9" cy="7" r="2" fill="none" stroke="#1A2234" strokeWidth="1.2"/>
+                  <circle cx="16" cy="7" r="2" fill="none" stroke="#1A2234" strokeWidth="1.2"/>
+                  <circle cx="23" cy="7" r="2" fill="none" stroke="#1A2234" strokeWidth="1.2"/>
+                  <rect x="22" y="20" width="60" height="46" rx="3" fill="none" stroke="#1A2234" strokeWidth="1.8"/>
+                  <line x1="22" y1="30" x2="82" y2="30" stroke="#1A2234" strokeWidth="1.8"/>
+                  <circle cx="29" cy="25" r="2" fill="none" stroke="#1A2234" strokeWidth="1.2"/>
+                  <circle cx="36" cy="25" r="2" fill="none" stroke="#1A2234" strokeWidth="1.2"/>
+                  <circle cx="43" cy="25" r="2" fill="none" stroke="#1A2234" strokeWidth="1.2"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(201,168,76,0.6)",marginBottom:"0.35rem"}}>지금까지 보던 창 옆에 작은 창 하나를 더 열어봐요.</div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"rgba(247,242,232,0.9)",marginBottom:"0.4rem"}}>내 마음의 새창열기</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(247,242,232,0.55)",lineHeight:1.75,marginBottom:"0.5rem"}}>같은 기억도 다른 창으로 보면 조금 다르게 보여요.<br/>여기가 마지막 문이에요 →</p>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(26,34,52,0.5)",marginBottom:"0.35rem"}}>지금까지 보던 창 옆에 작은 창 하나를 더 열어봐요.</div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#1A2234",marginBottom:"0.4rem"}}>내 마음의 새창열기</div>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(26,34,52,0.65)",lineHeight:1.75,marginBottom:"0.5rem"}}>같은 기억도 다른 창으로 보면 조금 다르게 보여요.<br/>여기가 마지막 문이에요 →</p>
               </div>
             </div>
 
@@ -696,7 +711,7 @@ export default function App() {
           </div>
           <div style={{display:"flex",gap:"1rem",flexWrap:"wrap"}}>
             <button onClick={() => setStep("questions")} style={{background:"#1F3A32",border:"none",color:"#F7F2E8",fontFamily:"'Source Serif 4',serif",fontSize:".82rem",letterSpacing:".18em",textTransform:"uppercase",padding:"1.1rem 2.8rem",cursor:"pointer"}}>초기화면 적어보기</button>
-            <button onClick={() => setStep("intro")} style={{background:"transparent",border:"1px solid rgba(143,168,158,0.5)",color:"#8F8464",fontFamily:"'Source Serif 4',serif",fontSize:".78rem",letterSpacing:".15em",textTransform:"uppercase",padding:"1.1rem 1.8rem",cursor:"pointer"}}>← 돌아가기</button>
+            <button onClick={() => setStep("intro")} style={{background:"transparent",border:"1px solid rgba(143,168,158,0.5)",color:"#8F8464",fontFamily:"'Source Serif 4',serif",fontSize:".78rem",letterSpacing:".15em",textTransform:"uppercase",padding:"1.1rem 1.8rem",cursor:"pointer"}}>← 마음거울로</button>
           </div>
         </div>
       </div>
@@ -794,7 +809,7 @@ export default function App() {
           </div>
           <div style={{display:"flex",gap:"1rem",flexWrap:"wrap"}}>
             <button style={{background:"#7A8C78",border:"none",color:"#F7F2E8",fontFamily:"'Source Serif 4',serif",fontSize:".82rem",letterSpacing:".18em",textTransform:"uppercase",padding:"1.1rem 2.8rem",cursor:"pointer"}} onClick={() => setStep("questions")}>선택의 구조 확인하기</button>
-            <button style={{background:"transparent",border:"1px solid rgba(122,140,120,0.4)",color:"#7A8C78",fontFamily:"'Source Serif 4',serif",fontSize:".78rem",letterSpacing:".15em",textTransform:"uppercase",padding:"1.1rem 1.8rem",cursor:"pointer"}} onClick={() => setStep("intro")}>← 돌아가기</button>
+            <button style={{background:"transparent",border:"1px solid rgba(122,140,120,0.4)",color:"#7A8C78",fontFamily:"'Source Serif 4',serif",fontSize:".78rem",letterSpacing:".15em",textTransform:"uppercase",padding:"1.1rem 1.8rem",cursor:"pointer"}} onClick={() => setStep("intro")}>← 마음거울로</button>
           </div>
         </div>
       )}
@@ -841,7 +856,7 @@ export default function App() {
             <button className="copy-btn" onClick={copyResult}>결과 복사</button>
             <button className="restart-btn" onClick={downloadResult}>결과 저장</button>
             <button className="stage2-btn" onClick={startStage2}>내 마음의 운영체계 →</button>
-            <button className="restart-btn" onClick={restart}>다시 시작</button>
+            <button className="restart-btn" onClick={restart}>← 마음거울로</button>
           </div>
           <FeedbackWidget />
         </div>
@@ -859,7 +874,7 @@ export default function App() {
           <div className="result-actions">
             <button className="copy-btn2" onClick={copyResult}>결과 복사</button>
             <button className="restart-btn2" onClick={downloadResult}>결과 저장</button>
-            <button className="restart-btn2" onClick={restart}>처음으로</button>
+            <button className="restart-btn2" onClick={restart}>← 마음거울로</button>
           </div>
           <FeedbackWidget dark={true} />
         </div>
