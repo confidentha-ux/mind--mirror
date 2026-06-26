@@ -342,7 +342,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
   letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0.6rem 1.4rem;
 }
 .nw-back-result:hover { border-color:rgba(38,50,44,0.5); color:rgba(38,50,44,0.8); } 
-      </style>
+      `}</style>
 
       {/* 인트로 */}
       {phase === "intro" && (
