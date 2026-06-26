@@ -148,7 +148,7 @@ export default function NewWindow({ onBack }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
-          max_tokens: 1200,
+          max_tokens: 4000,
           system: NEWWINDOW_PROMPT,
           messages: [{ role: "user", content: `다음은 사용자의 응답입니다:\n\n${formatted}` }],
         }),
@@ -263,7 +263,7 @@ export default function NewWindow({ onBack }) {
 
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem" }}>
             <button className="nw-btn" style={{ background: "rgba(201,168,76,0.15)", border: "1px solid #C9A84C", color: "#C9A84C" }} onClick={() => setPhase("questions")}>시작하기</button>
-            <button className="nw-back" onClick={onBack}>← 돌아가기</button>
+            <button className="nw-back" onClick={onBack}>← 마음거울로</button>
           </div>
         </div>
       )}
@@ -340,7 +340,7 @@ export default function NewWindow({ onBack }) {
               setSelectedOption(null);
               setTextAnswer("");
               setResult("");
-            }}>다시 시작</button>
+            }}>마음거울로</button>
             <button className="nw-back-result" onClick={onBack}>← 마음거울로</button>
           </div>
         </div>
