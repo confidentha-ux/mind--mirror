@@ -372,7 +372,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
         <div style={{ width:"100%", maxWidth:540, position:"relative", zIndex:1 }}>
           <div style={{ width:"100%", height:"1px", background:"rgba(247,242,232,0.1)", marginBottom:"3.5rem" }}>
             <div style={{ height:"100%", width:`${progress}%`, background:"rgba(201,168,76,0.5)", transition:"width 0.6s ease" }}/>
-          </div>
+          `}</style>
           <div style={{ fontSize:"0.58rem", letterSpacing:"0.28em", textTransform:"uppercase", color:"rgba(247,242,232,0.35)", marginBottom:"0.6rem", fontFamily:"'Source Serif 4',serif" }}>
             {currentQ + 1} / {NW_QUESTIONS.length} — {q.title}
           </div>
