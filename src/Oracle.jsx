@@ -436,9 +436,11 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
         .mem-option:hover { background:rgba(247,242,232,0.15); border-color:rgba(247,242,232,0.4); color:#F7F2E8; }
         .mem-option.selected { background:rgba(46,106,94,0.25); border-color:#2E6A5E; color:#F7F2E8; }
         .mem-btn {
-          background:rgba(46,106,94,0.15); border:1px solid #2E6A5E; color:#8FA8A0;
-          font-family:'Source Serif 4',serif; font-size:0.82rem; letter-spacing:0.18em;
-          text-transform:uppercase; cursor:pointer; padding:1rem 2.5rem; transition:all 0.3s;
+  background:#2E6A5E; border:1px solid #2E6A5E; color:#F7F2E8;
+  font-family:'Source Serif 4',serif; font-size:0.82rem; letter-spacing:0.18em;
+  text-transform:uppercase; cursor:pointer; padding:1rem 2.5rem; transition:all 0.3s;
+}
+.mem-btn:hover { background:#3a8a74; }
         }
         .mem-btn:hover { background:rgba(46,106,94,0.25); }
         .mem-btn-next {
@@ -449,25 +451,26 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
         }
         .mem-btn-next:hover { border-color:rgba(247,242,232,0.8); color:#F7F2E8; }
         .mem-btn-next:disabled { opacity:0.2; cursor:default; }
-        .mem-btn-result {
-          background:transparent; border:1px solid rgba(46,106,94,0.35);
-          color:rgba(26,46,40,0.7); font-family:'Source Serif 4',serif;
-          font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
-          cursor:pointer; padding:0.7rem 1.8rem; transition:all 0.3s;
-        }
-        .mem-btn-result:hover { border-color:rgba(46,106,94,0.7); color:#1A2E28; }
+      .mem-btn-result {
+  background:transparent; border:1px solid rgba(26,46,40,0.25);
+  color:rgba(26,46,40,0.65); font-family:'Source Serif 4',serif;
+  font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
+  cursor:pointer; padding:0.7rem 1.8rem; transition:all 0.3s;
+}
+.mem-btn-result:hover { border-color:rgba(26,46,40,0.5); color:#1A2E28; } 
         .back-link {
-          background:transparent; border:none; color:rgba(247,242,232,0.35);
-          font-family:'Source Serif 4',serif; font-size:0.7rem;
-          letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0;
+  background:transparent; border:1px solid rgba(247,242,232,0.25); color:rgba(247,242,232,0.55);
+  font-family:'Source Serif 4',serif; font-size:0.7rem;
+  letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0.6rem 1.4rem;
+}
+.back-link:hover { border-color:rgba(247,242,232,0.5); color:rgba(247,242,232,0.85); }
         }
-        .back-link:hover { color:rgba(247,242,232,0.7); }
-        .back-link-result {
-          background:transparent; border:none; color:rgba(46,106,94,0.4);
-          font-family:'Source Serif 4',serif; font-size:0.7rem;
-          letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0;
-        }
-        .back-link-result:hover { color:rgba(46,106,94,0.75); }
+       .back-link-result {
+  background:transparent; border:1px solid rgba(46,106,94,0.3); color:rgba(46,106,94,0.6);
+  font-family:'Source Serif 4',serif; font-size:0.7rem;
+  letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0.6rem 1.4rem; }
+.back-link-result:hover { border-color:rgba(46,106,94,0.6); color:rgba(46,106,94,0.9); } }
+        
         .mem-textarea {
           width:100%; background:transparent; border:none;
           border-bottom:1px solid rgba(247,242,232,0.2); color:#F7F2E8;
