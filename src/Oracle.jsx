@@ -1,108 +1,190 @@
 import { useState, useEffect, useRef } from "react";
 
-const ORACLE_QUESTIONS = [
+const MEMORY_INTRO = `지금 일어난 일을 있는 그대로 보는 것 같지만,
+
+때로는 오래된 기억을 통과한 현재를 보고 있을 때가 있어요.
+
+그 기억 안에는 사건만 있는 게 아니에요.
+
+그때 느낀 감정, 그때 내린 해석, 그때 몸이 기억한 것들이 함께 저장되어 있어요.
+
+이 질문지는 지금 내 반응 안에서 다시 켜지고 있는 것들을 조용히 살펴보기 위한 거예요.
+
+정답은 없어요.
+
+떠오르는 대로 답해주세요.`;
+
+const MEMORY_QUESTIONS = [
   {
     id: 1,
-    title: "남아있는 것",
-    question: "이상하게 아직도 내 안에 남아 있는 것은 무엇인가요?",
+    type: "single",
+    title: "흔들린 순간",
+    question: "최근 내 마음이 흔들렸던 순간이 있었나요. 어떤 상황이었나요?",
     options: [
-      "풀리지 않은 일",
-      "지나간 기회",
-      "잊히지 않는 사람",
-      "다시 겪고 싶지 않은 순간",
-      "닫히지 않은 가능성",
-      "계속 따라오는 질문",
-      "설명하기 어려운 감정",
+      "누군가의 말에 상처받았을 때",
+      "기대했던 반응이 오지 않았을 때",
+      "거절당했다고 느꼈을 때",
+      "내가 실수했다고 생각했을 때",
+      "답장이 늦어졌을 때",
+      "비교당하는 느낌이 들었을 때",
+      "무시당한다고 느꼈을 때",
+      "기타",
     ],
   },
   {
     id: 2,
-    title: "느낌",
-    question: "그 기억은 내 안에서 어떤 느낌에 가까운가요?",
+    type: "single",
+    title: "감정",
+    question: "그 순간 내가 느낀 감정은 무엇에 가까운가요?",
     options: [
-      "아직 열지 못한 편지 같은",
-      "오래된 상처 자국 같은",
-      "자꾸 켜지는 알람 같은",
-      "흐릿한데 지워지지 않는 사진 같은",
-      "아직 닫히지 않은 탭 같은",
-      "오래 품고 있던 돌 같은",
-      "이름 붙이기 어려운 냄새 같은",
+      "서운함", "불안", "억울함", "부끄러움",
+      "분노", "외로움", "무력감", "긴장",
     ],
   },
   {
     id: 3,
-    title: "반응",
-    question: "그 기억이 떠오를 때 나는 보통 어떻게 반응하나요?",
+    type: "single",
+    title: "강도",
+    question: "그때 느낀 감정은 상황에 자연스러운가요, 아니면 조금 과도하게 느껴졌나요?",
     options: [
-      "왜 그랬는지 다시 생각한다",
-      "아쉬움이 올라온다",
-      "피하고 싶어진다",
-      "마음이 무거워진다",
-      "다른 가능성을 상상한다",
-      "그 일의 의미를 다시 묻는다",
-      "그때의 감정이 다시 느껴진다",
+      "자연스러웠다",
+      "조금 과도했다",
+      "많이 과도했다",
+      "잘 모르겠다",
     ],
   },
   {
     id: 4,
-    title: "이유",
-    question: "그 기억이 쉽게 지나가지 않는 이유는 무엇 때문일까요?",
+    type: "single_with_input",
+    title: "내면의 말",
+    question: "그 순간 내 안에서 떠오른 말은 무엇에 가까운가요?",
     options: [
-      "아직 이해가 안 되는 부분이 있어서",
-      "내가 달랐다면 어땠을지 자꾸 생각해서",
-      "그 사람이나 관계가 아직 마음에 남아서",
-      "다시는 그런 일이 생기지 않길 바라서",
-      "아직 끝나지 않은 것 같은 느낌이 있어서",
-      "그 일이 나에게 중요한 무언가를 건드려서",
-      "그때의 내가 아직도 선명해서",
+      "나는 또 부족한 사람이다",
+      "상대가 나를 가볍게 보고 있다",
+      "나는 버려지고 있다",
+      "실수하면 큰일 난다",
+      "내가 먼저 맞춰야 한다",
+      "아무도 내 마음을 몰라준다",
+      "빨리 해결해야 한다",
+      "그냥 참아야 한다",
+      "직접 입력",
     ],
   },
   {
     id: 5,
-    title: "기억",
-    question: "1번에서 떠올린 기억 하나를 골라 적어주세요.\n장면 하나, 사람 한 명, 말 한마디, 감정 하나만 적어도 충분해요.\n그 기억은 지금 내 안에 어떤 모습으로 남아 있나요?",
+    type: "multi_with_input",
+    title: "몸의 반응",
+    question: "그 순간 나는 어떻게 반응했나요?",
+    options: [
+      "얼굴이 뜨거워졌다",
+      "말이 빨라졌다",
+      "심장이 빨라졌다",
+      "숨이 얕아졌다",
+      "몸에 힘이 빠졌다",
+      "목이나 어깨가 굳었다",
+      "가슴이 답답해졌다",
+      "배가 불편했다",
+      "아무 말도 하기 싫어졌다",
+      "눈물이 났다",
+      "직접 입력",
+    ],
+  },
+  {
+    id: 6,
+    type: "single_with_input",
+    title: "반응 방식",
+    question: "비슷한 상황에서 나는 주로 어떻게 하나요?",
+    options: [
+      "먼저 참는다",
+      "혼자 생각하고 거리를 둔다",
+      "바로 확인하거나 따진다",
+      "괜찮은 척한다",
+      "상대의 기분을 먼저 살핀다",
+      "내가 잘못한 부분을 먼저 찾는다",
+      "관계를 끊고 싶어진다",
+      "직접 입력",
+    ],
+  },
+  {
+    id: 7,
+    type: "single",
+    title: "익숙함",
+    question: "이 반응은 처음인가요, 아니면 익숙한 반응인가요?",
+    options: [
+      "처음인 것 같다",
+      "이런 상황에서는 늘 이런 반응이다",
+      "상황마다 다르다",
+      "잘 모르겠다",
+    ],
+  },
+  {
+    id: 8,
+    type: "single_with_input",
+    title: "관계",
+    question: "이 반응은 어떤 관계에서 자주 나타나나요?",
+    options: [
+      "가족",
+      "친구",
+      "연인 또는 배우자",
+      "직장 또는 학교",
+      "나를 평가할 것 같은 사람",
+      "가까워지고 싶은 사람",
+      "권위 있는 사람",
+      "직접 입력",
+    ],
+  },
+  {
+    id: 9,
+    type: "single",
+    title: "판단",
+    question: "지금 내 안에 있는 판단은 어떤 건가요?",
+    options: [
+      "나는 감정 표현이 서툰 사람이다",
+      "나는 먼저 기대면 안 된다",
+      "나는 잘 해내야 한다",
+      "나는 사람들 앞에서 작아지는 편이다",
+      "나는 상처를 오래 안고 가는 사람이다",
+      "나는 혼자인 게 편하다",
+      "나는 사랑받기 어려운 사람인 것 같다",
+      "딱히 해당되는 게 없다",
+    ],
+  },
+  {
+    id: 10,
     type: "text",
+    title: "발견",
+    question: "지금까지 답하면서 나에 대해 새롭게 보이거나 발견한 것이 있나요?",
   },
 ];
 
-const ORACLE_SYSTEM_PROMPT = `당신은 마음거울의 분석가이다.
+const MEMORY_SYSTEM_PROMPT = `당신은 사용자가 답한 "내 마음의 메모리" 답변을 분석하는 해설자입니다.
 
-당신의 역할은 사용자를 진단하거나 평가하는 것이 아니다.
-당신은 사용자의 답변 속에서 반복되는 패턴, 긴장, 갈망, 모순을 발견하고 그것을 비추어 주는 존재이다.
+당신의 역할은 사용자를 교정하거나 치료하는 것이 아닙니다.
 
-절대 하지 말 것:
-- 사용자를 유형으로 규정하지 말 것
-- 단정하지 말 것
-- 마크다운 볼드(**텍스트**)를 절대 사용하지 말 것
-- 교훈을 설교하지 말 것
-- 조언을 남발하지 말 것
+사용자가 지금 이 반응 안에서 오래된 것들을 스스로 발견하도록 조용히 비춰주세요.
 
-언어 원칙:
-- 반드시 존댓말로 쓸 것. ~요, ~습니다 형식으로. 반말 절대 금지.
-- 짧고 시적이고 여백이 있어야 한다
-- 각 섹션은 간결하게. 전체가 하나의 흐름처럼 읽혀야 한다
-- Oracle 섹션은 반드시 "혹시" 또는 "어쩌면"으로 시작하는 문장을 포함한다
-- Empowerment는 단 한 문장의 질문으로 끝낸다
+분석 원칙:
+1. 사용자의 반응을 판단하지 않는다
+2. 모든 반응은 몸이 오래 학습한 방식임을 전제로 한다
+3. 단정하지 않는다. "이번 반응은 ○○에 가까웠을 수 있어요" 형식으로
+4. 사용자가 선택한 반응 유형을 짚어주되 부드럽게 교육한다
+5. 이 반응이 유일한 방식이 아님을 알려준다
+6. 대시를 사용하지 않는다
+7. 문장은 짧게. 친한 사람이 조용히 옆에 앉아서 말하듯 써라
+8. 볼드(**텍스트**) 절대 사용 금지
+9. 소제목(###) 절대 사용 금지
 
-출력 구조:
+분석 순서:
+## 이번 반응에서 가장 먼저 켜진 것
+## 그 반응이 작동한 방식
+## 오래된 학습에서 온 것일 수 있어요
+## 다른 선택의 가능성
 
-## Reflection
-3-5줄. 사용자가 답한 내용을 짧은 문장들로 정리. 해석 없이.
+마지막 문장:
+"이 반응이 틀렸다는 뜻이 아니에요.
+다만 이번에는 다르게 선택할 수도 있어요."
 
-## Recognition
-2-3문단. 반복 패턴. 사용자가 "맞아"라고 느낄 수 있어야 한다.
-
-## Oracle
-2-3문단. 균열. 반드시 "혹시" 또는 "어쩌면" 포함.
-
-## Story
-5-8줄. 시처럼 짧은 줄들로.
-
-## Empowerment
-단 한 문장. 질문으로 끝낸다.
-
-반드시 한국어로 응답하라.
-반드시 ## Reflection, ## Recognition, ## Oracle, ## Story, ## Empowerment 헤더를 정확히 사용하라.`;
+한국어로 작성하세요.`;
 
 const VaseSVG = ({ flowersVisible = 0 }) => (
   <svg width="360" height="600" viewBox="-60 -280 280 480" style={{position:"absolute",right:"-10px",top:"50%",transform:"translateY(-50%)",opacity:0.12,pointerEvents:"none"}}>
@@ -154,21 +236,17 @@ const VaseSVG = ({ flowersVisible = 0 }) => (
 
 function TodaySentence({ onSave }) {
   const [text, setText] = useState("");
-  const handleSave = () => {
-    if (!text.trim()) return;
-    onSave(text.trim());
-  };
   return (
     <div style={{ marginTop: "0.75rem" }}>
       <textarea value={text} onChange={e => setText(e.target.value)} placeholder="오늘 여기서 발견한 것..." rows={2}
         style={{width:"100%",background:"rgba(255,255,255,0.07)",border:"1px solid rgba(143,168,160,0.3)",color:"rgba(240,237,232,0.8)",fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,lineHeight:1.8,padding:"0.75rem 1rem",resize:"none",outline:"none"}}/>
-      <button onClick={handleSave}
+      <button onClick={() => { if (text.trim()) onSave(text.trim()); }}
         style={{marginTop:"0.5rem",background:"none",border:"1px solid rgba(143,168,160,0.4)",color:"rgba(143,168,160,0.7)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",padding:"0.4rem 1.2rem",cursor:"pointer"}}>기록하기</button>
     </div>
   );
 }
 
-function OracleFeedback() {
+function MemoryFeedback() {
   const [selected, setSelected] = useState(null);
   return (
     <div>
@@ -193,69 +271,110 @@ function OracleFeedback() {
 
 export default function Oracle({ onBack, onComprehensive, initialPhase = "intro" }) {
   const [phase, setPhase] = useState(initialPhase);
+  const [showIntro, setShowIntro] = useState(true); // 안내문 표시 여부
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState({});
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState([]); // 다중선택용
+  const [customInput, setCustomInput] = useState(""); // 직접입력용
   const [textAnswer, setTextAnswer] = useState("");
-  const [oracleText, setOracleText] = useState(() => localStorage.getItem("mindmirror_oracle") || "");
+  const [memoryText, setMemoryText] = useState(() => localStorage.getItem("mindmirror_oracle") || "");
   const [visibleSections, setVisibleSections] = useState([]);
   const resultRef = useRef(null);
 
   useEffect(() => {
-    // final phase로 시작할 때 기존 oracle 결과 파싱을 위해 섹션 즉시 표시
     if (initialPhase === "final") {
-      setVisibleSections(["Reflection", "Recognition", "Oracle", "Story", "Empowerment"]);
+      setVisibleSections(["이번 반응에서 가장 먼저 켜진 것", "그 반응이 작동한 방식", "오래된 학습에서 온 것일 수 있어요", "다른 선택의 가능성"]);
     }
   }, [initialPhase]);
 
   useEffect(() => {
-    if (phase !== "result" || !oracleText) return;
+    if (phase !== "result" || !memoryText) return;
     setVisibleSections([]);
-    const sections = ["Reflection", "Recognition", "Oracle", "Story", "Empowerment"];
+    const sections = ["이번 반응에서 가장 먼저 켜진 것", "그 반응이 작동한 방식", "오래된 학습에서 온 것일 수 있어요", "다른 선택의 가능성"];
     sections.forEach((s, i) => {
-      setTimeout(() => {
-        setVisibleSections(prev => [...prev, s]);
-      }, i * 1800);
+      setTimeout(() => setVisibleSections(prev => [...prev, s]), i * 1600);
     });
-  }, [phase, oracleText]);
+  }, [phase, memoryText]);
 
-  const q = ORACLE_QUESTIONS[currentQ];
-  const isTextQ = q?.type === "text";
-  const progress = (currentQ / ORACLE_QUESTIONS.length) * 100;
-  const canProceed = isTextQ ? textAnswer.trim().length > 0 : selectedOption !== null;
+  const q = MEMORY_QUESTIONS[currentQ];
+  const isMulti = q?.type === "multi_with_input";
+  const isText = q?.type === "text";
+  const hasDirect = q?.type === "single_with_input" || q?.type === "multi_with_input";
+  const lastOption = q?.options?.[q.options.length - 1] === "직접 입력";
+  const directSelected = selectedOptions.includes("직접 입력") || (hasDirect && !isMulti && answers[currentQ]?.raw === "직접 입력");
+
+  const progress = (currentQ / MEMORY_QUESTIONS.length) * 100;
+
+  const canProceed = (() => {
+    if (isText) return textAnswer.trim().length > 0;
+    if (isMulti) {
+      if (selectedOptions.length === 0) return false;
+      if (selectedOptions.includes("직접 입력") && !customInput.trim()) return false;
+      return true;
+    }
+    // single / single_with_input
+    const sel = answers[currentQ]?.raw;
+    if (!sel) return false;
+    if (sel === "직접 입력" && !customInput.trim()) return false;
+    return true;
+  })();
+
+  function selectSingle(opt) {
+    setAnswers(prev => ({ ...prev, [currentQ]: { raw: opt } }));
+    if (opt !== "직접 입력") setCustomInput("");
+  }
+
+  function toggleMulti(opt) {
+    setSelectedOptions(prev =>
+      prev.includes(opt) ? prev.filter(o => o !== opt) : [...prev, opt]
+    );
+    if (opt !== "직접 입력") setCustomInput("");
+  }
+
+  function getAnswerText() {
+    if (isText) return textAnswer;
+    if (isMulti) {
+      const opts = selectedOptions.filter(o => o !== "직접 입력");
+      if (selectedOptions.includes("직접 입력") && customInput.trim()) opts.push(customInput.trim());
+      return opts.join(", ");
+    }
+    const raw = answers[currentQ]?.raw;
+    if (raw === "직접 입력") return customInput.trim();
+    return raw || "";
+  }
 
   function handleNext() {
     if (!canProceed) return;
-    const answer = isTextQ ? textAnswer : selectedOption;
-    const newAnswers = { ...answers, [q.id]: { title: q.title, answer } };
+    const answerText = getAnswerText();
+    const newAnswers = { ...answers, [currentQ]: { title: q.title, answer: answerText } };
     setAnswers(newAnswers);
-    if (currentQ < ORACLE_QUESTIONS.length - 1) {
+    setSelectedOptions([]);
+    setCustomInput("");
+    setTextAnswer("");
+
+    if (currentQ < MEMORY_QUESTIONS.length - 1) {
       setCurrentQ(currentQ + 1);
-      setSelectedOption(null);
-      setTextAnswer("");
     } else {
       setPhase("opening");
-      callOracle(newAnswers);
+      callMemory(newAnswers);
     }
   }
 
   function handleBack() {
     if (currentQ === 0) {
+      setShowIntro(true);
       setPhase("intro");
     } else {
-      const prevQ = ORACLE_QUESTIONS[currentQ - 1];
-      const prevAnswer = answers[prevQ.id];
-      if (prevAnswer) {
-        if (prevQ.type === "text") setTextAnswer(prevAnswer.answer);
-        else setSelectedOption(prevAnswer.answer);
-      }
       setCurrentQ(currentQ - 1);
+      setSelectedOptions([]);
+      setCustomInput("");
+      setTextAnswer("");
     }
   }
 
-  async function callOracle(allAnswers) {
-    const formatted = ORACLE_QUESTIONS.map(q => {
-      const a = allAnswers[q.id];
+  async function callMemory(allAnswers) {
+    const formatted = MEMORY_QUESTIONS.map((q, i) => {
+      const a = allAnswers[i];
       return `${q.title}: ${a ? a.answer : "미응답"}`;
     }).join("\n");
 
@@ -266,100 +385,109 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
           max_tokens: 4000,
-          system: ORACLE_SYSTEM_PROMPT,
+          system: MEMORY_SYSTEM_PROMPT,
           messages: [{ role: "user", content: `다음은 사용자의 응답입니다:\n\n${formatted}` }],
         }),
       });
       const data = await res.json();
       const text = data.content?.[0]?.text || "";
       localStorage.setItem("mindmirror_oracle", text);
-      setOracleText(text);
+      setMemoryText(text);
       setPhase("result");
     } catch (e) {
-      setOracleText("## Reflection\n마음거울이 잠시 침묵하고 있습니다.\n\n## Recognition\n다시 시도해주세요.\n\n## Oracle\n어쩌면 지금은 때가 아닐 수 있습니다.\n\n## Story\n문은 여전히 거기 있습니다.\n\n## Empowerment\n다시 문 앞에 서겠습니까?");
+      setMemoryText("## 이번 반응에서 가장 먼저 켜진 것\n잠시 연결이 되지 않았어요. 다시 시도해주세요.\n\n## 그 반응이 작동한 방식\n\n## 오래된 학습에서 온 것일 수 있어요\n\n## 다른 선택의 가능성\n이 반응이 틀렸다는 뜻이 아니에요.\n다만 이번에는 다르게 선택할 수도 있어요.");
       setPhase("result");
     }
   }
 
-  function parseOracle(text) {
+  function parseMemory(text) {
     const sections = {};
-    const order = ["Reflection", "Recognition", "Oracle", "Story", "Empowerment"];
+    const order = ["이번 반응에서 가장 먼저 켜진 것", "그 반응이 작동한 방식", "오래된 학습에서 온 것일 수 있어요", "다른 선택의 가능성"];
     order.forEach((key, i) => {
       const next = order[i + 1];
-      const regex = next
-        ? new RegExp(`##\\s*${key}([\\s\\S]*?)##\\s*${next}`)
-        : new RegExp(`##\\s*${key}([\\s\\S]*?)$`);
+      const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const nextEscaped = next ? next.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") : null;
+      const regex = nextEscaped
+        ? new RegExp(`##\\s*${escaped}([\\s\\S]*?)##\\s*${nextEscaped}`)
+        : new RegExp(`##\\s*${escaped}([\\s\\S]*?)$`);
       const match = text.match(regex);
       sections[key] = match ? match[1].trim() : "";
     });
     return sections;
   }
 
-  const parsed = oracleText ? parseOracle(oracleText) : {};
+  const parsed = memoryText ? parseMemory(memoryText) : {};
+  const sectionOrder = ["이번 반응에서 가장 먼저 켜진 것", "그 반응이 작동한 방식", "오래된 학습에서 온 것일 수 있어요", "다른 선택의 가능성"];
   const bgColor = (phase === "result" || phase === "final") ? "#F7F2E8" : "#1F3A32";
 
   return (
     <div style={{minHeight:"100vh",background:bgColor,display:"flex",alignItems:"center",justifyContent:"center",padding:"3rem 1.5rem",position:"relative",overflow:"hidden",transition:"background 1s ease"}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400&display=swap');
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes breathe { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.9; } }
-        .oracle-appear { animation: fadeUp 1.8s ease forwards; opacity: 0; }
-        .oracle-option {
-          width: 100%; background: rgba(247,242,232,0.08);
-          border: 1px solid rgba(247,242,232,0.2); color: rgba(247,242,232,0.8);
-          font-family: 'Source Serif 4', serif; font-size: 0.87rem; font-weight: 300;
-          text-align: left; padding: 0.85rem 1.1rem; cursor: pointer;
-          transition: all 0.3s; margin-bottom: 0.45rem; line-height: 1.5;
+        @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes breathe { 0%,100%{opacity:0.35;} 50%{opacity:0.9;} }
+        .mem-appear { animation: fadeUp 1.6s ease forwards; opacity:0; }
+        .mem-option {
+          width:100%; background:rgba(247,242,232,0.08);
+          border:1px solid rgba(247,242,232,0.2); color:rgba(247,242,232,0.8);
+          font-family:'Source Serif 4',serif; font-size:0.87rem; font-weight:300;
+          text-align:left; padding:0.85rem 1.1rem; cursor:pointer;
+          transition:all 0.3s; margin-bottom:0.4rem; line-height:1.5;
         }
-        .oracle-option:hover { background: rgba(247,242,232,0.15); border-color: rgba(247,242,232,0.4); color: #F7F2E8; }
-        .oracle-option.selected { background: rgba(143,168,160,0.2); border-color: #8FA8A0; color: #F7F2E8; }
-        .oracle-btn {
-          background: rgba(143,168,160,0.15); border: 1px solid #8FA8A0; color: #8FA8A0;
-          font-family: 'Source Serif 4', serif; font-size: 0.82rem; letter-spacing: 0.18em;
-          text-transform: uppercase; cursor: pointer; padding: 1rem 2.5rem; transition: all 0.3s;
+        .mem-option:hover { background:rgba(247,242,232,0.15); border-color:rgba(247,242,232,0.4); color:#F7F2E8; }
+        .mem-option.selected { background:rgba(46,106,94,0.25); border-color:#2E6A5E; color:#F7F2E8; }
+        .mem-btn {
+          background:rgba(46,106,94,0.15); border:1px solid #2E6A5E; color:#8FA8A0;
+          font-family:'Source Serif 4',serif; font-size:0.82rem; letter-spacing:0.18em;
+          text-transform:uppercase; cursor:pointer; padding:1rem 2.5rem; transition:all 0.3s;
         }
-        .oracle-btn:hover { background: rgba(143,168,160,0.25); }
-        .oracle-btn:disabled { opacity: 0.2; cursor: default; }
-        .oracle-btn-next {
-          background: transparent; border: 1px solid rgba(247,242,232,0.4);
-          color: rgba(247,242,232,0.75); font-family: 'Source Serif 4', serif;
-          font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
-          cursor: pointer; padding: 0.7rem 1.8rem; transition: all 0.3s;
+        .mem-btn:hover { background:rgba(46,106,94,0.25); }
+        .mem-btn-next {
+          background:transparent; border:1px solid rgba(247,242,232,0.4);
+          color:rgba(247,242,232,0.75); font-family:'Source Serif 4',serif;
+          font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
+          cursor:pointer; padding:0.7rem 1.8rem; transition:all 0.3s;
         }
-        .oracle-btn-next:hover { border-color: rgba(247,242,232,0.8); color: #F7F2E8; }
-        .oracle-btn-next:disabled { opacity: 0.2; cursor: default; }
-        .oracle-btn-result {
-          background: transparent; border: 1px solid rgba(90,58,138,0.3);
-          color: rgba(90,58,138,0.65); font-family: 'Source Serif 4', serif;
-          font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
-          cursor: pointer; padding: 0.7rem 1.8rem; transition: all 0.3s;
+        .mem-btn-next:hover { border-color:rgba(247,242,232,0.8); color:#F7F2E8; }
+        .mem-btn-next:disabled { opacity:0.2; cursor:default; }
+        .mem-btn-result {
+          background:transparent; border:1px solid rgba(46,106,94,0.35);
+          color:rgba(26,46,40,0.7); font-family:'Source Serif 4',serif;
+          font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
+          cursor:pointer; padding:0.7rem 1.8rem; transition:all 0.3s;
         }
-        .oracle-btn-result:hover { border-color: rgba(90,58,138,0.7); color: #2a1a4a; }
+        .mem-btn-result:hover { border-color:rgba(46,106,94,0.7); color:#1A2E28; }
         .back-link {
-          background: transparent; border: none; color: rgba(247,242,232,0.35);
-          font-family: 'Source Serif 4', serif; font-size: 0.7rem;
-          letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; padding: 0;
+          background:transparent; border:none; color:rgba(247,242,232,0.35);
+          font-family:'Source Serif 4',serif; font-size:0.7rem;
+          letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0;
         }
-        .back-link:hover { color: rgba(247,242,232,0.7); }
+        .back-link:hover { color:rgba(247,242,232,0.7); }
         .back-link-result {
-          background: transparent; border: none; color: rgba(90,58,138,0.3);
-          font-family: 'Source Serif 4', serif; font-size: 0.7rem;
-          letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; padding: 0;
+          background:transparent; border:none; color:rgba(46,106,94,0.4);
+          font-family:'Source Serif 4',serif; font-size:0.7rem;
+          letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0;
         }
-        .back-link-result:hover { color: rgba(90,58,138,0.65); }
-        .oracle-textarea {
-          width: 100%; background: transparent; border: none;
-          border-bottom: 1px solid rgba(247,242,232,0.2); color: #F7F2E8;
-          font-family: 'Source Serif 4', serif; font-size: 0.93rem; font-weight: 300;
-          line-height: 1.95; padding: 0.5rem 0; resize: none; outline: none;
-          min-height: 130px; caret-color: #F7F2E8; box-sizing: border-box;
+        .back-link-result:hover { color:rgba(46,106,94,0.75); }
+        .mem-textarea {
+          width:100%; background:transparent; border:none;
+          border-bottom:1px solid rgba(247,242,232,0.2); color:#F7F2E8;
+          font-family:'Source Serif 4',serif; font-size:0.93rem; font-weight:300;
+          line-height:1.95; padding:0.5rem 0; resize:none; outline:none;
+          min-height:130px; caret-color:#F7F2E8; box-sizing:border-box;
         }
-        .oracle-textarea::placeholder { color: rgba(247,242,232,0.2); }
+        .mem-textarea::placeholder { color:rgba(247,242,232,0.2); }
+        .mem-custom-input {
+          width:100%; background:transparent; border:none;
+          border-bottom:1px solid rgba(247,242,232,0.2); color:#F7F2E8;
+          font-family:'Source Serif 4',serif; font-size:0.88rem; font-weight:300;
+          padding:0.5rem 0; outline:none; margin-top:0.75rem;
+        }
+        .mem-custom-input::placeholder { color:rgba(247,242,232,0.2); }
       `}</style>
 
       {phase !== "result" && phase !== "final" && (
-        <VaseSVG flowersVisible={phase === "questions" ? currentQ : phase === "opening" ? 5 : 0} />
+        <VaseSVG flowersVisible={phase === "questions" ? Math.floor(currentQ / 2) : phase === "opening" ? 5 : 0} />
       )}
 
       {/* 인트로 */}
@@ -368,18 +496,15 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
           <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.3em",textTransform:"uppercase",color:"#8FA8A0",marginBottom:"1.5rem"}}>내 마음의 메모리</div>
           <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.8rem,4vw,2.6rem)",fontWeight:400,fontStyle:"italic",color:"#F7F2E8",lineHeight:1.2,marginBottom:"2rem"}}>내 마음의 메모리</h1>
           <div style={{marginBottom:"1.5rem"}}>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.75)",lineHeight:2.1,marginBottom:"0.75rem"}}>선택은 끝났는데도<br/>지워지지 않고 남아있는 것들이 있어요.</p>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.75)",lineHeight:2.1,marginBottom:"0.75rem"}}>놓친 것, 남은 감정, 자꾸 떠오르는 장면.<br/>그게 당신이 중요하게 여기는 것을 보여줘요.</p>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"#8FA8A0",lineHeight:2}}>사람은 무엇을 선택했는지보다<br/>선택 후 무엇이 남는지에서 더 많이 드러나요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.75)",lineHeight:2.1,marginBottom:"0.75rem"}}>우리가 반응하는 방식은 어느 날 갑자기 생긴 게 아니에요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.75)",lineHeight:2.1}}>어떤 기억들이 지금의 나를 만들었는지 천천히 확인해봐요.</p>
           </div>
-          <div style={{background:"rgba(143,168,160,0.1)",borderLeft:"3px solid #8FA8A0",padding:"1.1rem 1.25rem",marginBottom:"2rem"}}>
+          <div style={{background:"rgba(46,106,94,0.12)",borderLeft:"3px solid #2E6A5E",padding:"1.1rem 1.25rem",marginBottom:"2rem"}}>
             <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".68rem",letterSpacing:".2em",textTransform:"uppercase",color:"#8FA8A0",marginBottom:".6rem"}}>시작 전에</div>
-            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".82rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.85,display:"flex",alignItems:"flex-start",gap:".5rem"}}>
-              <span style={{opacity:.5}}>—</span>맞고 틀린 답 없어요. 지금 나한테 가장 가까운 걸 고르면 돼요.
-            </div>
+            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:".82rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.85,whiteSpace:"pre-line"}}>{MEMORY_INTRO}</div>
           </div>
           <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",gap:"1.2rem"}}>
-            <button className="oracle-btn" onClick={() => setPhase("questions")}>시작하기</button>
+            <button className="mem-btn" onClick={() => setPhase("questions")}>시작하기</button>
             <button className="back-link" onClick={onBack}>← 마음거울로</button>
           </div>
         </div>
@@ -389,36 +514,55 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
       {phase === "questions" && q && (
         <div style={{width:"100%",maxWidth:540,position:"relative",zIndex:1}}>
           <div style={{width:"100%",height:"1px",background:"rgba(247,242,232,0.1)",marginBottom:"3.5rem"}}>
-            <div style={{height:"100%",width:`${progress}%`,background:"rgba(247,242,232,0.35)",transition:"width 0.6s ease"}}/>
+            <div style={{height:"100%",width:`${progress}%`,background:"rgba(46,106,94,0.5)",transition:"width 0.6s ease"}}/>
           </div>
           <div style={{fontSize:"0.58rem",letterSpacing:"0.28em",textTransform:"uppercase",color:"rgba(247,242,232,0.35)",marginBottom:"0.6rem",fontFamily:"'Source Serif 4',serif"}}>
-            {currentQ + 1} / {ORACLE_QUESTIONS.length} — {q.title}
+            {currentQ + 1} / {MEMORY_QUESTIONS.length} — {q.title}
           </div>
-          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1rem,2.8vw,1.25rem)",fontWeight:400,fontStyle:"italic",color:"#F7F2E8",lineHeight:1.7,marginBottom:"2.2rem",whiteSpace:"pre-line"}}>
+          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1rem,2.8vw,1.2rem)",fontWeight:400,fontStyle:"italic",color:"#F7F2E8",lineHeight:1.7,marginBottom:"2rem",whiteSpace:"pre-line"}}>
             {q.question}
           </h2>
-          {!isTextQ && (
-            <div style={{marginBottom:"2rem"}}>
-              {q.options.map(opt => (
-                <button key={opt} className={`oracle-option ${selectedOption === opt ? "selected" : ""}`} onClick={() => setSelectedOption(opt)}>
-                  {opt}
-                </button>
-              ))}
+
+          {isText && (
+            <textarea className="mem-textarea" value={textAnswer} onChange={e => setTextAnswer(e.target.value)} placeholder="떠오르는 대로 써주세요..."/>
+          )}
+
+          {!isText && (
+            <div style={{marginBottom:"1rem"}}>
+              {q.options.map(opt => {
+                const isSelected = isMulti
+                  ? selectedOptions.includes(opt)
+                  : answers[currentQ]?.raw === opt;
+                return (
+                  <button key={opt} className={`mem-option ${isSelected ? "selected" : ""}`}
+                    onClick={() => isMulti ? toggleMulti(opt) : selectSingle(opt)}>
+                    {isMulti && <span style={{marginRight:"0.5rem",opacity:0.5}}>{isSelected ? "✓" : "○"}</span>}
+                    {opt}
+                  </button>
+                );
+              })}
+              {hasDirect && (
+                (isMulti ? selectedOptions.includes("직접 입력") : answers[currentQ]?.raw === "직접 입력")
+              ) && (
+                <input className="mem-custom-input" value={customInput} onChange={e => setCustomInput(e.target.value)} placeholder="직접 입력해주세요..."/>
+              )}
             </div>
           )}
-          {isTextQ && (
-            <textarea className="oracle-textarea" value={textAnswer} onChange={e => setTextAnswer(e.target.value)} placeholder="떠오르는 대로 써주세요..."/>
+
+          {isMulti && (
+            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.72rem",color:"rgba(247,242,232,0.3)",marginBottom:"1rem"}}>해당되는 것 모두 선택하세요</div>
           )}
+
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginTop:"2rem"}}>
             <button className="back-link" onClick={handleBack}>← 이전</button>
-            <button className="oracle-btn-next" onClick={handleNext} disabled={!canProceed}>
-              {currentQ < ORACLE_QUESTIONS.length - 1 ? "다음" : "완성"}
+            <button className="mem-btn-next" onClick={handleNext} disabled={!canProceed}>
+              {currentQ < MEMORY_QUESTIONS.length - 1 ? "다음" : "완성"}
             </button>
           </div>
         </div>
       )}
 
-      {/* 열리는 중 */}
+      {/* 분석 중 */}
       {phase === "opening" && (
         <div style={{textAlign:"center",position:"relative",zIndex:1}}>
           <p style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",fontStyle:"italic",color:"rgba(247,242,232,0.4)",animation:"breathe 2s ease-in-out infinite"}}>
@@ -430,52 +574,28 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
       {/* 결과 */}
       {phase === "result" && (
         <div ref={resultRef} style={{width:"100%",maxWidth:680,paddingTop:"2rem"}}>
-          {visibleSections.includes("Reflection") && parsed["Reflection"] && (
-            <div className="oracle-appear" style={{marginBottom:"2.5rem"}}>
-              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(90,58,138,0.45)",marginBottom:"0.4rem"}}>당신의 말</div>
-              <div style={{width:"100%",height:"1px",background:"rgba(90,58,138,0.15)",marginBottom:"1rem"}}/>
-              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(42,26,74,0.7)",lineHeight:2.2,whiteSpace:"pre-wrap"}}>{parsed["Reflection"]}</div>
+          <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.3em",textTransform:"uppercase",color:"rgba(46,106,94,0.5)",marginBottom:"0.5rem"}}>내 마음의 메모리 — 분석 결과</div>
+          <div style={{width:"100%",height:"1px",background:"rgba(46,106,94,0.2)",marginBottom:"2rem"}}/>
+
+          {sectionOrder.map((key, i) => visibleSections.includes(key) && parsed[key] && (
+            <div key={key} className="mem-appear" style={{marginBottom:"2.5rem",animationDelay:`${i * 0.3}s`}}>
+              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(46,106,94,0.55)",marginBottom:"0.4rem"}}>{key}</div>
+              <div style={{width:"100%",height:"1px",background:"rgba(46,106,94,0.15)",marginBottom:"1rem"}}/>
+              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(26,46,40,0.75)",lineHeight:2.2,whiteSpace:"pre-wrap"}}>{parsed[key]}</div>
             </div>
-          )}
-          {visibleSections.includes("Recognition") && parsed["Recognition"] && (
-            <div className="oracle-appear" style={{marginBottom:"2.5rem"}}>
-              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(90,58,138,0.45)",marginBottom:"0.4rem"}}>마음거울이 본 것</div>
-              <div style={{width:"100%",height:"1px",background:"rgba(90,58,138,0.15)",marginBottom:"1rem"}}/>
-              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(42,26,74,0.7)",lineHeight:2.2,whiteSpace:"pre-wrap"}}>{parsed["Recognition"]}</div>
-            </div>
-          )}
-          {visibleSections.includes("Oracle") && parsed["Oracle"] && (
-            <div className="oracle-appear" style={{marginBottom:"2.5rem"}}>
-              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(90,58,138,0.45)",marginBottom:"0.4rem"}}>마음거울의 가설</div>
-              <div style={{width:"100%",height:"1px",background:"rgba(90,58,138,0.15)",marginBottom:"1rem"}}/>
-              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(42,26,74,0.7)",lineHeight:2.2,whiteSpace:"pre-wrap"}}>{parsed["Oracle"]}</div>
-            </div>
-          )}
-          {visibleSections.includes("Story") && parsed["Story"] && (
-            <div className="oracle-appear" style={{marginBottom:"2.5rem"}}>
-              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(90,58,138,0.45)",marginBottom:"0.4rem"}}>마음거울의 제안</div>
-              <div style={{width:"100%",height:"1px",background:"rgba(90,58,138,0.15)",marginBottom:"1rem"}}/>
-              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,fontStyle:"italic",color:"rgba(42,26,74,0.7)",lineHeight:2.2,whiteSpace:"pre-wrap"}}>{parsed["Story"]}</div>
-            </div>
-          )}
-          {visibleSections.includes("Empowerment") && parsed["Empowerment"] && (
-            <div className="oracle-appear" style={{marginBottom:"3rem"}}>
-              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(90,58,138,0.45)",marginBottom:"0.4rem"}}>문을 나서기 전에</div>
-              <div style={{width:"100%",height:"1px",background:"rgba(90,58,138,0.15)",marginBottom:"1rem"}}/>
-              <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(42,26,74,0.7)",lineHeight:2.2,whiteSpace:"pre-wrap"}}>{parsed["Empowerment"]}</div>
-            </div>
-          )}
-          {visibleSections.length === 5 && (
-            <div className="oracle-appear" style={{marginTop:"2rem",paddingTop:"2rem",borderTop:"1px solid rgba(90,58,138,0.1)"}}>
+          ))}
+
+          {visibleSections.length === 4 && (
+            <div className="mem-appear" style={{marginTop:"2rem",paddingTop:"2rem",borderTop:"1px solid rgba(46,106,94,0.1)"}}>
               <div style={{textAlign:"center",marginBottom:"1.5rem"}}>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(90,58,138,0.4)",marginBottom:"1rem"}}>이 분석이 당신에게 맞나요?</p>
-                <OracleFeedback />
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",fontWeight:300,color:"rgba(46,106,94,0.5)",marginBottom:"1rem"}}>읽으면서 가장 크게 울린 부분이 있다면?</p>
+                <MemoryFeedback />
               </div>
               <div style={{display:"flex",gap:"1.5rem",alignItems:"center",flexWrap:"wrap"}}>
-                <button className="oracle-btn-result" onClick={onComprehensive}>종합 분석 보기 →</button>
-                <button className="oracle-btn-result" onClick={() => setPhase("final")}>마지막 장으로 →</button>
-                <button className="oracle-btn-result" onClick={() => {
-                  const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}`;
+                <button className="mem-btn-result" onClick={onComprehensive}>종합 분석 보기 →</button>
+                <button className="mem-btn-result" onClick={() => setPhase("final")}>마지막 장으로 →</button>
+                <button className="mem-btn-result" onClick={() => {
+                  const text = sectionOrder.map(k => parsed[k] ? `${k}\n${parsed[k]}` : "").filter(Boolean).join("\n\n");
                   navigator.clipboard.writeText(text);
                   alert("복사되었습니다");
                 }}>결과 복사</button>
@@ -489,8 +609,6 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
       {/* 마지막 장 */}
       {phase === "final" && (() => {
         const today = new Date();
-        const month = today.getMonth() + 1;
-        const day = today.getDate();
         const savedSentence = localStorage.getItem("oracle_today_sentence");
         return (
           <div style={{width:"100%",maxWidth:580,paddingTop:"2rem",paddingBottom:"4rem"}}>
@@ -503,7 +621,7 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
                 <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(240,237,232,0.75)",lineHeight:2,marginBottom:"1rem"}}>오늘 여기서 하나만 가져간다면 — 무엇인가요?</p>
                 {!savedSentence ? (
                   <TodaySentence onSave={(sentence) => {
-                    const data = { sentence, date: `${month}월 ${day}일`, timestamp: Date.now() };
+                    const data = { sentence, date: `${today.getMonth()+1}월 ${today.getDate()}일`, timestamp: Date.now() };
                     localStorage.setItem("oracle_today_sentence", JSON.stringify(data));
                     window.location.reload();
                   }} />
@@ -520,14 +638,10 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
               </div>
             </div>
             <div style={{marginTop:"3rem",display:"flex",gap:"1.5rem",alignItems:"center",flexWrap:"wrap"}}>
-              <button className="oracle-btn-result" style={{borderColor:"rgba(240,237,232,0.4)",color:"rgba(240,237,232,0.7)"}} onClick={() => {
-                setPhase("intro"); setAnswers({}); setCurrentQ(0);
-                setOracleText(""); setVisibleSections([]); setSelectedOption(null); setTextAnswer("");
-              }}>마음거울로</button>
-              <button className="oracle-btn-result" style={{borderColor:"rgba(240,237,232,0.4)",color:"rgba(240,237,232,0.7)"}} onClick={() => {
+              <button className="mem-btn-result" style={{borderColor:"rgba(240,237,232,0.3)",color:"rgba(240,237,232,0.6)"}} onClick={() => {
                 const saved = localStorage.getItem("oracle_today_sentence");
                 const sentencePart = saved ? `\n\n오늘의 한 문장: "${JSON.parse(saved).sentence}"` : "";
-                const text = `${parsed["Reflection"]}\n\n${parsed["Recognition"]}\n\n${parsed["Oracle"]}\n\n${parsed["Story"]}\n\n${parsed["Empowerment"]}${sentencePart}`;
+                const text = sectionOrder.map(k => parsed[k] ? `${k}\n${parsed[k]}` : "").filter(Boolean).join("\n\n") + sentencePart;
                 navigator.clipboard.writeText(text);
                 alert("복사되었습니다");
               }}>결과 복사</button>
