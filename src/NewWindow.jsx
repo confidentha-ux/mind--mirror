@@ -361,7 +361,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
             </div>
           </div>
           <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"1.2rem" }}>
-            <button className="nw-btn" style={{ background:"rgba(201,168,76,0.15)", border:"1px solid #C9A84C", color:"#C9A84C" }} onClick={() => setPhase("questions")}>시작하기</button>
+        <button className="nw-btn" onClick={() => setPhase("questions")}>시작하기</button>
             <button className="nw-back" onClick={onBack}>← 마음거울로</button>
           </div>
         </div>
