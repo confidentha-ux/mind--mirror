@@ -501,7 +501,7 @@ export default function App() {
       }}
     />
   );
-  if (showNewWindow) return <NewWindow onBack={() => setShowNewWindow(false)} />;
+  if (showNewWindow) return <NewWindow onBack={() => setShowNewWindow(false)} onComprehensive={() => { setShowNewWindow(false); setShowComprehensive(true); }} />;
   if (showOracle) return (
     <Oracle
       initialPhase={oracleInitialPhase}
@@ -533,7 +533,7 @@ export default function App() {
           {/* 인트로 */}
           <div className="fade5" style={{marginBottom:"2.5rem"}}>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>나는 나를 잘 안다고 생각했다.<br/>왜 나는 매번 여기서 막히는 걸까?<br/>내가 한 말인데 내가 왜 그랬는지 모르겠다.<br/>나에 대해 설명하려다 말문이 막혔다.</p>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남이 준 말로 만들어졌으니까요.</p>
+            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>모르는 게 당연해요.<br/>대부분의 자기 이해는 남이 해준 말과 벌어진 사건으로 만들어졌으니까요.</p>
             <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.95rem",fontWeight:300,color:"rgba(247,242,232,0.65)",lineHeight:1.9,marginBottom:"0.75rem"}}>당신이 쓴 말이 가장 정직한 자기소개가 되어야 해요.</p>
             <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(247,242,232,0.4)",lineHeight:1.9}}>답하다 보면 내가 왜 그 사람 앞에서만 작아지는지,<br/>왜 늘 그 순간에 후회하는지 보이기 시작해요.</p>
           </div>
@@ -595,9 +595,9 @@ export default function App() {
                   <path d="M6,34 L45,52 L84,34" fill="none" stroke="#1E2E1E" strokeWidth="2" strokeLinecap="round"/>
                   <path d="M6,46 L45,64 L84,46" fill="none" stroke="#1E2E1E" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(30,46,30,0.5)",marginBottom:"0.35rem"}}>생각하기 전에 이미 움직이고 있는 것.</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(30,46,30,0.5)",marginBottom:"0.35rem"}}>생각하기도 전에 이미 움직이고 있는 것들.</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#1E2E1E",marginBottom:"0.4rem"}}>내 마음의 운영체계</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(30,46,30,0.65)",lineHeight:1.75,marginBottom:"0.5rem"}}>첫 반응 아래에서 반복적으로 작동하는 해석과 판단의 방식이에요.<br/>02를 했다면 여기로 →</p>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(30,46,30,0.65)",lineHeight:1.75,marginBottom:"0.5rem"}}>내 첫 반응 아래에 작동하고 있는 해석과 판단의 방식을 알아봐요.<br/>02를 했다면 여기로 →</p>
               </div>
             </div>
 
@@ -621,7 +621,7 @@ export default function App() {
                 </svg>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(26,46,40,0.55)",marginBottom:"0.35rem"}}>지워지지 않고 계속 불러오는 것.</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",fontStyle:"italic",color:"#1A2E28",marginBottom:"0.4rem"}}>내 마음의 메모리</div>
-                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(26,46,40,0.7)",lineHeight:1.75,marginBottom:"0.5rem"}}>선택은 끝났는데도 지워지지 않고 남아있는 것들이 있어요.<br/>03을 했다면 여기로 →</p>
+                <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(26,46,40,0.7)",lineHeight:1.75,marginBottom:"0.5rem"}}>우리가 반응하는 방식은 어느 날 갑자기 생긴 게 아니에요.<br/>03을 했다면 여기로 →</p>
               </div>
             </div>
 
@@ -656,7 +656,6 @@ export default function App() {
           {/* 푸터 */}
           <div className="fade8" style={{padding:"2.5rem 0 0"}}>
             <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"#B89A5E",letterSpacing:"0.05em",lineHeight:1.8}}>모든 답은 마지막에 하나로 모입니다.</p>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"rgba(184,154,94,0.5)",marginTop:"0.5rem"}}>너 자신을 알라.</p>
           </div>
 
         </div>
