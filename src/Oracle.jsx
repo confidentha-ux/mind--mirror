@@ -19,7 +19,7 @@ const MEMORY_QUESTIONS = [
     id: 1,
     type: "single",
     title: "흔들린 순간",
-    question: "최근 내 마음이 흔들렸던 순간이 있었나요. 어떤 상황이었나요?",
+    question: "최근 내 마음이 크게 흔들렸던 순간을 떠올려 보세요. 어떤 상황이었나요?",
     options: [
       "누군가의 말에 상처받았을 때",
       "기대했던 반응이 오지 않았을 때",
