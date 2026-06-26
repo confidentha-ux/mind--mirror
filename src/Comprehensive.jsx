@@ -214,9 +214,9 @@ export default function Comprehensive({ onBack, onNext }) {
             color: "rgba(247,242,232,0.9)",
             lineHeight: 1.15, marginBottom: "2rem",
           }}>반복된 것과 어긋난 것이 함께 보일 때</h1>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.6)",lineHeight:1.9,marginBottom:"0.75rem"}}>내 마음의 전체화면은 앞선 결과를 다시 요약하지 않습니다. 답들 사이에서 반복되는 흐름과, 유난히 다르게 빛나는 지점을 함께 봅니다.</p>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.6)",lineHeight:1.9,marginBottom:"0.75rem"}}>나는 어디에서 익숙한 나로 돌아갔고, 어디에서 다른 가능성을 보였을까요?</p>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.6)",lineHeight:1.9}}>이제 흩어져 있던 답들이 하나의 장면으로 모입니다.</p>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.6)",lineHeight:1.9,marginBottom:"0.75rem"}}>내 마음의 전체화면은 앞선 결과를 다시 요약하지 않습니다. </div>답들 사이에서 반복되는 흐름과, 유난히 다르게 빛나는 지점을 함께 봅니다.</p>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.6)",lineHeight:1.9,marginBottom:"0.75rem"}}>나는 어디에서 익숙한 나로 돌아갔고,</div> 어디에서 다른 가능성을 보였을까요?</p>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.6)",lineHeight:1.9}}>이제 흩어져 있던 답들이 나의 전체화면으로 모입니다.</p>
         </div>
 
         {/* 오늘의 한 문장 (기존 저장된 것) */}
@@ -234,7 +234,7 @@ export default function Comprehensive({ onBack, onNext }) {
             <div>
               <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.4)",lineHeight:1.9,marginBottom:"1.25rem"}}>
                 {hasAny
-                  ? "지금까지의 답들은 모두 같은 방향을 가리키지 않을 수 있습니다. 반복된 길과 새로 열린 가능성을 함께 비춰드릴게요."
+                  ? "지금까지의 답들은 모두 같은 방향을 가리키지 않을 수 있습니다. </div>반복된 길과 새로 열린 가능성을 함께 비춰드릴게요."
                   : "도구를 하나 이상 완료하면 전체화면을 시작할 수 있어요."}
               </p>
               {hasAny && (
@@ -244,7 +244,7 @@ export default function Comprehensive({ onBack, onNext }) {
           )}
 
           {loading && (
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(240,237,232,0.4)",animation:"breathe 2s ease-in-out infinite"}}>잠시 후, 당신의 답들이 하나의 장면으로 모입니다...</p>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(240,237,232,0.4)",animation:"breathe 2s ease-in-out infinite"}}>잠시 후, 당신의 답들은 나의 전체화면으로 모입니다...</p>
           )}
 
           {comprehensive && !loading && (
@@ -269,7 +269,7 @@ export default function Comprehensive({ onBack, onNext }) {
 
         {/* 엔딩 */}
         <div style={{borderTop:"1px solid rgba(201,168,76,0.15)",paddingTop:"3rem",marginBottom:"3rem"}}>
-          <p style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontStyle:"italic",color:"rgba(247,242,232,0.7)",lineHeight:1.9,marginBottom:"2rem"}}>여기까지 왔어요.</p>
+          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(240,237,232,0.6)",lineHeight:2,marginBottom:"1rem"}}>여기까지 왔어요.</p>
 
           <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(240,237,232,0.6)",lineHeight:2,marginBottom:"1rem"}}>오늘 당신은 꽤 드문 일을 했어요.<br/>자신에 대해 남이 준 말 말고,<br/>지금 자신의 말로 자신을 바라본 거예요.</p>
 
@@ -307,7 +307,6 @@ export default function Comprehensive({ onBack, onNext }) {
 
         {/* 하단 */}
         <div style={{textAlign:"center",paddingBottom:"2rem"}}>
-          <div style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"#B89A5E",letterSpacing:"0.08em"}}>γνῶθι σεαυτόν · 너 자신을 알라</div>
         </div>
 
       </div>
