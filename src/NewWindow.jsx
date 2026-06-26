@@ -308,19 +308,19 @@ export default function NewWindow({ onBack, onComprehensive }) {
         .nw-option:hover { background:rgba(247,242,232,0.15); border-color:rgba(247,242,232,0.4); color:#F7F2E8; }
         .nw-option.selected { background:rgba(58,82,120,0.2); border-color:#3A5278; color:#F7F2E8; }
         .nw-btn {
-          background:transparent; border:1px solid rgba(247,242,232,0.4);
-          color:rgba(247,242,232,0.75); font-family:'Source Serif 4',serif;
-          font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
-          cursor:pointer; padding:0.7rem 1.8rem; transition:all 0.3s;
-        }
-        .nw-btn:hover { border-color:rgba(247,242,232,0.8); color:#F7F2E8; }
-        .nw-btn:disabled { opacity:0.2; cursor:default; }
+  background:#C9A84C; border:1px solid #C9A84C;
+  color:#1F3A32; font-family:'Source Serif 4',serif;
+  font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
+  cursor:pointer; padding:0.7rem 1.8rem; transition:all 0.3s;
+}
+.nw-btn:hover { background:#b8963e; border-color:#b8963e; }
+.nw-btn:disabled { opacity:0.2; cursor:default; }
         .nw-back {
-          background:transparent; border:none; color:rgba(247,242,232,0.35);
-          font-family:'Source Serif 4',serif; font-size:0.7rem;
-          letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0;
-        }
-        .nw-back:hover { color:rgba(247,242,232,0.7); }
+  background:transparent; border:1px solid rgba(247,242,232,0.25); color:rgba(247,242,232,0.55);
+  font-family:'Source Serif 4',serif; font-size:0.7rem;
+  letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0.6rem 1.4rem;
+}
+.nw-back:hover { border-color:rgba(247,242,232,0.5); color:rgba(247,242,232,0.85); }
         .nw-textarea {
           width:100%; background:transparent; border:none;
           border-bottom:1px solid rgba(247,242,232,0.2); color:#F7F2E8;
@@ -329,20 +329,20 @@ export default function NewWindow({ onBack, onComprehensive }) {
           min-height:120px; caret-color:#F7F2E8; box-sizing:border-box;
         }
         .nw-textarea::placeholder { color:rgba(247,242,232,0.2); }
-        .nw-result-btn {
-          background:transparent; border:1px solid rgba(38,50,44,0.25);
-          color:rgba(38,50,44,0.6); font-family:'Source Serif 4',serif;
-          font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
-          cursor:pointer; padding:0.7rem 1.8rem; transition:all 0.3s;
-        }
-        .nw-result-btn:hover { border-color:rgba(38,50,44,0.6); color:#26322C; }
-        .nw-back-result {
-          background:transparent; border:none; color:rgba(38,50,44,0.35);
-          font-family:'Source Serif 4',serif; font-size:0.7rem;
-          letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0;
-        }
-        .nw-back-result:hover { color:rgba(38,50,44,0.7); }
-      `}</style>
+     .nw-result-btn {
+  background:transparent; border:1px solid rgba(38,50,44,0.25);
+  color:rgba(38,50,44,0.6); font-family:'Source Serif 4',serif;
+  font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
+  cursor:pointer; padding:0.7rem 1.8rem; transition:all 0.3s;
+}
+.nw-result-btn:hover { border-color:rgba(38,50,44,0.6); color:#26322C; }
+.nw-back-result {
+  background:transparent; border:1px solid rgba(38,50,44,0.2); color:rgba(38,50,44,0.45);
+  font-family:'Source Serif 4',serif; font-size:0.7rem;
+  letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0.6rem 1.4rem;
+}
+.nw-back-result:hover { border-color:rgba(38,50,44,0.5); color:rgba(38,50,44,0.8); } 
+      </style>
 
       {/* 인트로 */}
       {phase === "intro" && (
