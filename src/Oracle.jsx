@@ -19,7 +19,7 @@ const MEMORY_QUESTIONS = [
     id: 1,
     type: "single",
     title: "흔들린 순간",
-    question: "최근 내 마음이 크게 흔들렸던 순간을 떠올려 보세요. 어떤 상황이었나요?",
+    question: "최근 내 마음이 크게 흔들렸던 순간을 생각해 보세요. 어떤 상황이었나요?",
     options: [
       "누군가의 말에 상처받았을 때",
       "기대했던 반응이 오지 않았을 때",
@@ -57,7 +57,7 @@ const MEMORY_QUESTIONS = [
     id: 4,
     type: "single_with_input",
     title: "내면의 말",
-    question: "그런 비슷한 상황이 되면 내 안에서 떠오르는 말은 무엇에 가까운가요?",
+    question: "그 순간이나 그와 유사한 순간에 내 안에서 떠오른 말은 무엇에 가까운가요?",
     options: [
       "나는 또 부족한 사람이다",
       "상대가 나를 가볍게 보고 있다",
@@ -74,7 +74,7 @@ const MEMORY_QUESTIONS = [
     id: 5,
     type: "multi_with_input",
     title: "몸의 반응",
-    question: "비슷한 상황에서 나는 주로 어떻게 반응했나요?",
+    question: "그런 순간에 나는 어떻게 반응했나요?",
     options: [
       "얼굴이 뜨거워졌다",
       "말이 빨라졌다",
@@ -109,7 +109,7 @@ const MEMORY_QUESTIONS = [
     id: 7,
     type: "single",
     title: "익숙함",
-    question: "이 반응은 처음인가요, 아니면 익숙한 반응인가요?",
+    question: "이런 반응은 처음인가요, 아니면 익숙한 반응인가요?",
     options: [
       "처음인 것 같다",
       "이런 상황에서는 늘 이런 반응이다",
@@ -121,7 +121,7 @@ const MEMORY_QUESTIONS = [
     id: 8,
     type: "single_with_input",
     title: "관계",
-    question: "그 반응은 어떤 관계에서 자주 나타나나요?",
+    question: "이 반응은 어떤 관계에서 더 자주 나타나나요?",
     options: [
       "가족",
       "친구",
@@ -137,7 +137,7 @@ const MEMORY_QUESTIONS = [
     id: 9,
     type: "single",
     title: "판단",
-    question: "지금 내 안에 있는 판단은 어떤 건가요?",
+    question: "지금 내 안에 있는 나자신에 대한 판단은 어떤 건가요?",
     options: [
       "나는 감정 표현이 서툰 사람이다",
       "나는 먼저 기대면 안 된다",
@@ -328,7 +328,6 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
     setSelectedOptions(prev =>
       prev.includes(opt) ? prev.filter(o => o !== opt) : [...prev, opt]
     );
-    if (opt !== "직접 입력") setCustomInput("");
   }
 
   function getAnswerText() {
