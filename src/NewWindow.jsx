@@ -1,7 +1,5 @@
 import { useState } from "react";
 
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400&display=swap');`;
-
 const NW_QUESTIONS = [
   {
     id: 1,
@@ -130,6 +128,43 @@ const AI_MIDPOINT_PROMPT = `당신은 사용자가 5번에서 선택한 답변�
 7. 반드시 한국어로 응답하라.
 8. 질문 하나만. 다른 말 없이.`;
 
+// 질문마다 배경 팔레트 — 밝은 카드색에서 점점 진하게
+const Q_PALETTE = [
+  { bg: "#B0BED0", text: "#1A2234" },
+  { bg: "#A0B0C8", text: "#1A2234" },
+  { bg: "#90A2C0", text: "#1A2234" },
+  { bg: "#8094B8", text: "#F7F2E8" },
+  { bg: "#7086B0", text: "#F7F2E8" },
+  { bg: "#607AA8", text: "#F7F2E8" },
+];
+
+const ACCENT = "#3A5278";
+const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400&display=swap');`;
+
+function FeedbackWidget() {
+  const [selected, setSelected] = useState(null);
+  return (
+    <div style={{ marginTop: "2.5rem", paddingTop: "2rem", borderTop: "1px solid rgba(38,50,44,0.08)", textAlign: "center" }}>
+      <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", fontWeight: 300, color: "rgba(38,50,44,0.45)", marginBottom: "1rem" }}>읽으면서 가장 크게 울린 부분이 있다면?</p>
+      {!selected && (
+        <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <button onClick={() => setSelected("yes")} style={{ background: "none", border: "1px solid rgba(38,50,44,0.15)", fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", color: "rgba(38,50,44,0.5)", padding: "0.4rem 1rem", cursor: "pointer" }}>👍 맞아요</button>
+          <button onClick={() => setSelected("no")} style={{ background: "none", border: "1px solid rgba(38,50,44,0.15)", fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", color: "rgba(38,50,44,0.5)", padding: "0.4rem 1rem", cursor: "pointer" }}>👎 아닌 것 같아요</button>
+          <button onClick={() => setSelected("unsure")} style={{ background: "none", border: "1px solid rgba(38,50,44,0.15)", fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", color: "rgba(38,50,44,0.5)", padding: "0.4rem 1rem", cursor: "pointer" }}>🤔 잘 모르겠어요</button>
+        </div>
+      )}
+      {selected === "yes" && <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", fontWeight: 300, color: "rgba(38,50,44,0.45)" }}>감사해요.</p>}
+      {selected === "unsure" && <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", fontWeight: 300, color: "rgba(38,50,44,0.45)" }}>그 모르겠다는 느낌도 중요한 정보예요.</p>}
+      {selected === "no" && (
+        <div>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(38,50,44,0.55)", lineHeight: 1.9, marginBottom: "0.75rem" }}>맞지 않는 부분이 있으신가요?<br />당신이 느낀 것을 말씀해주세요.</p>
+          <a href="https://forms.gle/1MK9PRZmTBpFsEPN8" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", color: "rgba(38,50,44,0.5)", textDecoration: "underline", textUnderlineOffset: "3px" }}>피드백 남기기 →</a>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function NewWindow({ onBack, onComprehensive }) {
   const [phase, setPhase] = useState("intro");
   const [currentQ, setCurrentQ] = useState(0);
@@ -140,11 +175,13 @@ export default function NewWindow({ onBack, onComprehensive }) {
   const [midQuestion, setMidQuestion] = useState("");
   const [loadingMid, setLoadingMid] = useState(false);
   const [showMid, setShowMid] = useState(false);
+  const [visibleSections, setVisibleSections] = useState([]);
 
   const q = NW_QUESTIONS[currentQ];
   const isText = q?.type === "text";
   const isMulti = q?.type === "multi";
   const isSingle = q?.type === "single";
+  const qPalette = Q_PALETTE[currentQ] || Q_PALETTE[Q_PALETTE.length - 1];
   const progress = (currentQ / NW_QUESTIONS.length) * 100;
 
   const canProceed = (() => {
@@ -185,7 +222,6 @@ export default function NewWindow({ onBack, onComprehensive }) {
 
   function handleNext() {
     if (!canProceed) return;
-
     let answerText = "";
     if (isText) answerText = textAnswer;
     else if (isMulti) answerText = selectedOptions.join(", ");
@@ -194,7 +230,6 @@ export default function NewWindow({ onBack, onComprehensive }) {
     const newAnswers = { ...answers, [currentQ]: { title: q.title, answer: answerText } };
     setAnswers(newAnswers);
 
-    // 5번 완료 후 AI 중간 질문
     if (currentQ === 4) {
       setShowMid(true);
       fetchMidQuestion(answerText);
@@ -214,10 +249,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
   }
 
   function handleBack() {
-    if (showMid) {
-      setShowMid(false);
-      return;
-    }
+    if (showMid) { setShowMid(false); return; }
     if (currentQ === 0) {
       setPhase("intro");
     } else {
@@ -229,7 +261,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
 
   function proceedFromMid() {
     setShowMid(false);
-    setCurrentQ(5); // 6번 질문으로
+    setCurrentQ(5);
   }
 
   async function analyze(allAnswers) {
@@ -254,6 +286,11 @@ export default function NewWindow({ onBack, onComprehensive }) {
       const text = data.content?.[0]?.text || "";
       setResult(text);
       setPhase("result");
+      // 섹션 순차 fadeIn
+      const sOrder = ["지금까지 바라보던 창", "가장 먼저 흔들린 지점", "새롭게 보이기 시작한 것", "어쩌면", "오늘의 새창"];
+      sOrder.forEach((s, i) => {
+        setTimeout(() => setVisibleSections(prev => [...prev, s]), i * 1400);
+      });
     } catch (e) {
       setResult("잠시 연결이 되지 않았어요. 다시 시도해주세요.");
       setPhase("result");
@@ -280,160 +317,173 @@ export default function NewWindow({ onBack, onComprehensive }) {
   const sectionOrder = ["지금까지 바라보던 창", "가장 먼저 흔들린 지점", "새롭게 보이기 시작한 것", "어쩌면", "오늘의 새창"];
   const userMemory = answers[0]?.answer || "";
 
-  const resultBg = "#E8E4DC";
-  const resultText = "#26322C";
+  const getBg = () => {
+    if (phase === "intro") return "#B0BED0";
+    if (phase === "questions") return showMid ? "#1F3A32" : qPalette.bg;
+    if (phase === "analyzing") return "#1F3A32";
+    if (phase === "result") return "#F7F2E8";
+    return "#1F3A32";
+  };
 
   return (
     <div style={{
-      minHeight: "100vh",
-      background: phase === "result" ? resultBg : "#1F3A32",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "3rem 1.5rem",
-      transition: "background 1s ease",
+      minHeight: "100vh", background: getBg(),
+      display: "flex", alignItems: "center", justifyContent: "center",
+      padding: "3rem 1.5rem", transition: "background 0.6s ease",
     }}>
       <style>{`
         ${FONTS}
         @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
         @keyframes breathe { 0%,100%{opacity:0.35;} 50%{opacity:0.9;} }
         .nw-appear { animation: fadeUp 1.2s ease forwards; opacity:0; }
-        .nw-option {
-          width:100%; background:rgba(247,242,232,0.08);
-          border:1px solid rgba(247,242,232,0.2); color:rgba(247,242,232,0.8);
-          font-family:'Source Serif 4',serif; font-size:0.87rem; font-weight:300;
-          text-align:left; padding:0.85rem 1.1rem; cursor:pointer;
-          transition:all 0.3s; margin-bottom:0.4rem; line-height:1.5;
-        }
-        .nw-option:hover { background:rgba(247,242,232,0.15); border-color:rgba(247,242,232,0.4); color:#F7F2E8; }
-        .nw-option.selected { background:rgba(58,82,120,0.2); border-color:#3A5278; color:#F7F2E8; }
-        .nw-btn {
-  background:#C9A84C; border:1px solid #C9A84C;
-  color:#1F3A32; font-family:'Source Serif 4',serif;
-  font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
-  cursor:pointer; padding:0.7rem 1.8rem; transition:all 0.3s;
-}
-.nw-btn:hover { background:#b8963e; border-color:#b8963e; }
-.nw-btn:disabled { opacity:0.2; cursor:default; }
-        .nw-back {
-  background:transparent; border:1px solid rgba(247,242,232,0.25); color:rgba(247,242,232,0.55);
-  font-family:'Source Serif 4',serif; font-size:0.7rem;
-  letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0.6rem 1.4rem;
-}
-.nw-back:hover { border-color:rgba(247,242,232,0.5); color:rgba(247,242,232,0.85); }
-        .nw-textarea {
-          width:100%; background:transparent; border:none;
-          border-bottom:1px solid rgba(247,242,232,0.2); color:#F7F2E8;
-          font-family:'Source Serif 4',serif; font-size:0.93rem; font-weight:300;
-          line-height:1.95; padding:0.5rem 0; resize:none; outline:none;
-          min-height:120px; caret-color:#F7F2E8; box-sizing:border-box;
-        }
-        .nw-textarea::placeholder { color:rgba(247,242,232,0.2); }
-     .nw-result-btn {
-  background:transparent; border:1px solid rgba(38,50,44,0.25);
-  color:rgba(38,50,44,0.6); font-family:'Source Serif 4',serif;
-  font-size:0.72rem; letter-spacing:0.22em; text-transform:uppercase;
-  cursor:pointer; padding:0.7rem 1.8rem; transition:all 0.3s;
-}
-.nw-result-btn:hover { border-color:rgba(38,50,44,0.6); color:#26322C; }
-.nw-back-result {
-  background:transparent; border:1px solid rgba(38,50,44,0.2); color:rgba(38,50,44,0.45);
-  font-family:'Source Serif 4',serif; font-size:0.7rem;
-  letter-spacing:0.2em; text-transform:uppercase; cursor:pointer; padding:0.6rem 1.4rem;
-}
-.nw-back-result:hover { border-color:rgba(38,50,44,0.5); color:rgba(38,50,44,0.8); } 
       `}</style>
 
       {/* 인트로 */}
       {phase === "intro" && (
-        <div style={{ width:"100%", maxWidth:520, position:"relative", zIndex:1 }}>
-          <div style={{ fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.3em", textTransform:"uppercase", color:"#C9A84C", marginBottom:"1.5rem" }}>내 마음의 새창열기</div>
-          <h1 style={{ fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.8rem,4vw,2.6rem)", fontWeight:400, fontStyle:"italic", color:"#F7F2E8", lineHeight:1.2, marginBottom:"2rem" }}>내 마음의 새창열기</h1>
-          <div style={{ marginBottom:"1.5rem" }}>
-            <p style={{ fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(247,242,232,0.75)", lineHeight:2.1, marginBottom:"0.75rem" }}>같은 일도 어디서 바라보느냐에 따라 다르게 보입니다.</p>
-            <p style={{ fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300, color:"rgba(247,242,232,0.75)", lineHeight:2.1, marginBottom:"0.75rem" }}>당신이 오래 가지고 있던 생각 하나를 꺼내보세요.<br/>그 생각을 처음 갖게 된 날이 있었을 거예요.<br/>그날의 당신이 볼 수 없었던 것들이 있었을 수 있어요.</p>
-            <p style={{ fontFamily:"'Playfair Display',serif", fontSize:"0.95rem", fontStyle:"italic", color:"#C9A84C", lineHeight:2 }}>이 섹션은 그 생각을 지우거나 고치려는 게 아니에요.<br/>그 옆에 작은 창 하나를 더 열어보는 거예요.</p>
+        <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1 }}>
+          <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: ACCENT, marginBottom: "1.5rem" }}>내 마음의 새창열기</div>
+          <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, color: "#1A2234", lineHeight: 1.2, marginBottom: "2rem" }}>같은 창 옆에 작은 창 하나를 더</h1>
+          <div style={{ marginBottom: "1.5rem" }}>
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(26,34,52,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>같은 일도 어디서 바라보느냐에 따라 다르게 보입니다.</p>
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(26,34,52,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>당신이 오래 가지고 있던 생각 하나를 꺼내보세요.<br />그 생각을 처음 갖게 된 날이 있었을 거예요.<br />그날의 당신이 볼 수 없었던 것들이 있었을 수 있어요.</p>
+            <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "0.95rem", fontStyle: "italic", color: ACCENT, lineHeight: 1.9 }}>이 섹션은 그 생각을 지우거나 고치려는 게 아니에요.<br />그 옆에 작은 창 하나를 더 열어보는 거예요.</p>
           </div>
-          <div style={{ background:"rgba(201,168,76,0.08)", borderLeft:"3px solid #C9A84C", padding:"1.1rem 1.25rem", marginBottom:"2rem" }}>
-            <div style={{ fontFamily:"'Source Serif 4',serif", fontSize:".68rem", letterSpacing:".2em", textTransform:"uppercase", color:"#C9A84C", marginBottom:".6rem" }}>시작 전에</div>
-            <div style={{ fontFamily:"'Source Serif 4',serif", fontSize:".82rem", fontWeight:300, color:"rgba(247,242,232,0.65)", lineHeight:1.85 }}>
-              같은 풍경도 다른 창으로 보면 조금 다르게 보일 수 있으니까요.
-            </div>
+          <div style={{ background: "rgba(58,82,120,0.08)", borderLeft: "3px solid " + ACCENT, padding: "1.1rem 1.25rem", marginBottom: "2rem" }}>
+            <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: ACCENT, marginBottom: "0.6rem" }}>시작 전에</div>
+            {[
+              "오래된 기억 하나를 떠올리며 시작해요.",
+              "6개 질문으로 구성되어 있어요.",
+              "5번 질문 후 AI가 짧은 질문 하나를 드려요.",
+            ].map((t, i) => (
+              <div key={i} style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(26,34,52,0.7)", lineHeight: 1.85, display: "flex", alignItems: "flex-start", gap: "0.5rem", marginBottom: "0.2rem" }}>
+                <span style={{ opacity: 0.5 }}>—</span>{t}
+              </div>
+            ))}
           </div>
-          <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"1.2rem" }}>
-        <button className="nw-btn" onClick={() => setPhase("questions")}>시작하기</button>
-            <button className="nw-back" onClick={onBack}>← 마음거울로</button>
+
+          <div style={{ width: "48px", height: "1px", background: ACCENT, margin: "2rem 0" }} />
+
+          <div style={{ marginBottom: "2rem" }}>
+            {NW_QUESTIONS.map((q, i) => (
+              <div key={q.id} style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "0.4rem 0", borderBottom: "1px solid rgba(58,82,120,0.2)" }}>
+                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.7rem", color: ACCENT, opacity: 0.8, minWidth: "1.5rem" }}>{i + 1}</span>
+                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "#1A2234" }}>{q.title}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem" }}>
+            <button onClick={() => setPhase("questions")} style={{
+              background: ACCENT, border: "none", color: "#F7F2E8",
+              fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem",
+              letterSpacing: "0.18em", textTransform: "uppercase",
+              padding: "1.1rem 2.8rem", cursor: "pointer",
+            }}>시작하기</button>
+            <button onClick={onBack} style={{
+              background: "transparent", border: "1px solid rgba(58,82,120,0.4)",
+              color: "rgba(26,34,52,0.6)", fontFamily: "'Source Serif 4',serif",
+              fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
+              padding: "0.6rem 1.4rem", cursor: "pointer",
+            }}>← 마음거울로</button>
           </div>
         </div>
       )}
 
       {/* 질문 */}
       {phase === "questions" && q && !showMid && (
-        <div style={{ width:"100%", maxWidth:540, position:"relative", zIndex:1 }}>
-          <div style={{ width:"100%", height:"1px", background:"rgba(247,242,232,0.1)", marginBottom:"3.5rem" }}>
-            <div style={{ height:"100%", width:(progress + "%"), background:"rgba(201,168,76,0.5)", transition:"width 0.6s ease" }}/>
-        </div>
-          <div style={{ fontSize:"0.58rem", letterSpacing:"0.28em", textTransform:"uppercase", color:"rgba(247,242,232,0.35)", marginBottom:"0.6rem", fontFamily:"'Source Serif 4',serif" }}>
-            {currentQ + 1} / {NW_QUESTIONS.length} — {q.title}
+        <div style={{ width: "100%", maxWidth: 540, position: "relative", zIndex: 1 }}>
+          <div style={{ width: "100%", height: "1px", background: "rgba(0,0,0,0.1)", marginBottom: "3.5rem" }}>
+            <div style={{ height: "100%", width: (progress + "%"), background: ACCENT, transition: "width 0.6s ease" }} />
           </div>
-          <h2 style={{ fontFamily:"'Playfair Display',serif", fontSize:"clamp(0.95rem,2.5vw,1.15rem)", fontWeight:400, fontStyle:"italic", color:"#F7F2E8", lineHeight:1.8, marginBottom:"2rem", whiteSpace:"pre-line" }}>
+          <div style={{ fontSize: "0.58rem", letterSpacing: "0.28em", textTransform: "uppercase", color: qPalette.text, opacity: 0.5, marginBottom: "0.6rem", fontFamily: "'Source Serif 4',serif" }}>
+            {currentQ + 1} / {NW_QUESTIONS.length}
+          </div>
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.4rem,3.5vw,1.8rem)", fontWeight: 400, color: qPalette.text, lineHeight: 1.5, marginBottom: "2rem", whiteSpace: "pre-line" }}>
             {q.question}
           </h2>
 
           {isText && (
-            <textarea className="nw-textarea" value={textAnswer} onChange={e => setTextAnswer(e.target.value)} placeholder={q.placeholder || "떠오르는 대로 써주세요..."}/>
+            <textarea value={textAnswer} onChange={e => setTextAnswer(e.target.value)} placeholder={q.placeholder || "떠오르는 대로 써주세요..."}
+              style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(0,0,0,0.15)", color: qPalette.text, fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, lineHeight: 1.95, padding: "0.5rem 0", resize: "none", outline: "none", minHeight: "120px", boxSizing: "border-box" }} />
           )}
 
           {(isSingle || isMulti) && (
-            <div style={{ marginBottom:"1rem" }}>
+            <div style={{ marginBottom: "1rem" }}>
               {q.options.map(opt => {
                 const isSelected = isMulti ? selectedOptions.includes(opt) : answers[currentQ]?.answer === opt;
                 return (
-                  <button key={opt} className={`nw-option ${isSelected ? "selected" : ""}`}
-                    onClick={() => isMulti ? toggleMulti(opt) : selectSingle(opt)}>
-                    {isMulti && <span style={{ marginRight:"0.5rem", opacity:0.5 }}>{isSelected ? "✓" : "○"}</span>}
+                  <button key={opt}
+                    onClick={() => isMulti ? toggleMulti(opt) : selectSingle(opt)}
+                    style={{
+                      width: "100%", background: isSelected ? "rgba(58,82,120,0.2)" : "rgba(0,0,0,0.06)",
+                      border: isSelected ? "1px solid " + ACCENT : "1px solid rgba(0,0,0,0.12)",
+                      color: qPalette.text, fontFamily: "'Source Serif 4',serif",
+                      fontSize: "0.87rem", fontWeight: 300, textAlign: "left",
+                      padding: "0.85rem 1.1rem", cursor: "pointer",
+                      transition: "all 0.3s", marginBottom: "0.4rem", lineHeight: 1.5,
+                    }}>
+                    {isMulti && <span style={{ marginRight: "0.5rem", opacity: 0.5 }}>{isSelected ? "✓" : "○"}</span>}
                     {opt}
                   </button>
                 );
               })}
-              {isMulti && <div style={{ fontFamily:"'Source Serif 4',serif", fontSize:"0.72rem", color:"rgba(247,242,232,0.3)", marginTop:"0.5rem" }}>해당되는 것 모두 선택하세요</div>}
+              {isMulti && <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", color: qPalette.text, opacity: 0.4, marginTop: "0.5rem" }}>해당되는 것 모두 선택하세요</div>}
             </div>
           )}
 
-          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginTop:"2rem" }}>
-            <button className="nw-back" onClick={handleBack}>← 이전</button>
-            <button className="nw-btn" onClick={handleNext} disabled={!canProceed}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2rem" }}>
+            <button onClick={handleBack} style={{
+              background: "transparent", border: "1px solid rgba(0,0,0,0.15)",
+              color: qPalette.text, opacity: 0.6, fontFamily: "'Source Serif 4',serif",
+              fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase",
+              cursor: "pointer", padding: "0.6rem 1.4rem",
+            }}>← 이전</button>
+            <button onClick={handleNext} disabled={!canProceed} style={{
+              background: canProceed ? ACCENT : "transparent",
+              border: "1px solid " + (canProceed ? ACCENT : "rgba(0,0,0,0.15)"),
+              color: canProceed ? "#F7F2E8" : qPalette.text,
+              opacity: canProceed ? 1 : 0.3,
+              fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem",
+              letterSpacing: "0.18em", textTransform: "uppercase",
+              cursor: canProceed ? "pointer" : "default", padding: "0.7rem 1.8rem",
+              transition: "all 0.3s",
+            }}>
               {currentQ < NW_QUESTIONS.length - 1 ? "다음" : "완성"}
             </button>
           </div>
         </div>
       )}
 
-      {/* AI 중간 질문 (5번 완료 후) */}
+      {/* AI 중간 질문 */}
       {phase === "questions" && showMid && (
-        <div style={{ width:"100%", maxWidth:520, position:"relative", zIndex:1, textAlign:"center" }}>
-          <div style={{ marginBottom:"3rem" }}>
+        <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1, textAlign: "center" }}>
+          <div style={{ marginBottom: "3rem" }}>
             {loadingMid ? (
-              <p style={{ fontFamily:"'Playfair Display',serif", fontSize:"1rem", fontStyle:"italic", color:"rgba(247,242,232,0.4)", animation:"breathe 2s ease-in-out infinite" }}>잠깐만요...</p>
+              <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(247,242,232,0.4)", animation: "breathe 2s ease-in-out infinite" }}>잠깐만요...</p>
             ) : (
               <div className="nw-appear">
-                <p style={{ fontFamily:"'Playfair Display',serif", fontSize:"clamp(1.1rem,3vw,1.4rem)", fontStyle:"italic", color:"rgba(247,242,232,0.85)", lineHeight:1.8, marginBottom:"2.5rem" }}>
+                <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.1rem,3vw,1.4rem)", fontStyle: "italic", color: "rgba(247,242,232,0.85)", lineHeight: 1.8, marginBottom: "2.5rem" }}>
                   {midQuestion}
                 </p>
-                <p style={{ fontFamily:"'Source Serif 4',serif", fontSize:"0.78rem", color:"rgba(247,242,232,0.3)", marginBottom:"2.5rem" }}>답하지 않아도 괜찮아요. 잠깐 머물러보세요.</p>
+                <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.78rem", color: "rgba(247,242,232,0.3)", marginBottom: "2.5rem" }}>답하지 않아도 괜찮아요. 잠깐 머물러보세요.</p>
               </div>
             )}
           </div>
           {!loadingMid && (
-            <button className="nw-btn" onClick={proceedFromMid}>계속하기 →</button>
+            <button onClick={proceedFromMid} style={{
+              background: ACCENT, border: "none", color: "#F7F2E8",
+              fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem",
+              letterSpacing: "0.18em", textTransform: "uppercase",
+              cursor: "pointer", padding: "0.7rem 1.8rem",
+            }}>계속하기 →</button>
           )}
         </div>
       )}
 
-      {/* 분석 중 */}
+      {/* 로딩 */}
       {phase === "analyzing" && (
-        <div style={{ textAlign:"center" }}>
-          <p style={{ fontFamily:"'Playfair Display',serif", fontSize:"1rem", fontStyle:"italic", color:"rgba(247,242,232,0.4)", animation:"breathe 2s ease-in-out infinite" }}>
+        <div style={{ textAlign: "center" }}>
+          <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(247,242,232,0.4)", animation: "breathe 2s ease-in-out infinite" }}>
             새 창을 열고 있어요
           </p>
         </div>
@@ -441,50 +491,39 @@ export default function NewWindow({ onBack, onComprehensive }) {
 
       {/* 결과 */}
       {phase === "result" && (
-        <div style={{ width:"100%", maxWidth:680, paddingTop:"2rem" }}>
-          <div style={{ fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.3em", textTransform:"uppercase", color:"rgba(38,50,44,0.4)", marginBottom:"0.5rem" }}>내 마음의 새창열기 — 분석 결과</div>
-          <div style={{ width:"100%", height:"1px", background:`rgba(38,50,44,0.12)`, marginBottom:"2rem" }}/>
+        <div style={{ width: "100%", maxWidth: 680, paddingTop: "2rem" }}>
+          <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(38,50,44,0.4)", marginBottom: "0.5rem" }}>내 마음의 새창열기 — 분석 결과</div>
+          <div style={{ width: "100%", height: "1px", background: "rgba(38,50,44,0.12)", marginBottom: "2rem" }} />
 
-          {/* 사용자가 적은 기억 인용 */}
           {userMemory && (
-            <div className="nw-appear" style={{ marginBottom:"2.5rem" }}>
-              <div style={{
-                background:"rgba(45,74,62,0.07)",
-                borderLeft:"2px solid #8FA8A0",
-                padding:"1.2rem 1.5rem",
-              }}>
-                <div style={{ fontFamily:"'Source Serif 4',serif", fontSize:"0.6rem", letterSpacing:"0.25em", textTransform:"uppercase", color:"rgba(38,50,44,0.4)", marginBottom:"0.75rem" }}>오늘 바라본 기억</div>
-                <p style={{ fontFamily:"'Playfair Display',serif", fontSize:"1rem", fontStyle:"italic", color:resultText, lineHeight:1.9 }}>"{userMemory}"</p>
+            <div className="nw-appear" style={{ marginBottom: "2.5rem" }}>
+              <div style={{ background: "rgba(58,82,120,0.06)", borderLeft: "2px solid #8FA8A0", padding: "1.2rem 1.5rem" }}>
+                <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(38,50,44,0.4)", marginBottom: "0.75rem" }}>오늘 바라본 기억</div>
+                <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "1rem", fontStyle: "italic", color: "#26322C", lineHeight: 1.9 }}>"{userMemory}"</p>
               </div>
             </div>
           )}
 
-          {sectionOrder.map((key, i) => parsed[key] && (
-            <div key={key} className="nw-appear" style={{ marginBottom:"2.5rem", animationDelay:(i * 0.6) + "s" }}>
-              <div style={{ fontFamily:"'Source Serif 4',serif", fontSize:"0.62rem", letterSpacing:"0.25em", textTransform:"uppercase", color:"rgba(38,50,44,0.4)", marginBottom:"0.4rem" }}>{key}</div>
-              <div style={{ width:"100%", height:"1px", background:`rgba(38,50,44,0.12)`, marginBottom:"1rem" }}/>
-              <div style={{
-                fontFamily:"'Source Serif 4',serif", fontSize:"0.93rem", fontWeight:300,
-                color:resultText, lineHeight:2.2, whiteSpace:"pre-wrap",
-                fontStyle: key === "어쩌면" ? "italic" : "normal"
-              }}>
+          {sectionOrder.map((key, i) => visibleSections.includes(key) && parsed[key] && (
+            <div key={key} className="nw-appear" style={{ marginBottom: "2.5rem", animationDelay: (i * 0.3) + "s" }}>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(38,50,44,0.4)", marginBottom: "0.4rem" }}>{key}</div>
+              <div style={{ width: "100%", height: "1px", background: "rgba(38,50,44,0.12)", marginBottom: "1rem" }} />
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "#26322C", lineHeight: 2.2, whiteSpace: "pre-wrap", fontStyle: key === "어쩌면" ? "italic" : "normal" }}>
                 {parsed[key]}
               </div>
             </div>
           ))}
 
-          <div style={{ marginTop:"2rem", paddingTop:"2rem", borderTop:`1px solid rgba(38,50,44,0.1)`, display:"flex", gap:"1.5rem", alignItems:"center", flexWrap:"wrap" }}>
-            <button className="nw-result-btn" onClick={() => {
-              if (onComprehensive) onComprehensive();
-              else onBack();
-            }}>내 마음의 전체화면으로 →</button>
-            <button className="nw-result-btn" onClick={() => {
-              const text = sectionOrder.map(k => parsed[k] ? `${k}\n${parsed[k]}` : "").filter(Boolean).join("\n\n");
-              navigator.clipboard.writeText(text);
-              alert("복사되었습니다");
-            }}>결과 복사</button>
-            <button className="nw-back-result" onClick={onBack}>← 마음거울로</button>
-          </div>
+          {visibleSections.length === 5 && (
+            <div>
+              <FeedbackWidget />
+              <div style={{ marginTop: "2rem", paddingTop: "2rem", borderTop: "1px solid rgba(38,50,44,0.1)", display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
+                <button onClick={() => { if (onComprehensive) onComprehensive(); else onBack(); }} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer", padding: "0.7rem 1.8rem" }}>내 마음의 전체화면으로 →</button>
+                <button onClick={() => { const text = sectionOrder.map(k => parsed[k] ? `${k}\n${parsed[k]}` : "").filter(Boolean).join("\n\n"); navigator.clipboard.writeText(text); alert("복사되었습니다"); }} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer", padding: "0.7rem 1.8rem" }}>결과 복사</button>
+                <button onClick={onBack} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.2)", color: "rgba(38,50,44,0.45)", fontFamily: "'Source Serif 4',serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer", padding: "0.6rem 1.4rem" }}>← 마음거울로</button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
