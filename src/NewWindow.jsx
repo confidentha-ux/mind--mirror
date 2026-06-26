@@ -460,7 +460,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
           )}
 
           {sectionOrder.map((key, i) => parsed[key] && (
-            <div key={key} className="nw-appear" style={{ marginBottom:"2.5rem", animationDelay:`${i * 0.6}s` }}>
+            <div key={key} className="nw-appear" style={{ marginBottom:"2.5rem", animationDelay:(i * 0.6) + "s" }}>
               <div style={{ fontFamily:"'Source Serif 4',serif", fontSize:"0.62rem", letterSpacing:"0.25em", textTransform:"uppercase", color:"rgba(38,50,44,0.4)", marginBottom:"0.4rem" }}>{key}</div>
               <div style={{ width:"100%", height:"1px", background:`rgba(38,50,44,0.12)`, marginBottom:"1rem" }}/>
               <div style={{
