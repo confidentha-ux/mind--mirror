@@ -174,7 +174,7 @@ const TYPE_INFO = {
 
 // 질문마다 배경 팔레트 — 밝은 카드색에서 점점 진하게
 const Q_PALETTE = [
-  { bg: "#EEE0CB", text: "#3A2410" }
+  { bg: "#EEE0CB", text: "#3A2410" },
   { bg: "#DDB87A", text: "#3A2410" },
   { bg: "#D4A868", text: "#3A2410" },
   { bg: "#C89558", text: "#3A2410" },
