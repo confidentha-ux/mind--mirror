@@ -259,7 +259,7 @@ export default function QuickTest({ onBack }) {
   return (
     <div style={{
       minHeight: "100vh",
-      background: step === "intro" ? "#3A2410" : step === "test" ? qPalette.bg : "#F7F2E8",
+      background: step === "intro" ? "#EEE0CB" : step === "test" ? qPalette.bg : "#F7F2E8",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
