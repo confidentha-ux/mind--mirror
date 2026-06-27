@@ -475,7 +475,7 @@ export default function App() {
   // ── 메인 랜딩 ───────────────────────────────────────────────────
   if (step === "intro") {
     return (
-      <div style={{background:"#26322C",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"3rem 1.5rem"}}>
+      <div style={{background:"#1F3A32",minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center",padding:"3rem 1.5rem"}}>
         <style>{FONTS + `
           @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
           .fade5 { opacity:0; animation:fadeUp 0.6s ease forwards 2.9s; }
@@ -724,7 +724,7 @@ export default function App() {
               <div key={key} className="sec-appear" style={{marginBottom:"2rem",animationDelay:(i*0.2)+"s"}}>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(38,50,44,0.4)",marginBottom:"0.4rem"}}>{key}</div>
                 <div style={{width:"100%",height:"1px",background:"rgba(38,50,44,0.12)",marginBottom:"1rem"}}/>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"#26322C",lineHeight:2,whiteSpace:"pre-wrap"}}>{content}</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"#1F3A32",lineHeight:2,whiteSpace:"pre-wrap"}}>{content}</div>
               </div>
             ) : null;
           })}
@@ -753,7 +753,7 @@ export default function App() {
               <div key={key} className="sec-appear" style={{marginBottom:"2rem",animationDelay:(i*0.2)+"s"}}>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(38,50,44,0.4)",marginBottom:"0.4rem"}}>{key}</div>
                 <div style={{width:"100%",height:"1px",background:"rgba(38,50,44,0.12)",marginBottom:"1rem"}}/>
-                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"#26322C",lineHeight:2,whiteSpace:"pre-wrap"}}>{content}</div>
+                <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"#1F3A32",lineHeight:2,whiteSpace:"pre-wrap"}}>{content}</div>
               </div>
             ) : null;
           })}
