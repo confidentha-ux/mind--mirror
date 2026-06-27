@@ -505,7 +505,7 @@ export default function App() {
               <div style={{position:"absolute",left:"-3rem",top:"1rem",width:28,height:28,borderRadius:"50%",background:"#8C6640",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <span style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.65rem",color:"#F7F2E8"}}>01</span>
               </div>
-              <div onClick={() => setShowQuickTest(true)} style={{background:"#E8C99A",padding:"1.4rem 1.8rem",borderLeft:"4px solid #8C6640",borderRadius:"0 4px 4px 0",position:"relative",overflow:"hidden",minHeight:140}}>
+              <div onClick={() => setShowQuickTest(true)} style={{background:"#EEE0CB",padding:"1.4rem 1.8rem",borderLeft:"4px solid #8C6640",borderRadius:"0 4px 4px 0",position:"relative",overflow:"hidden",minHeight:140}}>
                 <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.58rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(58,36,16,0.5)",marginBottom:"0.35rem"}}>설치한 적 없는데 실행되고 있는 것.</div>
                 <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.15rem",color:"#3A2410",marginBottom:"0.4rem"}}>내 마음의 기본값</div>
                 <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",fontWeight:300,color:"rgba(58,36,16,0.7)",lineHeight:1.75}}>누가 가르쳐준 적 없는데 늘 그렇게 해온 것들이 있어요.<br/>여기서 시작해요 →</p>
