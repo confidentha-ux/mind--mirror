@@ -172,20 +172,7 @@ const TYPE_INFO = {
   },
 };
 
-// 질문마다 배경 팔레트 — 밝은 카드색에서 점점 진하게
-const Q_PALETTE = [
-  { bg: "#EEE0CB", text: "#3A2410" },
-  { bg: "#DDB87A", text: "#3A2410" },
-  { bg: "#D4A868", text: "#3A2410" },
-  { bg: "#C89558", text: "#3A2410" },
-  { bg: "#BC8248", text: "#3A2410" },
-  { bg: "#B07040", text: "#F7F2E8" },
-  { bg: "#A46038", text: "#F7F2E8" },
-  { bg: "#985234", text: "#F7F2E8" },
-  { bg: "#8C4A30", text: "#F7F2E8" },
-  { bg: "#804230", text: "#F7F2E8" },
-  { bg: "#743A28", text: "#F7F2E8" },
-];
+const Q_PALETTE = { bg: "#EEE0CB", text: "#3A2410" };
 
 const ACCENT = "#8C6640";
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
@@ -254,12 +241,11 @@ export default function QuickTest({ onBack }) {
 
   const progress = (current / QUESTIONS.length) * 100;
   const typeInfo = result ? TYPE_INFO[result] : null;
-  const qPalette = Q_PALETTE[current] || Q_PALETTE[Q_PALETTE.length - 1];
 
   return (
     <div style={{
       minHeight: "100vh",
-      background: step === "intro" ? "#EEE0CB" : step === "test" ? qPalette.bg : "#F7F2E8",
+      background: step === "result" ? "#F7F2E8" : "#EEE0CB",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -354,10 +340,10 @@ export default function QuickTest({ onBack }) {
 
         {/* 질문 */}
         {step === "test" && (
-          <div style={{ animation: "fadeIn 0.3s ease", color: qPalette.text }}>
+          <div style={{ animation: "fadeIn 0.3s ease", color: Q_PALETTE.text }}>
             <div style={{ marginBottom: "3rem" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
-                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: qPalette.text, opacity: 0.5 }}>
+                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: Q_PALETTE.text, opacity: 0.5 }}>
                   {current + 1} / {QUESTIONS.length}
                 </span>
               </div>
@@ -369,7 +355,7 @@ export default function QuickTest({ onBack }) {
             <h2 style={{
               fontFamily: "'Playfair Display',serif",
               fontSize: "clamp(1.4rem,3.5vw,1.8rem)",
-              fontWeight: 400, color: qPalette.text,
+              fontWeight: 400, color: Q_PALETTE.text,
               lineHeight: 1.5, marginBottom: "2rem", whiteSpace: "pre-line",
             }}>
               {QUESTIONS[current].text}
@@ -384,7 +370,7 @@ export default function QuickTest({ onBack }) {
                     border: selected === opt ? "1px solid " + ACCENT : "1px solid rgba(0,0,0,0.12)",
                     outline: "none", padding: "1rem 1.25rem", cursor: "pointer",
                     textAlign: "left", fontFamily: "'Source Serif 4',serif",
-                    fontSize: "0.88rem", fontWeight: 300, color: qPalette.text,
+                    fontSize: "0.88rem", fontWeight: 300, color: Q_PALETTE.text,
                     lineHeight: 1.6, marginBottom: "0.5rem", borderRadius: "2px",
                     transition: "all 0.2s",
                   }}>
@@ -401,7 +387,7 @@ export default function QuickTest({ onBack }) {
                 background: "transparent", border: "none",
                 fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem",
                 letterSpacing: "0.12em", textTransform: "uppercase",
-                cursor: "pointer", color: qPalette.text, opacity: 0.4,
+                cursor: "pointer", color: Q_PALETTE.text, opacity: 0.4,
                 padding: 0, transition: "opacity 0.2s",
               }}>← 이전</button>
             </div>
@@ -411,31 +397,31 @@ export default function QuickTest({ onBack }) {
         {/* 결과 */}
         {step === "result" && typeInfo && (
           <div style={{ animation: "fadeIn 0.6s ease" }}>
-            <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(38,50,44,0.4)", marginBottom: "0.5rem" }}>내 마음의 기본값 — 분석 결과</div>
-            <div style={{ width: "100%", height: "1px", background: "rgba(38,50,44,0.12)", marginBottom: "2rem" }} />
+            <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(58,36,16,0.4)", marginBottom: "0.5rem" }}>내 마음의 기본값 — 분석 결과</div>
+            <div style={{ width: "100%", height: "1px", background: "rgba(58,36,16,0.12)", marginBottom: "2rem" }} />
 
             <div style={{
-              background: "#d4c8f0",
-              border: "1px solid rgba(90,58,138,0.2)",
+              background: "#DDD0B8",
+              border: "1px solid rgba(58,36,16,0.15)",
               padding: "2.5rem 2rem",
               marginBottom: "2rem",
               textAlign: "center",
             }}>
-              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(42,26,74,0.45)", marginBottom: "1.5rem" }}>내 기본값 찾기</div>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(58,36,16,0.45)", marginBottom: "1.5rem" }}>내 기본값 찾기</div>
               <img src={"/" + TYPE_IMAGES[result]} alt={result} style={{ width: 180, height: 180, objectFit: "contain", marginBottom: "1.5rem" }} />
-              <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.6rem,4vw,2.2rem)", fontWeight: 400, color: "#2a1a4a", marginBottom: "0.75rem" }}>{result}</h2>
-              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 1.9, marginBottom: "1rem" }}>{typeInfo.desc}</p>
-              <div style={{ width: "32px", height: "1px", background: "rgba(90,58,138,0.25)", margin: "1.25rem auto" }} />
-              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(42,26,74,0.6)", lineHeight: 1.9, marginBottom: "1.5rem" }}>{typeInfo.detail}</p>
+              <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.6rem,4vw,2.2rem)", fontWeight: 400, color: "#3A2410", marginBottom: "0.75rem" }}>{result}</h2>
+              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(58,36,16,0.7)", lineHeight: 1.9, marginBottom: "1rem" }}>{typeInfo.desc}</p>
+              <div style={{ width: "32px", height: "1px", background: "rgba(58,36,16,0.2)", margin: "1.25rem auto" }} />
+              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(58,36,16,0.6)", lineHeight: 1.9, marginBottom: "1.5rem" }}>{typeInfo.detail}</p>
 
               <div style={{ display: "flex", gap: "1rem", textAlign: "left" }}>
-                <div style={{ flex: 1, background: "rgba(255,255,255,0.35)", padding: "1rem", borderRadius: "2px" }}>
-                  <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(42,26,74,0.4)", marginBottom: "0.5rem" }}>강점</div>
-                  <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 1.8 }}>{typeInfo.strength}</p>
+                <div style={{ flex: 1, background: "#C9A884", padding: "1rem", borderRadius: "2px" }}>
+                  <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(58,36,16,0.5)", marginBottom: "0.5rem" }}>강점</div>
+                  <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(58,36,16,0.85)", lineHeight: 1.8 }}>{typeInfo.strength}</p>
                 </div>
-                <div style={{ flex: 1, background: "rgba(255,255,255,0.35)", padding: "1rem", borderRadius: "2px" }}>
-                  <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(42,26,74,0.4)", marginBottom: "0.5rem" }}>막히는 지점</div>
-                  <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(42,26,74,0.7)", lineHeight: 1.8 }}>{typeInfo.weakness}</p>
+                <div style={{ flex: 1, background: "#C9A884", padding: "1rem", borderRadius: "2px" }}>
+                  <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(58,36,16,0.5)", marginBottom: "0.5rem" }}>막히는 지점</div>
+                  <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(58,36,16,0.85)", lineHeight: 1.8 }}>{typeInfo.weakness}</p>
                 </div>
               </div>
             </div>
@@ -449,8 +435,8 @@ export default function QuickTest({ onBack }) {
               }}>다시 해보기</button>
               {onBack && (
                 <button onClick={onBack} style={{
-                  background: "transparent", border: "1px solid rgba(38,50,44,0.25)",
-                  color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif",
+                  background: "transparent", border: "1px solid rgba(58,36,16,0.25)",
+                  color: "rgba(58,36,16,0.6)", fontFamily: "'Source Serif 4',serif",
                   fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
                   padding: "1.1rem 1.8rem", cursor: "pointer",
                 }}>← 마음거울로</button>
