@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
@@ -18,7 +18,7 @@ const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니�
 - 소제목(###) 절대 사용 금지
 - 단정 금지. "이런 가능성이 있습니다" "이렇게 보입니다" 형식으로
 - 존댓말. 따뜻하되 거리를 유지할 것
-- 각 섹션 4-5문장. 짧고 깊게.
+- 각 섹션 6-8문장. 깊고 충분하게.
 - 전체가 하나의 흐름처럼 읽혀야 한다
 
 출력 구조 (반드시 이 헤더를 정확히 사용할 것):
@@ -35,6 +35,10 @@ const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니�
 각 검사를 따로 봤을 땐 보이지 않았는데, 겹쳐봤을 때 비로소 보이는 것.
 긴장, 모순, 공백, 또는 아직 말해지지 않은 것.
 
+## 지금 당신에게 가장 유효한 것
+관찰에서 그치지 않고, 지금 이 사람에게 실질적으로 의미 있는 방향 하나를 제시할 것.
+구체적이되 강요하지 않는 톤으로.
+
 ## 오늘의 당신에게
 지금 이 순간 가장 의미 있어 보이는 관찰 하나.
 질문 형식으로 끝낼 것.
@@ -44,12 +48,8 @@ const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니�
 function parseSection(text, key) {
   if (!text) return "";
   const allKeys = [
-    "Reflection", "Recognition", "Oracle", "Story", "Empowerment",
-    "여기까지 오셨네요", "당신이 자주 느끼는 감정", "사람 사이에서 반복되는 것",
-    "말하지 못한 말", "감정의 결", "이제 질문은 당신에게",
-    "두 번째 질문들까지", "생각하는 방식", "갈등을 해결하는 방식",
-    "몸이 먼저 아는 것", "지금 당신에게 필요한 것",
-    "네 개의 거울이 가리킨 곳", "반복되는 구조", "네 결과가 함께 드러낸 것", "오늘의 당신에게",
+    "네 개의 거울이 가리킨 곳", "반복되는 구조", "네 결과가 함께 드러낸 것",
+    "지금 당신에게 가장 유효한 것", "오늘의 당신에게",
   ];
   const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const idx = allKeys.indexOf(key);
@@ -72,7 +72,7 @@ function TodaySentenceWidget({ onSave }) {
   };
 
   if (saved) return (
-    <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.5)",lineHeight:1.8}}>기록했어요.</p>
+    <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.4)", lineHeight: 1.8 }}>기록했어요.</p>
   );
 
   return (
@@ -80,12 +80,13 @@ function TodaySentenceWidget({ onSave }) {
       <textarea
         value={text}
         onChange={e => setText(e.target.value)}
-        placeholder="오늘 여기서 하나만 가져간다면..."
-        rows={2}
+        placeholder="여기에 남겨주세요..."
+        rows={3}
         style={{
-          width: "100%", background: "rgba(255,255,255,0.05)",
-          border: "1px solid rgba(201,168,76,0.25)",
-          color: "rgba(240,237,232,0.8)",
+          width: "100%",
+          background: "rgba(38,50,44,0.04)",
+          border: "1px solid rgba(168,123,123,0.3)",
+          color: "#26322C",
           fontFamily: "'Source Serif 4', serif",
           fontSize: "0.88rem", fontWeight: 300, lineHeight: 1.8,
           padding: "0.75rem 1rem", resize: "none", outline: "none",
@@ -95,17 +96,19 @@ function TodaySentenceWidget({ onSave }) {
       <button
         onClick={handleSave}
         style={{
-          background: "none", border: "1px solid rgba(201,168,76,0.35)",
-          color: "rgba(201,168,76,0.7)",
+          background: "none",
+          border: "1px solid rgba(168,123,123,0.4)",
+          color: "#A87B7B",
           fontFamily: "'Source Serif 4', serif",
-          fontSize: "0.78rem", padding: "0.4rem 1.2rem", cursor: "pointer",
+          fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
+          padding: "0.5rem 1.4rem", cursor: "pointer",
         }}
       >기록하기</button>
     </div>
   );
 }
 
-export default function Comprehensive({ onBack, onNext }) {
+export default function Comprehensive({ onBack }) {
   const [comprehensive, setComprehensive] = useState("");
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -145,7 +148,7 @@ export default function Comprehensive({ onBack, onNext }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
-          max_tokens: 1200,
+          max_tokens: 1600,
           system: COMPREHENSIVE_PROMPT,
           messages: [{ role: "user", content: parts.join("\n\n---\n\n") }],
         }),
@@ -166,14 +169,14 @@ export default function Comprehensive({ onBack, onNext }) {
     if (result2) parts.push(`[ 내 마음의 운영체계 ]\n${result2}`);
     if (oracleRaw) parts.push(`[ 내 마음의 메모리 ]\n${oracleRaw}`);
     if (comprehensive) parts.push(`[ 종합 분석 ]\n${comprehensive}`);
-    if (todaySentence) parts.push(`[ 오늘의 한 문장 ]\n"${todaySentence.sentence}"`);
+    if (todaySentence) parts.push(`[ 오늘의 기록 ]\n"${todaySentence.sentence}"`);
     navigator.clipboard.writeText(parts.join("\n\n---\n\n"));
     alert("복사되었습니다.");
   };
 
   const handleSaveSentence = (sentence) => {
-    const today = new Date();
-    const data = { sentence, date: `${today.getMonth()+1}월 ${today.getDate()}일`, timestamp: Date.now() };
+    const now = new Date();
+    const data = { sentence, date: `${now.getMonth() + 1}월 ${now.getDate()}일`, timestamp: Date.now() };
     localStorage.setItem("oracle_today_sentence", JSON.stringify(data));
     setTodaySentence(data);
   };
@@ -181,7 +184,7 @@ export default function Comprehensive({ onBack, onNext }) {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#1F3A32",
+      background: "#EDE8E0",
       display: "flex",
       alignItems: "flex-start",
       justifyContent: "center",
@@ -205,26 +208,26 @@ export default function Comprehensive({ onBack, onNext }) {
             fontFamily: "'Source Serif 4', serif",
             fontSize: "0.6rem", letterSpacing: "0.3em",
             textTransform: "uppercase",
-            color: "#D6B870", marginBottom: "1.5rem",
+            color: "#A87B7B", marginBottom: "1.5rem",
           }}>내 마음의 전체화면</div>
           <h1 style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(2.4rem,6vw,3.6rem)",
-            fontWeight: 400, fontStyle: "italic",
-            color: "rgba(247,242,232,0.9)",
-            lineHeight: 1.15, marginBottom: "2rem",
+            fontSize: "clamp(1.8rem,4vw,2.6rem)",
+            fontWeight: 400,
+            color: "#26322C",
+            lineHeight: 1.2, marginBottom: "2rem",
           }}>반복된 것과 어긋난 것이 함께 보일 때</h1>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.6)",lineHeight:1.9,marginBottom:"0.75rem"}}>내 마음의 전체화면은 앞선 결과를 다시 요약하지 않습니다.<br/>답들 사이에서 반복되는 흐름과, 유난히 다르게 빛나는 지점을 함께 봅니다.</p>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.6)",lineHeight:1.9,marginBottom:"0.75rem"}}>나는 어디에서 익숙한 나로 돌아갔고, <br/>어디에서 다른 가능성을 보였을까요?</p>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(247,242,232,0.6)",lineHeight:1.9}}>이제 흩어져 있던 답들이 나의 전체화면으로 모입니다.</p>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "0.75rem" }}>내 마음의 전체화면은 앞선 결과를 다시 요약하지 않습니다.<br />답들 사이에서 반복되는 흐름과, 유난히 다르게 빛나는 지점을 함께 봅니다.</p>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "0.75rem" }}>나는 어디에서 익숙한 나로 돌아갔고,<br />어디에서 다른 가능성을 보였을까요?</p>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9 }}>이제 흩어져 있던 답들이 나의 전체화면으로 모입니다.</p>
         </div>
 
         {/* 오늘의 한 문장 (기존 저장된 것) */}
         {todaySentence && (
           <div style={{ marginBottom: "2.5rem" }}>
-            <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.62rem",letterSpacing:"0.25em",textTransform:"uppercase",color:"rgba(201,168,76,0.45)",marginBottom:"0.4rem"}}>오늘의 한 문장 · {todaySentence.date}</div>
-            <div style={{width:"100%",height:"1px",background:"rgba(201,168,76,0.2)",marginBottom:"1rem"}}/>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontStyle:"italic",color:"#c9a84c",lineHeight:1.85}}>"{todaySentence.sentence}"</div>
+            <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(168,123,123,0.5)", marginBottom: "0.4rem" }}>오늘의 기록 · {todaySentence.date}</div>
+            <div style={{ width: "100%", height: "1px", background: "rgba(168,123,123,0.2)", marginBottom: "1rem" }} />
+            <div style={{ fontFamily: "'Playfair Display',serif", fontSize: "1.1rem", fontStyle: "italic", color: "#A87B7B", lineHeight: 1.85 }}>"{todaySentence.sentence}"</div>
           </div>
         )}
 
@@ -232,34 +235,53 @@ export default function Comprehensive({ onBack, onNext }) {
         <div style={{ marginBottom: "3rem" }}>
           {!comprehensive && !loading && (
             <div>
-              <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.4)",lineHeight:1.9,marginBottom:"1.25rem"}}>
+              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.45)", lineHeight: 1.9, marginBottom: "1.25rem" }}>
                 {hasAny
-                  ? "지금까지의 답들은 모두 같은 방향을 가리키지 않을 수 있습니다. </div>반복된 길과 새로 열린 가능성을 함께 비춰드릴게요."
+                  ? "지금까지의 답들은 모두 같은 방향을 가리키지 않을 수 있습니다. 반복된 길과 새로 열린 가능성을 함께 비춰드릴게요."
                   : "도구를 하나 이상 완료하면 전체화면을 시작할 수 있어요."}
               </p>
               {hasAny && (
-                <button onClick={generateComprehensive} style={{background:"none",border:"1px solid rgba(201,168,76,0.4)",color:"rgba(240,237,232,0.7)",fontFamily:"'Source Serif 4',serif",fontSize:"0.78rem",letterSpacing:"0.18em",textTransform:"uppercase",padding:"0.65rem 1.5rem",cursor:"pointer"}}>전체화면 보기 →</button>
+                <button onClick={generateComprehensive} style={{
+                  background: "none", border: "1px solid rgba(168,123,123,0.4)",
+                  color: "#A87B7B", fontFamily: "'Source Serif 4',serif",
+                  fontSize: "0.78rem", letterSpacing: "0.18em", textTransform: "uppercase",
+                  padding: "0.65rem 1.5rem", cursor: "pointer",
+                }}>전체화면 보기 →</button>
               )}
             </div>
           )}
 
           {loading && (
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.95rem",fontStyle:"italic",color:"rgba(240,237,232,0.4)",animation:"breathe 2s ease-in-out infinite"}}>잠시 후, 당신의 답들은 나의 전체화면으로 모입니다...</p>
+            <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "0.95rem", fontStyle: "italic", color: "rgba(38,50,44,0.35)", animation: "breathe 2s ease-in-out infinite" }}>잠시 후, 당신의 답들은 나의 전체화면으로 모입니다...</p>
           )}
 
           {comprehensive && !loading && (
-            <div>
+            <div style={{
+              background: "#4A6358",
+              padding: "2.5rem 2rem",
+              marginBottom: "1rem",
+            }}>
               {[
                 { key: "네 개의 거울이 가리킨 곳" },
                 { key: "반복되는 구조" },
                 { key: "네 결과가 함께 드러낸 것" },
+                { key: "지금 당신에게 가장 유효한 것" },
                 { key: "오늘의 당신에게" },
-              ].map(({ key }) => {
+              ].map(({ key }, i, arr) => {
                 const content = parseSection(comprehensive, key);
+                const isLast = i === arr.length - 1;
                 return content ? (
-                  <div key={key} style={{ marginBottom: "1.75rem" }}>
-                    <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.6rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"rgba(201,168,76,0.35)",marginBottom:"0.6rem"}}>{key}</div>
-                    <div style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.9rem",fontWeight:300,color:"rgba(240,237,232,0.65)",lineHeight:2,whiteSpace:"pre-wrap"}}>{content}</div>
+                  <div key={key} style={{ marginBottom: isLast ? 0 : "2rem" }}>
+                    <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(196,152,152,0.55)", marginBottom: "0.6rem" }}>{key}</div>
+                    <div style={{ width: "100%", height: "1px", background: "rgba(196,152,152,0.15)", marginBottom: "1rem" }} />
+                    <div style={{
+                      fontFamily: isLast ? "'Playfair Display',serif" : "'Source Serif 4',serif",
+                      fontStyle: isLast ? "italic" : "normal",
+                      fontSize: isLast ? "0.95rem" : "0.9rem",
+                      fontWeight: 300,
+                      color: isLast ? "rgba(240,237,232,0.9)" : "rgba(240,237,232,0.72)",
+                      lineHeight: 2, whiteSpace: "pre-wrap",
+                    }}>{content}</div>
                   </div>
                 ) : null;
               })}
@@ -268,45 +290,64 @@ export default function Comprehensive({ onBack, onNext }) {
         </div>
 
         {/* 엔딩 */}
-        <div style={{borderTop:"1px solid rgba(201,168,76,0.15)",paddingTop:"3rem",marginBottom:"3rem"}}>
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(240,237,232,0.6)",lineHeight:2,marginBottom:"1rem"}}>여기까지 왔어요.</p>
+        <div style={{ borderTop: "1px solid rgba(38,50,44,0.12)", paddingTop: "3rem", marginBottom: "3rem" }}>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "1rem" }}>
+            오늘 당신은 꽤 새로운 일을 해보았어요.<br />
+            자신에게 일어난 사건과 남이 한 말이 아니라,<br />
+            자신의 말로 자신을 바라본 거예요.<br />
+            쉽지 않은 일이죠?
+          </p>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "1rem" }}>
+            그러니 여기까지 온 자신을 자랑스럽게 여기고,<br />
+            잘했다 칭찬해주셔도 돼요.<br />
+            인생에 꽤 드문 일을 해보신 거예요.
+          </p>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "1rem" }}>
+            언젠가 마음이 다시 흔들리는 날,<br />
+            오늘 여기서 바라본 자신의 말을 다시 꺼내보세요.<br />
+            그때의 나와 지금의 나가 달라져 있을 수도 있고,<br />
+            놀랍도록 같을 수도 있어요.<br />
+            어느 쪽이든, 그것도 당신을 이해하는 하나의 방식이에요.
+          </p>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "2rem" }}>
+            그때의 나는 오늘 쓴 글을 다르게 읽을지도 모릅니다.<br />
+            같은 글을 다시 읽었는데 다르게 느껴지는 것처럼요.<br />
+            나 자신을 다시 보면 다르게 보일 겁니다.
+          </p>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "2.5rem" }}>
+            오늘 결과를 가까운 사람에게 보여주세요.<br />
+            오래 함께했는데도 몰랐던 것들이 보이기 시작할 거예요.<br />
+            당신의 AI와 함께 더 깊이 이야기해보셔도 좋아요.
+          </p>
 
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(240,237,232,0.6)",lineHeight:2,marginBottom:"1rem"}}>오늘 당신은 꽤 드문 일을 했어요.<br/>자신에 대해 남이 준 말 말고,<br/>지금 자신의 말로 자신을 바라본 거예요.</p>
-
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(240,237,232,0.6)",lineHeight:2,marginBottom:"1rem"}}>그게 생각보다 쉽지 않은 일이에요.<br/>그러니 오늘만큼은<br/>여기까지 온 자신에게 조용히 고맙다고 말해줘도 괜찮아요.</p>
-
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(240,237,232,0.6)",lineHeight:2,marginBottom:"1rem"}}>언젠가 마음이 다시 궁금해지는 날,<br/>오늘의 답을 다시 읽어보세요.<br/>같은 글도 다시 읽으면 다르게 보이듯,<br/>나 자신도 다시 보면 다르게 보일 때가 있으니까요.</p>
-
-          <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.93rem",fontWeight:300,color:"rgba(240,237,232,0.6)",lineHeight:2,marginBottom:"2rem"}}>오늘 결과를 가까운 사람에게 보여주세요.<br/>오래 함께했는데도 몰랐던 것들이 보이기 시작해요.<br/>분석지를 복사해서 당신의 AI와 더 깊이 이야기해보세요.</p>
-
-          {/* 한 문장 쓰기 */}
-          <div style={{marginBottom:"2rem"}}>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.88rem",fontWeight:300,color:"rgba(240,237,232,0.5)",lineHeight:1.9,marginBottom:"1rem"}}>오늘 여기서 하나만 가져간다면 — 무엇인가요?</p>
+          {/* 기록 파트 */}
+          <div style={{ marginBottom: "2.5rem" }}>
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.5)", lineHeight: 1.9, marginBottom: "0.4rem" }}>오늘 여기서 어떤 순간이 가장 마음에 남았나요?</p>
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.5)", lineHeight: 1.9, marginBottom: "1rem" }}>오늘 새롭게 발견한 나는 누구인가요?</p>
             {!todaySentence ? (
               <TodaySentenceWidget onSave={handleSaveSentence} />
             ) : (
-              <p style={{fontFamily:"'Playfair Display',serif",fontSize:"1rem",fontStyle:"italic",color:"rgba(201,168,76,0.6)",lineHeight:1.85}}>"{todaySentence.sentence}"</p>
+              <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "1rem", fontStyle: "italic", color: "#A87B7B", lineHeight: 1.85 }}>"{todaySentence.sentence}"</p>
             )}
           </div>
 
           {/* 피드백 */}
           <div>
-            <p style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.82rem",fontWeight:300,color:"rgba(240,237,232,0.3)",lineHeight:1.9,marginBottom:"0.5rem"}}>오늘 어떤 순간이 가장 마음에 남았나요?<br/>당신의 한 줄이 이 거울을 더 선명하게 만들어요.</p>
-            <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",color:"rgba(184,154,94,0.5)",textDecoration:"underline",textUnderlineOffset:"3px"}}>피드백 남기기 →</a>
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(38,50,44,0.4)", lineHeight: 1.9, marginBottom: "0.5rem" }}>
+              당신이 남겨주신 피드백이 다른 이들을 더 선명하게 비출 마음거울이 되는 데 도움이 됩니다.
+            </p>
+            <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", color: "#A87B7B", textDecoration: "underline", textUnderlineOffset: "3px" }}>피드백 남기기 →</a>
           </div>
         </div>
 
         {/* 버튼 */}
-        <div style={{display:"flex",gap:"1.5rem",alignItems:"center",flexWrap:"wrap",marginBottom:"3rem"}}>
-          <button onClick={copyAll} style={{background:"none",border:"1px solid rgba(201,168,76,0.4)",color:"rgba(240,237,232,0.7)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",padding:"0.5rem 1.25rem",cursor:"pointer"}}>결과 복사</button>
-          {onNext && (
-            <button onClick={onNext} style={{background:"none",border:"1px solid rgba(240,237,232,0.3)",color:"rgba(240,237,232,0.6)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",padding:"0.5rem 1.25rem",cursor:"pointer"}}>다음 →</button>
-          )}
-          <button onClick={onBack} style={{background:"none",border:"none",color:"rgba(240,237,232,0.3)",fontFamily:"'Source Serif 4',serif",fontSize:"0.8rem",cursor:"pointer"}}>마지막 장으로 →</button>
-        </div>
-
-        {/* 하단 */}
-        <div style={{textAlign:"center",paddingBottom:"2rem"}}>
+        <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
+          <button onClick={copyAll} style={{
+            background: "none", border: "1px solid rgba(168,123,123,0.4)",
+            color: "#A87B7B", fontFamily: "'Source Serif 4',serif",
+            fontSize: "0.82rem", letterSpacing: "0.15em", textTransform: "uppercase",
+            padding: "1.1rem 2.8rem", cursor: "pointer",
+          }}>결과 복사</button>
         </div>
 
       </div>
