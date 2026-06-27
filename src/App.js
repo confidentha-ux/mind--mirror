@@ -570,7 +570,7 @@ export default function App() {
           </div>
 
           <div className="fade8" style={{padding:"2.5rem 0 0"}}>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"#C9A84C",letterSpacing:"0.05em",lineHeight:1.8}}>모든 답은 마지막에 하나로 모입니다.</p>
+            <p style={{fontFamily:"'Playfair Display',serif",fontSize:"0.85rem",fontStyle:"italic",color:"#C9A84C",letterSpacing:"0.05em",lineHeight:1.8}}>모든 결과는 마지막 "내 마음의 전체화면"에 다시 모입니다.</p>
           </div>
         </div>
       </div>
