@@ -5,7 +5,7 @@ const NW_QUESTIONS = [
     id: 1,
     type: "text",
     title: "기억",
-    question: "잠깐 눈을 감아보세요.\n지금 이 순간, 기억 하나를 떠올려 보세요.\n오래된 것도 좋아요. 작은 것도 좋아요.\n하나면 충분해요.\n\n떠올랐나요?\n그 기억을 오늘 같이 바라볼게요.\n\n어떤 기억인가요?",
+    question: "잠깐 눈을 감아보세요.\n지금 이 순간, 아무 이유 없이 떠오르는 기억이 있나요.\n오래된 것도 좋아요. 작은 것도 좋아요.\n그냥 거기 있는 것 하나면 충분해요.\n\n떠올랐나요?\n그 기억을 오늘 같이 바라볼게요.\n\n어떤 기억인가요?",
     placeholder: "떠오르는 대로 적어주세요...",
   },
   {
@@ -42,7 +42,7 @@ const NW_QUESTIONS = [
     id: 4,
     type: "multi",
     title: "감정",
-    question: "기억 안에는 감정들이 있어요.\n지금 떠오르는 것들을 그대로 골라보세요.\n그 기억에서 주된 감정은 무엇인가요?",
+    question: "모든 기억 안에는 감정들이 있어요.\n지금 떠오르는 것들을 그대로 골라보세요.\n그 기억에서 주된 감정은 무엇인가요?",
     options: [
       "억울함 — 나는 그러지 않았는데",
       "아쉬움 — 그때 달랐다면",
@@ -74,18 +74,18 @@ const NW_QUESTIONS = [
     id: 6,
     type: "text",
     title: "어쩌면",
-    question: "지금 이 기억을 바라보며\n마음에 떠오르는 것이 있나요?\n\n완벽한 문장이 아니어도 괜찮아요.\n단어 하나도 좋고, 질문으로 남겨도 좋아요.\n\n지금 떠오르는 것을 그대로 적어주세요.\n어쩌면, 으로 시작해도 좋아요.",
+    question: "지금 이 기억을 바라보며\n마음 안에 떠오르는 것이 있나요.\n\n완벽한 문장이 아니어도 괜찮아요.\n단어 하나도 좋고, 질문으로 남겨도 좋아요.\n\n지금 떠오르는 것을 그대로 적어주세요.\n어쩌면, 으로 시작해도 좋아요.",
     placeholder: "어쩌면...",
   },
 ];
 
-const NW_PROMPT = `당신은 사용자가 작성한 "내 마음의 새창열기" 답변을 분석하는 해설자입니다.
+const NW_PROMPT = `당신은 사용자가 작성한 답변을 분석하는 해설자입니다.
 
 당신의 역할은 사용자를 교정하거나 치료하는 것이 아닙니다.
 정답을 알려주거나 특정 해석을 강요하지 마세요.
 
 대신 사용자가 어떤 생각을 오래 붙들고 있었는지, 그 생각이 어떤 방식으로 머물러 있었는지,
-그리고 이번 질문을 통해 어떤 작은 균열이나 가능성이 나타났는지 조심스럽게 비춰주세요.
+그리고 이번 질문을 통해 어떤 작은 가능성이 나타났는지 조심스럽게 비춰주세요.
 
 분석 원칙:
 1. 사용자의 기존 해석이 틀렸다고 말하지 않는다.
@@ -96,9 +96,10 @@ const NW_PROMPT = `당신은 사용자가 작성한 "내 마음의 새창열기"
 6. 분석의 목적은 결론이 아니라 관찰이다.
 7. 대시를 사용하지 않는다.
 8. 문장은 짧게. 친한 사람이 조용히 옆에 앉아서 말하듯 써라.
-9. 볼드(**텍스트**) 절대 사용 금지.
-10. 소제목(###) 절대 사용 금지.
-11. 존댓말로 쓸 것.
+9. "~군요", "~네요" 같은 감탄 어투 금지. 대신 "~일 수 있어요", "~했을 수도 있어요" 형식으로.
+10. 볼드(**텍스트**) 절대 사용 금지.
+11. 소제목(###) 절대 사용 금지.
+12. 존댓말로 쓸 것.
 
 분석 순서:
 ## 지금까지 바라보던 창
@@ -116,7 +117,6 @@ const NW_PROMPT = `당신은 사용자가 작성한 "내 마음의 새창열기"
 const AI_MIDPOINT_PROMPT = `당신은 사용자가 5번에서 선택한 답변을 보고 질문 하나를 던지는 역할이에요.
 목적은 사용자가 6번으로 넘어가기 전에 잠깐 더 머물게 하는 거예요.
 질문은 하나만. 짧게. 따뜻하게.
-답을 요구하지 않아요. 그냥 그 안에 머물게 하는 질문이에요.
 
 규칙:
 1. 사용자의 선택을 판단하지 않는다.
@@ -125,21 +125,21 @@ const AI_MIDPOINT_PROMPT = `당신은 사용자가 5번에서 선택한 답변�
 4. "어쩌면", "혹시", "그때" 같은 부드러운 표현을 쓴다.
 5. 사용자가 답하지 않아도 되는 질문이어야 한다.
 6. 대시를 사용하지 않는다.
-7. 반드시 한국어로 응답하라.
-8. 질문 하나만. 다른 말 없이.`;
+7. "~군요", "~네요" 같은 감탄 어투 금지.
+8. 반드시 한국어로 응답하라.
+9. 질문 하나만. 다른 말 없이.`;
 
 const Q_PALETTE = [
   { bg: "#B0BED0", text: "#1A2234" },
   { bg: "#A0B0C8", text: "#1A2234" },
   { bg: "#90A2C0", text: "#1A2234" },
-  { bg: "#8094B8", text: "#F7F2E8" },
-  { bg: "#7086B0", text: "#F7F2E8" },
-  { bg: "#607AA8", text: "#F7F2E8" },
+  { bg: "#8094B8", text: "#1A2234" },
+  { bg: "#7086B0", text: "#1A2234" },
+  { bg: "#607AA8", text: "#1A2234" },
 ];
 
 const ACCENT = "#3A5278";
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:wght@300;400&display=swap');`;
-
 const sectionOrder = ["지금까지 바라보던 창", "가장 먼저 흔들린 지점", "새롭게 보이기 시작한 것", "어쩌면", "오늘의 새창"];
 
 function FeedbackWidget() {
@@ -174,6 +174,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
   const [textAnswer, setTextAnswer] = useState("");
   const [result, setResult] = useState("");
   const [midQuestion, setMidQuestion] = useState("");
+  const [midAnswer, setMidAnswer] = useState("");
   const [loadingMid, setLoadingMid] = useState(false);
   const [showMid, setShowMid] = useState(false);
   const [visibleSections, setVisibleSections] = useState([]);
@@ -262,6 +263,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
 
   function proceedFromMid() {
     setShowMid(false);
+    setMidAnswer("");
     setCurrentQ(5);
   }
 
@@ -311,7 +313,6 @@ export default function NewWindow({ onBack, onComprehensive }) {
     return sections;
   }
 
-  // 마지막 문장 분리
   function splitClosing(text) {
     const closing = "지금까지 보던 창이 틀렸다는 뜻은 아니에요.";
     const idx = text.indexOf(closing);
@@ -349,9 +350,9 @@ export default function NewWindow({ onBack, onComprehensive }) {
           <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: ACCENT, marginBottom: "1.5rem" }}>내 마음의 새창열기</div>
           <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, color: "#1A2234", lineHeight: 1.2, marginBottom: "2rem" }}>같은 창 옆에 작은 창 하나를 더</h1>
           <div style={{ marginBottom: "1.5rem" }}>
-            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(26,34,52,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>같은 일도 어디서 바라보느냐에 따라 다르게 보입니다.</p>
-            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(26,34,52,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>당신이 오래 가지고 있던 생각 하나를 꺼내보세요.<br />그 생각을 처음 갖게 된 날이 있었을 거예요.<br />그날의 당신이 볼 수 없었던 것들이 있었을 수 있어요.</p>
-            <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "0.95rem", fontStyle: "italic", color: ACCENT, lineHeight: 1.9 }}>이 섹션은 그 생각을 지우거나 고치려는 게 아니에요.<br />그 옆에 작은 창 하나를 더 열어보는 거예요.</p>
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(26,34,52,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>오래 가지고 있던 기억 하나를 꺼내볼 거예요.<br />그 기억을 처음 갖게 된 날이 있었을 거예요.</p>
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(26,34,52,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>그날의 당신이 볼 수 없었던 것들이 있었을 수 있어요.<br />지금의 눈으로 그 기억을 다시 바라보는 거예요.</p>
+            <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "0.95rem", fontStyle: "italic", color: ACCENT, lineHeight: 1.9 }}>그 생각을 지우거나 고치려는 게 아니에요.<br />그 옆에 작은 창 하나를 더 열어보는 거예요.</p>
           </div>
           <div style={{ background: "rgba(58,82,120,0.08)", borderLeft: "3px solid " + ACCENT, padding: "1.1rem 1.25rem", marginBottom: "2rem" }}>
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: ACCENT, marginBottom: "0.6rem" }}>시작 전에</div>
@@ -461,16 +462,22 @@ export default function NewWindow({ onBack, onComprehensive }) {
 
       {/* AI 중간 질문 */}
       {phase === "questions" && showMid && (
-        <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1, textAlign: "center" }}>
-          <div style={{ marginBottom: "3rem" }}>
+        <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1 }}>
+          <div style={{ marginBottom: "2rem" }}>
             {loadingMid ? (
               <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "1rem", fontStyle: "italic", color: qPalette.text, opacity: 0.5, animation: "breathe 2s ease-in-out infinite" }}>잠깐만요...</p>
             ) : (
               <div className="nw-appear">
-                <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.1rem,3vw,1.4rem)", fontStyle: "italic", color: qPalette.text, lineHeight: 1.8, marginBottom: "2.5rem" }}>
+                <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.1rem,3vw,1.35rem)", fontStyle: "italic", color: qPalette.text, lineHeight: 1.8, marginBottom: "1.5rem" }}>
                   {midQuestion}
                 </p>
-                <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.78rem", color: qPalette.text, opacity: 0.4, marginBottom: "2.5rem" }}>답하지 않아도 괜찮아요. 잠깐 머물러보세요.</p>
+                <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.78rem", color: qPalette.text, opacity: 0.45, marginBottom: "1.25rem" }}>답하지 않아도 괜찮아요. 떠오르는 게 있다면 적어보세요.</p>
+                <textarea
+                  value={midAnswer}
+                  onChange={e => setMidAnswer(e.target.value)}
+                  placeholder="어쩌면..."
+                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(0,0,0,0.15)", color: qPalette.text, fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, lineHeight: 1.95, padding: "0.5rem 0", resize: "none", outline: "none", minHeight: "80px", boxSizing: "border-box", marginBottom: "2rem" }}
+                />
               </div>
             )}
           </div>
@@ -498,12 +505,10 @@ export default function NewWindow({ onBack, onComprehensive }) {
       {phase === "result" && (
         <div style={{ width: "100%", maxWidth: 640, paddingTop: "2rem" }}>
 
-          {/* 헤더 */}
           <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(38,50,44,0.4)", marginBottom: "0.75rem" }}>내 마음의 새창열기 — 분석 결과</div>
           <div style={{ width: "100%", height: "1px", background: "rgba(38,50,44,0.12)", marginBottom: "1rem" }} />
           <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, color: "#26322C", marginBottom: "2rem", paddingBottom: "1.25rem", borderBottom: "1px solid rgba(38,50,44,0.12)" }}>내 마음의 새창열기</h2>
 
-          {/* 기억 인용 */}
           {userMemory && (
             <div className="nw-appear" style={{ marginBottom: "3rem" }}>
               <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(38,50,44,0.35)", marginBottom: "1rem" }}>오늘 바라본 기억</div>
@@ -511,7 +516,6 @@ export default function NewWindow({ onBack, onComprehensive }) {
             </div>
           )}
 
-          {/* 섹션들 */}
           {sectionOrder.map((key, i) => {
             if (!visibleSections.includes(key) || !parsed[key]) return null;
             const isUmeo = key === "어쩌면";
@@ -547,7 +551,6 @@ export default function NewWindow({ onBack, onComprehensive }) {
             );
           })}
 
-          {/* 피드백 + 버튼 */}
           {visibleSections.length === 5 && (
             <div>
               <FeedbackWidget />
