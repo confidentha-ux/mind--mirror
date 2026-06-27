@@ -348,7 +348,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
       {phase === "intro" && (
         <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1 }}>
           <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: ACCENT, marginBottom: "1.5rem" }}>내 마음의 새창열기</div>
-          <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, color: "#1A2234", lineHeight: 1.2, marginBottom: "2rem" }}>같은 창 옆에 작은 창 하나를 더</h1>
+          <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, color: "#1A2234", lineHeight: 1.2, marginBottom: "2rem" }}>작은 창 하나를 더</h1>
           <div style={{ marginBottom: "1.5rem" }}>
             <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(26,34,52,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>오래 가지고 있던 기억 하나를 꺼내볼 거예요.<br />그 기억을 처음 갖게 된 날이 있었을 거예요.</p>
             <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(26,34,52,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>그날의 당신이 볼 수 없었던 것들이 있었을 수 있어요.<br />지금의 눈으로 그 기억을 다시 바라보는 거예요.</p>
