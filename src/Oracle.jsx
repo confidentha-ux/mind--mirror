@@ -388,11 +388,11 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
       {phase === "intro" && (
         <div style={{ width: "100%", maxWidth: 520, position: "relative", zIndex: 1 }}>
           <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: ACCENT, marginBottom: "1.5rem" }}>내 마음의 메모리</div>
-          <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, color: "#1A2E28", lineHeight: 1.2, marginBottom: "2rem" }}>지워지지 않고 계속 불러오는 것</h1>
+          <h1 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, color: "#1A2E28", lineHeight: 1.2, marginBottom: "2rem" }}>지워지지 않고<br />계속 남아있는 것</h1>
           <div style={{ marginBottom: "1.5rem" }}>
             <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(26,46,40,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>우리가 반응하는 방식은 어느 날 갑자기 생긴 게 아니에요.</p>
             <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(26,46,40,0.75)", lineHeight: 1.9, marginBottom: "0.75rem" }}>어떤 기억들이 지금의 나를 만들었는지 천천히 확인해봐요.</p>
-            <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "0.95rem", fontStyle: "italic", color: ACCENT, lineHeight: 1.9 }}>지금 일어난 일을 있는 그대로 보는 것 같지만,<br />때로는 오래된 기억을 통과한 현재를 보고 있을 때가 있어요.</p>
+            <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "0.95rem", fontStyle: "italic", color: ACCENT, lineHeight: 1.9 }}>일어난 일을 있는 그대로 보는 것 같지만,<br />때로는 오래된 기억을 통과한 현재를 보고 있을 때가 있어요.</p>
           </div>
           <div style={{ background: "rgba(46,106,94,0.1)", borderLeft: "3px solid " + ACCENT, padding: "1.1rem 1.25rem", marginBottom: "2rem" }}>
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: ACCENT, marginBottom: "0.6rem" }}>시작 전에</div>
