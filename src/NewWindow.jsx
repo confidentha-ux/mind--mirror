@@ -42,7 +42,7 @@ const NW_QUESTIONS = [
     id: 4,
     type: "multi",
     title: "감정",
-    question: "모든 기억 안에는 감정들이 있어요.\n지금 마음에 드는 것들을 골라보세요.\n그 기억이 주는 주된 감정은 무엇인가요?",
+    question: "모든 기억 안에는 감정이 있어요.\n그 기억이 주는 감정은 무엇인가요?",
     options: [
       "억울함 — 나는 그러지 않았는데",
       "아쉬움 — 그때 달랐다면",
@@ -288,6 +288,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
       const data = await res.json();
       const text = data.content?.[0]?.text || "";
       setResult(text);
+      localStorage.setItem("mindmirror_newwindow", text);
       setPhase("result");
       sectionOrder.forEach((s, i) => {
         setTimeout(() => setVisibleSections(prev => [...prev, s]), i * 1400);
