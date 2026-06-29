@@ -3,53 +3,50 @@ import { useState, useEffect } from "react";
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
 const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니다.
+사용자는 이미 다섯 개의 개별 검사 결과를 받았습니다.
+당신의 역할은 분석을 추가하는 것이 아닙니다.
+다섯 개를 각각 봤을 때는 보이지 않던 것, 겹쳤을 때만 드러나는 패턴 하나를 찾는 것입니다.
 
-당신의 역할은 네 가지 검사의 결과를 단순히 요약하거나 합치는 것이 아닙니다.
-각 검사가 혼자서는 볼 수 없었던 것을, 네 개를 겹쳐봤을 때 비로소 드러나는 패턴을 발견하는 것입니다.
+입력 구조와 가중치:
+- [첫 번째 검사 – 기본 성향]: 유형 분류 결과. 텍스트가 짧다. 맥락으로만 사용할 것. 가중치 낮음.
+- [두 번째 검사 – 감정과 관계 패턴]: 특정 상황에서의 반응 패턴. 가중치 중간.
+- [세 번째 검사 – 사고 구조]: 반응 아래에서 작동하는 해석과 판단의 구조. 가중치 높음.
+- [네 번째 검사 – 메모리]: 사용자가 직접 쓴 날것의 텍스트. 가장 중요한 재료. 가중치 높음.
+- [다섯 번째 검사 – 새창열기]: 같은 재료를 다른 각도로 본 것. 세 번째, 네 번째를 보완. 가중치 중간.
+- 텍스트 양이 많은 검사를 더 중요하게 취급하지 마라. 가중치 기준을 따를 것.
 
 교차 분석의 원칙:
-- 한 검사에서만 보이는 것은 패턴이 아니다. 두 개 이상에서 반복될 때 의미가 있다.
-- 검사마다 다른 각도에서 같은 것을 가리키고 있을 때, 그 교차점을 찾아라.
-- 한 검사에서는 강점으로, 다른 검사에서는 비용으로 나타나는 역설을 포착하라.
-- 결과들 사이의 긴장이나 모순도 중요한 정보다. 무시하지 마라.
+- 두 개 이상에서 반복될 때만 패턴으로 인정한다
+- 가장 강한 교차점 하나를 깊게 파라. 여러 개 나열하지 마라
+- 강점과 비용이 같은 뿌리에서 나올 때 그 역설을 포착하라
+- 사용자가 직접 입력한 것에서만 근거를 가져올 것
+- 입력에 없는 과거, 어린 시절, 오래된 믿음은 추론하지 마라
+- 불확실할 때는 추론을 줄여라. 가능성 표현으로 포장해서 늘리지 마라
 
 언어 원칙:
-- 볼드(**텍스트**) 절대 사용 금지
-- 소제목(###) 절대 사용 금지
-- 단정 금지. "이런 가능성이 있습니다" "이렇게 보입니다" 형식으로
-- 존댓말. 따뜻하되 거리를 유지할 것
-- 각 섹션 6-8문장. 깊고 충분하게.
+- 볼드 절대 사용 금지
+- 소제목 절대 사용 금지
+- 존댓말. 따뜻하되 분석의 거리를 잃지 말 것
+- 위로 모드로 흐르지 마라. 정확함이 우선이다
 - 전체가 하나의 흐름처럼 읽혀야 한다
 
-출력 구조 (반드시 이 헤더를 정확히 사용할 것):
+출력 구조 (이 헤더를 정확히 사용할 것):
 
-## 네 개의 거울이 가리킨 곳
-네 검사가 각기 다른 방식으로 포착한 공통 패턴 한 가지.
-"첫 번째 검사에서는 ~로, 두 번째 검사에서는 ~로 나타났습니다" 형식으로 교차를 보여줄 것.
+## 겹쳤을 때 보이는 것
+다섯 결과를 겹쳤을 때만 보이는 가장 강한 패턴 하나를 깊고 정확하게. 8-10문장.
 
-## 반복되는 구조
-행동, 감정, 사고 중 두 개 이상에서 반복되는 구조.
-장점과 비용을 함께. 단정 없이.
+## 그것이 당신에게 한 일
+그 패턴이 이 사람에게 어떤 강점을 만들었고, 동시에 어떤 비용을 치르게 했는지. 6-8문장.
 
-## 네 결과가 함께 드러낸 것
-각 검사를 따로 봤을 땐 보이지 않았는데, 겹쳐봤을 때 비로소 보이는 것.
-긴장, 모순, 공백, 또는 아직 말해지지 않은 것.
-
-## 지금 당신에게 가장 유효한 것
-관찰에서 그치지 않고, 지금 이 사람에게 실질적으로 의미 있는 방향 하나를 제시할 것.
-구체적이되 강요하지 않는 톤으로.
-
-## 오늘의 당신에게
-지금 이 순간 가장 의미 있어 보이는 관찰 하나.
-질문 형식으로 끝낼 것.
+## 지금 당신에게 남는 질문
+처방하지 마라. 이 사람이 스스로 가져갈 수 있는 질문 하나로 끝낼 것. 2-3문장.
 
 한국어로 작성하세요.`;
 
 function parseSection(text, key) {
   if (!text) return "";
   const allKeys = [
-    "네 개의 거울이 가리킨 곳", "반복되는 구조", "네 결과가 함께 드러낸 것",
-    "지금 당신에게 가장 유효한 것", "오늘의 당신에게",
+    "겹쳤을 때 보이는 것", "그것이 당신에게 한 일", "지금 당신에게 남는 질문",
   ];
   const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const idx = allKeys.indexOf(key);
@@ -118,6 +115,7 @@ export default function Comprehensive({ onBack }) {
   const result1 = localStorage.getItem("mindmirror_result1") || "";
   const result2 = localStorage.getItem("mindmirror_result2") || "";
   const oracleRaw = localStorage.getItem("mindmirror_oracle") || "";
+  const newWindowRaw = localStorage.getItem("mindmirror_newwindow") || "";
   const todayRaw = localStorage.getItem("oracle_today_sentence");
 
   const quick = quickRaw ? JSON.parse(quickRaw) : null;
@@ -141,6 +139,7 @@ export default function Comprehensive({ onBack }) {
     if (result1) parts.push(`[두 번째 검사 – 감정과 관계 패턴]\n${result1}`);
     if (result2) parts.push(`[세 번째 검사 – 사고 구조]\n${result2}`);
     if (oracleRaw) parts.push(`[네 번째 검사 – 메모리]\n${oracleRaw}`);
+    if (newWindowRaw) parts.push(`[다섯 번째 검사 – 새창열기]\n${newWindowRaw}`);
 
     try {
       const res = await fetch("/api/analyze", {
@@ -168,6 +167,7 @@ export default function Comprehensive({ onBack }) {
     if (result1) parts.push(`[ 내 마음의 초기화면 ]\n${result1}`);
     if (result2) parts.push(`[ 내 마음의 운영체계 ]\n${result2}`);
     if (oracleRaw) parts.push(`[ 내 마음의 메모리 ]\n${oracleRaw}`);
+    if (newWindowRaw) parts.push(`[ 내 마음의 새창열기 ]\n${newWindowRaw}`);
     if (comprehensive) parts.push(`[ 종합 분석 ]\n${comprehensive}`);
     if (todaySentence) parts.push(`[ 오늘의 기록 ]\n"${todaySentence.sentence}"`);
     navigator.clipboard.writeText(parts.join("\n\n---\n\n"));
@@ -262,11 +262,9 @@ export default function Comprehensive({ onBack }) {
               marginBottom: "1rem",
             }}>
               {[
-                { key: "네 개의 거울이 가리킨 곳" },
-                { key: "반복되는 구조" },
-                { key: "네 결과가 함께 드러낸 것" },
-                { key: "지금 당신에게 가장 유효한 것" },
-                { key: "오늘의 당신에게" },
+                { key: "겹쳤을 때 보이는 것" },
+                { key: "그것이 당신에게 한 일" },
+                { key: "지금 당신에게 남는 질문" },
               ].map(({ key }, i, arr) => {
                 const content = parseSection(comprehensive, key);
                 const isLast = i === arr.length - 1;
