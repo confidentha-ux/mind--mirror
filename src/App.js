@@ -859,7 +859,7 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2rem" }}>
             <button onClick={handleBack} style={{ background: "transparent", border: "none", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", cursor: "pointer", color: textColor, opacity: 0.35 }}>← 이전</button>
-            {(q.type !== "single" || showFollowUp || (q.followUp && !q.followUp.condition) || q.type === "two_stage" || q.type === "multi") && (
+            {(q.type !== "single" || showFollowUp || q.followUp || q.type === "two_stage" || q.type === "multi") && (
               <button onClick={handleNext} disabled={!canProceed()} style={{
                 background: "transparent", border: "none", fontFamily: "'Source Serif 4',serif",
                 fontSize: "0.78rem", letterSpacing: "0.18em", textTransform: "uppercase",
