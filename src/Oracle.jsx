@@ -14,7 +14,7 @@ const MEMORY_QUESTIONS = [
       "답장이 늦어졌을 때",
       "비교당하는 느낌이 들었을 때",
       "무시당한다고 느꼈을 때",
-      "기타",
+      "직접 입력",
     ],
   },
   {
@@ -23,15 +23,21 @@ const MEMORY_QUESTIONS = [
     title: "감정",
     question: "그 순간 내가 느낀 감정은 무엇에 가까운가요?",
     options: [
-      "서운함", "불안", "억울함", "부끄러움",
-      "분노", "외로움", "무력감", "긴장",
+      "서운함 — 나만 몰랐던 것 같은",
+      "불안 — 뭔가 잘못될 것 같은",
+      "억울함 — 나는 그러지 않았는데",
+      "부끄러움 — 들킨 것 같은",
+      "분노 — 화가 치밀어 오르는",
+      "외로움 — 아무도 없는 것 같은",
+      "무력감 — 아무것도 할 수 없는",
+      "긴장 — 몸이 굳는 것 같은",
     ],
   },
   {
     id: 3,
     type: "single",
     title: "강도",
-    question: "그때 느낀 감정의 크기는 어느정도였나요?",
+    question: "그 감정의 크기는 어느 정도였나요?",
     options: [
       "잔잔했다",
       "꽤 컸다",
@@ -43,14 +49,14 @@ const MEMORY_QUESTIONS = [
     id: 4,
     type: "single_with_input",
     title: "내면의 말",
-    question: "그 순간이나 그와 유사한 순간에 내 안에 떠오르는 말은 어느 말에 가까운가요?",
+    question: "그 순간 내 안에서 떠오른 말은 무엇에 가까운가요?",
     options: [
       "나는 또 부족한 사람이다",
-      "상대가 나를 무시하고 있다",
+      "상대가 나를 가볍게 보고 있다",
       "나는 버려지고 있다",
       "실수하면 큰일 난다",
       "내가 먼저 맞춰야 한다",
-      "나는 아무래도 사랑받기에 부족한 사람이다",
+      "아무도 내 마음을 몰라준다",
       "빨리 해결해야 한다",
       "그냥 참아야 한다",
       "직접 입력",
@@ -60,7 +66,7 @@ const MEMORY_QUESTIONS = [
     id: 5,
     type: "multi_with_input",
     title: "몸의 반응",
-    question: "그런 순간에 나의 몸에는 어떤 일이 벌어지나요?",
+    question: "그 순간 나는 어떻게 반응했나요?",
     options: [
       "얼굴이 뜨거워졌다",
       "말이 빨라졌다",
@@ -79,15 +85,15 @@ const MEMORY_QUESTIONS = [
     id: 6,
     type: "single_with_input",
     title: "반응 방식",
-    question: "비슷한 상황에서 나는 주로 어떤 선택을 했어나요?",
+    question: "그 상황에서 나는 어떻게 했나요?",
     options: [
-      "먼저 참는다",
-      "혼자 생각하고 거리를 둔다",
-      "바로 확인하거나 따진다",
-      "괜찮은 척한다",
-      "상대의 기분을 먼저 살핀다",
-      "내가 잘못한 부분을 먼저 찾는다",
-      "관계를 끊고 싶어진다",
+      "먼저 참았다",
+      "혼자 생각하고 거리를 뒀다",
+      "바로 확인하거나 따졌다",
+      "괜찮은 척했다",
+      "상대의 기분을 먼저 살폈다",
+      "내가 잘못한 부분을 먼저 찾았다",
+      "관계를 끊고 싶어졌다",
       "직접 입력",
     ],
   },
@@ -95,7 +101,7 @@ const MEMORY_QUESTIONS = [
     id: 7,
     type: "single",
     title: "익숙함",
-    question: "이런 반응은 처음인가요, 아니면 익숙한 반응인가요?",
+    question: "이 반응은 처음인가요, 아니면 익숙한 반응인가요?",
     options: [
       "처음인 것 같다",
       "이런 상황에서는 늘 이런 반응이다",
@@ -107,7 +113,7 @@ const MEMORY_QUESTIONS = [
     id: 8,
     type: "single_with_input",
     title: "관계",
-    question: "이런 일은 주로 어느 인간 관계에서 더 자주 나타나나요?",
+    question: "이 반응은 어떤 관계에서 자주 나타나나요?",
     options: [
       "가족",
       "친구",
@@ -123,7 +129,7 @@ const MEMORY_QUESTIONS = [
     id: 9,
     type: "single",
     title: "판단",
-    question: "이런 일들을 거치고 난뒤 자기 자신에 대한 판단은 어떤 말에 가까운가요?",
+    question: "그 상황을 겪고 나서 나 자신에 대해 드는 생각은 뭔가요?",
     options: [
       "나는 감정 표현이 서툰 사람이다",
       "나는 먼저 기대면 안 된다",
@@ -139,7 +145,7 @@ const MEMORY_QUESTIONS = [
     id: 10,
     type: "text",
     title: "발견",
-    question: "지금까지 답하면서 새롭게 보이거나 발견한 것이 있나요? 무엇이든 괜찮습니다.",
+    question: "지금까지 답하면서 뭔가 떠오른 게 있나요? 단어 하나도 좋아요.",
   },
 ];
 
@@ -153,12 +159,13 @@ const MEMORY_SYSTEM_PROMPT = `당신은 사용자가 답한 "내 마음의 메�
 1. 사용자의 반응을 판단하지 않는다
 2. 모든 반응은 몸이 오래 학습한 방식임을 전제로 한다
 3. 단정하지 않는다. "이번 반응은 ○○에 가까웠을 수 있어요" 형식으로
-4. 사용자가 선택한 반응 유형을 짚어주되 부드럽게 교육한다
+4. 사용자가 선택한 반응 유형을 짚어주되 부드럽게
 5. 이 반응이 유일한 방식이 아님을 알려준다
 6. 대시를 사용하지 않는다
 7. 문장은 짧게. 친한 사람이 조용히 옆에 앉아서 말하듯 써라
 8. 볼드(**텍스트**) 절대 사용 금지
 9. 소제목(###) 절대 사용 금지
+10. "~군요", "~네요" 같은 감탄 어투 금지. "~일 수 있어요", "~했을 수도 있어요" 형식으로
 
 분석 순서:
 ## 이번 반응에서 가장 먼저 켜진 것
@@ -172,7 +179,6 @@ const MEMORY_SYSTEM_PROMPT = `당신은 사용자가 답한 "내 마음의 메�
 
 한국어로 작성하세요.`;
 
-// 질문마다 배경 팔레트 — 밝은 카드색에서 점점 진하게
 const Q_PALETTE = [
   { bg: "#A8C0B8", text: "#1A2E28" },
   { bg: "#98B4AC", text: "#1A2E28" },
@@ -533,7 +539,7 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
             <div className="mem-appear" style={{ marginTop: "2rem", paddingTop: "2rem", borderTop: "1px solid rgba(38,50,44,0.1)" }}>
               <FeedbackWidget />
               <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap", marginTop: "2rem" }}>
-                <button onClick={onComprehensive} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer", padding: "0.7rem 1.8rem" }}>종합 분석 보기 →</button>
+                <button onClick={onComprehensive} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer", padding: "0.7rem 1.8rem" }}>새창열기 →</button>
                 <button onClick={() => setPhase("final")} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer", padding: "0.7rem 1.8rem" }}>마지막 장으로 →</button>
                 <button onClick={() => { const text = sectionOrder.map(k => parsed[k] ? `${k}\n${parsed[k]}` : "").filter(Boolean).join("\n\n"); navigator.clipboard.writeText(text); alert("복사되었습니다"); }} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer", padding: "0.7rem 1.8rem" }}>결과 복사</button>
                 <button onClick={onBack} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.2)", color: "rgba(38,50,44,0.45)", fontFamily: "'Source Serif 4',serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer", padding: "0.6rem 1.4rem" }}>← 마음거울로</button>
