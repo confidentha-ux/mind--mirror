@@ -503,9 +503,42 @@ const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Di
 
 function FeedbackWidget({ dark = false }) {
   const [selected, setSelected] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const textColor = dark ? "rgba(240,237,232,0.45)" : "rgba(38,50,44,0.45)";
   const borderColor = dark ? "rgba(240,237,232,0.15)" : "rgba(38,50,44,0.15)";
   const dividerColor = dark ? "rgba(240,237,232,0.08)" : "rgba(38,50,44,0.08)";
+  const inputBg = dark ? "rgba(240,237,232,0.05)" : "rgba(38,50,44,0.04)";
+
+  async function sendMessage() {
+    if (!input.trim() || loading) return;
+    const userMsg = { role: "user", content: input.trim() };
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
+    setInput("");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-6",
+          max_tokens: 1000,
+          system: `당신은 마음거울의 분석가입니다. 사용자가 방금 받은 분석 결과가 자신과 맞지 않는다고 느끼고 있어요. 사용자의 말을 판단하지 말고, 어떤 부분이 맞지 않는지 조용히 들어주세요. 그리고 사용자가 스스로 더 정확한 자기 이해에 가까워지도록 도와주세요. 볼드 금지. 소제목 금지. 짧고 따뜻하게. 존댓말. "~군요", "~네요" 금지.`,
+          messages: newMessages,
+        }),
+      });
+      const data = await res.json();
+      const text = data.content?.[0]?.text || "";
+      setMessages([...newMessages, { role: "assistant", content: text }]);
+    } catch (e) {
+      setMessages([...newMessages, { role: "assistant", content: "잠시 연결이 되지 않았어요. 다시 시도해주세요." }]);
+    }
+    setLoading(false);
+  }
+
   return (
     <div style={{ marginTop: "2.5rem", paddingTop: "2rem", borderTop: `1px solid ${dividerColor}`, textAlign: "center" }}>
       <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", fontWeight: 300, color: textColor, marginBottom: "1rem" }}>읽으면서 가장 크게 울린 부분이 있다면?</p>
@@ -519,9 +552,62 @@ function FeedbackWidget({ dark = false }) {
       {selected === "yes" && <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", fontWeight: 300, color: textColor }}>감사해요.</p>}
       {selected === "unsure" && <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", fontWeight: 300, color: textColor }}>그 모르겠다는 느낌도 중요한 정보예요.</p>}
       {selected === "no" && (
-        <div>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: textColor, lineHeight: 1.9, marginBottom: "0.75rem" }}>맞지 않는 부분이 있으신가요?<br />당신이 느낀 것을 말씀해주세요.</p>
-          <a href="https://forms.gle/1MK9PRZmTBpFsEPN8" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", color: textColor, textDecoration: "underline", textUnderlineOffset: "3px" }}>피드백 남기기 →</a>
+        <div style={{ textAlign: "left" }}>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: textColor, lineHeight: 1.9, marginBottom: "1.25rem" }}>
+            어떤 부분이 맞지 않았나요? 말씀해주시면 같이 다시 볼게요.
+          </p>
+          <div style={{ marginBottom: "1rem", maxHeight: "300px", overflowY: "auto" }}>
+            {messages.map((m, i) => (
+              <div key={i} style={{
+                marginBottom: "1rem",
+                textAlign: m.role === "user" ? "right" : "left",
+              }}>
+                <span style={{
+                  display: "inline-block",
+                  fontFamily: "'Source Serif 4',serif",
+                  fontSize: "0.85rem", fontWeight: 300,
+                  color: textColor,
+                  lineHeight: 1.8,
+                  background: m.role === "user" ? inputBg : "transparent",
+                  border: m.role === "user" ? `1px solid ${borderColor}` : "none",
+                  padding: m.role === "user" ? "0.5rem 0.9rem" : "0",
+                  maxWidth: "85%",
+                  whiteSpace: "pre-wrap",
+                }}>{m.content}</span>
+              </div>
+            ))}
+            {loading && (
+              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", color: textColor, opacity: 0.4 }}>...</p>
+            )}
+          </div>
+          <div style={{ display: "flex", gap: "0.5rem" }}>
+            <input
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={e => { if (e.key === "Enter") sendMessage(); }}
+              placeholder="여기에 써주세요..."
+              style={{
+                flex: 1,
+                background: inputBg,
+                border: `1px solid ${borderColor}`,
+                color: textColor,
+                fontFamily: "'Source Serif 4',serif",
+                fontSize: "0.85rem", fontWeight: 300,
+                padding: "0.5rem 0.75rem",
+                outline: "none",
+              }}
+            />
+            <button onClick={sendMessage} disabled={!input.trim() || loading} style={{
+              background: "none",
+              border: `1px solid ${borderColor}`,
+              color: textColor,
+              fontFamily: "'Source Serif 4',serif",
+              fontSize: "0.78rem",
+              padding: "0.5rem 1rem",
+              cursor: input.trim() && !loading ? "pointer" : "default",
+              opacity: input.trim() && !loading ? 1 : 0.35,
+            }}>전송</button>
+          </div>
         </div>
       )}
     </div>
