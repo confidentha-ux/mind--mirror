@@ -3,10 +3,19 @@ import { useState } from "react";
 const NW_QUESTIONS = [
   {
     id: 1,
-    type: "text",
+    type: "single_with_input",
     title: "기억",
     question: "잠깐 눈을 감아보세요.\n지금 이 순간 떠오르는 기억이 있나요?\n오래된 것도 좋아요. 작은 것도 좋아요.\n하나의 기억이면 충분해요.\n\n떠올랐나요?\n그 기억을 오늘 같이 바라볼게요.\n\n어떤 기억인가요?",
-    placeholder: "떠오르는 대로 적어주세요...",
+    options: [
+      "누군가와 마음이 어긋났던 기억",
+      "내가 혼자 감당했던 기억",
+      "내가 잘해냈지만 충분히 인정받지 못한 기억",
+      "내가 누군가에게 미안했던 기억",
+      "따뜻하게 남아 있는 기억",
+      "이유는 모르지만 자꾸 떠오르는 기억",
+      "지금은 떠오르지 않는다",
+      "직접 입력",
+    ],
   },
   {
     id: 2,
@@ -72,10 +81,19 @@ const NW_QUESTIONS = [
   },
   {
     id: 6,
-    type: "text",
+    type: "single_with_input",
     title: "어쩌면",
-    question: "지금 이 기억을 바라보며\n마음에 새로 드는 것이 있나요?\n\n완벽한 문장이 아니어도 괜찮아요.\n단어 하나도 좋고, 질문으로 남겨도 좋아요.\n\n지금 떠오르는 것을 그대로 적어주세요.\n어쩌면, 으로 시작해도 좋아요.",
-    placeholder: "어쩌면...",
+    question: "그 기억을 다시 보며 지금 마음에 드는 말은 무엇인가요?",
+    options: [
+      "어쩌면 그때의 나는 최선을 다했을지도 모른다",
+      "어쩌면 내 탓만은 아니었을지도 모른다",
+      "어쩌면 그 사람도 서툴렀을지도 모른다",
+      "어쩌면 아직 다 끝난 이야기는 아닐지도 모른다",
+      "어쩌면 나는 그 일을 다르게 기억해도 될지도 모른다",
+      "어쩌면 지금의 나는 그때보다 조금 더 볼 수 있을지도 모른다",
+      "아직 잘 모르겠다",
+      "직접 입력",
+    ],
   },
 ];
 
@@ -171,7 +189,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState({});
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const [textAnswer, setTextAnswer] = useState("");
+  const [customInput, setCustomInput] = useState("");
   const [result, setResult] = useState("");
   const [midQuestion, setMidQuestion] = useState("");
   const [midAnswer, setMidAnswer] = useState("");
@@ -180,24 +198,46 @@ export default function NewWindow({ onBack, onComprehensive }) {
   const [visibleSections, setVisibleSections] = useState([]);
 
   const q = NW_QUESTIONS[currentQ];
-  const isText = q?.type === "text";
+  const isSingleWithInput = q?.type === "single_with_input";
   const isMulti = q?.type === "multi";
   const isSingle = q?.type === "single";
-  const qPalette = Q_PALETTE[currentQ] || Q_PALETTE[Q_PALETTE.length - 1];
+  const hasDirect = isSingleWithInput;
+  const directSelected = isSingleWithInput && answers[currentQ]?.raw === "직접 입력";
+  const qPalette = Q_PALETTE[Math.min(currentQ, Q_PALETTE.length - 1)];
   const progress = (currentQ / NW_QUESTIONS.length) * 100;
 
   const canProceed = (() => {
-    if (isText) return textAnswer.trim().length > 0;
-    if (isMulti) return selectedOptions.length > 0;
+    if (isMulti) return (selectedOptions.length > 0);
+    if (isSingleWithInput) {
+      const raw = answers[currentQ]?.raw;
+      if (!raw) return false;
+      if (raw === "직접 입력" && !customInput.trim()) return false;
+      return true;
+    }
     return !!answers[currentQ]?.answer;
   })();
 
   function selectSingle(opt) {
-    setAnswers(prev => ({ ...prev, [currentQ]: { title: q.title, answer: opt } }));
+    setAnswers(prev => ({ ...prev, [currentQ]: { answer: opt } }));
+  }
+
+  function selectSingleWithInput(opt) {
+    setAnswers(prev => ({ ...prev, [currentQ]: { raw: opt } }));
+    if (opt !== "직접 입력") setCustomInput("");
   }
 
   function toggleMulti(opt) {
     setSelectedOptions(prev => prev.includes(opt) ? prev.filter(o => o !== opt) : [...prev, opt]);
+  }
+
+  function getAnswerText() {
+    if (isMulti) return selectedOptions.join(", ");
+    if (isSingleWithInput) {
+      const raw = answers[currentQ]?.raw;
+      if (raw === "직접 입력") return customInput.trim();
+      return raw || "";
+    }
+    return answers[currentQ]?.answer || "";
   }
 
   async function fetchMidQuestion(q5Answer) {
@@ -224,11 +264,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
 
   function handleNext() {
     if (!canProceed) return;
-    let answerText = "";
-    if (isText) answerText = textAnswer;
-    else if (isMulti) answerText = selectedOptions.join(", ");
-    else answerText = answers[currentQ]?.answer || "";
-
+    const answerText = getAnswerText();
     const newAnswers = { ...answers, [currentQ]: { title: q.title, answer: answerText } };
     setAnswers(newAnswers);
 
@@ -236,12 +272,12 @@ export default function NewWindow({ onBack, onComprehensive }) {
       setShowMid(true);
       fetchMidQuestion(answerText);
       setSelectedOptions([]);
-      setTextAnswer("");
+      setCustomInput("");
       return;
     }
 
     setSelectedOptions([]);
-    setTextAnswer("");
+    setCustomInput("");
 
     if (currentQ < NW_QUESTIONS.length - 1) {
       setCurrentQ(currentQ + 1);
@@ -257,7 +293,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
     } else {
       setCurrentQ(currentQ - 1);
       setSelectedOptions([]);
-      setTextAnswer("");
+      setCustomInput("");
     }
   }
 
@@ -358,7 +394,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
           <div style={{ background: "rgba(58,82,120,0.08)", borderLeft: "3px solid " + ACCENT, padding: "1.1rem 1.25rem", marginBottom: "2rem" }}>
             <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: ACCENT, marginBottom: "0.6rem" }}>시작 전에</div>
             {[
-              "오래된 기억 하나를 떠올리며 시작해요.",
+              "오래된 기억 하나를 선택하며 시작해요.",
               "6개 질문으로 구성되어 있어요.",
               "5번 질문 후 AI가 짧은 질문 하나를 드려요.",
             ].map((t, i) => (
@@ -409,32 +445,68 @@ export default function NewWindow({ onBack, onComprehensive }) {
             {q.question}
           </h2>
 
-          {isText && (
-            <textarea value={textAnswer} onChange={e => setTextAnswer(e.target.value)} placeholder={q.placeholder || "떠오르는 대로 써주세요..."}
-              style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(0,0,0,0.15)", color: qPalette.text, fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, lineHeight: 1.95, padding: "0.5rem 0", resize: "none", outline: "none", minHeight: "120px", boxSizing: "border-box" }} />
-          )}
-
-          {(isSingle || isMulti) && (
+          {/* 단일선택 */}
+          {isSingle && (
             <div style={{ marginBottom: "1rem" }}>
               {q.options.map(opt => {
-                const isSelected = isMulti ? selectedOptions.includes(opt) : answers[currentQ]?.answer === opt;
+                const isSelected = answers[currentQ]?.answer === opt;
                 return (
-                  <button key={opt}
-                    onClick={() => isMulti ? toggleMulti(opt) : selectSingle(opt)}
-                    style={{
-                      width: "100%", background: isSelected ? "rgba(58,82,120,0.2)" : "rgba(0,0,0,0.06)",
-                      border: isSelected ? "1px solid " + ACCENT : "1px solid rgba(0,0,0,0.12)",
-                      color: qPalette.text, fontFamily: "'Source Serif 4',serif",
-                      fontSize: "0.87rem", fontWeight: 300, textAlign: "left",
-                      padding: "0.85rem 1.1rem", cursor: "pointer",
-                      transition: "all 0.3s", marginBottom: "0.4rem", lineHeight: 1.5,
-                    }}>
-                    {isMulti && <span style={{ marginRight: "0.5rem", opacity: 0.5 }}>{isSelected ? "✓" : "○"}</span>}
+                  <button key={opt} onClick={() => selectSingle(opt)} style={{
+                    width: "100%", background: isSelected ? "rgba(58,82,120,0.2)" : "rgba(0,0,0,0.06)",
+                    border: isSelected ? "1px solid " + ACCENT : "1px solid rgba(0,0,0,0.12)",
+                    color: qPalette.text, fontFamily: "'Source Serif 4',serif",
+                    fontSize: "0.87rem", fontWeight: 300, textAlign: "left",
+                    padding: "0.85rem 1.1rem", cursor: "pointer",
+                    transition: "all 0.3s", marginBottom: "0.4rem", lineHeight: 1.5,
+                  }}>{opt}</button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* 단일선택 + 직접입력 */}
+          {isSingleWithInput && (
+            <div style={{ marginBottom: "1rem" }}>
+              {q.options.map(opt => {
+                const isSelected = answers[currentQ]?.raw === opt;
+                return (
+                  <button key={opt} onClick={() => selectSingleWithInput(opt)} style={{
+                    width: "100%", background: isSelected ? "rgba(58,82,120,0.2)" : "rgba(0,0,0,0.06)",
+                    border: isSelected ? "1px solid " + ACCENT : "1px solid rgba(0,0,0,0.12)",
+                    color: qPalette.text, fontFamily: "'Source Serif 4',serif",
+                    fontSize: "0.87rem", fontWeight: 300, textAlign: "left",
+                    padding: "0.85rem 1.1rem", cursor: "pointer",
+                    transition: "all 0.3s", marginBottom: "0.4rem", lineHeight: 1.5,
+                  }}>{opt}</button>
+                );
+              })}
+              {directSelected && (
+                <input value={customInput} onChange={e => setCustomInput(e.target.value)} placeholder="직접 입력해주세요..."
+                  style={{ width: "100%", background: "transparent", border: "none", borderBottom: "1px solid rgba(0,0,0,0.15)", color: qPalette.text, fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, padding: "0.5rem 0", outline: "none", marginTop: "0.75rem" }} />
+              )}
+            </div>
+          )}
+
+          {/* 다중선택 */}
+          {isMulti && (
+            <div style={{ marginBottom: "1rem" }}>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", color: qPalette.text, opacity: 0.4, marginBottom: "0.75rem" }}>해당되는 것 모두 선택하세요</div>
+              {q.options.map(opt => {
+                const isSelected = selectedOptions.includes(opt);
+                return (
+                  <button key={opt} onClick={() => toggleMulti(opt)} style={{
+                    width: "100%", background: isSelected ? "rgba(58,82,120,0.2)" : "rgba(0,0,0,0.06)",
+                    border: isSelected ? "1px solid " + ACCENT : "1px solid rgba(0,0,0,0.12)",
+                    color: qPalette.text, fontFamily: "'Source Serif 4',serif",
+                    fontSize: "0.87rem", fontWeight: 300, textAlign: "left",
+                    padding: "0.85rem 1.1rem", cursor: "pointer",
+                    transition: "all 0.3s", marginBottom: "0.4rem", lineHeight: 1.5,
+                  }}>
+                    <span style={{ marginRight: "0.5rem", opacity: 0.5 }}>{isSelected ? "✓" : "○"}</span>
                     {opt}
                   </button>
                 );
               })}
-              {isMulti && <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", color: qPalette.text, opacity: 0.4, marginTop: "0.5rem" }}>해당되는 것 모두 선택하세요</div>}
             </div>
           )}
 
@@ -505,7 +577,6 @@ export default function NewWindow({ onBack, onComprehensive }) {
       {/* 결과 */}
       {phase === "result" && (
         <div style={{ width: "100%", maxWidth: 640, paddingTop: "2rem" }}>
-
           <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(38,50,44,0.4)", marginBottom: "0.75rem" }}>내 마음의 새창열기 — 분석 결과</div>
           <div style={{ width: "100%", height: "1px", background: "rgba(38,50,44,0.12)", marginBottom: "1rem" }} />
           <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: "clamp(1.8rem,4vw,2.6rem)", fontWeight: 400, color: "#26322C", marginBottom: "2rem", paddingBottom: "1.25rem", borderBottom: "1px solid rgba(38,50,44,0.12)" }}>내 마음의 새창열기</h2>
