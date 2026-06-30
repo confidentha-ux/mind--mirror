@@ -64,7 +64,7 @@ const QUESTIONS = [
       { text: "완전히 다른 방법을 시도한다", type: "행동 후 이해형" },
       { text: "다른 사람의 도움을 구한다", type: "관계 우선형" },
       { text: "잠시 거리를 두고 쉬었다 돌아온다", type: "안정 우선형" },
-      { text: "계속 파고들어 해결하려 한다", type: "정확성 우선형" },
+      { text: "뭔가 다른 방식이 있을 것 같아서 계속 찾는다", type: "직관 신뢰형" },
     ]
   },
   {
@@ -113,12 +113,12 @@ const QUESTIONS = [
   },
   {
     id: 11,
-    text: "나에게 중요한 두 가지가 부딧칠 때가 있습니다.\n(예: 진실 vs 관계, 자유 vs 안정)\n\n무엇을 기준으로 결정하나요?",
+    text: "나에게 중요한 두 가지가 부딪칠 때가 있습니다.\n(예: 진실 vs 관계, 자유 vs 안정)\n\n무엇을 기준으로 결정하나요?",
     options: [
-      { text: "내가 더 맞다고 생각하는 것", type: "정확성 우선형" },
-      { text: "더 오래 남는 것", type: "이해 후 행동형" },
-      { text: "더 많은 사람에게 도움이 되는 것", type: "관계 우선형" },
-      { text: "더 안전한 것", type: "안정 우선형" },
+      { text: "더 논리적으로 맞는 것", type: "이해 후 행동형" },
+      { text: "지금 실제로 해볼 수 있는 것", type: "행동 후 이해형" },
+      { text: "관계를 덜 해치는 것", type: "관계 우선형" },
+      { text: "더 안전하고 오래 유지될 수 있는 것", type: "안정 우선형" },
       { text: "지금 가장 마음이 가는 것", type: "직관 신뢰형" },
     ]
   },
@@ -130,7 +130,6 @@ const TYPE_IMAGES = {
   "관계 우선형": "type-relation.png",
   "안정 우선형": "type-stable.png",
   "직관 신뢰형": "type-intuition.png",
-  "정확성 우선형": "type-accuracy.png",
 };
 
 const TYPE_INFO = {
@@ -164,16 +163,9 @@ const TYPE_INFO = {
     strength: "설명 못 해도 맞는 방향을 알아요. 그 감각이 실제로 자주 맞아요.",
     weakness: '"왜 그렇게 생각해요?" 이 질문이 제일 난처해요. 논리로 설명해야 할 때 막혀요.',
   },
-  "정확성 우선형": {
-    desc: "틀리면 안 된다는 사람이에요.",
-    detail: "정확성과 완성도를 중요하게 여겨요. 애매한 상태가 불편하고, 근거와 논리가 있어야 안심이 돼요. 꼼꼼함이 강점이에요.",
-    strength: "디테일에서 판가름 나는 일은 당신 차지예요. 한 번 한 일은 믿을 수 있어요.",
-    weakness: "완벽하지 않으면 내보내기 싫어요. 그래서 시작보다 마무리가 늦어질 때가 있어요.",
-  },
 };
 
 const Q_PALETTE = { bg: "#EEE0CB", text: "#3A2410" };
-
 const ACCENT = "#8C6640";
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
@@ -213,6 +205,8 @@ export default function QuickTest({ onBack }) {
         const counts = {};
         newAnswers.forEach(t => { counts[t] = (counts[t] || 0) + 1; });
         const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+        const quickResult = { type: top, desc: TYPE_INFO[top]?.desc || "" };
+        localStorage.setItem("mindmirror_quicktest", JSON.stringify(quickResult));
         setResult(top);
         setStep("result");
       }
