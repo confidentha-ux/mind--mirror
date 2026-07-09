@@ -3,6 +3,7 @@ import QuickTest from "./QuickTest";
 import Oracle from "./Oracle";
 import Comprehensive from "./Comprehensive";
 import NewWindow from "./NewWindow";
+import LoadingScreen from "./LoadingScreen";
 
 // ── 섹션 2 — 기본화면 (감정 구조) 12문항 ─────────────────────────
 
@@ -959,11 +960,7 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
       )}
 
       {/* 로딩 */}
-      {phase === "analyzing" && (
-        <div style={{ textAlign: "center" }}>
-          <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(247,242,232,0.4)", animation: "breathe 2s ease-in-out infinite" }}>읽고 있어요</p>
-        </div>
-      )}
+{phase === "analyzing" && <LoadingScreen section={stage === 1 ? 2 : 3} />}
 
       {/* 결과 */}
       {phase === "result" && (
