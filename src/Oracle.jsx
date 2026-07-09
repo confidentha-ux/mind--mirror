@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-
+import LoadingScreen from "./LoadingScreen";
 const MEMORY_QUESTIONS = [
   {
     id: 1,
@@ -602,13 +602,7 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
       )}
 
       {/* 로딩 */}
-      {phase === "opening" && (
-        <div style={{ textAlign: "center", position: "relative", zIndex: 1 }}>
-          <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(247,242,232,0.4)", animation: "breathe 2s ease-in-out infinite" }}>
-            잠시 기다려주세요
-          </p>
-        </div>
-      )}
+     {phase === "opening" && <LoadingScreen section={4} />}
 
       {/* 결과 */}
       {phase === "result" && (
