@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import LoadingScreen from "./LoadingScreen";
 const NW_QUESTIONS = [
   {
     id: 1,
@@ -655,14 +655,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
       )}
 
       {/* 로딩 */}
-      {phase === "analyzing" && (
-        <div style={{ textAlign: "center" }}>
-          <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "1rem", fontStyle: "italic", color: "rgba(247,242,232,0.4)", animation: "breathe 2s ease-in-out infinite" }}>
-            새 창을 열고 있어요
-          </p>
-        </div>
-      )}
-
+      {phase === "analyzing" && <LoadingScreen section={5} />}
       {/* 결과 */}
       {phase === "result" && (
         <div style={{ width: "100%", maxWidth: 640, paddingTop: "2rem" }}>
