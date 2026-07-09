@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import LoadingScreen from "./LoadingScreen";
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
 const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니다.
@@ -250,10 +250,7 @@ export default function Comprehensive({ onBack }) {
             </div>
           )}
 
-          {loading && (
-            <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "0.95rem", fontStyle: "italic", color: "rgba(38,50,44,0.35)", animation: "breathe 2s ease-in-out infinite" }}>잠시 후, 당신의 답들은 나의 전체화면으로 모입니다...</p>
-          )}
-
+          {loading && <LoadingScreen section={5} isComprehensive={true} />}
           {comprehensive && !loading && (
             <div style={{
               background: "#4A6358",
