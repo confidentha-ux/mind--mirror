@@ -960,7 +960,7 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
       )}
 
       {/* 로딩 */}
-{step === "analyzing" && <LoadingScreen section={stage === 1 ? 2 : 3} />}
+{phase === "analyzing" && <LoadingScreen section={stage === 1 ? 2 : 3} />}
 
       {/* 결과 */}
       {phase === "result" && (
