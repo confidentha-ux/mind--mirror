@@ -132,7 +132,7 @@ const SECTION2_QUESTIONS = [
     id: 7,
     title: "감정이 켜지는 때",
     type: "single",
-    question: "내 감정이 가장 많이 켜지는 건 언제인가요?",
+    question: "감정이 많이 올라오는 때는 주로 언제인가요?",
     options: [
       "혼자 있을 때",
       "누군가와 함께할 때",
@@ -144,7 +144,7 @@ const SECTION2_QUESTIONS = [
     id: 8,
     title: "관계 감정",
     type: "two_stage",
-    question: "사람들과 함께할 때 내 안에서 자주 느끼는 감정은 어떤 쪽에 가까운가요?",
+    question: "사람들과 함께 있을 때 내가 자주 느끼는 감정은 어떤 쪽에 가까운가요?",
     stage1: {
       options: [
         "함께여서 좋다",
@@ -215,7 +215,7 @@ const SECTION2_QUESTIONS = [
     id: 9,
     title: "부러움",
     type: "two_stage",
-    question: "부러움은 어떤 것에 가까운가요?",
+    question: "누군가가 부러웠다면 그 부러움은 어떤 것에 가까운가요?",
     stage1: {
       options: [
         "저 사람이 가진 것이 부러웠다",
@@ -269,7 +269,7 @@ const SECTION2_QUESTIONS = [
     id: 10,
     title: "놀람",
     type: "single",
-    question: "나 자신에게 가장 놀랐던 순간은 어떤 때인가요?",
+    question: "자기 자신에게 스스로 놀라는 순간은 주로 어떤 때인가요?",
     options: [
       "생각보다 강하게 반응했을 때",
       "생각보다 아무렇지 않았을 때",
@@ -282,7 +282,7 @@ const SECTION2_QUESTIONS = [
     id: 11,
     title: "반복 패턴",
     type: "multi",
-    question: "살면서 '또 이러네' 싶었던 순간, 어떤 패턴이 반복되나요?",
+    question: "살면서 '또 이러네' 싶었던 순간, 어떤 일이 반복되었나요?",
     options: [
       "비슷한 상황에서 비슷하게 화가 난다",
       "비슷한 사람에게 비슷하게 상처받는다",
@@ -296,14 +296,14 @@ const SECTION2_QUESTIONS = [
     id: 12,
     title: "패턴 반응",
     type: "single",
-    question: "그 반복되는 패턴을 알아챘을 때 드는 생각은 뭔가요?",
+    question: "뭔가가 내게 반복되고 있다는 것을 알아챘을 때 어떤 생각이 드시나요?",
     options: [
-      "나는 왜 이럴까 자책이 먼저 든다",
-      "어쩔 수 없다는 체념이 든다",
+      "나는 왜 이러지라는 자책이 든다",
+      "어쩔 수 없지라는 체념이 든다",
       "바꾸고 싶다는 생각이 든다",
-      "이유가 궁금해진다",
+      "내가 왜 이런지 이유가 궁금해진다",
       "그냥 모른 척하고 싶다",
-      "나도 잘 모르겠다",
+      "무슨 생각이 드는지 모르겠다",
     ],
   },
 ];
@@ -960,7 +960,7 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
       )}
 
       {/* 로딩 */}
-{phase === "analyzing" && <LoadingScreen section={stage === 1 ? 2 : 3} />}
+{step === "analyzing" && <LoadingScreen section={stage === 1 ? 2 : 3} />}
 
       {/* 결과 */}
       {phase === "result" && (
