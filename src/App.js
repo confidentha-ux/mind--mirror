@@ -4,6 +4,7 @@ import Oracle from "./Oracle";
 import Comprehensive from "./Comprehensive";
 import NewWindow from "./NewWindow";
 import LoadingScreen from "./LoadingScreen";
+import Prologue from "./Prologue";
 
 // ── 섹션 2 — 기본화면 (감정 구조) 12문항 ─────────────────────────
 
@@ -1000,6 +1001,7 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
 // ── 메인 App ─────────────────────────────────────────────────────
 
 export default function App() {
+  const [showPrologue, setShowPrologue] = useState(true);
   const [showQuickTest, setShowQuickTest] = useState(false);
   const [showSection2, setShowSection2] = useState(false);
   const [showSection3, setShowSection3] = useState(false);
@@ -1008,6 +1010,12 @@ export default function App() {
   const [showComprehensive, setShowComprehensive] = useState(false);
   const [showNewWindow, setShowNewWindow] = useState(false);
 
+  if (showPrologue) return (
+    <Prologue
+      onEnter={() => setShowPrologue(false)}
+      onBack={() => setShowPrologue(false)}
+    />
+  );
   if (showQuickTest) return <QuickTest onBack={() => setShowQuickTest(false)} />;
   if (showComprehensive) return (
     <Comprehensive onBack={() => { setShowComprehensive(false); setOracleInitialPhase("final"); setShowOracle(true); }} />
