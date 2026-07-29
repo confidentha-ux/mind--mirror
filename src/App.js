@@ -1024,14 +1024,15 @@ export default function App() {
     />
   );
 
-  // 섹션1 다시 보기 — QuickTest 완료 후 등장
+  // 섹션1 다시 보기 — QuickTest 완료 후 등장 → 섹션2로 바로
   if (showRevisit1) return (
     <SituationRevisit
       sectionKey="section1"
       userType={revisit1Type}
       onDone={(payload) => {
         try { localStorage.setItem("mindmirror_revisit_section1", JSON.stringify(payload)); } catch (e) {}
-        setShowRevisit1(false); // 마음거울 메인으로
+        setShowRevisit1(false);
+        setShowSection2(true);
       }}
     />
   );
