@@ -13,6 +13,7 @@ const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니�
 - [세 번째 검사 – 사고 구조]: 반응 아래에서 작동하는 해석과 판단의 구조. 가중치 높음.
 - [네 번째 검사 – 메모리]: 사용자가 직접 쓴 날것의 텍스트. 가장 중요한 재료. 가중치 높음.
 - [다섯 번째 검사 – 새창열기]: 같은 재료를 다른 각도로 본 것. 세 번째, 네 번째를 보완. 가중치 중간.
+- [여섯 번째 – 시츄에이션 반응]: 같은 장면을 여정 단계마다 다시 본 선택들. 보조 참고 자료. 가중치 낮음. 진단의 단독 근거로 쓰지 말 것. 이 재료는 오직 "선택이 그대로 유지됐는지, 아니면 달라졌는지"의 흐름만 담백하게 짚는 데 쓴다. 왜 그랬는지는 추론하지 말고, 변화가 있었다면 그 사실만, 없었다면 일관됐다는 사실만 한두 문장으로 관찰하듯 언급한다.
 - 텍스트 양이 많은 검사를 더 중요하게 취급하지 마라. 가중치 기준을 따를 것.
 
 교차 분석의 원칙:
@@ -131,6 +132,13 @@ export default function Comprehensive({ onBack }) {
     if (today) setTodaySentence(today);
   }, []);
 
+  // 화면 진입 시 자동으로 분석 생성 (버튼 없이)
+  useEffect(() => {
+    if (hasAny && !comprehensive && !loading) {
+      generateComprehensive();
+    }
+  }, []);
+
   async function generateComprehensive() {
     setLoading(true);
     const parts = [];
@@ -139,6 +147,37 @@ export default function Comprehensive({ onBack }) {
     if (result2) parts.push(`[세 번째 검사 – 사고 구조]\n${result2}`);
     if (oracleRaw) parts.push(`[네 번째 검사 – 메모리]\n${oracleRaw}`);
     if (newWindowRaw) parts.push(`[다섯 번째 검사 – 새창열기]\n${newWindowRaw}`);
+
+    // 시츄에이션 반응 — 프롤로그 최초 선택 + 각 섹션 다시 보기 답을 모아 변화/유지를 관찰
+    try {
+      const prologueRaw = localStorage.getItem("mindmirror_prologue");
+      const prologue = prologueRaw ? JSON.parse(prologueRaw) : null;
+      const rev = {};
+      [1, 2, 3, 4, 5].forEach((n) => {
+        const r = localStorage.getItem(`mindmirror_revisit_section${n}`);
+        if (r) { try { rev[n] = JSON.parse(r); } catch (e) {} }
+      });
+
+      const sitLines = [];
+      if (prologue) {
+        if (prologue[0]) sitLines.push(`· 상황1(친구의 부탁) 처음 선택: ${prologue[0]}`);
+        if (rev[1]?.answer) sitLines.push(`  → 기본값을 알고 다시 봤을 때: ${rev[1].answer}`);
+        if (prologue[1]) sitLines.push(`· 상황2(회의실) 처음 선택: ${prologue[1]}`);
+        if (rev[2]?.answer) sitLines.push(`  → 첫 화면을 알고 다시 봤을 때: ${rev[2].answer}`);
+        if (rev[3]?.answer) sitLines.push(`  → 운영체계를 알고 또 봤을 때: ${rev[3].answer}`);
+        if (prologue[2]) sitLines.push(`· 상황3(세 가지 가능성) 처음 선택: ${prologue[2]}`);
+        if (rev[4]?.answer) sitLines.push(`  → 메모리를 알고 다시 봤을 때: ${rev[4].answer}`);
+        if (rev[5]?.answer) sitLines.push(`  → 세 장면을 다 보고 최종 선택: ${rev[5].answer}`);
+      }
+      if (sitLines.length > 0) {
+        parts.push(
+          `[여섯 번째 – 시츄에이션 반응 (보조 참고, 낮은 가중치)]\n` +
+          `같은 장면을 여정 단계마다 다시 본 흐름입니다. 진단의 단독 근거로 쓰지 말고, ` +
+          `선택이 그대로 유지됐는지 혹은 달라졌는지 그 흐름만 담백하게 짚어주세요.\n` +
+          sitLines.join("\n")
+        );
+      }
+    } catch (e) {}
 
     try {
       const res = await fetch("/api/analyze", {
@@ -230,24 +269,12 @@ export default function Comprehensive({ onBack }) {
           </div>
         )}
 
-        {/* AI 교차 분석 */}
+        {/* AI 교차 분석 (자동 생성) */}
         <div style={{ marginBottom: "3rem" }}>
-          {!comprehensive && !loading && (
-            <div>
-              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.45)", lineHeight: 1.9, marginBottom: "1.25rem" }}>
-                {hasAny
-                  ? "지금까지의 답들은 모두 같은 방향을 가리키지 않을 수 있습니다. 반복된 길과 새로 열린 가능성을 함께 비춰드릴게요."
-                  : "도구를 하나 이상 완료하면 전체화면을 시작할 수 있어요."}
-              </p>
-              {hasAny && (
-                <button onClick={generateComprehensive} style={{
-                  background: "none", border: "1px solid rgba(168,123,123,0.4)",
-                  color: "#A87B7B", fontFamily: "'Source Serif 4',serif",
-                  fontSize: "0.78rem", letterSpacing: "0.18em", textTransform: "uppercase",
-                  padding: "0.65rem 1.5rem", cursor: "pointer",
-                }}>전체화면 보기 →</button>
-              )}
-            </div>
+          {!comprehensive && !loading && !hasAny && (
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.45)", lineHeight: 1.9, marginBottom: "1.25rem" }}>
+              도구를 하나 이상 완료하면 전체화면을 시작할 수 있어요.
+            </p>
           )}
 
           {loading && <LoadingScreen section={5} isComprehensive={true} />}
