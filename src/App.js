@@ -1123,7 +1123,7 @@ export default function App() {
       textColor="#3A2E24"
       introLabel="내 마음의 초기화면"
       introHeading="마음에 먼저 뜨는 것"
-      introTitle="초기화면 확인하기"
+      introTitle="시작하기"
       introBody={[
         "일이 생겼을 때 — 분석하기 전에, 말하기 전에, 행동하기 전에\n마음에 먼저 뜨는 것이 있어요.",
         "걱정이 먼저 오는 사람,\n누군가 얼굴이 먼저 떠오르는 사람,\n해결책이 먼저 보이는 사람.\n그 첫 반응이 당신의 초기화면이에요.",
@@ -1147,7 +1147,7 @@ export default function App() {
       textColor="#1E2E1E"
       introLabel="내 마음의 운영체계"
       introHeading="반복이 만든 마음의 결"
-      introTitle="운영체계 확인하기"
+      introTitle="시작하기"
       introBody={[
         "내 마음의 초기화면에서는 일이 생겼을 때\n내 마음에 자동으로 뜨는 반응을 확인했습니다.",
         "이제 그 반응 아래에서 작동하는\n해석과 판단의 방식을 살펴봅니다.",
@@ -1190,11 +1190,12 @@ export default function App() {
           <div style={{ position: "absolute", left: 14, top: 20, bottom: 20, width: 1, background: "rgba(247,242,232,0.12)" }} />
 
           {/* 01 */}
+          <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#C9A84C", marginBottom: "0.6rem", marginLeft: "0.1rem" }}>여기서 시작하세요</div>
           <div className="intro-card-hover" style={{ position: "relative", marginBottom: "0.75rem" }}>
             <div style={{ position: "absolute", left: "-3rem", top: "1rem", width: 28, height: 28, borderRadius: "50%", background: "#8C6640", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.65rem", color: "#F7F2E8" }}>01</span>
             </div>
-            <div onClick={() => setShowQuickTest(true)} style={{ background: "#EEE0CB", padding: "1.4rem 1.8rem", borderLeft: "4px solid #8C6640", borderRadius: "0 4px 4px 0", position: "relative", overflow: "hidden", minHeight: 140 }}>
+            <div onClick={() => setShowQuickTest(true)} style={{ background: "#EEE0CB", padding: "1.4rem 1.8rem", borderLeft: "4px solid #8C6640", borderRadius: "0 4px 4px 0", position: "relative", overflow: "hidden", minHeight: 140, boxShadow: "0 0 0 2px rgba(201,168,76,0.35)" }}>
               <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.58rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(58,36,16,0.5)", marginBottom: "0.35rem" }}>설치한 적 없는데 실행되고 있는 것.</div>
               <div style={{ fontFamily: "'Playfair Display',serif", fontSize: "1.15rem", color: "#3A2410", marginBottom: "0.4rem" }}>내 마음의 기본값</div>
               <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.78rem", fontWeight: 300, color: "rgba(58,36,16,0.7)", lineHeight: 1.75 }}>누가 가르쳐준 적 없는데 늘 그렇게 해온 것들이 있어요.<br />여기서 시작해요 →</p>
