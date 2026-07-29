@@ -1006,6 +1006,10 @@ export default function App() {
   const [showQuickTest, setShowQuickTest] = useState(false);
   const [showRevisit1, setShowRevisit1] = useState(false); // 섹션1 다시 보기
   const [revisit1Type, setRevisit1Type] = useState(null);  // 다시 보기에 넘길 유형
+  const [showRevisit2, setShowRevisit2] = useState(false); // 섹션2 다시 보기
+  const [showRevisit3, setShowRevisit3] = useState(false); // 섹션3 다시 보기
+  const [showRevisit4, setShowRevisit4] = useState(false); // 섹션4 다시 보기
+  const [showRevisit5, setShowRevisit5] = useState(false); // 섹션5 다시 보기
   const [showSection2, setShowSection2] = useState(false);
   const [showSection3, setShowSection3] = useState(false);
   const [showOracle, setShowOracle] = useState(false);
@@ -1026,11 +1030,57 @@ export default function App() {
       sectionKey="section1"
       userType={revisit1Type}
       onDone={(payload) => {
-        // 답 저장 (종합분석용, 낮은 가중치). 판정 없음.
-        try {
-          localStorage.setItem("mindmirror_revisit_section1", JSON.stringify(payload));
-        } catch (e) {}
+        try { localStorage.setItem("mindmirror_revisit_section1", JSON.stringify(payload)); } catch (e) {}
         setShowRevisit1(false); // 마음거울 메인으로
+      }}
+    />
+  );
+
+  // 섹션2 다시 보기 — 완료 후 → 섹션3으로
+  if (showRevisit2) return (
+    <SituationRevisit
+      sectionKey="section2"
+      onDone={(payload) => {
+        try { localStorage.setItem("mindmirror_revisit_section2", JSON.stringify(payload)); } catch (e) {}
+        setShowRevisit2(false);
+        setShowSection3(true);
+      }}
+    />
+  );
+
+  // 섹션3 다시 보기 — 완료 후 → 섹션4(Oracle)로
+  if (showRevisit3) return (
+    <SituationRevisit
+      sectionKey="section3"
+      onDone={(payload) => {
+        try { localStorage.setItem("mindmirror_revisit_section3", JSON.stringify(payload)); } catch (e) {}
+        setShowRevisit3(false);
+        setOracleInitialPhase("intro");
+        setShowOracle(true);
+      }}
+    />
+  );
+
+  // 섹션4 다시 보기 — 완료 후 → 섹션5(NewWindow)로
+  if (showRevisit4) return (
+    <SituationRevisit
+      sectionKey="section4"
+      onDone={(payload) => {
+        try { localStorage.setItem("mindmirror_revisit_section4", JSON.stringify(payload)); } catch (e) {}
+        setShowRevisit4(false);
+        setShowNewWindow(true);
+      }}
+    />
+  );
+
+  // 섹션5 다시 보기 — 완료 후 → 종합분석으로
+  if (showRevisit5) return (
+    <SituationRevisit
+      sectionKey="section5"
+      onDone={(payload) => {
+        try { localStorage.setItem("mindmirror_revisit_section5", JSON.stringify(payload)); } catch (e) {}
+        setShowRevisit5(false);
+        setShowComprehensive(true);
       }}
     />
   );
@@ -1058,9 +1108,9 @@ export default function App() {
   if (showComprehensive) return (
     <Comprehensive onBack={() => { setShowComprehensive(false); setOracleInitialPhase("final"); setShowOracle(true); }} />
   );
-  if (showNewWindow) return <NewWindow onBack={() => setShowNewWindow(false)} onComprehensive={() => { setShowNewWindow(false); setShowComprehensive(true); }} />;
+  if (showNewWindow) return <NewWindow onBack={() => setShowNewWindow(false)} onComprehensive={() => { setShowNewWindow(false); setShowRevisit5(true); }} />;
   if (showOracle) return (
-    <Oracle initialPhase={oracleInitialPhase} onBack={() => { setShowOracle(false); setOracleInitialPhase("intro"); }} onComprehensive={() => { setShowOracle(false); setOracleInitialPhase("intro"); setShowComprehensive(true); }} />
+    <Oracle initialPhase={oracleInitialPhase} onBack={() => { setShowOracle(false); setOracleInitialPhase("intro"); }} onComprehensive={() => { setShowOracle(false); setOracleInitialPhase("intro"); setShowRevisit4(true); }} />
   );
   if (showSection2) return (
     <MCQSection
@@ -1082,7 +1132,7 @@ export default function App() {
         "12개 질문으로 구성되어 있어요.",
         "일부 질문은 선택에 따라 추가 질문이 생겨요.",
       ]}
-      onComplete={() => { setShowSection2(false); setShowSection3(true); }}
+      onComplete={() => { setShowSection2(false); setShowRevisit2(true); }}
       onBack={() => setShowSection2(false)}
     />
   );
@@ -1106,7 +1156,7 @@ export default function App() {
         "8개 질문으로 구성되어 있어요.",
         "일부 질문은 선택에 따라 추가 질문이 생겨요.",
       ]}
-      onComplete={() => { setShowSection3(false); setOracleInitialPhase("intro"); setShowOracle(true); }}
+      onComplete={() => { setShowSection3(false); setShowRevisit3(true); }}
       onBack={() => setShowSection3(false)}
     />
   );
