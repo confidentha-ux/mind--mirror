@@ -369,6 +369,26 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
   function selectSingle(opt) {
     setAnswers(prev => ({ ...prev, [currentQ]: { raw: opt } }));
     if (opt !== "직접 입력") setCustomInput("");
+    // 순수 단일선택은 고르는 즉시 자동으로 다음으로 (직접 입력은 텍스트가 필요하므로 제외)
+    if (opt !== "직접 입력") {
+      setTimeout(() => advanceWith(opt), 280);
+    }
+  }
+
+  // 방금 고른 값으로 바로 다음 문항으로 (state 비동기 문제 회피)
+  function advanceWith(opt) {
+    const answerText = opt;
+    const newAnswers = { ...answers, [currentQ]: { title: q.title, answer: answerText } };
+    setAnswers(newAnswers);
+    setSelectedOptions([]);
+    setCustomInput("");
+    setTextAnswer("");
+    if (currentQ < MEMORY_QUESTIONS.length - 1) {
+      setCurrentQ(currentQ + 1);
+    } else {
+      setPhase("opening");
+      callMemory(newAnswers);
+    }
   }
 
   function toggleMulti(opt) {
@@ -578,6 +598,7 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
               fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase",
               cursor: "pointer", padding: "0.6rem 1.4rem",
             }}>← 이전</button>
+            {(isMulti || isText || directSelected) && (
             <button onClick={handleNext} disabled={!canProceed} style={{
               background: canProceed ? ACCENT : "transparent",
               border: "1px solid " + (canProceed ? ACCENT : "rgba(0,0,0,0.15)"),
@@ -590,6 +611,7 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
             }}>
               {currentQ < MEMORY_QUESTIONS.length - 1 ? "다음" : "완성"}
             </button>
+            )}
           </div>
         </div>
       )}
