@@ -5,6 +5,7 @@ import Comprehensive from "./Comprehensive";
 import NewWindow from "./NewWindow";
 import LoadingScreen from "./LoadingScreen";
 import Prologue from "./Prologue";
+import SituationRevisit from "./SituationRevisit";
 
 // ── 섹션 2 — 기본화면 (감정 구조) 12문항 ─────────────────────────
 
@@ -1003,6 +1004,8 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
 export default function App() {
   const [showPrologue, setShowPrologue] = useState(true);
   const [showQuickTest, setShowQuickTest] = useState(false);
+  const [showRevisit1, setShowRevisit1] = useState(false); // 섹션1 다시 보기
+  const [revisit1Type, setRevisit1Type] = useState(null);  // 다시 보기에 넘길 유형
   const [showSection2, setShowSection2] = useState(false);
   const [showSection3, setShowSection3] = useState(false);
   const [showOracle, setShowOracle] = useState(false);
@@ -1016,7 +1019,42 @@ export default function App() {
       onBack={() => setShowPrologue(false)}
     />
   );
-  if (showQuickTest) return <QuickTest onBack={() => setShowQuickTest(false)} />;
+
+  // 섹션1 다시 보기 — QuickTest 완료 후 등장
+  if (showRevisit1) return (
+    <SituationRevisit
+      sectionKey="section1"
+      userType={revisit1Type}
+      onDone={(payload) => {
+        // 답 저장 (종합분석용, 낮은 가중치). 판정 없음.
+        try {
+          localStorage.setItem("mindmirror_revisit_section1", JSON.stringify(payload));
+        } catch (e) {}
+        setShowRevisit1(false); // 마음거울 메인으로
+      }}
+    />
+  );
+
+  if (showQuickTest) return (
+    <QuickTest
+      onBack={() => {
+        // QuickTest 완료/이탈 시: 저장된 유형이 있으면 다시 보기로, 없으면 메인으로
+        let type = null;
+        try {
+          const raw = localStorage.getItem("mindmirror_quicktest");
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            type = parsed?.type || null;
+          }
+        } catch (e) {}
+        setShowQuickTest(false);
+        if (type) {
+          setRevisit1Type(type);
+          setShowRevisit1(true);
+        }
+      }}
+    />
+  );
   if (showComprehensive) return (
     <Comprehensive onBack={() => { setShowComprehensive(false); setOracleInitialPhase("final"); setShowOracle(true); }} />
   );
