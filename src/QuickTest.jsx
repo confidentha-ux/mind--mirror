@@ -320,14 +320,6 @@ export default function QuickTest({ onBack }) {
                 letterSpacing: "0.18em", textTransform: "uppercase",
                 padding: "1.1rem 2.8rem", cursor: "pointer",
               }}>가볍게 시작하기</button>
-              {onBack && (
-                <button onClick={onBack} style={{
-                  background: "transparent", border: "1px solid rgba(140,102,64,0.4)",
-                  color: "rgba(58,36,16,0.6)", fontFamily: "'Source Serif 4',serif",
-                  fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
-                  padding: "1.1rem 1.8rem", cursor: "pointer",
-                }}>← 마음거울로</button>
-              )}
             </div>
           </div>
         )}
@@ -421,19 +413,13 @@ export default function QuickTest({ onBack }) {
             </div>
 
             <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
-              <button onClick={restart} style={{
-                background: ACCENT, border: "none", color: "#F7F2E8",
-                fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem",
-                letterSpacing: "0.18em", textTransform: "uppercase",
-                padding: "1.1rem 2.8rem", cursor: "pointer",
-              }}>다시 해보기</button>
               {onBack && (
                 <button onClick={onBack} style={{
-                  background: "transparent", border: "1px solid rgba(58,36,16,0.25)",
-                  color: "rgba(58,36,16,0.6)", fontFamily: "'Source Serif 4',serif",
-                  fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
-                  padding: "1.1rem 1.8rem", cursor: "pointer",
-                }}>← 마음거울로</button>
+                  background: ACCENT, border: "none", color: "#F7F2E8",
+                  fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem",
+                  letterSpacing: "0.18em", textTransform: "uppercase",
+                  padding: "1.1rem 2.8rem", cursor: "pointer",
+                }}>다음으로 →</button>
               )}
             </div>
           </div>
