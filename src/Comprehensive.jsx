@@ -13,7 +13,6 @@ const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니�
 - [세 번째 검사 – 사고 구조]: 반응 아래에서 작동하는 해석과 판단의 구조. 가중치 높음.
 - [네 번째 검사 – 메모리]: 사용자가 직접 쓴 날것의 텍스트. 가장 중요한 재료. 가중치 높음.
 - [다섯 번째 검사 – 새창열기]: 같은 재료를 다른 각도로 본 것. 세 번째, 네 번째를 보완. 가중치 중간.
-- [여섯 번째 – 시츄에이션 반응]: 같은 장면을 여정 단계마다 다시 본 선택들. 보조 참고 자료. 가중치 낮음. 진단의 단독 근거로 쓰지 말 것. 이 재료는 오직 "선택이 그대로 유지됐는지, 아니면 달라졌는지"의 흐름만 담백하게 짚는 데 쓴다. 왜 그랬는지는 추론하지 말고, 변화가 있었다면 그 사실만, 없었다면 일관됐다는 사실만 한두 문장으로 관찰하듯 언급한다.
 - 텍스트 양이 많은 검사를 더 중요하게 취급하지 마라. 가중치 기준을 따를 것.
 
 교차 분석의 원칙:
@@ -121,6 +120,30 @@ export default function Comprehensive({ onBack }) {
   const quick = quickRaw ? JSON.parse(quickRaw) : null;
   const today = todayRaw ? JSON.parse(todayRaw) : null;
 
+  // ── Situation 3 선택 변화 (프롤로그 최초 vs 섹션5 최종) ──
+  const s3 = (() => {
+    try {
+      const pRaw = localStorage.getItem("mindmirror_prologue");
+      const r5Raw = localStorage.getItem("mindmirror_revisit_section5");
+      if (!pRaw || !r5Raw) return null;
+      const p = JSON.parse(pRaw);
+      const r5 = JSON.parse(r5Raw);
+      const firstText = p?.[2];        // 프롤로그 S3 선택 (긴 문장)
+      const finalText = r5?.answer;    // 섹션5 최종 선택 (짧은 문장)
+      if (!firstText || !finalText) return null;
+
+      // 인덱스로 매핑 (순서 일치: 0=자리이동, 1=전직, 2=유예)
+      const firstIdx = firstText.includes("다른 자리") ? 0 : firstText.includes("전혀 다른") ? 1 : 2;
+      const finalIdx = finalText.includes("다른 자리") ? 0 : finalText.includes("전혀 다른") ? 1 : 2;
+      const labels = ["지금 있는 곳에서 다른 자리로", "전혀 다른 곳으로", "미루고 기다린다"];
+      return {
+        changed: firstIdx !== finalIdx,
+        firstLabel: labels[firstIdx],
+        finalLabel: labels[finalIdx],
+      };
+    } catch (e) { return null; }
+  })();
+
   const hasAny = !!(quick || result1 || result2 || oracleRaw);
 
   useEffect(() => {
@@ -147,37 +170,6 @@ export default function Comprehensive({ onBack }) {
     if (result2) parts.push(`[세 번째 검사 – 사고 구조]\n${result2}`);
     if (oracleRaw) parts.push(`[네 번째 검사 – 메모리]\n${oracleRaw}`);
     if (newWindowRaw) parts.push(`[다섯 번째 검사 – 새창열기]\n${newWindowRaw}`);
-
-    // 시츄에이션 반응 — 프롤로그 최초 선택 + 각 섹션 다시 보기 답을 모아 변화/유지를 관찰
-    try {
-      const prologueRaw = localStorage.getItem("mindmirror_prologue");
-      const prologue = prologueRaw ? JSON.parse(prologueRaw) : null;
-      const rev = {};
-      [1, 2, 3, 4, 5].forEach((n) => {
-        const r = localStorage.getItem(`mindmirror_revisit_section${n}`);
-        if (r) { try { rev[n] = JSON.parse(r); } catch (e) {} }
-      });
-
-      const sitLines = [];
-      if (prologue) {
-        if (prologue[0]) sitLines.push(`· 상황1(친구의 부탁) 처음 선택: ${prologue[0]}`);
-        if (rev[1]?.answer) sitLines.push(`  → 기본값을 알고 다시 봤을 때: ${rev[1].answer}`);
-        if (prologue[1]) sitLines.push(`· 상황2(회의실) 처음 선택: ${prologue[1]}`);
-        if (rev[2]?.answer) sitLines.push(`  → 첫 화면을 알고 다시 봤을 때: ${rev[2].answer}`);
-        if (rev[3]?.answer) sitLines.push(`  → 운영체계를 알고 또 봤을 때: ${rev[3].answer}`);
-        if (prologue[2]) sitLines.push(`· 상황3(세 가지 가능성) 처음 선택: ${prologue[2]}`);
-        if (rev[4]?.answer) sitLines.push(`  → 메모리를 알고 다시 봤을 때: ${rev[4].answer}`);
-        if (rev[5]?.answer) sitLines.push(`  → 세 장면을 다 보고 최종 선택: ${rev[5].answer}`);
-      }
-      if (sitLines.length > 0) {
-        parts.push(
-          `[여섯 번째 – 시츄에이션 반응 (보조 참고, 낮은 가중치)]\n` +
-          `같은 장면을 여정 단계마다 다시 본 흐름입니다. 진단의 단독 근거로 쓰지 말고, ` +
-          `선택이 그대로 유지됐는지 혹은 달라졌는지 그 흐름만 담백하게 짚어주세요.\n` +
-          sitLines.join("\n")
-        );
-      }
-    } catch (e) {}
 
     try {
       const res = await fetch("/api/analyze", {
@@ -218,6 +210,9 @@ export default function Comprehensive({ onBack }) {
     localStorage.setItem("oracle_today_sentence", JSON.stringify(data));
     setTodaySentence(data);
   };
+
+  // 분석 생성 중에는 다른 섹션과 동일하게 풀스크린 로딩화면 (짙은 초록)
+  if (loading) return <LoadingScreen section={5} isComprehensive={true} />;
 
   return (
     <div style={{
@@ -277,7 +272,6 @@ export default function Comprehensive({ onBack }) {
             </p>
           )}
 
-          {loading && <LoadingScreen section={5} isComprehensive={true} />}
           {comprehensive && !loading && (
             <div style={{
               background: "#4A6358",
@@ -306,6 +300,30 @@ export default function Comprehensive({ onBack }) {
                   </div>
                 ) : null;
               })}
+            </div>
+          )}
+
+          {/* Situation 3 선택 변화 블록 — 분석이 나온 뒤에만 */}
+          {comprehensive && !loading && s3 && (
+            <div style={{ marginTop: "2.5rem", padding: "2rem", border: "1px solid rgba(168,123,123,0.3)", background: "rgba(168,123,123,0.04)" }}>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#A87B7B", marginBottom: "1.5rem" }}>당신의 선택</div>
+
+              <div style={{ marginBottom: "0.9rem" }}>
+                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.1em", color: "rgba(38,50,44,0.4)", marginRight: "0.75rem" }}>처음</span>
+                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.95rem", fontWeight: 300, color: "rgba(38,50,44,0.8)" }}>{s3.firstLabel}</span>
+              </div>
+              <div style={{ marginBottom: "1.75rem" }}>
+                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.1em", color: "rgba(38,50,44,0.4)", marginRight: "0.75rem" }}>나중</span>
+                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.95rem", fontWeight: 300, color: "rgba(38,50,44,0.8)" }}>{s3.finalLabel}</span>
+              </div>
+
+              <div style={{ width: "100%", height: "1px", background: "rgba(168,123,123,0.15)", marginBottom: "1.25rem" }} />
+
+              <p style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontSize: "1rem", color: "#8A6363", lineHeight: 1.8 }}>
+                {s3.changed
+                  ? "세 장면을 지나는 동안, 당신의 마음은 다른 곳으로 움직였습니다. 무엇이 그 마음을 바꾸었을까요."
+                  : "세 장면을 다 보고도, 당신은 처음의 자리로 돌아왔습니다. 무엇이 당신을 그 자리에 머물게 했을까요."}
+              </p>
             </div>
           )}
         </div>
