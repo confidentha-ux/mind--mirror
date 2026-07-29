@@ -340,7 +340,7 @@ const SECTION3_QUESTIONS = [
     id: 2,
     title: "귀인 방식",
     type: "single",
-    question: "그 감정이 올라왔을 때 내 안에서 자동으로 켜지는 생각은 뭔가요?",
+    question: "무언가 잘못됐다고 느낄 때, 내 안에서 자동으로 켜지는 생각은 뭔가요?",
     options: [
       "내가 뭔가 잘못했다",
       "상대가 잘못했다",
@@ -827,7 +827,6 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
           </div>
           <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
             <button onClick={() => setPhase("questions")} style={{ background: accentColor, border: "none", color: "#F7F2E8", fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", letterSpacing: "0.18em", textTransform: "uppercase", padding: "1.1rem 2.8rem", cursor: "pointer" }}>{introTitle}</button>
-            <button onClick={onBackProp} style={{ background: "transparent", border: `1px solid rgba(${accentColor === "#8C7A6A" ? "140,122,106" : "74,122,82"},0.4)`, color: `rgba(${textColor === "#3A2E24" ? "58,46,36" : "30,46,30"},0.6)`, fontFamily: "'Source Serif 4',serif", fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase", padding: "1.1rem 1.8rem", cursor: "pointer" }}>← 마음거울로</button>
           </div>
         </div>
       )}
@@ -987,9 +986,8 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
               <div style={{ display: "flex", gap: "1rem", marginTop: "2rem", flexWrap: "wrap" }}>
                 <button onClick={() => navigator.clipboard.writeText(analysis).then(() => alert("복사되었습니다."))} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", cursor: "pointer", padding: "0.75rem 1.75rem" }}>결과 복사</button>
                 <button onClick={() => onComplete && onComplete(analysis)} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", cursor: "pointer", padding: "0.75rem 1.75rem" }}>
-                  {sectionNum === 2 ? "내 마음의 운영체계 →" : "내 마음의 메모리 →"}
+                  다음으로 →
                 </button>
-                <button onClick={onBackProp} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.2)", color: "rgba(38,50,44,0.45)", fontFamily: "'Source Serif 4',serif", fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", cursor: "pointer", padding: "0.75rem 1.75rem" }}>← 마음거울로</button>
               </div>
             </div>
           )}
@@ -1019,7 +1017,10 @@ export default function App() {
 
   if (showPrologue) return (
     <Prologue
-      onEnter={() => setShowPrologue(false)}
+      onEnter={(choices) => {
+        try { localStorage.setItem("mindmirror_prologue", JSON.stringify(choices)); } catch (e) {}
+        setShowPrologue(false);
+      }}
       onBack={() => setShowPrologue(false)}
     />
   );
