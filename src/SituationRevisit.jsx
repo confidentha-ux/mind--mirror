@@ -108,7 +108,7 @@ export const REVISITS = {
   // 섹션1 — Situation 1, 기본값 렌즈, 6유형 분기
   section1: {
     situation: 1,
-    intro: "내 마음의 기본값을 확인했습니다.\n이제 그 장면으로 다시 돌아갑니다.",
+    intro: "프롤로그에서 만났던 친구의 부탁, 기억하시나요.\n이제 당신의 기본값을 알았으니, 같은 장면을 한 번 더 봅니다.\n이번엔 조금 다르게 보일지도 모릅니다.",
     branched: true,
     branches: SECTION1_BRANCHES,
   },
@@ -116,7 +116,7 @@ export const REVISITS = {
   // 섹션2 — Situation 2, 첫 화면 렌즈
   section2: {
     situation: 2,
-    intro: "내 마음의 첫 화면을 확인했습니다.\n이제 그 회의실로 다시 돌아갑니다.",
+    intro: "프롤로그에서 만났던 그 회의실, 기억하시나요.\n이제 당신의 첫 화면을 알았으니, 같은 장면을 한 번 더 봅니다.\n이번엔 무엇이 먼저 눈에 들어오는지 살펴보세요.",
     branched: false,
     question: "이 장면으로 다시 돌아왔을 때, 당신은 무엇이 가장 먼저 신경 쓰입니까?",
     options: [
@@ -132,7 +132,7 @@ export const REVISITS = {
   // 섹션3 — Situation 2 (재방문), 운영체계 렌즈
   section3: {
     situation: 2,
-    intro: "내 마음의 운영체계를 확인했습니다.\n다시 한번 그 회의실로 돌아갑니다.",
+    intro: "그 회의실로 다시 한번 돌아갑니다.\n이제 당신의 운영체계를 알았으니, 같은 장면이 조금 다르게 보일지도 모릅니다.\n이번엔 이 상황을 무엇부터 다루고 싶은지 살펴보세요.",
     branched: false,
     question: "이 장면으로 다시 돌아왔을 때, 당신은 이 상황을 무엇부터 다루려 합니까?",
     options: [
@@ -148,7 +148,7 @@ export const REVISITS = {
   // 섹션4 — Situation 3, 메모리 렌즈
   section4: {
     situation: 3,
-    intro: "내 마음의 메모리를 확인했습니다.\n이제 세 가지 가능성 앞으로 돌아갑니다.",
+    intro: "프롤로그에서 마주했던 세 가지 가능성, 기억하시나요.\n이제 당신의 메모리를 들여다봤으니, 그 앞으로 다시 돌아갑니다.\n당신의 선택이 어디서 왔는지, 천천히 살펴보세요.",
     branched: false,
     question: "다시 돌아와서 생각해 봅니다. 당신의 선택은 어떤 기억이나 생각에서 나왔다고 느껴집니까?",
     options: [
@@ -164,7 +164,7 @@ export const REVISITS = {
   // 섹션5 — Situation 3 (재방문), 새창열기 렌즈: 세 장면 보고 재선택
   section5: {
     situation: 3,
-    intro: "당신은 선택을 했고, 그 이유도 생각해 보았습니다.\n이제 당신이 하지 않은 선택의 하루를 봅니다.",
+    intro: "당신은 그 세 가지 가능성 앞에서 선택을 했고, 그 이유도 들여다봤습니다.\n이제 마지막으로, 당신이 고르지 않은 길의 하루를 잠깐 봅니다.\n다 보고 난 뒤, 다시 한번 골라보세요.",
     branched: false,
     scenes: [
       {
@@ -251,7 +251,7 @@ export default function SituationRevisit({ sectionKey, userType, onDone }) {
             fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem",
             letterSpacing: "0.3em", textTransform: "uppercase",
             color: GOLD, marginBottom: "1.5rem",
-          }}>Situation {String(spec.situation).padStart(2, "0")} · 다시 보기</div>
+          }}>그 장면, 다시</div>
         </div>
 
         {/* 도입 */}
