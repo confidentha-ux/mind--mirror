@@ -3,7 +3,7 @@ import LoadingScreen from "./LoadingScreen";
 const MEMORY_QUESTIONS = [
   {
     id: 1,
-    type: "single",
+    type: "single_with_input",
     title: "흔들린 순간",
     question: "최근 내 마음이 크게 흔들렸던 순간을 생각해 보세요. 어떤 상황이었나요?",
     options: [
@@ -11,7 +11,6 @@ const MEMORY_QUESTIONS = [
       "기대했던 반응이 오지 않았을 때",
       "거절당했다고 느꼈을 때",
       "내가 실수했다고 생각했을 때",
-      "답장이 늦어졌을 때",
       "비교당하는 느낌이 들었을 때",
       "무시당한다고 느꼈을 때",
       "직접 입력",
@@ -520,12 +519,6 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
               letterSpacing: "0.18em", textTransform: "uppercase",
               padding: "1.1rem 2.8rem", cursor: "pointer",
             }}>시작하기</button>
-            <button onClick={onBack} style={{
-              background: "transparent", border: "1px solid rgba(46,106,94,0.4)",
-              color: "rgba(26,46,40,0.6)", fontFamily: "'Source Serif 4',serif",
-              fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
-              padding: "0.6rem 1.4rem", cursor: "pointer",
-            }}>← 마음거울로</button>
           </div>
         </div>
       )}
@@ -622,10 +615,7 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
             <div className="mem-appear" style={{ marginTop: "2rem", paddingTop: "2rem", borderTop: "1px solid rgba(38,50,44,0.1)" }}>
               <FeedbackWidget />
               <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap", marginTop: "2rem" }}>
-                <button onClick={onComprehensive} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer", padding: "0.7rem 1.8rem" }}>새창열기 →</button>
-                <button onClick={() => setPhase("final")} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer", padding: "0.7rem 1.8rem" }}>마지막 장으로 →</button>
-                <button onClick={() => { const text = sectionOrder.map(k => parsed[k] ? `${k}\n${parsed[k]}` : "").filter(Boolean).join("\n\n"); navigator.clipboard.writeText(text); alert("복사되었습니다"); }} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer", padding: "0.7rem 1.8rem" }}>결과 복사</button>
-                <button onClick={onBack} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.2)", color: "rgba(38,50,44,0.45)", fontFamily: "'Source Serif 4',serif", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer", padding: "0.6rem 1.4rem" }}>← 마음거울로</button>
+                <button onClick={onComprehensive} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", cursor: "pointer", padding: "0.7rem 1.8rem" }}>다음으로 →</button>
               </div>
             </div>
           )}
