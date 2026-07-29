@@ -19,7 +19,7 @@ const NW_QUESTIONS = [
   },
   {
     id: 2,
-    type: "single",
+    type: "single_with_input",
     title: "첫 생각",
     question: "그 기억을 잠깐 바라보세요.\n어떤 느낌이 먼저 오나요?\n그 기억을 떠올릴 때 가장 먼저 드는 생각은 무엇인가요?",
     options: [
@@ -31,6 +31,7 @@ const NW_QUESTIONS = [
       "\"그냥 지나갈 수 없는 일이었어.\"",
       "\"그때의 내가 아직도 선명해.\"",
       "\"그때의 나, 잘했다는 생각이 들어.\"",
+      "직접 입력",
     ],
   },
   {
