@@ -319,7 +319,7 @@ export default function QuickTest({ onBack }) {
                 fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem",
                 letterSpacing: "0.18em", textTransform: "uppercase",
                 padding: "1.1rem 2.8rem", cursor: "pointer",
-              }}>가볍게 시작하기</button>
+              }}>시작하기</button>
             </div>
           </div>
         )}
