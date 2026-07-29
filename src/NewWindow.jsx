@@ -308,6 +308,32 @@ export default function NewWindow({ onBack, onComprehensive }) {
 
   function selectSingle(opt) {
     setAnswers(prev => ({ ...prev, [currentQ]: { answer: opt } }));
+    // 순수 단일선택은 고르는 즉시 자동으로 다음으로
+    setTimeout(() => advanceWith(opt), 280);
+  }
+
+  // 방금 고른 값으로 바로 다음으로 (handleNext의 분기 로직 유지)
+  function advanceWith(opt) {
+    const answerText = opt;
+    const newAnswers = { ...answers, [currentQ]: { title: q.title, answer: answerText } };
+    setAnswers(newAnswers);
+
+    if (currentQ === 4) {
+      setShowMid(true);
+      fetchMidQuestion(answerText);
+      setSelectedOptions([]);
+      setCustomInput("");
+      return;
+    }
+
+    setSelectedOptions([]);
+    setCustomInput("");
+
+    if (currentQ < NW_QUESTIONS.length - 1) {
+      setCurrentQ(currentQ + 1);
+    } else {
+      analyze(newAnswers);
+    }
   }
 
   function selectSingleWithInput(opt) {
@@ -600,6 +626,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
               fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase",
               cursor: "pointer", padding: "0.6rem 1.4rem",
             }}>← 이전</button>
+            {(isMulti || isSingleWithInput) && (
             <button onClick={handleNext} disabled={!canProceed} style={{
               background: canProceed ? ACCENT : "transparent",
               border: "1px solid " + (canProceed ? ACCENT : "rgba(0,0,0,0.15)"),
@@ -612,6 +639,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
             }}>
               {currentQ < NW_QUESTIONS.length - 1 ? "다음" : "완성"}
             </button>
+            )}
           </div>
         </div>
       )}
