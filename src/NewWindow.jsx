@@ -511,12 +511,6 @@ export default function NewWindow({ onBack, onComprehensive }) {
               letterSpacing: "0.18em", textTransform: "uppercase",
               padding: "1.1rem 2.8rem", cursor: "pointer",
             }}>시작하기</button>
-            <button onClick={onBack} style={{
-              background: "transparent", border: "1px solid rgba(58,82,120,0.4)",
-              color: "rgba(26,34,52,0.6)", fontFamily: "'Source Serif 4',serif",
-              fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
-              padding: "0.6rem 1.4rem", cursor: "pointer",
-            }}>← 마음거울로</button>
           </div>
         </div>
       )}
@@ -714,15 +708,7 @@ export default function NewWindow({ onBack, onComprehensive }) {
                   fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem",
                   letterSpacing: "0.18em", textTransform: "uppercase",
                   cursor: "pointer", padding: "1rem 2.5rem",
-                }}>내 마음의 전체화면으로 →</button>
-                <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-                  <button onClick={() => {
-                    const text = sectionOrder.map(k => parsed[k] ? `${k}\n${parsed[k]}` : "").filter(Boolean).join("\n\n");
-                    navigator.clipboard.writeText(text);
-                    alert("복사되었습니다");
-                  }} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.2)", color: "rgba(38,50,44,0.5)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer", padding: "0.6rem 1.4rem" }}>결과 복사</button>
-                  <button onClick={onBack} style={{ background: "transparent", border: "1px solid rgba(38,50,44,0.2)", color: "rgba(38,50,44,0.45)", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", cursor: "pointer", padding: "0.6rem 1.4rem" }}>← 마음거울로</button>
-                </div>
+                }}>다음으로 →</button>
               </div>
             </div>
           )}
