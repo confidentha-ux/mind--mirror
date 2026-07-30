@@ -484,6 +484,9 @@ export default function NewWindow({ onBack, onComprehensive }) {
     return "#1F3A32";
   };
 
+  // 분석 로딩은 풀스크린 단독 (다른 섹션과 통일)
+  if (phase === "analyzing") return <LoadingScreen section={5} />;
+
   return (
     <div style={{
       minHeight: "100vh", background: getBg(),
