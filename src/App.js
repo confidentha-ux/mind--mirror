@@ -315,7 +315,7 @@ const SECTION2_QUESTIONS = [
 const SECTION3_QUESTIONS = [
   {
     id: 1,
-    title: "기본 자기상",
+    title: "나를 보는 눈",
     type: "single",
     question: "평소 나 자신에 대해 가장 자주 드는 생각은 뭔가요?",
     options: [
@@ -338,7 +338,7 @@ const SECTION3_QUESTIONS = [
   },
   {
     id: 2,
-    title: "귀인 방식",
+    title: "일이 틀어졌을 때",
     type: "single",
     question: "무언가 잘못됐다고 느낄 때, 내 안에서 자동으로 켜지는 생각은 뭔가요?",
     options: [
@@ -352,7 +352,7 @@ const SECTION3_QUESTIONS = [
   },
   {
     id: 3,
-    title: "자아 위협 처리",
+    title: "누가 나를 건드렸을 때",
     type: "single",
     question: "누군가의 말이나 행동이 나를 건드렸을 때 내 안에서 먼저 일어나는 건 뭔가요?",
     options: [
@@ -376,7 +376,7 @@ const SECTION3_QUESTIONS = [
   },
   {
     id: 5,
-    title: "상대 반응 해석",
+    title: "상대가 조용할 때",
     type: "single",
     question: "상대가 아무 말도 안 할 때, 내 안에서 자동으로 드는 생각은 뭔가요?",
     options: [
@@ -400,7 +400,7 @@ const SECTION3_QUESTIONS = [
   },
   {
     id: 6,
-    title: "결과 수용 방식",
+    title: "일이 안 됐을 때",
     type: "single",
     question: "어떤 일이 잘 안 됐을 때 내 안에서 자동으로 드는 생각은 뭔가요?",
     options: [
@@ -414,7 +414,7 @@ const SECTION3_QUESTIONS = [
   },
   {
     id: 7,
-    title: "반복 해석 방식",
+    title: "안 좋은 일이 생기면",
     type: "single",
     question: "안 좋은 일이 생겼을 때 내 안에서 자동으로 드는 생각은 뭔가요?",
     options: [
@@ -428,7 +428,7 @@ const SECTION3_QUESTIONS = [
   },
   {
     id: 8,
-    title: "미래 예측 방식",
+    title: "앞일을 그려볼 때",
     type: "single",
     question: "아직 일어나지 않은 일인데 미리 걱정될 때 내 안에서 자동으로 드는 생각은 뭔가요?",
     options: [
@@ -769,6 +769,9 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
 
   const stage2Config = q?.type === "two_stage" && stage1Answer ? q.stage2[stage1Answer] : null;
   const isStage2Multi = stage2Config?.multi;
+
+  // 분석 로딩은 풀스크린 단독 (다른 섹션과 통일)
+  if (phase === "analyzing") return <LoadingScreen section={sectionNum} />;
 
   return (
     <div style={{
