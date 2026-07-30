@@ -484,6 +484,9 @@ export default function Oracle({ onBack, onComprehensive, initialPhase = "intro"
   const bgColor = (phase === "result" || phase === "final") ? "#F7F2E8" : phase === "questions" ? qPalette.bg : phase === "intro" ? "#A8C0B8" : "#1F3A32";
   const textColor = (phase === "result" || phase === "final") ? "#26322C" : phase === "questions" ? qPalette.text : "#1A2E28";
 
+  // 분석 로딩은 풀스크린 단독 (다른 섹션과 통일)
+  if (phase === "opening") return <LoadingScreen section={4} />;
+
   return (
     <div style={{
       minHeight: "100vh", background: bgColor,
