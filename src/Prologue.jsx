@@ -140,17 +140,17 @@ export default function Prologue({ onEnter, onBack }) {
             <img src="/mirror.png" alt="" style={{ width: "100%", height: "auto", display: "block" }} />
             <div style={{
               position: "absolute", top: "42%", left: "50%",
-              transform: "translate(-50%, -50%)", textAlign: "center", width: "68%",
+              transform: "translate(-50%, -50%)", textAlign: "center", width: "46%",
             }}>
               <img src="/mark.png" alt="마음거울" style={{ width: "100%", height: "auto", display: "block", margin: "0 auto" }} />
-              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.5rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(247,242,232,0.4)", marginTop: "0.4rem" }}>Mirroring Mind</div>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.42rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(247,242,232,0.35)", marginTop: "0.35rem" }}>Mirroring Mind</div>
             </div>
           </div>
 
           <div className="fade" style={{ animationDelay: "0.5s", marginTop: "2.5rem" }}>
             <h1 style={{
               fontFamily: "'Playfair Display',serif", fontStyle: "italic",
-              fontSize: "clamp(1.7rem,4.5vw,2.4rem)", fontWeight: 400,
+              fontSize: "clamp(1.3rem,3.6vw,1.7rem)", fontWeight: 400,
               color: GOLD, lineHeight: 1.3, marginBottom: "2.5rem",
             }}>Read Your Life Again.</h1>
           </div>
