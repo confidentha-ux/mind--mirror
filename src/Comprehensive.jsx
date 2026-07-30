@@ -59,23 +59,17 @@ function parseSection(text, key) {
 
 function TodaySentenceWidget({ onSave }) {
   const [text, setText] = useState("");
-  const [saved, setSaved] = useState(false);
 
-  const handleSave = () => {
-    if (!text.trim()) return;
-    onSave(text.trim());
-    setSaved(true);
+  const handleBlur = () => {
+    if (text.trim()) onSave(text.trim());
   };
-
-  if (saved) return (
-    <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.4)", lineHeight: 1.8 }}>기록했어요.</p>
-  );
 
   return (
     <div>
       <textarea
         value={text}
         onChange={e => setText(e.target.value)}
+        onBlur={handleBlur}
         placeholder="여기에 남겨주세요..."
         rows={3}
         style={{
@@ -86,20 +80,8 @@ function TodaySentenceWidget({ onSave }) {
           fontFamily: "'Source Serif 4', serif",
           fontSize: "0.88rem", fontWeight: 300, lineHeight: 1.8,
           padding: "0.75rem 1rem", resize: "none", outline: "none",
-          marginBottom: "0.5rem",
         }}
       />
-      <button
-        onClick={handleSave}
-        style={{
-          background: "none",
-          border: "1px solid rgba(168,123,123,0.4)",
-          color: "#A87B7B",
-          fontFamily: "'Source Serif 4', serif",
-          fontSize: "0.78rem", letterSpacing: "0.15em", textTransform: "uppercase",
-          padding: "0.5rem 1.4rem", cursor: "pointer",
-        }}
-      >기록하기</button>
     </div>
   );
 }
