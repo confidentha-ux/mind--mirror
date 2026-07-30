@@ -136,23 +136,22 @@ export default function Prologue({ onEnter, onBack }) {
       {/* ── 문 앞 ─────────────────────────────────────────── */}
       {phase === "door" && (
         <div style={{ width: "100%", maxWidth: 560, textAlign: "center" }}>
-          <div className="fade" style={{ animationDelay: "0.05s", marginBottom: "2.5rem" }}>
-            <div style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontSize: "1rem", color: "rgba(247,242,232,0.55)", marginBottom: "0.15rem" }}>마음거울</div>
-            <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(247,242,232,0.3)" }}>Mirroring Mind</div>
-          </div>
-          <div className="fade" style={{ animationDelay: "0.1s" }}>
+          <div className="fade" style={{ animationDelay: "0.05s", marginBottom: "1.5rem", position: "relative", width: "min(58vw, 230px)", margin: "0 auto 1.5rem" }}>
+            <img src="/mirror.png" alt="" style={{ width: "100%", height: "auto", display: "block" }} />
             <div style={{
-              fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem",
-              letterSpacing: "0.35em", textTransform: "uppercase",
-              color: GOLD, marginBottom: "2.5rem",
-            }}>Prologue</div>
+              position: "absolute", top: "42%", left: "50%",
+              transform: "translate(-50%, -50%)", textAlign: "center", width: "68%",
+            }}>
+              <img src="/mark.png" alt="마음거울" style={{ width: "100%", height: "auto", display: "block", margin: "0 auto" }} />
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.5rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(247,242,232,0.4)", marginTop: "0.4rem" }}>Mirroring Mind</div>
+            </div>
           </div>
 
-          <div className="fade" style={{ animationDelay: "0.5s" }}>
+          <div className="fade" style={{ animationDelay: "0.5s", marginTop: "2.5rem" }}>
             <h1 style={{
               fontFamily: "'Playfair Display',serif", fontStyle: "italic",
               fontSize: "clamp(1.7rem,4.5vw,2.4rem)", fontWeight: 400,
-              color: IVORY, lineHeight: 1.3, marginBottom: "2.5rem",
+              color: GOLD, lineHeight: 1.3, marginBottom: "2.5rem",
             }}>Read Your Life Again.</h1>
           </div>
 
