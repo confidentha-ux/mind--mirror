@@ -1165,7 +1165,7 @@ export default function App() {
       `}</style>
       <div style={{ width: "100%", maxWidth: 520 }}>
         <div style={{ marginBottom: "3rem", paddingBottom: "2rem", borderBottom: "1px solid rgba(247,242,232,0.1)" }}>
-          <img src="/mark.png" alt="마음거울" style={{ height: "22px", width: "auto", marginBottom: "1.1rem", display: "block" }} />
+          <img src="/mark_strong.png" alt="마음거울" style={{ height: "30px", width: "auto", marginBottom: "1rem", display: "block" }} />
           <h1 style={{ fontFamily: "'Source Serif 4',serif", fontSize: "clamp(1.8rem,5vw,2.4rem)", fontWeight: 400, color: "rgba(247,242,232,0.9)", lineHeight: 1.2, marginBottom: "0.75rem" }}>나를 만나는 다섯 가지 방식</h1>
         </div>
 
