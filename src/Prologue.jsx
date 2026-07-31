@@ -143,7 +143,7 @@ export default function Prologue({ onEnter, onBack }) {
               transform: "translate(-50%, -50%)", textAlign: "center", width: "46%",
             }}>
               <img src="/mark.png" alt="마음거울" style={{ width: "100%", height: "auto", display: "block", margin: "0 auto" }} />
-              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.42rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(247,242,232,0.35)", marginTop: "0.35rem" }}>Mirroring Mind</div>
+              
             </div>
           </div>
 
