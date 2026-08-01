@@ -165,6 +165,7 @@ const SECTION2_QUESTIONS = [
           "말하지 않아도 알아줄 때",
           "내 편이라는 게 느껴질 때",
           "함께 뭔가를 해낼 때",
+          "직접 입력",
         ],
       },
       "함께인데 혼자인 것 같다": {
@@ -175,6 +176,7 @@ const SECTION2_QUESTIONS = [
           "대화는 하는데 마음은 닿지 않는 것 같을 때",
           "내 이야기를 아무도 궁금해하지 않을 때",
           "내가 없어도 아무 상관없을 것 같을 때",
+          "직접 입력",
         ],
       },
       "맞춰야 한다는 느낌이 든다": {
@@ -186,6 +188,7 @@ const SECTION2_QUESTIONS = [
           "내 말이 상대를 불편하게 할까봐 망설여질 때",
           "나를 숨기고 맞춰가고 있다는 느낌이 들 때",
           "내가 너무 많은 걸 원하는 건 아닐까 싶을 때",
+          "직접 입력",
         ],
       },
       "관계에서 자주 아프다": {
@@ -198,6 +201,7 @@ const SECTION2_QUESTIONS = [
           "내 감정이 가볍게 취급당한 것 같을 때",
           "사과를 받지 못했을 때",
           "내가 먼저 손을 내밀어야 하는 상황일 때",
+          "직접 입력",
         ],
       },
       "기대고 싶은데 기대면 안 될 것 같다": {
@@ -209,6 +213,7 @@ const SECTION2_QUESTIONS = [
           "도움을 받고 싶은데 부탁하면 약해 보일 것 같다",
           "관계를 끊고 싶은데 끊으면 후회할 것 같다",
           "상대가 나를 얼마나 좋아하는지 확인하고 싶어진다",
+          "직접 입력",
         ],
       },
     },
@@ -278,6 +283,7 @@ const SECTION2_QUESTIONS = [
       "하기 싫었는데 해냈을 때",
       "할 수 있다고 생각했는데 못 했을 때",
       "나도 몰랐던 감정이 올라왔을 때",
+      "직접 입력",
     ],
   },
   {
@@ -614,6 +620,8 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
   const [stage2Answer, setStage2Answer] = useState([]);
   const [followUpAnswer, setFollowUpAnswer] = useState(null);
   const [showFollowUp, setShowFollowUp] = useState(false);
+  const [customInput, setCustomInput] = useState("");
+  const [stage2CustomInput, setStage2CustomInput] = useState("");
   const [analysis, setAnalysis] = useState("");
   const [visibleSections, setVisibleSections] = useState([]);
 
@@ -636,6 +644,7 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
     if (q?.type === "two_stage") {
       if (!stage1Answer) return false;
       if (stage2Answer.length === 0) return false;
+      if (stage2Answer.includes("직접 입력") && !stage2CustomInput.trim()) return false;
       return true;
     }
     if (q?.type === "multi") {
@@ -644,11 +653,22 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
     if (showFollowUp) {
       return !!followUpAnswer;
     }
+    if (answers[currentQ] === "직접 입력") {
+      return !!customInput.trim();
+    }
     return !!answers[currentQ];
   }
 
   function handleSingle(opt) {
+    if (opt === "직접 입력") {
+      setAnswers(prev => ({ ...prev, [currentQ]: "직접 입력" }));
+      setShowFollowUp(false);
+      setFollowUpAnswer(null);
+      setCustomInput("");
+      return; // 직접입력은 텍스트 입력을 기다려야 하니 자동 진행 안 함
+    }
     setAnswers(prev => ({ ...prev, [currentQ]: opt }));
+    setCustomInput("");
     if (q.followUp && opt === q.followUp.condition) {
       setShowFollowUp(true);
     } else {
@@ -660,6 +680,8 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
       setTimeout(() => goNext({ ...answers, [currentQ]: opt }), 300);
     }
   }
+
+
 
   function handleMulti(opt) {
     const cur = answers[currentQ] || [];
@@ -680,12 +702,13 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
     setStage2Answer(prev => prev.includes(opt) ? prev.filter(o => o !== opt) : [...prev, opt]);
   }
 
-  function goNext(overrideAnswers) {
+  function goNext(overrideAnswers, overrideStage2) {
     const allAnswers = overrideAnswers || answers;
+    const stage2Final = overrideStage2 || stage2Answer;
     let finalAnswer = allAnswers[currentQ];
 
     if (q?.type === "two_stage") {
-      finalAnswer = `${stage1Answer} > ${stage2Answer.join(", ")}`;
+      finalAnswer = `${stage1Answer} > ${stage2Final.join(", ")}`;
     } else if (showFollowUp && followUpAnswer) {
       finalAnswer = `${allAnswers[currentQ]} (확인: ${followUpAnswer})`;
     } else if (q?.followUp && !q?.followUp?.condition) {
@@ -699,6 +722,8 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
     setStage2Answer([]);
     setFollowUpAnswer(null);
     setShowFollowUp(false);
+    setCustomInput("");
+    setStage2CustomInput("");
 
     if (currentQ < questions.length - 1) {
       setCurrentQ(currentQ + 1);
@@ -710,6 +735,20 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
 
   function handleNext() {
     if (!canProceed()) return;
+    if (answers[currentQ] === "직접 입력" && customInput.trim()) {
+      const newAnswers = { ...answers, [currentQ]: customInput.trim() };
+      setAnswers(newAnswers);
+      setCustomInput("");
+      goNext(newAnswers);
+      return;
+    }
+    if (q?.type === "two_stage" && stage2Answer.includes("직접 입력") && stage2CustomInput.trim()) {
+      const merged = stage2Answer.map(o => o === "직접 입력" ? stage2CustomInput.trim() : o);
+      setStage2Answer(merged);
+      setStage2CustomInput("");
+      goNext(undefined, merged);
+      return;
+    }
     goNext();
   }
 
@@ -722,6 +761,8 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
       setStage2Answer([]);
       setFollowUpAnswer(null);
       setShowFollowUp(false);
+      setCustomInput("");
+      setStage2CustomInput("");
     }
   }
 
@@ -863,6 +904,21 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
                       </button>
                     );
                   })}
+                  {stage2Answer.includes("직접 입력") && (
+                    <div style={{ marginTop: "0.5rem" }}>
+                      <textarea
+                        value={stage2CustomInput}
+                        onChange={e => setStage2CustomInput(e.target.value)}
+                        placeholder="직접 적어주세요"
+                        rows={2}
+                        style={{
+                          width: "100%", background: "rgba(0,0,0,0.04)", border: `1px solid ${accentColor}`,
+                          color: textColor, fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300,
+                          padding: "0.7rem 1rem", resize: "none", outline: "none", lineHeight: 1.6,
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -880,6 +936,22 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
                   textAlign: "left", padding: "0.85rem 1.1rem", cursor: "pointer", marginBottom: "0.4rem", lineHeight: 1.5, transition: "all 0.3s",
                 }}>{opt}</button>
               ))}
+
+              {answers[currentQ] === "직접 입력" && (
+                <div style={{ marginTop: "0.75rem" }}>
+                  <textarea
+                    value={customInput}
+                    onChange={e => setCustomInput(e.target.value)}
+                    placeholder="직접 적어주세요"
+                    rows={2}
+                    style={{
+                      width: "100%", background: "rgba(0,0,0,0.04)", border: `1px solid ${accentColor}`,
+                      color: textColor, fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300,
+                      padding: "0.75rem 1rem", resize: "none", outline: "none", lineHeight: 1.6,
+                    }}
+                  />
+                </div>
+              )}
 
               {showFollowUp && q.followUp && (
                 <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
@@ -937,7 +1009,7 @@ function MCQSection({ questions, sectionNum, accentColor, bgColor, textColor, in
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2rem" }}>
             <button onClick={handleBack} style={{ background: "transparent", border: "none", fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", cursor: "pointer", color: textColor, opacity: 0.35 }}>← 이전</button>
-            {(q.type !== "single" || showFollowUp || q.followUp || q.type === "two_stage" || q.type === "multi") && (
+            {(q.type !== "single" || showFollowUp || q.followUp || q.type === "two_stage" || q.type === "multi" || answers[currentQ] === "직접 입력") && (
               <button onClick={handleNext} disabled={!canProceed()} style={{
                 background: "transparent", border: "none", fontFamily: "'Source Serif 4',serif",
                 fontSize: "0.78rem", letterSpacing: "0.18em", textTransform: "uppercase",
