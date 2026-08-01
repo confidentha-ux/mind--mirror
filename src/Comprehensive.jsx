@@ -114,9 +114,34 @@ export default function Comprehensive({ onBack }) {
       const finalText = r5?.answer;    // 섹션5 최종 선택 (짧은 문장)
       if (!firstText || !finalText) return null;
 
-      // 인덱스로 매핑 (순서 일치: 0=자리이동, 1=전직, 2=유예)
-      const firstIdx = firstText.includes("다른 자리") ? 0 : firstText.includes("전혀 다른") ? 1 : 2;
-      const finalIdx = finalText.includes("다른 자리") ? 0 : finalText.includes("전혀 다른") ? 1 : 2;
+      // 프롤로그 S3 선택지 (긴 문장) — 정확 배열 매칭 우선, 키워드 폴백
+      const PROLOGUE_S3_OPTIONS = [
+        "지금 있는 곳에서 다른 자리로 옮긴다 — 지위는 오르지만 돈은 그대로다",
+        "전혀 다른 곳으로 옮긴다 — 해본 적 없는 일이지만 돈은 지금보다 오른다",
+        "두 가능성을 모두 미룬다 — 지금 있는 곳에 머물며, 다음 기회를 만든다",
+      ];
+      // 섹션5 다시보기 최종 선택지 (현재 문구) — 정확 배열 매칭 우선, 키워드 폴백
+      const SECTION5_FINAL_OPTIONS = [
+        "지금 있는 곳에서 새로운 역할로 확장한다",
+        "전혀 다른 곳에서 새로운 일을 시작한다",
+        "현재 자리에서 다음 기회를 준비한다",
+      ];
+
+      function matchIndex(text, exactList, keywordSets) {
+        const exactIdx = exactList.indexOf(text);
+        if (exactIdx !== -1) return exactIdx;
+        for (let i = 0; i < keywordSets.length; i++) {
+          if (keywordSets[i].some(kw => text.includes(kw))) return i;
+        }
+        return 2; // 그 무엇도 안 걸리면 마지막(유예)으로 안전하게 폴백
+      }
+
+      const firstIdx = matchIndex(firstText, PROLOGUE_S3_OPTIONS, [
+        ["다른 자리"], ["전혀 다른"], ["미루"],
+      ]);
+      const finalIdx = matchIndex(finalText, SECTION5_FINAL_OPTIONS, [
+        ["지금 있는 곳", "확장한다", "다른 자리"], ["전혀 다른", "새 회사"], ["현재 자리", "다음 기회", "미루"],
+      ]);
       const labels = ["지금 있는 곳에서 다른 자리로", "전혀 다른 곳으로", "미루고 기다린다"];
       const shortLabels = ["자리이동", "새로운 도전", "유예"];
 
@@ -141,8 +166,8 @@ export default function Comprehensive({ onBack }) {
 
       return {
         changed: firstIdx !== finalIdx,
-        firstLabel: labels[firstIdx],
-        finalLabel: labels[finalIdx],
+        firstLabel: firstText,
+        finalLabel: finalText,
         firstShort: shortLabels[firstIdx],
         finalShort: shortLabels[finalIdx],
         comment: commentTable[firstIdx][finalIdx],
