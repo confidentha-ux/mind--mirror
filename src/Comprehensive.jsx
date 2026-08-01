@@ -32,20 +32,20 @@ const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니�
 - 전체가 하나의 흐름처럼 읽혀야 한다
 
 ## 겹쳤을 때 보이는 것
-다섯 결과를 겹쳤을 때만 보이는 가장 강한 패턴 하나를 깊고 정확하게. 8-10문장.
+다섯 결과를 함께 보았을 때 반복해서 나타나는 가장 강한 판단 기준을 설명하라. 상황에 따라 달라진 반응이나 전체 흐름에서 벗어난 답이 있다면, 그것이 어떤 조건에서 나타났는지도 함께 보여줘라. 8-10문장.
 
-## 그것이 당신에게 한 일
-그 패턴이 이 사람에게 어떤 강점을 만들었고, 동시에 어떤 비용을 치르게 했는지. 6-8문장.
+## 그 기준이 당신의 판단에 미친 영향
+반복된 판단 기준이 어떤 선택을 쉽게 만들었는지, 무엇을 빠르게 알아차리게 했는지 설명하라. 동시에 그 기준 때문에 뒤로 밀리거나 충분히 살피지 못했을 가능성이 있는 요소도 구체적으로 보여줘라. 6-8문장.
 
-## 지금 당신에게 남는 질문
-처방하지 마라. 이 사람이 스스로 가져갈 수 있는 질문 하나로 끝낼 것. 2-3문장.
+## 지금 남는 질문
+앞선 분석을 바탕으로, 사용자가 자신의 판단 기준을 한 번 더 살펴볼 수 있는 질문 하나를 제시하라. 행동을 권하거나 답을 정해주지 마라. 2-3문장.
 
 한국어로 작성하세요.`;
 
 function parseSection(text, key) {
   if (!text) return "";
   const allKeys = [
-    "겹쳤을 때 보이는 것", "그것이 당신에게 한 일", "지금 당신에게 남는 질문",
+    "겹쳤을 때 보이는 것", "그 기준이 당신의 판단에 미친 영향", "지금 남는 질문",
   ];
   const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const idx = allKeys.indexOf(key);
@@ -118,10 +118,35 @@ export default function Comprehensive({ onBack }) {
       const firstIdx = firstText.includes("다른 자리") ? 0 : firstText.includes("전혀 다른") ? 1 : 2;
       const finalIdx = finalText.includes("다른 자리") ? 0 : finalText.includes("전혀 다른") ? 1 : 2;
       const labels = ["지금 있는 곳에서 다른 자리로", "전혀 다른 곳으로", "미루고 기다린다"];
+      const shortLabels = ["자리이동", "새로운 도전", "유예"];
+
+      // 9가지 조합별 해석 (판정 없이, 관찰 톤 — plain하게)
+      const commentTable = [
+        [
+          "이번에도 자리이동을 골랐습니다. 처음 선택이 흔들리지 않았습니다.",
+          "이번에는 새로운 도전을 골랐습니다. 처음과는 다른 답이었습니다.",
+          "이번에는 유예를 골랐습니다. 자리이동에 대한 확신이 잠시 물러섰습니다.",
+        ],
+        [
+          "이번에는 자리이동을 골랐습니다. 낯선 쪽 대신 익숙한 쪽을 택했습니다.",
+          "이번에도 새로운 도전을 골랐습니다. 낯선 쪽을 향한 마음이 그대로였습니다.",
+          "이번에는 유예를 골랐습니다. 뛰어들기 전에 한 번 더 보고 싶어졌습니다.",
+        ],
+        [
+          "이번에는 자리이동을 골랐습니다. 기다리던 마음이 익숙한 쪽으로 움직였습니다.",
+          "이번에는 새로운 도전을 골랐습니다. 기다리던 마음이 가장 낯선 쪽으로 움직였습니다.",
+          "이번에도 유예를 골랐습니다. 서두르지 않는 마음이 그대로였습니다.",
+        ],
+      ];
+
       return {
         changed: firstIdx !== finalIdx,
         firstLabel: labels[firstIdx],
         finalLabel: labels[finalIdx],
+        firstShort: shortLabels[firstIdx],
+        finalShort: shortLabels[finalIdx],
+        comment: commentTable[firstIdx][finalIdx],
+        reason: r5?.reason || null,
       };
     } catch (e) { return null; }
   })();
@@ -231,10 +256,10 @@ export default function Comprehensive({ onBack }) {
             fontWeight: 400,
             color: "#26322C",
             lineHeight: 1.2, marginBottom: "2rem",
-          }}>반복된 것과 어긋난 것이 함께 보일 때</h1>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "0.75rem" }}>내 마음의 전체화면은 앞선 결과를 다시 요약하지 않습니다.<br />답들 사이에서 반복되는 흐름과, 유난히 다르게 빛나는 지점을 함께 봅니다.</p>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "0.75rem" }}>나는 어디에서 익숙한 나로 돌아갔고,<br />어디에서 다른 가능성을 보였을까요?</p>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9 }}>이제 흩어져 있던 답들이 나의 전체화면으로 모입니다.</p>
+          }}>반복된 흐름과 달라진 지점이 함께 보일 때</h1>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "0.75rem" }}>다섯 개의 거울은 서로 다른 상황에서 당신이 무엇을 먼저 살피고, 무엇을 중요하게 여기며, 무엇을 지키려 했는지를 비추었습니다.</p>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "0.75rem" }}>여러 답을 한곳에 놓으면 상황이 달라져도 반복해서 나타난 판단의 기준이 보입니다. 평소와 다른 기준이 작동한 순간도 함께 드러납니다.</p>
+          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9 }}>나는 어떤 상황에서 익숙한 기준으로 판단했고, 어디에서 평소와 다른 가능성을 살펴보았을까요?</p>
         </div>
 
         {/* 오늘의 한 문장 (기존 저장된 것) */}
@@ -262,8 +287,8 @@ export default function Comprehensive({ onBack }) {
             }}>
               {[
                 { key: "겹쳤을 때 보이는 것" },
-                { key: "그것이 당신에게 한 일" },
-                { key: "지금 당신에게 남는 질문" },
+                { key: "그 기준이 당신의 판단에 미친 영향" },
+                { key: "지금 남는 질문" },
               ].map(({ key }, i, arr) => {
                 const content = parseSection(comprehensive, key);
                 const isLast = i === arr.length - 1;
@@ -288,23 +313,70 @@ export default function Comprehensive({ onBack }) {
           {/* Situation 3 선택 변화 블록 — 분석이 나온 뒤에만 */}
           {comprehensive && !loading && s3 && (
             <div style={{ marginTop: "2.5rem", padding: "2rem", border: "1px solid rgba(168,123,123,0.3)", background: "rgba(168,123,123,0.04)" }}>
-              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#A87B7B", marginBottom: "1.5rem" }}>당신의 선택</div>
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#A87B7B", marginBottom: "1.25rem" }}>당신의 선택</div>
+
+              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "1.75rem" }}>
+                처음 세 가지 상황을 만났을 때, 당신은 그 순간 가장 자연스럽게 느껴지는 선택을 했습니다.
+                다섯 개의 거울을 지나며 자신의 감정, 우선순위, 반복되는 반응, 기억의 영향, 관점을 바꾸었을 때 보이는 가능성을 살펴보았습니다.
+                그 뒤 같은 상황에서 여러 조건을 다시 확인하고, 한 번 더 선택했습니다.
+              </p>
 
               <div style={{ marginBottom: "0.9rem" }}>
                 <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.1em", color: "rgba(38,50,44,0.4)", marginRight: "0.75rem" }}>처음</span>
                 <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.95rem", fontWeight: 300, color: "rgba(38,50,44,0.8)" }}>{s3.firstLabel}</span>
               </div>
               <div style={{ marginBottom: "1.75rem" }}>
-                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.1em", color: "rgba(38,50,44,0.4)", marginRight: "0.75rem" }}>나중</span>
+                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.1em", color: "rgba(38,50,44,0.4)", marginRight: "0.75rem" }}>다시 선택한 것</span>
                 <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.95rem", fontWeight: 300, color: "rgba(38,50,44,0.8)" }}>{s3.finalLabel}</span>
               </div>
 
               <div style={{ width: "100%", height: "1px", background: "rgba(168,123,123,0.15)", marginBottom: "1.25rem" }} />
 
-              <p style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontSize: "1rem", color: "#8A6363", lineHeight: 1.8 }}>
-                {s3.changed
-                  ? "세 장면을 지나는 동안, 당신의 마음은 다른 곳으로 움직였습니다. 무엇이 그 마음을 바꾸었을까요."
-                  : "세 장면을 다 보고도, 당신은 처음의 자리로 돌아왔습니다. 무엇이 당신을 그 자리에 머물게 했을까요."}
+              {s3.reason ? (
+                <div style={{ marginBottom: "1.75rem" }}>
+                  <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.1em", color: "rgba(38,50,44,0.4)", marginBottom: "0.5rem" }}>이번 판단에서 중요하게 본 기준</div>
+                  <p style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontSize: "1rem", color: "#8A6363", lineHeight: 1.8 }}>"{s3.reason}"</p>
+                </div>
+              ) : (
+                <p style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontSize: "1rem", color: "#8A6363", lineHeight: 1.8, marginBottom: "1.75rem" }}>
+                  {s3.comment}
+                </p>
+              )}
+
+              <div style={{ width: "100%", height: "1px", background: "rgba(168,123,123,0.15)", marginBottom: "1.75rem" }} />
+
+              {s3.changed ? (
+                <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "1.75rem" }}>
+                  당신은 처음과 다른 선택을 했습니다.
+                  선택이 바뀌었다는 사실보다 중요한 것은, 선택할 때 중요하게 본 기준이 달라졌다는 점입니다.<br /><br />
+                  처음에는 한 가지 조건이 더 크게 보였지만, 다섯 개의 거울을 지난 뒤에는 이전에 충분히 살피지 않았던 조건도 함께 고려하게 되었습니다.
+                  무엇을 얻을 수 있는지만이 아니라 무엇을 감수해야 하는지, 무엇을 지키고 싶은지, 지금의 자신에게 어떤 조건이 더 중요한지도 확인했습니다.<br /><br />
+                  이번 선택은 처음의 판단이 잘못되었다는 뜻이 아닙니다. 처음에는 그때 보이던 기준으로 판단했고, 지금은 더 넓어진 조건 안에서 다시 판단한 것입니다.
+                  {s3.reason && <><br /><br />당신이 직접 적은 문장은 무엇이 달라졌기 때문에 선택도 달라졌는지를 보여줍니다.</>}
+                </p>
+              ) : (
+                <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "1.75rem" }}>
+                  당신은 처음과 같은 선택을 했습니다.
+                  하지만 같은 선택이 같은 이유만을 의미하지는 않을 것입니다.<br /><br />
+                  처음에는 익숙함, 기대, 불안, 보상처럼 가장 먼저 눈에 들어온 조건이 선택을 이끌었을 수 있습니다.
+                  다시 선택할 때는 그 선택이 가져올 가능성과 부담, 포기해야 할 것과 지키고 싶은 것까지 함께 확인했습니다.<br /><br />
+                  그 모든 조건을 살펴본 뒤에도 같은 선택을 했다면, 이번 선택은 단순히 처음의 반응을 반복한 것과는 다릅니다.
+                  자신이 무엇을 중요하게 여기며, 어떤 부담을 감수할 수 있고, 무엇은 포기하고 싶지 않은지를 확인한 뒤 다시 선택한 것입니다.
+                  {s3.reason && <><br /><br />당신이 직접 적은 문장은 왜 이 선택이 여전히 자신에게 중요한지를 보여줍니다.</>}
+                </p>
+              )}
+
+              <div style={{ width: "100%", height: "1px", background: "rgba(168,123,123,0.15)", marginBottom: "1.75rem" }} />
+
+              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.68rem", letterSpacing: "0.15em", color: "rgba(38,50,44,0.4)", marginBottom: "1rem" }}>판단의 기준을 안다는 것</div>
+              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(38,50,44,0.6)", lineHeight: 1.9 }}>
+                판단의 기준을 확인한다고 해서 언제나 선택이 달라지는 것은 아닙니다.
+                달라질 수도 있고, 그대로일 수도 있습니다. 중요한 것은 선택의 변화 자체가 아니라, 자신이 무엇을 보고 그 판단에 이르렀는지를 아는 것입니다.<br /><br />
+                판단의 기준을 알고 내린 선택은 순간적인 감정이나 익숙한 반응만으로 내린 선택보다 더 분명하게 자신의 것이 됩니다.
+                선택한 뒤에도 왜 그런 결정을 했는지 돌아볼 수 있고, 새로운 사실을 알게 되었을 때 무엇을 다시 검토해야 하는지도 알 수 있습니다.<br /><br />
+                이 과정은 같은 상황에서 같은 후회를 반복하거나, 자신의 판단을 이유 없이 부정하는 일을 줄이는 데 도움이 됩니다.
+                판단이 달라졌을 때도 과거의 자신을 틀린 사람으로 몰아가지 않고, 당시에는 어떤 기준으로 보았으며 지금은 무엇이 달라졌는지를 구분할 수 있게 합니다.
+                {s3.reason && <><br /><br />오늘 당신이 남긴 문장은 정답이 아니라, 지금의 당신이 확인한 판단 기준의 기록입니다.</>}
               </p>
             </div>
           )}
@@ -312,44 +384,20 @@ export default function Comprehensive({ onBack }) {
 
         {/* 엔딩 */}
         <div style={{ borderTop: "1px solid rgba(38,50,44,0.12)", paddingTop: "3rem", marginBottom: "3rem" }}>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "1rem" }}>
-            오늘 당신은 꽤 새로운 일을 해보았어요.<br />
-            자신에게 일어난 사건과 남이 한 말이 아니라,<br />
-            자신의 말로 자신을 바라본 거예요.<br />
-            쉽지 않은 일이죠?
-          </p>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "1rem" }}>
-            그러니 여기까지 온 자신을 자랑스럽게 여기고,<br />
-            잘했다 칭찬해주셔도 돼요.<br />
-            인생에 꽤 드문 일을 해보신 거예요.
-          </p>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "1rem" }}>
-            언젠가 마음이 다시 흔들리는 날,<br />
-            오늘 여기서 바라본 자신의 말을 다시 꺼내보세요.<br />
-            그때의 나와 지금의 나가 달라져 있을 수도 있고,<br />
-            놀랍도록 같을 수도 있어요.<br />
-            어느 쪽이든, 그것도 당신을 이해하는 하나의 방식이에요.
-          </p>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "2rem" }}>
-            그때의 나는 오늘 쓴 글을 다르게 읽을지도 모릅니다.<br />
-            같은 글을 다시 읽었는데 다르게 느껴지는 것처럼요.<br />
-            나 자신을 다시 보면 다르게 보일 겁니다.
-          </p>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "2.5rem" }}>
-            오늘 결과를 가까운 사람에게 보여주세요.<br />
-            오래 함께했는데도 몰랐던 것들이 보이기 시작할 거예요.<br />
-            당신의 AI와 함께 더 깊이 이야기해보셔도 좋아요.
-          </p>
 
           {/* 기록 파트 */}
           <div style={{ marginBottom: "2.5rem" }}>
-            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.5)", lineHeight: 1.9, marginBottom: "0.4rem" }}>오늘 여기서 어떤 순간이 가장 마음에 남았나요?</p>
-            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.5)", lineHeight: 1.9, marginBottom: "1rem" }}>오늘 새롭게 발견한 나는 누구인가요?</p>
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.5)", lineHeight: 1.9, marginBottom: "0.4rem" }}>오늘 가장 마음에 남은 순간은 무엇이었나요?</p>
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.5)", lineHeight: 1.9, marginBottom: "1rem" }}>오늘 확인한 나의 판단 기준 가운데, 앞으로도 기억하고 싶은 것은 무엇인가요?</p>
             {!todaySentence ? (
               <TodaySentenceWidget onSave={handleSaveSentence} />
             ) : (
               <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "1rem", fontStyle: "italic", color: "#A87B7B", lineHeight: 1.85 }}>"{todaySentence.sentence}"</p>
             )}
+            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", fontWeight: 300, color: "rgba(38,50,44,0.4)", lineHeight: 1.9, marginTop: "1rem" }}>
+              오늘의 기록은 나중에 같은 선택 앞에 섰을 때 다시 꺼내볼 수 있습니다.
+              그때 판단이 달라졌다면 무엇이 달라졌는지, 판단이 같다면 어떤 기준이 여전히 중요하게 남아 있는지를 비교해볼 수 있습니다.
+            </p>
           </div>
 
           {/* 피드백 */}
