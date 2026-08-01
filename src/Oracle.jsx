@@ -126,7 +126,7 @@ const MEMORY_QUESTIONS = [
   },
   {
     id: 9,
-    type: "single",
+    type: "single_with_input",
     title: "판단",
     question: "그 상황을 겪고 나서 나 자신에 대해 드는 생각은 뭔가요?",
     options: [
@@ -138,6 +138,7 @@ const MEMORY_QUESTIONS = [
       "나는 혼자인 게 편하다",
       "나는 사랑받기 어려운 사람인 것 같다",
       "딱히 해당되는 게 없다",
+      "직접 입력",
     ],
   },
   {
