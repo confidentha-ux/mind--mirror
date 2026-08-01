@@ -4,6 +4,7 @@ import { useState } from "react";
 // Situation 다시 보기
 // App.js에서 sectionKey, userType, onDone을 전달받아 사용합니다.
 // 답변 결과는 { section, situation, question, answer } 형태로 반환합니다.
+// 섹션5(최종 선택)만 answer 뒤에 짧은 이유(reason) 질문이 추가됩니다.
 // ──────────────────────────────────────────────────────────────────
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
@@ -175,35 +176,35 @@ export const REVISITS = {
     branched: false,
     scenes: [
       {
-        title: "A · 내부에서 역할을 확장했다면",
+        title: "A · 지금 있는 곳에서 역할을 확장했다면",
         lines: [
-          "당신은 익숙한 회사 안의 새로운 자리에 앉아 있습니다.",
+          "당신은 익숙한 곳 안의 새로운 자리에 앉아 있습니다.",
           "직책과 책임은 달라졌고, 이전보다 더 많은 사람이 당신의 판단을 기다립니다.",
-          "급여는 크게 달라지지 않았지만, 앞으로 맡을 수 있는 일의 범위는 넓어졌습니다.",
+          "조건은 크게 달라지지 않았지만, 앞으로 맡을 수 있는 일의 범위는 넓어졌습니다.",
         ],
       },
       {
-        title: "B · 새로운 회사로 옮겼다면",
+        title: "B · 전혀 다른 곳으로 옮겼다면",
         lines: [
           "당신은 처음 보는 사람들과 새로운 일을 시작합니다.",
-          "배워야 할 것이 많지만, 이전보다 높은 보상과 새로운 가능성이 열려 있습니다.",
-          "캘린더에는 새로운 미팅들이 잡히고 있습니다.",
+          "배워야 할 것이 많지만, 이전보다 나은 조건과 새로운 가능성이 열려 있습니다.",
+          "낯선 일정들이 하나둘 잡히고 있습니다.",
         ],
       },
       {
         title: "C · 현재 자리에서 기반을 강화했다면",
         lines: [
-          "당신은 두 제안을 모두 거절하고 익숙한 자리에서 다시 하루를 시작합니다.",
+          "당신은 두 가능성을 모두 미루고 익숙한 자리에서 다시 하루를 시작합니다.",
           "하지만 이전과 같은 하루를 반복하는 것은 아닙니다.",
-          "다음 승진 기회를 맡을 사람에게 필요한 경험과 기준을 현재 자리에서 쌓아갑니다.",
+          "다음 기회를 맡을 사람에게 필요한 경험과 기준을 현재 자리에서 쌓아갑니다.",
         ],
       },
     ],
     question:
       "세 가지 가능성을 다시 본 지금, 당신은 무엇을 선택하겠습니까?",
     options: [
-      "내부에서 새로운 역할로 확장한다",
-      "새 회사에서 새로운 일을 시작한다",
+      "지금 있는 곳에서 새로운 역할로 확장한다",
+      "전혀 다른 곳에서 새로운 일을 시작한다",
       "현재 자리에서 다음 기회를 준비한다",
     ],
   },
@@ -217,6 +218,8 @@ export default function SituationRevisit({
   const spec = REVISITS[sectionKey];
   const [answered, setAnswered] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [askReason, setAskReason] = useState(false);
+  const [reasonText, setReasonText] = useState("");
 
   if (!spec) {
     return (
@@ -248,22 +251,96 @@ export default function SituationRevisit({
     options = branch.options;
   }
 
+  function finish(option, reason) {
+    if (onDone) {
+      onDone({
+        section: sectionKey,
+        situation: spec.situation,
+        question,
+        answer: option,
+        ...(reason ? { reason } : {}),
+      });
+    }
+  }
+
   function choose(option) {
     if (answered) return;
 
     setAnswered(true);
     setSelectedAnswer(option);
 
-    window.setTimeout(() => {
-      if (onDone) {
-        onDone({
-          section: sectionKey,
-          situation: spec.situation,
-          question,
-          answer: option,
-        });
-      }
-    }, 340);
+    // 섹션5(최종 선택)만: 답 고르고 짧은 이유를 하나 더 물어본 뒤 완료 처리
+    if (sectionKey === "section5") {
+      window.setTimeout(() => setAskReason(true), 340);
+      return;
+    }
+
+    window.setTimeout(() => finish(option), 340);
+  }
+
+  function submitReason() {
+    finish(selectedAnswer, reasonText.trim());
+  }
+
+  if (askReason) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          background: DEEP,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "3rem 1.5rem",
+        }}
+      >
+        <style>{`
+          ${FONTS}
+          * { box-sizing: border-box; }
+          body { margin: 0; }
+          @keyframes fadeUp { from { opacity:0; transform:translateY(18px);} to {opacity:1; transform:translateY(0);} }
+          .revisit-fade { opacity: 0; animation: fadeUp 0.9s ease forwards; }
+        `}</style>
+        <main style={{ width: "100%", maxWidth: 600 }}>
+          <div className="revisit-fade" style={{ animationDelay: "0.1s", marginBottom: "1.5rem" }}>
+            <div style={{
+              fontFamily: "'Source Serif 4', serif", fontSize: "0.62rem",
+              letterSpacing: "0.3em", textTransform: "uppercase",
+              color: GOLD, marginBottom: "1.5rem",
+            }}>마지막으로</div>
+            <p style={{
+              fontFamily: "'Playfair Display', serif", fontSize: "1.12rem",
+              fontWeight: 400, color: IVORY, lineHeight: 1.5,
+            }}>"{selectedAnswer}" — 이 선택을 이끈 것은 무엇이었나요?</p>
+          </div>
+          <div className="revisit-fade" style={{ animationDelay: "0.35s", marginBottom: "1.25rem" }}>
+            <textarea
+              value={reasonText}
+              onChange={e => setReasonText(e.target.value)}
+              placeholder="짧게, 떠오르는 대로 적어주세요"
+              rows={3}
+              style={{
+                width: "100%", background: "rgba(247,242,232,0.05)",
+                border: "1px solid rgba(247,242,232,0.18)", color: IVORY,
+                fontFamily: "'Source Serif 4', serif", fontSize: "0.92rem", fontWeight: 300,
+                padding: "0.9rem 1rem", resize: "none", outline: "none", lineHeight: 1.7,
+              }}
+            />
+          </div>
+          <div className="revisit-fade" style={{ animationDelay: "0.5s" }}>
+            <button onClick={submitReason} disabled={!reasonText.trim()} style={{
+              background: reasonText.trim() ? GOLD : "transparent",
+              border: `1px solid ${GOLD}`,
+              color: reasonText.trim() ? "#1F3A32" : GOLD,
+              opacity: reasonText.trim() ? 1 : 0.4,
+              fontFamily: "'Source Serif 4', serif", fontSize: "0.75rem",
+              letterSpacing: "0.2em", textTransform: "uppercase",
+              padding: "0.75rem 1.8rem", cursor: reasonText.trim() ? "pointer" : "default",
+            }}>다음으로 →</button>
+          </div>
+        </main>
+      </div>
+    );
   }
 
   return (
