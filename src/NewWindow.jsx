@@ -476,6 +476,16 @@ export default function NewWindow({ onBack, onComprehensive }) {
   const parsed = result ? parseResult(result) : {};
   const userMemory = answers[0]?.answer || "";
 
+  const copyAll = () => {
+    const parts = [];
+    if (userMemory) parts.push(`[ 오늘 바라본 기억 ]\n"${userMemory}"`);
+    sectionOrder.forEach(key => {
+      if (parsed[key]) parts.push(`[ ${key} ]\n${parsed[key]}`);
+    });
+    navigator.clipboard.writeText(parts.join("\n\n---\n\n"));
+    alert("복사되었습니다.");
+  };
+
   const getBg = () => {
     if (phase === "intro") return "#B0BED0";
     if (phase === "questions") return qPalette.bg;
@@ -741,6 +751,12 @@ export default function NewWindow({ onBack, onComprehensive }) {
                   letterSpacing: "0.18em", textTransform: "uppercase",
                   cursor: "pointer", padding: "1rem 2.5rem",
                 }}>다음으로 →</button>
+                <button onClick={copyAll} style={{
+                  background: "none", border: "1px solid rgba(38,50,44,0.25)", color: "rgba(38,50,44,0.6)",
+                  fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem",
+                  letterSpacing: "0.15em", textTransform: "uppercase",
+                  cursor: "pointer", padding: "0.7rem 1.6rem",
+                }}>결과 복사</button>
               </div>
             </div>
           )}
