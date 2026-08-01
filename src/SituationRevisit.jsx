@@ -1,411 +1,401 @@
-import { useState, useEffect } from "react";
-import LoadingScreen from "./LoadingScreen";
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
+import { useState } from "react";
 
-const COMPREHENSIVE_PROMPT = `당신은 마음거울의 종합 분석가입니다.
-사용자는 이미 다섯 개의 개별 검사 결과를 받았습니다.
-당신의 역할은 분석을 추가하는 것이 아닙니다.
-다섯 개를 각각 봤을 때는 보이지 않던 것, 겹쳤을 때만 드러나는 패턴 하나를 찾는 것입니다.
+// ══════════════════════════════════════════════════════════════════
+// Situation 다시 보기 — 재사용 컴포넌트 + 데이터
+//
+// 설계 원칙 (오늘 확정):
+//  · 판정 없음 — 답을 남기되 해석/결과를 주지 않는다 (프롤로그 되돌림형과 동일 철학)
+//  · 장면 회귀 — 프롤로그에서 본 장면 삽화를 다시 띄우고 그 위에 렌즈 질문을 얹는다
+//  · 섹션1만 6유형 분기 — QuickTest 결과(유형)에 따라 질문이 달라진다
+//
+// 저장: onDone(payload) 로 상위에 전달. payload = { section, situation, question, answer }
+//       진단에 쓰지 않고 종합분석 입력(낮은 가중치)으로만 사용.
+// ══════════════════════════════════════════════════════════════════
 
-입력 구조와 가중치:
-- [첫 번째 검사 – 기본 성향]: 유형 분류 결과. 텍스트가 짧다. 맥락으로만 사용할 것. 가중치 낮음.
-- [두 번째 검사 – 감정과 관계 패턴]: 특정 상황에서의 반응 패턴. 가중치 중간.
-- [세 번째 검사 – 사고 구조]: 반응 아래에서 작동하는 해석과 판단의 구조. 가중치 높음.
-- [네 번째 검사 – 메모리]: 사용자가 직접 쓴 날것의 텍스트. 가장 중요한 재료. 가중치 높음.
-- [다섯 번째 검사 – 새창열기]: 같은 재료를 다른 각도로 본 것. 세 번째, 네 번째를 보완. 가중치 중간.
-- 텍스트 양이 많은 검사를 더 중요하게 취급하지 마라. 가중치 기준을 따를 것.
+const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap');`;
 
-교차 분석의 원칙:
-- 두 개 이상에서 반복될 때만 패턴으로 인정한다
-- 가장 강한 교차점 하나를 깊게 파라. 여러 개 나열하지 마라
-- 강점과 비용이 같은 뿌리에서 나올 때 그 역설을 포착하라
-- 사용자가 직접 입력한 것에서만 근거를 가져올 것
-- 입력에 없는 과거, 어린 시절, 오래된 믿음은 추론하지 마라
-- 불확실할 때는 추론을 줄여라. 가능성 표현으로 포장해서 늘리지 마라
--'나는 사랑받기 어려운 사람인 것 같다'는 응답은 위기 신호가 아니라 자기인식의 한 형태로 다룰 것. 과도하게 반응하거나 위로 모드로 전환하지 마라
+const DEEP = "#1F3A32";
+const IVORY = "#F7F2E8";
+const GOLD = "#C9A84C";
 
-언어 원칙:
-- 볼드 절대 사용 금지
-- 소제목 절대 사용 금지
-- 존댓말. 따뜻하되 분석의 거리를 잃지 말 것
-- 위로 모드로 흐르지 마라. 정확함이 우선이다
-- 전체가 하나의 흐름처럼 읽혀야 한다
+// 장면 삽화 (프롤로그와 동일 파일 재사용)
+const SITUATION_IMAGES = {
+  1: "/situation1.jpg",
+  2: "/situation2.jpg",
+  3: "/situation3.jpg",
+};
 
-## 겹쳤을 때 보이는 것
-다섯 결과를 겹쳤을 때만 보이는 가장 강한 패턴 하나를 깊고 정확하게. 8-10문장.
+// ──────────────────────────────────────────────────────────────────
+// 섹션1 — Situation 1 다시 보기 (6유형 분기)
+// ──────────────────────────────────────────────────────────────────
 
-## 그것이 당신에게 한 일
-그 패턴이 이 사람에게 어떤 강점을 만들었고, 동시에 어떤 비용을 치르게 했는지. 6-8문장.
+const SECTION1_BRANCHES = {
+  "이해 후 행동형": {
+    question: "이 장면에서, 당신은 무엇을 이해한 뒤 움직이고 싶습니까?",
+    options: [
+      "친구가 왜 지금 이 부탁을 꺼냈는지",
+      "친구가 실제로 어떤 도움을 필요로 하는지",
+      "이 일이 얼마나 급한 상황인지",
+      "내가 도우면 일이 어떻게 흘러갈지",
+      "거절하면 어떤 일이 생길지",
+      "지금 내가 이 상황을 충분히 이해하고 있는지",
+    ],
+  },
+  "행동 후 이해형": {
+    question: "이 장면에서, 당신은 무엇을 먼저 해보며 상황을 파악하려 합니까?",
+    options: [
+      "친구에게 가장 급한 일이 무엇인지 바로 묻는다",
+      "지금 당장 할 수 있는 작은 도움부터 찾는다",
+      "내가 가능한 시간이나 범위를 먼저 말해본다",
+      "완전히 돕기 어렵다면 일부라도 할 수 있는 방법을 찾는다",
+      "다른 도움을 받을 수 있는 사람이나 방법을 바로 떠올린다",
+      "오래 고민하기보다 지금 할 수 있는 첫 행동을 정한다",
+    ],
+  },
+  "관계 우선형": {
+    question: "이 장면에서, 당신은 이 선택이 관계에 무엇을 남길지 먼저 보려 합니까?",
+    options: [
+      "친구가 이 부탁을 꺼내기까지 얼마나 망설였을지",
+      "내가 거절했을 때 친구가 어떤 마음이 될지",
+      "도와주었을 때 이 관계가 어떻게 달라질지",
+      "도와주지 않았을 때 이 관계에 무엇이 남을지",
+      "이 부탁이 우리 사이의 신뢰와 어떤 관련이 있는지",
+      "내가 어떤 대답을 해야 관계를 덜 상하게 할 수 있을지",
+    ],
+  },
+  "안정 우선형": {
+    question: "이 장면에서, 당신은 무엇이 무너지지 않도록 먼저 지키려 합니까?",
+    options: [
+      "내가 감당할 수 있는 선을 넘지 않는 것",
+      "내 일정과 생활이 크게 흔들리지 않는 것",
+      "친구가 혼자 감당하다 더 어려워지지 않는 것",
+      "도와준 뒤 부담이 계속 커지지 않는 것",
+      "급하게 대답해서 후회하지 않는 것",
+      "서로에게 감당하기 어려운 약속을 만들지 않는 것",
+    ],
+  },
+  "직관 신뢰형": {
+    question: "이 장면에서, 당신은 어떤 느낌을 먼저 믿고 싶습니까?",
+    options: [
+      "친구의 말투에서 느껴지는 절박함",
+      "이 부탁이 평소와 다르다는 느낌",
+      "내가 이미 마음이 무거워졌다는 사실",
+      "도와야 할 것 같다는 마음의 끌림",
+      "지금 대답하면 안 될 것 같은 느낌",
+      "이 부탁 뒤에 말하지 않은 무언가가 있다는 느낌",
+    ],
+  },
+  // ※ 정확성 우선형: 현재 배포된 QuickTest에는 이 유형이 없음(5유형 운영 중).
+  //    앱에 6번째 유형이 추가될 때를 대비해 분기만 미리 준비해 둠. 현재는 호출되지 않음.
+  "정확성 우선형": {
+    question: "이 장면에서, 당신은 무엇이 정확해야 한다고 먼저 느낍니까?",
+    options: [
+      "친구가 말한 상황이 정확히 어떤 일인지",
+      "친구가 필요한 도움의 범위가 어디까지인지",
+      "내가 책임져야 할 일과 아닌 일이 무엇인지",
+      "지금 바로 답해도 될 만큼 정보가 충분한지",
+      "내가 오해하고 있는 부분은 없는지",
+      "어떤 대답이 상황에 가장 맞는지",
+    ],
+  },
+};
 
-## 지금 당신에게 남는 질문
-처방하지 마라. 이 사람이 스스로 가져갈 수 있는 질문 하나로 끝낼 것. 2-3문장.
+// ──────────────────────────────────────────────────────────────────
+// 다시 보기 전체 정의 (섹션 → 어느 Situation을 어떤 렌즈로)
+// ──────────────────────────────────────────────────────────────────
 
-한국어로 작성하세요.`;
+export const REVISITS = {
+  // 섹션1 — Situation 1, 기본값 렌즈, 6유형 분기
+  section1: {
+    situation: 1,
+    intro: "프롤로그에서 만났던 친구의 부탁, 기억하시나요.\n이제 당신의 기본값을 알았으니, 같은 장면을 한 번 더 봅니다.\n이번엔 조금 다르게 보일지도 모릅니다.",
+    branched: true,
+    branches: SECTION1_BRANCHES,
+  },
 
-function parseSection(text, key) {
-  if (!text) return "";
-  const allKeys = [
-    "겹쳤을 때 보이는 것", "그것이 당신에게 한 일", "지금 당신에게 남는 질문",
-  ];
-  const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const idx = allKeys.indexOf(key);
-  const rest = allKeys.slice(idx + 1).map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-  const pattern = rest.length > 0
-    ? new RegExp(`##\\s*${escaped}([\\s\\S]*?)(?:##\\s*(?:${rest.join("|")})|$)`)
-    : new RegExp(`##\\s*${escaped}([\\s\\S]*?)$`);
-  const match = text.match(pattern);
-  return match ? match[1].trim() : "";
-}
+  // 섹션2 — Situation 2, 첫 화면 렌즈
+  section2: {
+    situation: 2,
+    intro: "프롤로그에서 만났던 그 회의실, 기억하시나요.\n이제 당신의 첫 화면을 알았으니, 같은 장면을 한 번 더 봅니다.\n이번엔 무엇이 먼저 눈에 들어오는지 살펴보세요.",
+    branched: false,
+    question: "이 장면으로 다시 돌아왔을 때, 당신은 무엇이 가장 먼저 신경 쓰입니까?",
+    options: [
+      "고객이 실망한 이유가 무엇인지",
+      "발표자가 지금 얼마나 당황했는지",
+      "팀원들이 서로를 어떻게 보고 있는지",
+      "사장이 아무 말도 하지 않는 이유가 무엇인지",
+      "모두의 시선이 나에게 모이는 이 순간",
+      "이 회의가 앞으로 관계와 평가에 무엇을 남길지",
+    ],
+  },
 
-function TodaySentenceWidget({ onSave }) {
-  const [text, setText] = useState("");
+  // 섹션3 — Situation 2 (재방문), 운영체계 렌즈
+  section3: {
+    situation: 2,
+    intro: "그 회의실로 다시 한번 돌아갑니다.\n이제 당신의 운영체계를 알았으니, 같은 장면이 조금 다르게 보일지도 모릅니다.\n이번엔 이 상황을 무엇부터 다루고 싶은지 살펴보세요.",
+    branched: false,
+    question: "이 장면으로 다시 돌아왔을 때, 당신은 이 상황을 무엇부터 다루려 합니까?",
+    options: [
+      "문제가 어디서 생겼는지 먼저 정리한다",
+      "분위기가 더 굳기 전에 먼저 말을 꺼낸다",
+      "고객, 발표자, 팀원의 반응을 먼저 살핀다",
+      "내가 어디까지 개입해야 하는지 먼저 판단한다",
+      "지금은 말하지 않고 조금 더 상황을 본다",
+      "회의가 끝난 뒤 따로 정리하는 편이 낫다고 본다",
+    ],
+  },
 
-  const handleBlur = () => {
-    if (text.trim()) onSave(text.trim());
-  };
+  // 섹션4 — Situation 3, 메모리 렌즈
+  section4: {
+    situation: 3,
+    intro: "프롤로그에서 마주했던 세 가지 가능성, 기억하시나요.\n이제 당신의 메모리를 들여다봤으니, 그 앞으로 다시 돌아갑니다.\n당신의 선택이 어디서 왔는지, 천천히 살펴보세요.",
+    branched: false,
+    question: "다시 돌아와서 생각해 봅니다. 당신의 선택은 어떤 기억이나 생각에서 나왔다고 느껴집니까?",
+    options: [
+      "더 나아 보이는 선택을 했지만, 나중에 생각보다 감당할 것이 많았던 경험",
+      "익숙한 쪽을 선택했지만, 시간이 지나고 나서 다른 가능성이 마음에 남았던 경험",
+      "새로운 쪽을 선택했지만, 적응하는 동안 예상보다 많이 흔들렸던 경험",
+      "당장 움직이지 않고 기다렸을 때, 오히려 상황을 더 잘 볼 수 있었던 경험",
+      "조건은 좋아 보였지만, 내 기준과 잘 맞지 않아 오래 불편했던 경험",
+      "확실하지 않은 선택이었지만, 시간이 지나며 나에게 필요한 길이 되었던 경험",
+    ],
+  },
 
-  return (
-    <div>
-      <textarea
-        value={text}
-        onChange={e => setText(e.target.value)}
-        onBlur={handleBlur}
-        placeholder="여기에 남겨주세요..."
-        rows={3}
-        style={{
-          width: "100%",
-          background: "rgba(38,50,44,0.04)",
-          border: "1px solid rgba(168,123,123,0.3)",
-          color: "#26322C",
-          fontFamily: "'Source Serif 4', serif",
-          fontSize: "0.88rem", fontWeight: 300, lineHeight: 1.8,
-          padding: "0.75rem 1rem", resize: "none", outline: "none",
-        }}
-      />
-    </div>
-  );
-}
-
-export default function Comprehensive({ onBack }) {
-  const [comprehensive, setComprehensive] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [todaySentence, setTodaySentence] = useState(null);
-
-  const quickRaw = localStorage.getItem("mindmirror_quicktest");
-  const result1 = localStorage.getItem("mindmirror_result1") || "";
-  const result2 = localStorage.getItem("mindmirror_result2") || "";
-  const oracleRaw = localStorage.getItem("mindmirror_oracle") || "";
-  const newWindowRaw = localStorage.getItem("mindmirror_newwindow") || "";
-  const todayRaw = localStorage.getItem("oracle_today_sentence");
-
-  const quick = quickRaw ? JSON.parse(quickRaw) : null;
-  const today = todayRaw ? JSON.parse(todayRaw) : null;
-
-  // ── Situation 3 선택 변화 (프롤로그 최초 vs 섹션5 최종) ──
-  const s3 = (() => {
-    try {
-      const pRaw = localStorage.getItem("mindmirror_prologue");
-      const r5Raw = localStorage.getItem("mindmirror_revisit_section5");
-      if (!pRaw || !r5Raw) return null;
-      const p = JSON.parse(pRaw);
-      const r5 = JSON.parse(r5Raw);
-      const firstText = p?.[2];        // 프롤로그 S3 선택 (긴 문장)
-      const finalText = r5?.answer;    // 섹션5 최종 선택 (짧은 문장)
-      if (!firstText || !finalText) return null;
-
-      // 인덱스로 매핑 (순서 일치: 0=자리이동, 1=전직, 2=유예)
-      const firstIdx = firstText.includes("다른 자리") ? 0 : firstText.includes("전혀 다른") ? 1 : 2;
-      const finalIdx = finalText.includes("다른 자리") ? 0 : finalText.includes("전혀 다른") ? 1 : 2;
-      const labels = ["지금 있는 곳에서 다른 자리로", "전혀 다른 곳으로", "미루고 기다린다"];
-      const shortLabels = ["자리이동", "새로운 도전", "유예"];
-
-      // 9가지 조합별 해석 (판정 없이, 관찰 톤 — plain하게)
-      const commentTable = [
-        [
-          "이번에도 자리이동을 골랐습니다. 처음 선택이 흔들리지 않았습니다.",
-          "이번에는 새로운 도전을 골랐습니다. 처음과는 다른 답이었습니다.",
-          "이번에는 유예를 골랐습니다. 자리이동에 대한 확신이 잠시 물러섰습니다.",
+  // 섹션5 — Situation 3 (재방문), 새창열기 렌즈: 세 장면 보고 재선택
+  section5: {
+    situation: 3,
+    intro: "당신은 그 세 가지 가능성 앞에서 선택을 했고, 그 이유도 들여다봤습니다.\n이제 마지막으로, 당신이 고르지 않은 길의 하루를 잠깐 봅니다.\n다 보고 난 뒤, 다시 한번 골라보세요.",
+    branched: false,
+    scenes: [
+      {
+        title: "다른 자리로 옮겼다면",
+        lines: [
+          "익숙한 곳의 다른 자리에 앉아 있습니다.",
+          "사람들이 이전보다 자주 당신의 의견을 구합니다.",
+          "당신의 말 한마디가 조금 더 힘을 갖기 시작했다는 걸, 스스로도 느낍니다.",
         ],
-        [
-          "이번에는 자리이동을 골랐습니다. 낯선 쪽 대신 익숙한 쪽을 택했습니다.",
-          "이번에도 새로운 도전을 골랐습니다. 낯선 쪽을 향한 마음이 그대로였습니다.",
-          "이번에는 유예를 골랐습니다. 뛰어들기 전에 한 번 더 보고 싶어졌습니다.",
+      },
+      {
+        title: "전혀 다른 곳으로 옮겼다면",
+        lines: [
+          "처음 보는 사람들 사이에 서 있습니다.",
+          "낯선 공간이 오히려 당신을 깨어있게 만듭니다.",
+          "아무도 당신을 예전 방식으로 보지 않는다는 것이, 생각보다 홀가분합니다.",
         ],
-        [
-          "이번에는 자리이동을 골랐습니다. 기다리던 마음이 익숙한 쪽으로 움직였습니다.",
-          "이번에는 새로운 도전을 골랐습니다. 기다리던 마음이 가장 낯선 쪽으로 움직였습니다.",
-          "이번에도 유예를 골랐습니다. 서두르지 않는 마음이 그대로였습니다.",
+      },
+      {
+        title: "미루고 기다렸다면",
+        lines: [
+          "당신은 익숙한 자리에서 다시 하루를 시작합니다.",
+          "서두르지 않아도 된다는 사실이 오히려 든든합니다.",
+          "다음 기회를 준비하며 적어 내려가는 메모 한 줄 한 줄이, 당신이 스스로 만들어가는 길이라는 걸 알려줍니다.",
         ],
-      ];
+      },
+    ],
+    question: "이 세 장면을 모두 보고, 당신은 무엇을 선택하겠습니까?",
+    options: ["다른 자리로 옮긴다", "전혀 다른 곳으로 옮긴다", "미루고 기다린다"],
+  },
+};
 
-      return {
-        changed: firstIdx !== finalIdx,
-        firstLabel: labels[firstIdx],
-        finalLabel: labels[finalIdx],
-        firstShort: shortLabels[firstIdx],
-        finalShort: shortLabels[finalIdx],
-        comment: commentTable[firstIdx][finalIdx],
-        reason: r5?.reason || null,
-      };
-    } catch (e) { return null; }
-  })();
+// ──────────────────────────────────────────────────────────────────
+// 재사용 컴포넌트
+//   props: sectionKey ("section1".."section5"), userType (섹션1 분기용), onDone(payload)
+// ──────────────────────────────────────────────────────────────────
 
-  const hasAny = !!(quick || result1 || result2 || oracleRaw);
+export default function SituationRevisit({ sectionKey, userType, onDone }) {
+  const spec = REVISITS[sectionKey];
+  const [answered, setAnswered] = useState(false);
+  const [chosenOpt, setChosenOpt] = useState(null);
+  const [askReason, setAskReason] = useState(false);
+  const [reasonText, setReasonText] = useState("");
 
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 150);
-    return () => clearTimeout(t);
-  }, []);
-
-  useEffect(() => {
-    if (today) setTodaySentence(today);
-  }, []);
-
-  // 화면 진입 시 자동으로 분석 생성 (버튼 없이)
-  useEffect(() => {
-    if (hasAny && !comprehensive && !loading) {
-      generateComprehensive();
-    }
-  }, []);
-
-  async function generateComprehensive() {
-    setLoading(true);
-    const parts = [];
-    if (quick) parts.push(`[첫 번째 검사 – 기본 성향]\n유형: ${quick.type}\n${quick.desc}`);
-    if (result1) parts.push(`[두 번째 검사 – 감정과 관계 패턴]\n${result1}`);
-    if (result2) parts.push(`[세 번째 검사 – 사고 구조]\n${result2}`);
-    if (oracleRaw) parts.push(`[네 번째 검사 – 메모리]\n${oracleRaw}`);
-    if (newWindowRaw) parts.push(`[다섯 번째 검사 – 새창열기]\n${newWindowRaw}`);
-
-    try {
-      const res = await fetch("/api/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-6",
-          max_tokens: 1600,
-          system: COMPREHENSIVE_PROMPT,
-          messages: [{ role: "user", content: parts.join("\n\n---\n\n") }],
-        }),
-      });
-      const data = await res.json();
-      const text = data.content?.[0]?.text || "";
-      setComprehensive(text);
-    } catch (e) {
-      setComprehensive("## 네 개의 거울이 가리킨 곳\n잠시 연결이 되지 않았어요. 다시 시도해주세요.");
-    }
-    setLoading(false);
+  // 섹션1은 유형 분기 — 유형이 없거나 매칭 안 되면 관계 우선형으로 폴백(안전장치)
+  let question, options;
+  if (spec.branched) {
+    const branch = spec.branches[userType] || spec.branches["관계 우선형"];
+    question = branch.question;
+    options = branch.options;
+  } else {
+    question = spec.question;
+    options = spec.options;
   }
 
-  const copyAll = () => {
-    const parts = [];
-    if (quick) parts.push(`[ 내 기본값 ]\n유형: ${quick.type}\n${quick.desc}`);
-    if (result1) parts.push(`[ 내 마음의 초기화면 ]\n${result1}`);
-    if (result2) parts.push(`[ 내 마음의 운영체계 ]\n${result2}`);
-    if (oracleRaw) parts.push(`[ 내 마음의 메모리 ]\n${oracleRaw}`);
-    if (newWindowRaw) parts.push(`[ 내 마음의 새창열기 ]\n${newWindowRaw}`);
-    if (comprehensive) parts.push(`[ 종합 분석 ]\n${comprehensive}`);
-    if (todaySentence) parts.push(`[ 오늘의 기록 ]\n"${todaySentence.sentence}"`);
-    navigator.clipboard.writeText(parts.join("\n\n---\n\n"));
-    alert("복사되었습니다.");
-  };
+  function choose(opt) {
+    setAnswered(true);
+    if (sectionKey === "section5") {
+      // 섹션5(최종 선택)만: 이유를 짧게 물어본 뒤 완료 처리
+      setChosenOpt(opt);
+      setTimeout(() => setAskReason(true), 340);
+      return;
+    }
+    setTimeout(() => {
+      onDone && onDone({
+        section: sectionKey,
+        situation: spec.situation,
+        question,
+        answer: opt,
+      });
+    }, 340);
+  }
 
-  const handleSaveSentence = (sentence) => {
-    const now = new Date();
-    const data = { sentence, date: `${now.getMonth() + 1}월 ${now.getDate()}일`, timestamp: Date.now() };
-    localStorage.setItem("oracle_today_sentence", JSON.stringify(data));
-    setTodaySentence(data);
-  };
+  function submitReason() {
+    onDone && onDone({
+      section: sectionKey,
+      situation: spec.situation,
+      question,
+      answer: chosenOpt,
+      reason: reasonText.trim(),
+    });
+  }
 
-  // 분석 생성 중에는 다른 섹션과 동일하게 풀스크린 로딩화면 (짙은 초록)
-  if (loading) return <LoadingScreen section={5} isComprehensive={true} />;
+  if (askReason) {
+    return (
+      <div style={{
+        minHeight: "100vh", background: DEEP,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        padding: "3rem 1.5rem",
+      }}>
+        <style>{`
+          ${FONTS}
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          @keyframes fadeUp { from { opacity:0; transform:translateY(18px);} to {opacity:1; transform:translateY(0);} }
+          .fade { animation: fadeUp 1.1s ease forwards; opacity:0; }
+        `}</style>
+        <div style={{ width: "100%", maxWidth: 600 }}>
+          <div className="fade" style={{ animationDelay: "0.1s", marginBottom: "1.5rem" }}>
+            <div style={{
+              fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem",
+              letterSpacing: "0.3em", textTransform: "uppercase",
+              color: GOLD, marginBottom: "1.5rem",
+            }}>마지막으로</div>
+            <p style={{
+              fontFamily: "'Playfair Display',serif", fontSize: "1.12rem",
+              fontWeight: 400, color: IVORY, lineHeight: 1.5,
+            }}>"{chosenOpt}" — 이 선택을 이끈 것은 무엇이었나요?</p>
+          </div>
+          <div className="fade" style={{ animationDelay: "0.35s", marginBottom: "1.25rem" }}>
+            <textarea
+              value={reasonText}
+              onChange={e => setReasonText(e.target.value)}
+              placeholder="짧게, 떠오르는 대로 적어주세요"
+              rows={3}
+              style={{
+                width: "100%", background: "rgba(247,242,232,0.05)",
+                border: "1px solid rgba(247,242,232,0.18)", color: IVORY,
+                fontFamily: "'Source Serif 4',serif", fontSize: "0.92rem", fontWeight: 300,
+                padding: "0.9rem 1rem", resize: "none", outline: "none", lineHeight: 1.7,
+              }}
+            />
+          </div>
+          <div className="fade" style={{ animationDelay: "0.5s" }}>
+            <button onClick={submitReason} disabled={!reasonText.trim()} style={{
+              background: reasonText.trim() ? GOLD : "transparent",
+              border: `1px solid ${GOLD}`,
+              color: reasonText.trim() ? "#1F3A32" : GOLD,
+              opacity: reasonText.trim() ? 1 : 0.4,
+              fontFamily: "'Source Serif 4',serif", fontSize: "0.75rem",
+              letterSpacing: "0.2em", textTransform: "uppercase",
+              padding: "0.75rem 1.8rem", cursor: reasonText.trim() ? "pointer" : "default",
+            }}>다음으로 →</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{
-      minHeight: "100vh",
-      background: "#EDE8E0",
-      display: "flex",
-      alignItems: "flex-start",
-      justifyContent: "center",
-      padding: "3rem 1.5rem 5rem",
+      minHeight: "100vh", background: DEEP,
+      display: "flex", alignItems: "center", justifyContent: "center",
+      padding: "3rem 1.5rem",
     }}>
-      <style>{FONTS + `
-        @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes breathe { 0%,100%{opacity:0.4} 50%{opacity:0.9} }
+      <style>{`
+        ${FONTS}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(18px);} to {opacity:1; transform:translateY(0);} }
+        .fade { animation: fadeUp 1.1s ease forwards; opacity:0; }
+        .choice-btn { transition: all 0.35s ease; }
+        .choice-btn:hover { background: rgba(201,168,76,0.12) !important; border-color: ${GOLD} !important; }
       `}</style>
 
-      <div style={{
-        width: "100%", maxWidth: 580,
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(16px)",
-        transition: "opacity 0.8s ease, transform 0.8s ease",
-      }}>
-
-        {/* 제목 */}
-        <div style={{ marginBottom: "3rem" }}>
+      <div style={{ width: "100%", maxWidth: 600 }}>
+        {/* 라벨 */}
+        <div className="fade" style={{ animationDelay: "0.1s" }}>
           <div style={{
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: "0.6rem", letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: "#A87B7B", marginBottom: "1.5rem",
-          }}>내 마음의 전체화면</div>
-          <h1 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(1.8rem,4vw,2.6rem)",
-            fontWeight: 400,
-            color: "#26322C",
-            lineHeight: 1.2, marginBottom: "2rem",
-          }}>반복된 것과 어긋난 것이 함께 보일 때</h1>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "0.75rem" }}>내 마음의 전체화면은 앞선 결과를 다시 요약하지 않습니다.<br />답들 사이에서 반복되는 흐름과, 유난히 다르게 빛나는 지점을 함께 봅니다.</p>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "0.75rem" }}>나는 어디에서 익숙한 나로 돌아갔고,<br />어디에서 다른 가능성을 보였을까요?</p>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9 }}>이제 흩어져 있던 답들이 나의 전체화면으로 모입니다.</p>
+            fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem",
+            letterSpacing: "0.3em", textTransform: "uppercase",
+            color: GOLD, marginBottom: "1.5rem",
+          }}>그 장면, 다시</div>
         </div>
 
-        {/* 오늘의 한 문장 (기존 저장된 것) */}
-        {todaySentence && (
-          <div style={{ marginBottom: "2.5rem" }}>
-            <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.62rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(168,123,123,0.5)", marginBottom: "0.4rem" }}>오늘의 기록 · {todaySentence.date}</div>
-            <div style={{ width: "100%", height: "1px", background: "rgba(168,123,123,0.2)", marginBottom: "1rem" }} />
-            <div style={{ fontFamily: "'Playfair Display',serif", fontSize: "1.1rem", fontStyle: "italic", color: "#A87B7B", lineHeight: 1.85 }}>"{todaySentence.sentence}"</div>
+        {/* 도입 */}
+        <div className="fade" style={{ animationDelay: "0.3s", marginBottom: "1.75rem" }}>
+          {spec.intro.split("\n").map((line, i) => (
+            <p key={i} style={{
+              fontFamily: "'Source Serif 4',serif", fontSize: "0.95rem",
+              fontWeight: 300, color: "rgba(247,242,232,0.7)", lineHeight: 1.95,
+            }}>{line}</p>
+          ))}
+        </div>
+
+        {/* 장면 삽화 재등장 */}
+        <div className="fade" style={{ animationDelay: "0.5s", marginBottom: "2rem" }}>
+          <div style={{
+            width: "100%", aspectRatio: "3/4", maxHeight: 300,
+            borderRadius: "3px", overflow: "hidden",
+            border: "1px solid rgba(201,168,76,0.2)",
+          }}>
+            <img src={SITUATION_IMAGES[spec.situation]} alt={`Situation ${spec.situation}`}
+              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+          </div>
+        </div>
+
+        {/* 섹션5 전용: 세 장면 먼저 보여주기 */}
+        {spec.scenes && (
+          <div className="fade" style={{ animationDelay: "0.7s", marginBottom: "2.5rem" }}>
+            {spec.scenes.map((sc, i) => (
+              <div key={i} style={{
+                marginBottom: "1.5rem", paddingBottom: "1.5rem",
+                borderBottom: i < spec.scenes.length - 1 ? "1px solid rgba(247,242,232,0.1)" : "none",
+              }}>
+                <div style={{
+                  fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem",
+                  letterSpacing: "0.2em", textTransform: "uppercase",
+                  color: GOLD, marginBottom: "0.75rem", opacity: 0.8,
+                }}>{sc.title}</div>
+                {sc.lines.map((l, j) => (
+                  <p key={j} style={{
+                    fontFamily: "'Source Serif 4',serif", fontSize: "0.92rem",
+                    fontWeight: 300, color: "rgba(247,242,232,0.75)",
+                    lineHeight: 1.9, marginBottom: "0.3rem",
+                  }}>{l}</p>
+                ))}
+              </div>
+            ))}
           </div>
         )}
 
-        {/* AI 교차 분석 (자동 생성) */}
-        <div style={{ marginBottom: "3rem" }}>
-          {!comprehensive && !loading && !hasAny && (
-            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.45)", lineHeight: 1.9, marginBottom: "1.25rem" }}>
-              도구를 하나 이상 완료하면 전체화면을 시작할 수 있어요.
-            </p>
-          )}
-
-          {comprehensive && !loading && (
-            <div style={{
-              background: "#4A6358",
-              padding: "2.5rem 2rem",
-              marginBottom: "1rem",
-            }}>
-              {[
-                { key: "겹쳤을 때 보이는 것" },
-                { key: "그것이 당신에게 한 일" },
-                { key: "지금 당신에게 남는 질문" },
-              ].map(({ key }, i, arr) => {
-                const content = parseSection(comprehensive, key);
-                const isLast = i === arr.length - 1;
-                return content ? (
-                  <div key={key} style={{ marginBottom: isLast ? 0 : "2rem" }}>
-                    <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(196,152,152,0.55)", marginBottom: "0.6rem" }}>{key}</div>
-                    <div style={{ width: "100%", height: "1px", background: "rgba(196,152,152,0.15)", marginBottom: "1rem" }} />
-                    <div style={{
-                      fontFamily: isLast ? "'Playfair Display',serif" : "'Source Serif 4',serif",
-                      fontStyle: isLast ? "italic" : "normal",
-                      fontSize: isLast ? "0.95rem" : "0.9rem",
-                      fontWeight: 300,
-                      color: isLast ? "rgba(240,237,232,0.9)" : "rgba(240,237,232,0.72)",
-                      lineHeight: 2, whiteSpace: "pre-wrap",
-                    }}>{content}</div>
-                  </div>
-                ) : null;
-              })}
-            </div>
-          )}
-
-          {/* Situation 3 선택 변화 블록 — 분석이 나온 뒤에만 */}
-          {comprehensive && !loading && s3 && (
-            <div style={{ marginTop: "2.5rem", padding: "2rem", border: "1px solid rgba(168,123,123,0.3)", background: "rgba(168,123,123,0.04)" }}>
-              <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#A87B7B", marginBottom: "1.25rem" }}>당신의 선택</div>
-
-              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9, marginBottom: "1.75rem" }}>
-                맨 처음 세 가지 상황에서 선택을 부탁드렸을 때, 당신은 왜 그런 선택을 하는지 정확히 알지 못했습니다.
-                다섯 개의 거울로 그 기준을 들여다본 뒤, 이전 선택은 보여드리지 않은 채 다시 한번 여쭤봤습니다.
-              </p>
-
-              <div style={{ marginBottom: "0.9rem" }}>
-                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.1em", color: "rgba(38,50,44,0.4)", marginRight: "0.75rem" }}>처음</span>
-                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.95rem", fontWeight: 300, color: "rgba(38,50,44,0.8)" }}>{s3.firstLabel}</span>
-              </div>
-              <div style={{ marginBottom: "1.75rem" }}>
-                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.1em", color: "rgba(38,50,44,0.4)", marginRight: "0.75rem" }}>나중</span>
-                <span style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.95rem", fontWeight: 300, color: "rgba(38,50,44,0.8)" }}>{s3.finalLabel}</span>
-              </div>
-
-              <div style={{ width: "100%", height: "1px", background: "rgba(168,123,123,0.15)", marginBottom: "1.25rem" }} />
-
-              {s3.reason ? (
-                <div style={{ marginBottom: "1.5rem" }}>
-                  <div style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.72rem", letterSpacing: "0.1em", color: "rgba(38,50,44,0.4)", marginBottom: "0.5rem" }}>이 선택을 이끈 것</div>
-                  <p style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontSize: "1rem", color: "#8A6363", lineHeight: 1.8, marginBottom: "1.25rem" }}>"{s3.reason}"</p>
-                  <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 1.9 }}>
-                    {s3.changed
-                      ? "당신은 왜 선택이 바뀌었는지를 스스로 설명했습니다. 누군가의 해석이 아니라, 자신의 언어로 설명할 수 있는 판단은 오래 남습니다."
-                      : "당신은 같은 선택을 했지만, 그 이유를 다시 말해 보았습니다. 자신의 판단을 설명할 수 있다는 것은, 판단을 반복하는 것과는 다른 경험입니다."}
-                  </p>
-                </div>
-              ) : (
-                <p style={{ fontFamily: "'Playfair Display',serif", fontStyle: "italic", fontSize: "1rem", color: "#8A6363", lineHeight: 1.8, marginBottom: "1.5rem" }}>
-                  {s3.comment}
-                </p>
-              )}
-
-              <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.85rem", fontWeight: 300, color: "rgba(38,50,44,0.6)", lineHeight: 1.9 }}>
-                이 문장이, 오늘 다섯 개의 거울이 만들어낸 결과입니다.
-                이유를 안다고 해서 항상 선택이 바뀌는 것은 아닙니다.
-                하지만 이유를 알고 선택하는 것과, 이유를 모른 채 반복하는 것은 다릅니다.
-                설명할 수 있는 판단은, 이전보다 더 당신 자신의 것이 됩니다.
-              </p>
-            </div>
-          )}
+        {/* 질문 */}
+        <div className="fade" style={{ animationDelay: spec.scenes ? "0.9s" : "0.7s", marginBottom: "1.5rem" }}>
+          <p style={{
+            fontFamily: "'Playfair Display',serif", fontSize: "1.12rem",
+            fontWeight: 400, color: IVORY, lineHeight: 1.5,
+          }}>{question}</p>
         </div>
 
-        {/* 엔딩 */}
-        <div style={{ borderTop: "1px solid rgba(38,50,44,0.12)", paddingTop: "3rem", marginBottom: "3rem" }}>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "1rem" }}>
-            오늘 당신은 꽤 새로운 일을 해보았어요.<br />
-            자신에게 일어난 사건과 남이 한 말이 아니라,<br />
-            자신의 말로 자신을 바라본 거예요.<br />
-            쉽지 않은 일을 해낸 자신을, 잘했다 칭찬해주셔도 좋아요.
-          </p>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "1rem" }}>
-            언젠가 마음이 다시 흔들리는 날, 오늘 여기서 바라본 자신의 말을 다시 꺼내보세요.<br />
-            그때는 다르게 읽힐 수도, 놀랍도록 같게 느껴질 수도 있어요.<br />
-            어느 쪽이든, 그것도 당신을 이해하는 하나의 방식이에요.
-          </p>
-          <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.93rem", fontWeight: 300, color: "rgba(38,50,44,0.65)", lineHeight: 2, marginBottom: "2.5rem" }}>
-            오늘 결과를 가까운 사람에게 보여주세요.<br />
-            오래 함께했는데도 몰랐던 것들이 보이기 시작할 거예요.<br />
-            당신의 AI와 함께 더 깊이 이야기해보셔도 좋아요.
-          </p>
-
-          {/* 기록 파트 */}
-          <div style={{ marginBottom: "2.5rem" }}>
-            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.5)", lineHeight: 1.9, marginBottom: "0.4rem" }}>오늘 여기서 어떤 순간이 가장 마음에 남았나요?</p>
-            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.88rem", fontWeight: 300, color: "rgba(38,50,44,0.5)", lineHeight: 1.9, marginBottom: "1rem" }}>오늘 새롭게 발견한 나는 누구인가요?</p>
-            {!todaySentence ? (
-              <TodaySentenceWidget onSave={handleSaveSentence} />
-            ) : (
-              <p style={{ fontFamily: "'Playfair Display',serif", fontSize: "1rem", fontStyle: "italic", color: "#A87B7B", lineHeight: 1.85 }}>"{todaySentence.sentence}"</p>
-            )}
-          </div>
-
-          {/* 피드백 */}
-          <div>
-            <p style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.82rem", fontWeight: 300, color: "rgba(38,50,44,0.4)", lineHeight: 1.9, marginBottom: "0.5rem" }}>
-              당신이 남겨주신 피드백이 다른 이들을 더 선명하게 비출 마음거울이 되는 데 도움이 됩니다.
-            </p>
-            <a href="https://forms.gle/A6xXdAVUQoaNqaEWA" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Source Serif 4',serif", fontSize: "0.8rem", color: "#A87B7B", textDecoration: "underline", textUnderlineOffset: "3px" }}>피드백 남기기 →</a>
-          </div>
+        {/* 선택지 */}
+        <div className="fade" style={{ animationDelay: spec.scenes ? "1.1s" : "0.9s", opacity: answered ? 0.4 : undefined }}>
+          {options.map((opt, i) => (
+            <button key={i} className="choice-btn" disabled={answered} onClick={() => choose(opt)} style={{
+              width: "100%", background: "rgba(247,242,232,0.04)",
+              border: "1px solid rgba(247,242,232,0.14)",
+              color: "rgba(247,242,232,0.85)",
+              fontFamily: "'Source Serif 4',serif", fontSize: "0.9rem", fontWeight: 300,
+              textAlign: "left", padding: "0.95rem 1.2rem",
+              cursor: answered ? "default" : "pointer", marginBottom: "0.5rem", lineHeight: 1.5,
+            }}>{opt}</button>
+          ))}
         </div>
-
-        {/* 버튼 */}
-        <div style={{ display: "flex", gap: "1.5rem", alignItems: "center", flexWrap: "wrap" }}>
-          <button onClick={copyAll} style={{
-            background: "none", border: "1px solid rgba(168,123,123,0.4)",
-            color: "#A87B7B", fontFamily: "'Source Serif 4',serif",
-            fontSize: "0.82rem", letterSpacing: "0.15em", textTransform: "uppercase",
-            padding: "1.1rem 2.8rem", cursor: "pointer",
-          }}>결과 복사</button>
-        </div>
-
       </div>
     </div>
   );
